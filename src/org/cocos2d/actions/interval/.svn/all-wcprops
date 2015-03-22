@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval
+END
+CCRotateBy.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCRotateBy.java
+END
+CCReverseTime.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCReverseTime.java
+END
+CCScaleTo.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCScaleTo.java
+END
+CCProgressFromTo.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCProgressFromTo.java
+END
+CCBlink.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCBlink.java
+END
+CCMoveBy.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCMoveBy.java
+END
+CCRotateTo.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCRotateTo.java
+END
+CCFadeTo.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCFadeTo.java
+END
+CCSkewBy.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCSkewBy.java
+END
+CCJumpBy.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCJumpBy.java
+END
+CCProgressTo.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCProgressTo.java
+END
+CCSequence.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCSequence.java
+END
+CCMoveTo.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCMoveTo.java
+END
+CCTintBy.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCTintBy.java
+END
+CCBezierBy.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCBezierBy.java
+END
+CCSkewTo.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCSkewTo.java
+END
+CCDelayTime.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCDelayTime.java
+END
+CCJumpTo.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCJumpTo.java
+END
+CCAnimate.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCAnimate.java
+END
+CCRepeat.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCRepeat.java
+END
+CCTintTo.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCTintTo.java
+END
+CCPropertyAction.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCPropertyAction.java
+END
+CCIntervalAction.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCIntervalAction.java
+END
+CCScaleBy.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCScaleBy.java
+END
+CCBezierTo.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCBezierTo.java
+END
+CCFadeIn.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCFadeIn.java
+END
+CCFadeOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCFadeOut.java
+END
+CCSpawn.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/interval/CCSpawn.java
+END

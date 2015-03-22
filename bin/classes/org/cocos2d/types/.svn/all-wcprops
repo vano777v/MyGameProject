@@ -1,0 +1,155 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types
+END
+CGPoint.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/CGPoint.java
+END
+ccBlendFunc.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccBlendFunc.java
+END
+CGRect.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/CGRect.java
+END
+ccV3F_C4B_T2F.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccV3F_C4B_T2F.java
+END
+ccColor3B.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccColor3B.java
+END
+ccColor4B.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccColor4B.java
+END
+CCVertex3D.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/CCVertex3D.java
+END
+CCTexParams.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/CCTexParams.java
+END
+ccV2F_C4F_T2F.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccV2F_C4F_T2F.java
+END
+ccVertex2F.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccVertex2F.java
+END
+CCBezierConfig.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/CCBezierConfig.java
+END
+ccVertex3F.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccVertex3F.java
+END
+ccColor4F.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccColor4F.java
+END
+ccV3F_C4B_T2F_Quad.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccV3F_C4B_T2F_Quad.java
+END
+ccQuad2.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccQuad2.java
+END
+ccQuad3.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccQuad3.java
+END
+CGSize.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/CGSize.java
+END
+ccV2F_C4F_T2F_Quad.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccV2F_C4F_T2F_Quad.java
+END
+ccPointSprite.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccPointSprite.java
+END
+ccGridSize.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccGridSize.java
+END
+NoninvertibleTransformException.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/NoninvertibleTransformException.java
+END
+CCPointSize.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/CCPointSize.java
+END
+Copyable.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/Copyable.java
+END
+CGAffineTransform.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/CGAffineTransform.java
+END
+ccTex2F.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/types/ccTex2F.java
+END

@@ -1,0 +1,137 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease
+END
+CCEaseInOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseInOut.java
+END
+CCEaseBounceIn.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseBounceIn.java
+END
+CCEaseElasticInOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseElasticInOut.java
+END
+CCEaseBounceOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseBounceOut.java
+END
+CCEaseExponentialInOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseExponentialInOut.java
+END
+CCEaseIn.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseIn.java
+END
+CCEaseOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseOut.java
+END
+CCEaseElasticIn.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseElasticIn.java
+END
+CCEaseBounce.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseBounce.java
+END
+CCEaseElasticOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseElasticOut.java
+END
+CCEaseExponentialIn.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseExponentialIn.java
+END
+CCEaseAction.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseAction.java
+END
+CCEaseSineInOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseSineInOut.java
+END
+CCEaseExponentialOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseExponentialOut.java
+END
+CCEaseBackInOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseBackInOut.java
+END
+CCEaseElastic.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseElastic.java
+END
+CCEaseSineIn.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseSineIn.java
+END
+CCEaseSineOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseSineOut.java
+END
+CCEaseBackIn.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseBackIn.java
+END
+CCEaseBackOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseBackOut.java
+END
+CCEaseRateAction.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseRateAction.java
+END
+CCEaseBounceInOut.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/ease/CCEaseBounceInOut.java
+END

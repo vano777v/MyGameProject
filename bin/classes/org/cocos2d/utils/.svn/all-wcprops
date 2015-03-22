@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/utils
+END
+Base64.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/utils/Base64.java
+END
+BufferProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/utils/BufferProvider.java
+END
+PlistParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/utils/PlistParser.java
+END
+CCFormatter.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/utils/CCFormatter.java
+END
+GeometryUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/utils/GeometryUtil.java
+END
+TransformUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/utils/TransformUtils.java
+END
+FastFloatBuffer.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/utils/FastFloatBuffer.java
+END
+ZwoptexParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/utils/ZwoptexParser.java
+END

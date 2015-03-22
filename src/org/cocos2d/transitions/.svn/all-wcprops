@@ -1,0 +1,197 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions
+END
+CCMoveInRTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCMoveInRTransition.java
+END
+CCJumpZoomTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCJumpZoomTransition.java
+END
+CCMoveInTTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCMoveInTTransition.java
+END
+CCFlipYTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCFlipYTransition.java
+END
+CCFadeDownTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCFadeDownTransition.java
+END
+CCZoomFlipYTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCZoomFlipYTransition.java
+END
+CCTransitionEaseScene.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCTransitionEaseScene.java
+END
+CCTransitionScene.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCTransitionScene.java
+END
+CCShrinkGrowTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCShrinkGrowTransition.java
+END
+CCFadeTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCFadeTransition.java
+END
+CCFadeUpTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCFadeUpTransition.java
+END
+CCFlipAngularTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCFlipAngularTransition.java
+END
+CCZoomFlipAngularTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCZoomFlipAngularTransition.java
+END
+CCSplitColsTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCSplitColsTransition.java
+END
+CCFadeBLTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCFadeBLTransition.java
+END
+CCFlipXTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCFlipXTransition.java
+END
+CCTurnOffTilesTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCTurnOffTilesTransition.java
+END
+CCPageTurnTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCPageTurnTransition.java
+END
+CCRadialCWTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCRadialCWTransition.java
+END
+CCZoomFlipXTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCZoomFlipXTransition.java
+END
+CCOrientedTransitionScene.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCOrientedTransitionScene.java
+END
+CCRotoZoomTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCRotoZoomTransition.java
+END
+CCSlideInBTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCSlideInBTransition.java
+END
+CCRadialCCWTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCRadialCCWTransition.java
+END
+CCMoveInBTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCMoveInBTransition.java
+END
+CCSlideInLTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCSlideInLTransition.java
+END
+CCFadeTRTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCFadeTRTransition.java
+END
+CCSplitRowsTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCSplitRowsTransition.java
+END
+CCSlideInRTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCSlideInRTransition.java
+END
+CCCrossFadeTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCCrossFadeTransition.java
+END
+CCMoveInLTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCMoveInLTransition.java
+END
+CCSlideInTTransition.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/transitions/CCSlideInTTransition.java
+END

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/base
+END
+CCRepeatForever.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/base/CCRepeatForever.java
+END
+CCFiniteTimeAction.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/base/CCFiniteTimeAction.java
+END
+CCAction.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/base/CCAction.java
+END
+CCSpeed.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/base/CCSpeed.java
+END
+CCFollow.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/actions/base/CCFollow.java
+END

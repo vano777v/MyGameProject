@@ -1,0 +1,138 @@
+10
+
+dir
+6
+https://subversion.assembla.com/svn/bearsvsvampires/trunk/BearsvsVampires/src/org/cocos2d
+https://subversion.assembla.com/svn/bearsvsvampires
+
+
+
+2012-02-21T03:28:41.644360Z
+5
+vavikk
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+a21826d7-26cc-4380-8f80-5dad9a0fd3ef
+
+protocols
+dir
+
+opengl
+dir
+
+grid
+dir
+
+menus
+dir
+
+sound
+dir
+
+tags
+file
+
+
+
+
+2012-02-21T03:44:21.763276Z
+b1e05c00fbda0060d31bfad45784ba26
+2012-02-21T03:28:41.644360Z
+5
+vavikk
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+330815
+
+layers
+dir
+
+utils
+dir
+
+actions
+dir
+
+types
+dir
+
+events
+dir
+
+config
+dir
+
+particlesystem
+dir
+
+nodes
+dir
+
+Cocos2D.java
+file
+
+
+
+
+2012-02-21T03:44:21.765276Z
+a6d82345f0c7a4b89897bbbb13a2d3bb
+2012-02-21T03:28:41.644360Z
+5
+vavikk
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4161
+
+transitions
+dir
+

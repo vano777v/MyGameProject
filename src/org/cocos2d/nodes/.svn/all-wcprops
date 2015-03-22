@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes
+END
+CCSpriteSheet.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCSpriteSheet.java
+END
+CCLabelAtlas.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCLabelAtlas.java
+END
+CCSpriteFrameCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCSpriteFrameCache.java
+END
+CCTextureNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCTextureNode.java
+END
+CCSprite.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCSprite.java
+END
+CCParallaxNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCParallaxNode.java
+END
+CCAtlasNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCAtlasNode.java
+END
+CCRibbon.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCRibbon.java
+END
+CCDirector.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCDirector.java
+END
+CCMotionStreak.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCMotionStreak.java
+END
+CCLabel.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCLabel.java
+END
+CCAnimation.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCAnimation.java
+END
+CCTileMapAtlas.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCTileMapAtlas.java
+END
+CCSpriteFrame.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCSpriteFrame.java
+END
+CCTextureCache.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCTextureCache.java
+END
+CCNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/nodes/CCNode.java
+END

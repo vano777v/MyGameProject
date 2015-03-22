@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/protocols
+END
+CCMotionEventProtocol.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/protocols/CCMotionEventProtocol.java
+END
+CCRGBAProtocol.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/protocols/CCRGBAProtocol.java
+END
+CCTouchDelegateProtocol.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/protocols/CCTouchDelegateProtocol.java
+END
+CCLabelProtocol.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/protocols/CCLabelProtocol.java
+END
+CCTextureProtocol.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/protocols/CCTextureProtocol.java
+END
+CCKeyDelegateProtocol.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/protocols/CCKeyDelegateProtocol.java
+END
+CCBlendProtocol.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/protocols/CCBlendProtocol.java
+END

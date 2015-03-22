@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl
+END
+GLSurfaceView.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/GLSurfaceView.java
+END
+CCRenderTexture.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/CCRenderTexture.java
+END
+GLResourceHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/GLResourceHelper.java
+END
+GLDebugWrapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/GLDebugWrapper.java
+END
+TGA.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/TGA.java
+END
+CCGLSurfaceView.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/CCGLSurfaceView.java
+END
+OpenGLViewNotAttachedException.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/OpenGLViewNotAttachedException.java
+END
+OpenGLViewCantDetachException.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/OpenGLViewCantDetachException.java
+END
+CCDrawingPrimitives.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/CCDrawingPrimitives.java
+END
+OpenGLViewCantInitException.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/OpenGLViewCantInitException.java
+END
+OpenGLViewCantAttachException.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/OpenGLViewCantAttachException.java
+END
+CCTextureAtlas.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/CCTextureAtlas.java
+END
+CCTexture2D.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/CCTexture2D.java
+END
+OpenGLViewAlreadyAttachedException.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/OpenGLViewAlreadyAttachedException.java
+END
+CCPVRTexture.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/CCPVRTexture.java
+END
+CCCamera.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/CCCamera.java
+END
+CCBitmapFontAtlas.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/opengl/CCBitmapFontAtlas.java
+END

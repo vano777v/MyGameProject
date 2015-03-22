@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/layers
+END
+CCColorLayer.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/layers/CCColorLayer.java
+END
+CCLayer.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/layers/CCLayer.java
+END
+CCTMXObjectGroup.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/layers/CCTMXObjectGroup.java
+END
+CCScene.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/layers/CCScene.java
+END
+CCTMXTilesetInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/layers/CCTMXTilesetInfo.java
+END
+CCMultiplexLayer.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/layers/CCMultiplexLayer.java
+END
+CCTMXLayerInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/layers/CCTMXLayerInfo.java
+END
+CCTMXMapInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/layers/CCTMXMapInfo.java
+END
+CCTMXLayer.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/layers/CCTMXLayer.java
+END
+CCTMXTiledMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/bearsvsvampires/!svn/ver/5/trunk/BearsvsVampires/src/org/cocos2d/layers/CCTMXTiledMap.java
+END
