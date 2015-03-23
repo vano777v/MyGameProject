@@ -58,7 +58,7 @@ public class GameLayer extends CCLayer
 	private static final int STATUS_LABEL_TAG = 20;
 	private static final int TIMER_LABEL_TAG =20;
 	private static final int MOVES_LABEL_TAG =20; 
-	ArrayList<CCSpriteFrame> bwalkSprites = null;
+    private static ArrayList<MenuItemLayer> bear_team = null;
 	private CCMenu gen = null;
 	 static CCProgressTimer item1;
 	private CCBitmapFontAtlas statusLabel;
@@ -73,8 +73,8 @@ public class GameLayer extends CCLayer
     {
     	screenSize = CCDirector.sharedDirector().winSize();
         mMyApp = m; 
-    
-   
+          
+        
     	this.setIsTouchEnabled(true);
         menus_game = new ArrayList<MenuLayer>();
     	CGSize size_menus = CGSize.make(720, 100);
@@ -88,7 +88,7 @@ public class GameLayer extends CCLayer
         this.setting_menu_init(size_menus, scale_factors);
         size_menus.set(1024, 75);
         this.top_menu_init(size_menus, scale_factors);
-        
+        bear_team = new ArrayList<MenuItemLayer>();
        statusLabel = CCBitmapFontAtlas.bitmapFontAtlas (Float.toString(20), "bionic.fnt");
         //statusLabel.setScale( generalscalefactor_h); //scaled
         statusLabel.setAnchorPoint(CGPoint.ccp(0,1));
@@ -98,6 +98,24 @@ public class GameLayer extends CCLayer
     
     }
     
+    private void bear_team_init(Boolean blank_game)
+    {
+    	if(blank_game)
+    	{
+    	    bear_team.add(0, menus_game.get(2).get_item(1));
+    	    button_item_bears_press(1);
+    	    bear_team.add(1, menus_game.get(2).get_item(2));
+    	    button_item_bears_press(2);
+    	    bear_team.add(2, menus_game.get(2).get_item(3));
+    	    button_item_bears_press(3);
+    	    bear_team.add(3, menus_game.get(2).get_item(4));
+    	    button_item_bears_press(4);
+    	}
+    	else
+    	{
+    		//request database users
+    	}
+    }
      public boolean ccTouchesEnded(MotionEvent event) 
      {
     	
@@ -380,6 +398,7 @@ public class GameLayer extends CCLayer
     	 bears_menu.add_item("block/6b.png", 6, CGPoint.make(235, 150), CGSize.make(60, 60));
     	 bears_menu.add_item("block/7b.png", 7, CGPoint.make(80, 30), CGSize.make(60, 60));
     	 bears_menu.add_item("block/8b.png", 8, CGPoint.make(235, 30), CGSize.make(60, 60));
+    	 bear_team_init(true);
     	 addChild(bears_menu);
     	 menus_game.add(2, bears_menu);
     	 
