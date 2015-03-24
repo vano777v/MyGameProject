@@ -51,6 +51,17 @@ public class MenuItemLayer extends CCSprite
 		 
 	}
 	
+	 public void copy_to(MenuItemLayer item)
+	 {
+		 item._isTouchEnabled = this._isTouchEnabled;
+		 item.is_touch = this.is_touch;
+		 item.size_height = this.size_height;
+		 item.size_width= this.size_width;
+		 item.setTag(this.getTag());
+		 CCTexture2D s=  this.getTexture();
+		 item.setTexture(s);
+		 
+	 }
 	 public CGPoint get_Position(CGSize local_scale_factor, CGSize general_scale_factor ) 
 	 {
 		CGPoint position = null;

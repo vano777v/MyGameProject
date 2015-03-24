@@ -58,7 +58,7 @@ public class GameLayer extends CCLayer
 	private static final int STATUS_LABEL_TAG = 20;
 	private static final int TIMER_LABEL_TAG =20;
 	private static final int MOVES_LABEL_TAG =20; 
-    private static ArrayList<MenuItemLayer> bear_team = null;
+    private static int[] buffer_team;
 	private CCMenu gen = null;
 	 static CCProgressTimer item1;
 	private CCBitmapFontAtlas statusLabel;
@@ -77,6 +77,7 @@ public class GameLayer extends CCLayer
         
     	this.setIsTouchEnabled(true);
         menus_game = new ArrayList<MenuLayer>();
+        buffer_team =  new int[4];
     	CGSize size_menus = CGSize.make(720, 100);
         CGSize scale_factors = CGSize.make(1, 1);
         this.main_menu_init(size_menus, scale_factors);
@@ -88,7 +89,7 @@ public class GameLayer extends CCLayer
         this.setting_menu_init(size_menus, scale_factors);
         size_menus.set(1024, 75);
         this.top_menu_init(size_menus, scale_factors);
-        bear_team = new ArrayList<MenuItemLayer>();
+        
        statusLabel = CCBitmapFontAtlas.bitmapFontAtlas (Float.toString(20), "bionic.fnt");
         //statusLabel.setScale( generalscalefactor_h); //scaled
         statusLabel.setAnchorPoint(CGPoint.ccp(0,1));
@@ -102,19 +103,16 @@ public class GameLayer extends CCLayer
     {
     	if(blank_game)
     	{
-    	    bear_team.add(0, menus_game.get(2).get_item(1));
-    	    button_item_bears_press(1);
-    	    bear_team.add(1, menus_game.get(2).get_item(2));
-    	    button_item_bears_press(2);
-    	    bear_team.add(2, menus_game.get(2).get_item(3));
-    	    button_item_bears_press(3);
-    	    bear_team.add(3, menus_game.get(2).get_item(4));
-    	    button_item_bears_press(4);
+    		for(int i=0;i<buffer_team.length;i++){
+    	      buffer_team[i]=i+1;
+    	      button_item_bears_press(i+1);
+    		}
+    	
     	}
-    	else
-    	{
+    	//else
+    	//{
     		//request database users
-    	}
+    	//}
     }
      public boolean ccTouchesEnded(MotionEvent event) 
      {
@@ -146,6 +144,8 @@ public class GameLayer extends CCLayer
 		      	case 1: 
 		      	{
 		      		this.button_bears_choose();
+		      		//SoundEngine.sharedEngine().playSound(mMyApp.getApplicationContext(), R.raw.button_press, true);
+		      		
 		      		break;
 		      	}
 		      	case 2: 
@@ -160,14 +160,35 @@ public class GameLayer extends CCLayer
 		      	case 3:
 		      	{
 		      		this.button_ability();
+		      		//SoundEngine.sharedEngine().playSound(mMyApp.getApplicationContext(), R.raw.button_press, false);
 		      		break;
 		      	}
 		      	
 		      	case 4:
 		      	{
 		      		
+		      		statusLabel.setString(Integer.toString(buffer_team[0]));
 		      		break;
 		      	}
+		    	case 5:
+		      	{
+		      		
+		      		statusLabel.setString(Integer.toString(buffer_team[1]));
+		      		break;
+		      	}
+		    	case 6:
+		      	{
+		      		
+		      		statusLabel.setString(Integer.toString(buffer_team[2]));
+		      		break;
+		      	}
+		    	case 7:
+		      	{
+		      		
+		      		statusLabel.setString(Integer.toString(buffer_team[3]));
+		      		break;
+		      	}
+		      	
 			    default: statusLabel.setString(Float.toString(-1));
 				  break;
 			} 
@@ -398,9 +419,9 @@ public class GameLayer extends CCLayer
     	 bears_menu.add_item("block/6b.png", 6, CGPoint.make(235, 150), CGSize.make(60, 60));
     	 bears_menu.add_item("block/7b.png", 7, CGPoint.make(80, 30), CGSize.make(60, 60));
     	 bears_menu.add_item("block/8b.png", 8, CGPoint.make(235, 30), CGSize.make(60, 60));
-    	 bear_team_init(true);
     	 addChild(bears_menu);
     	 menus_game.add(2, bears_menu);
+    	 bear_team_init(true);
     	 
      }
     
@@ -443,20 +464,129 @@ public class GameLayer extends CCLayer
      
      private void button_item_bears_press(int item_index)
      {
+    	 int item_team=-1, place_free=-1;
+    	 int delete_item=0;
     	 String path = new String();
     	 if(menus_game.get(2).get_item(item_index).get_touch_state())
     	 {
     		path = "neutral/"+item_index+"n.png";
     		 menus_game.get(2).get_item(item_index).set_touch_state(false);
     		 menus_game.get(2).change_Image_item(path, item_index);
+    		 item_team=search_bear_team(item_index);
+    		  delete_item=buffer_team[item_team]; 
+    		 if(item_team!=-1)
+    		 {
+    			 
+    			 set_place_to_free(item_team);
+       
+    		 }
+    	
     	 }
     	 else 
     	 {
     		 path = "choosed/"+item_index+"a.png";
     		 menus_game.get(2).get_item(item_index).set_touch_state(true);
     		 menus_game.get(2).change_Image_item(path, item_index);
+    		 item_team= search_bear_team(item_index);
+    		 if(item_team!=-1)
+    		 {
+    			 buffer_team[item_team]=item_index;
+    			 
+    			
+    		 }
+    		 else
+    		 {
+    			 place_free = get_free_place_team();
+    			 
+    			 if(place_free!=-1)
+    			 {
+    				 buffer_team[place_free]=item_index;
+    				
+    			 }
+    			 else
+    			 {
+    				
+    				 int tag= buffer_team[buffer_team.length-1];
+    				 buffer_team[buffer_team.length-1]=item_index;
+    				 path = "neutral/"+tag+"n.png";
+    				 menus_game.get(2).get_item(tag).set_touch_state(false);
+    	    		 menus_game.get(2).change_Image_item(path, tag);
+    				 System.out.println("sUKA "+tag);
+    				
+    			 }
+    		 }
+    		
+    	 }
+    	update_control_team();
+     }
+     private void sort_bear_buffer(int[] bufer)
+     {
+    	 
+    	 for(int i=0;i< bufer.length-1;i++ )
+    		 if(bufer[i]==0)
+    		 {
+    		   bufer[i]=bufer[i+1];
+    		   bufer[i+1]=0;
+    		 } 
+     }
+     
+      private void update_control_team()
+     {
+    	   String path=new String();
+    	   sort_bear_buffer(buffer_team);
+    	 for(int i=0;i<buffer_team.length;i++)
+    	 {
+    		 if(buffer_team[i]!=0)
+    		 {
+    			 //
+    			 path="neutral/"+Integer.toString(buffer_team[i])+"n.png";
+    			menus_game.get(0).change_Image_item(path, i+4);
+    			menus_game.get(0).get_item(i+4).setOpacity(255);
+    			menus_game.get(0).get_item(i+4).setisTouchEnabled(true);
+    			
+    			
+    		 }
+    		 else
+    		 {
+    			 menus_game.get(0).get_item(i+4).setOpacity(0);
+    			 menus_game.get(0).get_item(i+4).setisTouchEnabled(false);
+    			// menus_game.get(0).change_Image_item(path,4);
+    			 // 
+    			 //menus_game.get(0).change_Image_item("block/"+buffer_team[i]+"b.png", i+4);
+    			
+    		 }
+    		
     	 }
      }
+     private int search_bear_team(int index)
+     {
+    	 int item_tag = -1;
+    	 for (int i=0; i<buffer_team.length; i++ )
+    		 if(menus_game.get(2).get_item(index).getTag()== buffer_team[i])
+    		 {
+    			 item_tag = i;
+    		 }
+    	 	return item_tag;
+     }
+     
+     private int get_free_place_team ()
+     {
+    	 int item_free = -1;
+    	 for(int i=0;i<buffer_team.length; i++)
+    	 {
+    		 if(buffer_team[i]==0)
+    		 {
+    			 return i;
+    		 }
+    	 }
+    	 return item_free;
+     }
+     
+     private void set_place_to_free(int index)
+     {
+    	 buffer_team[index]=0;
+     }
+  
      private void button_bears_choose()
      {
     	 if(menus_game.get(0).get_item(1).get_touch_state()){ 
@@ -464,7 +594,7 @@ public class GameLayer extends CCLayer
     		  menus_game.get(0).change_Image_item("choose_unpress.png", 1);
     		   menus_game.get(2).runAction(CCSequence.actions(CCMoveTo.action(0.5f, CGPoint.make(-350, 101)), CCCallFunc.action(this, "Menu_Move")));
     		   statusLabel.setString(Float.toString(11f));
-   
+              
     		}
     		else
     		{
@@ -474,6 +604,11 @@ public class GameLayer extends CCLayer
 	      		   statusLabel.setString(Float.toString(11f));
 	      		   
     		}
+    	// for(int i=0;i<buffer_team.length;i++)
+    	 //{
+    		// System.out.println("GGGGG "+buffer_team[i]);
+    	// }
+    	 
      }
      private void button_zoom_out ()
      {
