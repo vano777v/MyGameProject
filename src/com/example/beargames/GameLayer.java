@@ -144,7 +144,7 @@ public class GameLayer extends CCLayer
 		      	case 1: 
 		      	{
 		      		this.button_bears_choose();
-		      		//SoundEngine.sharedEngine().playSound(mMyApp.getApplicationContext(), R.raw.button_press, true);
+		      		
 		      		
 		      		break;
 		      	}
@@ -153,6 +153,7 @@ public class GameLayer extends CCLayer
 		      		menus_game.get(2).runAction(CCSequence.actions(CCMoveTo.action(1f, CGPoint.make(-350, 101)), CCCallFunc.action(this, "Menu_Move")));
 		      		//menus_game.get(2).get_item(1).runAction(CCSequence.actions(CCMoveTo.action()), CCCallFunc.action(menus_game.get(2), "Menu_Move")));
 		      		//menus_game.get(2).runAction(CCSequence.action;
+		      		SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.button_press);
 		      		statusLabel.setString(Float.toString(12f));
 		      		break;
 		      	}
@@ -160,7 +161,7 @@ public class GameLayer extends CCLayer
 		      	case 3:
 		      	{
 		      		this.button_ability();
-		      		//SoundEngine.sharedEngine().playSound(mMyApp.getApplicationContext(), R.raw.button_press, false);
+		      		
 		      		break;
 		      	}
 		      	
@@ -294,6 +295,7 @@ public class GameLayer extends CCLayer
 		   	   {  
 		   		   
 		   		   button_sound_press();
+		   		   SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.button_press);
 		   		   //statusLabel.setString(Float.toString(31f));
 		   		   break;
 		   	   }
@@ -310,12 +312,14 @@ public class GameLayer extends CCLayer
 		   		case 4: 
 		   		{
 		   			this.button_pause_press();
+		   			
 		   			menus_game.get(3).set_touch_menu_state(-1);
 		   			break;
 		   		}
 		   		case 5: 
 		   		{
 		   			button_stop_press();
+		   			SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.button_press);
 		   			statusLabel.setString(Float.toString(45f));
 		   			break;
 		   		}
@@ -511,7 +515,7 @@ public class GameLayer extends CCLayer
     				 path = "neutral/"+tag+"n.png";
     				 menus_game.get(2).get_item(tag).set_touch_state(false);
     	    		 menus_game.get(2).change_Image_item(path, tag);
-    				 System.out.println("sUKA "+tag);
+    				 //System.out.println("sUKA "+tag);
     				
     			 }
     		 }
@@ -591,16 +595,19 @@ public class GameLayer extends CCLayer
      {
     	 if(menus_game.get(0).get_item(1).get_touch_state()){ 
     		   menus_game.get(0).get_item(1).set_touch_state(false);
+    		   SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.large_heavy_castle_door_closing);
     		  menus_game.get(0).change_Image_item("choose_unpress.png", 1);
-    		   menus_game.get(2).runAction(CCSequence.actions(CCMoveTo.action(0.5f, CGPoint.make(-350, 101)), CCCallFunc.action(this, "Menu_Move")));
+    		  
+    		   menus_game.get(2).runAction(CCSequence.actions(CCMoveTo.action(1f, CGPoint.make(-350, 101)), CCCallFunc.action(this, "Menu_Move")));
     		   statusLabel.setString(Float.toString(11f));
               
     		}
     		else
     		{
     			   menus_game.get(0).get_item(1).set_touch_state(true);
+    			   SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.door_open);
     			   menus_game.get(0).change_Image_item("choose_press.png", 1);
-	      		   menus_game.get(2).runAction(CCSequence.actions(CCMoveTo.action(0.5f, CGPoint.make(0, 101)), CCCallFunc.action(this, "Menu_Move")));
+	      		   menus_game.get(2).runAction(CCSequence.actions(CCMoveTo.action(1f, CGPoint.make(0, 101)), CCCallFunc.action(this, "Menu_Move")));
 	      		   statusLabel.setString(Float.toString(11f));
 	      		   
     		}
@@ -646,25 +653,20 @@ public class GameLayer extends CCLayer
      }
       private void button_ability()
      {
-    	// SoundEngine.sharedEngine().playSound(mMyApp.getApplicationContext(), R.raw.button_press, true); 
-    	 //SoundEngine.sharedEngine().playSound(mMyApp.getApplicationContext(), R.raw.button_press, false); 
+    	
     	 if(menus_game.get(0).get_item(3).get_touch_state()){ 
-  		   menus_game.get(0).get_item(3).set_touch_state(false);
-  		  menus_game.get(0).change_Image_item("ability_unpress.png", 3);
-  		
+  		   menus_game.get(0).get_item(3).set_touch_state(false); 
+  		   menus_game.get(0).change_Image_item("ability_unpress.png", 3);
+  		   SoundEngine.sharedEngine().playEffect(mMyApp, R.raw.wooden_door_being_closed); 
   		   menus_game.get(1).runAction(CCSequence.actions(CCMoveTo.action(0.5f, CGPoint.make(720,-380)), CCCallFunc.action(this, "Menu_Move")));
   		   statusLabel.setString(Float.toString(31f));
-  		  
-           
-  		 //SoundEngine.sharedEngine().playEffect(mMyApp, R.raw.button_press); 
   		}
   		else
   		{
-  			//SoundEngine.sharedEngine().playSound(mMyApp.getApplicationContext(), R.raw.button_press, true); 
-  			//SoundEngine.sharedEngine().playSound(mMyApp.getApplicationContext(), R.raw.button_press, false); 
+  			
   			   menus_game.get(0).get_item(3).set_touch_state(true);
   			   menus_game.get(0).change_Image_item("ability_press.png", 3);
-  			// SoundEngine.sharedEngine().playSound(mMyApp.getApplicationContext(), R.raw.button_press, true); 
+  			   SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.wooden_door_open); 
 	      		   menus_game.get(1).runAction(CCSequence.actions(CCMoveTo.action(0.5f, CGPoint.make(720, 0)), CCCallFunc.action(this, "Menu_Move")));
 	      		   statusLabel.setString(Float.toString(31f));
 	      		 
@@ -719,6 +721,7 @@ public class GameLayer extends CCLayer
     		   
     		 menus_game.get(3).get_item(4).set_touch_state(false);
     		 menus_game.get(3).change_Image_item("pause.png", 4);
+    		 SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.wood_internal_door_handle_movement_version_2);
     		menus_game.get(3).runAction(CCSequence.actions(CCMoveTo.action(0.5f, CGPoint.make(655,645)), CCCallFunc.action(this, "Menu_Move")));
     		   statusLabel.setString(Float.toString(41f));
     		  
@@ -729,7 +732,7 @@ public class GameLayer extends CCLayer
     		{
     			menus_game.get(3).get_item(4).set_touch_state(true);
       		  menus_game.get(3).change_Image_item("play.png", 4);
-      		
+      		SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.wooden_door_being_closed);
       		   menus_game.get(3).runAction(CCSequence.actions(CCMoveTo.action(0.5f, CGPoint.make(655,470)), CCCallFunc.action(this, "Menu_Move")));
       		   statusLabel.setString(Float.toString(41f));
   	      		 

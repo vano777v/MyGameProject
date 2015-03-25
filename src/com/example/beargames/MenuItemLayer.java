@@ -2,6 +2,7 @@ package com.example.beargames;
 
 import java.lang.reflect.GenericSignatureFormatError;
 
+import org.cocos2d.actions.CCProgressTimer;
 import org.cocos2d.events.CCTouchDispatcher;
 import org.cocos2d.layers.CCLayer;
 import org.cocos2d.nodes.CCSprite;
@@ -12,6 +13,7 @@ import org.cocos2d.types.CGRect;
 import org.cocos2d.types.CGSize;
 
 import android.gesture.GesturePoint;
+import android.graphics.Bitmap;
 
 public class MenuItemLayer extends CCSprite
 {
@@ -19,6 +21,11 @@ public class MenuItemLayer extends CCSprite
 	private float size_height=0;
 	private Boolean _isTouchEnabled=null;
 	private Boolean is_touch = null;
+	private float sfactor_x=0f;
+	private float sfactor_y=0f;
+	private static float time_request;
+	private static float count
+	private static CCProgressTimer image_progress = null;
 	 public MenuItemLayer (String path, int tag )
 	{
 		super(path);
@@ -31,6 +38,29 @@ public class MenuItemLayer extends CCSprite
 		
 	}
 	
+	 public void set_scale_factors(CGPoint value)
+	 {
+		 this.sfactor_x = value.x;
+		 this.sfactor_y= value.y;
+	 } 
+	 public CGPoint get_scale_factors()
+	 {
+		 return CGPoint.make(sfactor_x, sfactor_y);
+	 }
+	 
+	 public void time_progress_bar_init(String image_path, CGPoint position_bar, CGSize scale_local_factor, CGSize scale_general_factor  )
+	 {
+		 image_progress = CCProgressTimer.progress(image_path);
+		 image_progress.setAnchorPoint(CGPoint.make(0, 0));
+		 image_progress.setType(CCProgressTimer.kCCProgressTimerTypeVerticalBarBT);
+		 image_progress.setPercentage(0f);
+		 this.addChild(image_progress);
+	 }
+	 
+	 public void time_progress(float time)
+	 {
+		 
+	 }
 	 public void set_Position ( MenuLayer menu, CGPoint position_intem, CGSize scale_local_factor, CGSize scale_general_factor ) 
 	 {
 		 //CGSize size_menu_panel= null;

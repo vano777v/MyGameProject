@@ -71,7 +71,7 @@ public class MenuLayer extends CCColorLayer{
  		 }
  		 this.scaled_size_width = this.getContentSize().width*general_scale_factor.width;
  		 this.scaled_size_height = this.getContentSize().height*general_scale_factor.height;
- 		 
+ 	
      }
      
      public void setItemSize(CGSize new_size, CGSize local_scale_factor, CGSize general_scale_factor, int tag)
