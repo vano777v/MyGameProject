@@ -605,7 +605,7 @@ public class GameLayer extends CCLayer
     		else
     		{
     			   menus_game.get(0).get_item(1).set_touch_state(true);
-    			   SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.door_open);
+    			   SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.button_press);
     			   menus_game.get(0).change_Image_item("choose_press.png", 1);
 	      		   menus_game.get(2).runAction(CCSequence.actions(CCMoveTo.action(1f, CGPoint.make(0, 101)), CCCallFunc.action(this, "Menu_Move")));
 	      		   statusLabel.setString(Float.toString(11f));

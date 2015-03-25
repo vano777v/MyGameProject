@@ -24,7 +24,7 @@ public class MenuItemLayer extends CCSprite
 	private float sfactor_x=0f;
 	private float sfactor_y=0f;
 	private static float time_request;
-	private static float count
+	//private static float count
 	private static CCProgressTimer image_progress = null;
 	 public MenuItemLayer (String path, int tag )
 	{
