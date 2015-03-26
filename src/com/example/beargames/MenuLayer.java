@@ -30,7 +30,7 @@ public class MenuLayer extends CCColorLayer{
 	protected MenuLayer(ccColor4B color, String image_path, int tag, CGSize menu_size,CGSize general_scale_factor) 
 	{
 		super(color);
-		menu = CCSprite.sprite(image_path);
+		
 		this.setTag(tag);
 		this.setAnchorPoint(0f, 0f);
 		this.setContentSize(menu_size);
@@ -40,16 +40,22 @@ public class MenuLayer extends CCColorLayer{
 		this.local_scale_factor = local_scale_factor; 
 		CGSize scale_menu= null;
 		System.out.println(this.local_scale_factor+" "+this.general_scale_factor);
-		scale_menu =calc_image_size(menu,menu_size, this.local_scale_factor, this.general_scale_factor);
+		if(image_path!= null)
+		{
+		  menu = CCSprite.sprite(image_path);
+		  scale_menu =calc_image_size(menu,menu_size, this.local_scale_factor, this.general_scale_factor);
+		  menu.setScaleX(scale_menu.width);
+		  menu.setScaleY(scale_menu.height);
+		  this.addChild(menu);
+		  menu.setContentSize(this.getContentSize());
+		  menu.setAnchorPoint(0f, 0f);
+			menu.setPosition(0f, 0f);
+		}
 		
-		menu.setScaleX(scale_menu.width);
-		menu.setScaleY(scale_menu.height);
-		menu.setContentSize(this.getContentSize());
 		scaled_size_height = this.getContentSize().height*general_scale_factor.height;
 		scaled_size_width = this.getContentSize().width*general_scale_factor.width;
-		menu.setAnchorPoint(0f, 0f);
-		menu.setPosition(0f, 0f);
-		this.addChild(menu);
+		
+		
 		menuitems = new ArrayList<MenuItemLayer>();
 	    
 		// TODO Auto-generated constructor stub

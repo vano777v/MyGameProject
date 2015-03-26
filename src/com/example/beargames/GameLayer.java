@@ -35,6 +35,8 @@ import org.cocos2d.types.ccColor3B;
 import org.cocos2d.types.ccColor4B;
 import org.cocos2d.utils.CCFormatter;
 
+import com.example.beargames.R.raw;
+
 import android.R.bool;
 import android.app.Activity;
 import android.content.Context;
@@ -89,6 +91,7 @@ public class GameLayer extends CCLayer
         this.setting_menu_init(size_menus, scale_factors);
         size_menus.set(1024, 75);
         this.top_menu_init(size_menus, scale_factors);
+        this.ablity_items_init();
         
        statusLabel = CCBitmapFontAtlas.bitmapFontAtlas (Float.toString(20), "bionic.fnt");
         //statusLabel.setScale( generalscalefactor_h); //scaled
@@ -396,15 +399,60 @@ public class GameLayer extends CCLayer
      private void ability_menu_init(CGSize size_menu, CGSize scale_factors)
      {
     	 MenuLayer ability_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menu2.png",2, size_menu, scale_factors);
+    	
+    	
+    	 
+    	
     	 ability_menu.setPosition(720,-380);
+    	
     	 ability_menu.setIsTouchEnabled(true);
-    	 ability_menu.add_item("beat.png", 1, CGPoint.make(27, 390), CGSize.make(60, 60));
-    	 ability_menu.add_item("beat.png", 2, CGPoint.make(27, 292), CGSize.make(60, 60));
-    	 ability_menu.add_item("mag.png", 3, CGPoint.make(27, 19), CGSize.make(60, 60));
+    	 //ability_menu.add_item("beat.png", 1, CGPoint.make(27, 390), CGSize.make(60, 60));
+    	 ///ability_menu.add_item("beat.png", 2, CGPoint.make(27, 292), CGSize.make(60, 60));
+    	 //ability_menu.add_item("mag.png", 3, CGPoint.make(27, 19), CGSize.make(60, 60));
     	 addChild(ability_menu);
+    	  
     	 menus_game.add(1, ability_menu);
      }
      
+     private void ablity_items_init()
+     {
+    	 int pos1=307, pos2=10;
+    	 MenuLayer ability =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),null,5, CGSize.make(270, 60), CGSize.make(1, 1));
+    	 ability.setPosition(30,390);
+    	 ability.setOpacity(0);
+    	 menus_game.get(1).addChild(ability);
+    	 menus_game.add(5, ability);
+    	 for(int i=6;i<10;i++){
+    		 ability =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),null,i, CGSize.make(270, 60), CGSize.make(1, 1));
+        	 ability.setPosition(30,pos1);
+        	 pos2=10;
+        	 pos1-=83;
+        	 ability.setOpacity(0);
+        	 menus_game.get(1).addChild(ability);
+        	 menus_game.add(i, ability);
+             for(int j=1;j<4;j++)
+             {
+            	 ability.add_item("ability_icons/"+(i-4)+"ab_i/"+j+"a.png", j, CGPoint.make(pos2,5), CGSize.make(50, 50));
+                 pos2+= 92;
+             }
+     
+    	 }
+    	  int count=6;
+    	 for(int i=2;i<9;i*=2)
+    	 {
+    		 
+    		 if(!menus_game.get(2).get_item(i).get_isTouchEnabel())
+    		 {
+               for(int j=1;j<4;j++)
+               {   
+    			 menus_game.get(count).get_item(j).setisTouchEnabled(false);
+    			 menus_game.get(count).change_Image_item("ability_icons/"+(count-4)+"ab_i/"+1+"b.png", 1);
+    			 System.out.println("ability_icons/"+(count-4)+"ab_i/"+1+"b.png");
+    		   }
+    		 };
+    	   count++;
+    	 }
+     }
      private void bears_menu_init(CGSize size_menu, CGSize scale_factors)
      {
     	 MenuLayer bears_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menu3.png",3, size_menu, scale_factors);
@@ -595,19 +643,19 @@ public class GameLayer extends CCLayer
      {
     	 if(menus_game.get(0).get_item(1).get_touch_state()){ 
     		   menus_game.get(0).get_item(1).set_touch_state(false);
-    		   SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.large_heavy_castle_door_closing);
+    		   SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), raw.bear_growl_002);
     		  menus_game.get(0).change_Image_item("choose_unpress.png", 1);
     		  
-    		   menus_game.get(2).runAction(CCSequence.actions(CCMoveTo.action(1f, CGPoint.make(-350, 101)), CCCallFunc.action(this, "Menu_Move")));
+    		   menus_game.get(2).runAction(CCSequence.actions(CCMoveTo.action(0.5f, CGPoint.make(-350, 101)), CCCallFunc.action(this, "Menu_Move")));
     		   statusLabel.setString(Float.toString(11f));
               
     		}
     		else
     		{
     			   menus_game.get(0).get_item(1).set_touch_state(true);
-    			   SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.button_press);
+    			   SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), raw.bear_growl_001);
     			   menus_game.get(0).change_Image_item("choose_press.png", 1);
-	      		   menus_game.get(2).runAction(CCSequence.actions(CCMoveTo.action(1f, CGPoint.make(0, 101)), CCCallFunc.action(this, "Menu_Move")));
+	      		   menus_game.get(2).runAction(CCSequence.actions(CCMoveTo.action(0.5f, CGPoint.make(0, 101)), CCCallFunc.action(this, "Menu_Move")));
 	      		   statusLabel.setString(Float.toString(11f));
 	      		   
     		}

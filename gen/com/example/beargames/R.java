@@ -30,7 +30,15 @@ public final class R {
         public static final int main=0x7f080000;
     }
     public static final class raw {
-        public static final int button_press=0x7f040000;
+        public static final int bear_growl_001=0x7f040000;
+        public static final int bear_growl_002=0x7f040001;
+        public static final int button_press=0x7f040002;
+        public static final int door_open=0x7f040003;
+        public static final int large_heavy_castle_door_closing=0x7f040004;
+        public static final int monster_passionate_mating_vocalisations=0x7f040005;
+        public static final int wood_internal_door_handle_movement_version_2=0x7f040006;
+        public static final int wooden_door_being_closed=0x7f040007;
+        public static final int wooden_door_open=0x7f040008;
     }
     public static final class string {
         public static final int action_settings=0x7f060002;
