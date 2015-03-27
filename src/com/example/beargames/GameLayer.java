@@ -61,12 +61,13 @@ public class GameLayer extends CCLayer
 	private static final int TIMER_LABEL_TAG =20;
 	private static final int MOVES_LABEL_TAG =20; 
     private static int[] buffer_team;
-    private static int[] buffer_ability_items={0,0};
+    private static int[] buffer_ability_items={0,0,0};
     private static int[] buffer_ability_team = {2,4,5,8};
 	private CCMenu gen = null;
 	 static CCProgressTimer item1;
 	private CCBitmapFontAtlas statusLabel;
 	private int istouch =0;
+	private  int  last_touch_ability=0;
 	private  MenuLayer bar_menu, bnm;
 	private CCSprite player;
 	private static int thetime = 0 ;
@@ -113,6 +114,7 @@ public class GameLayer extends CCLayer
     	      button_item_bears_press(i+1);
     		}
     	
+    		update_control_team();
     	}
     	//else
     	//{
@@ -174,24 +176,28 @@ public class GameLayer extends CCLayer
 		      	{
 		      		
 		      		statusLabel.setString(Integer.toString(buffer_team[0]));
+		      		 button_bear_team_item_select(4, buffer_team[0], 10);
 		      		break;
 		      	}
 		    	case 5:
 		      	{
 		      		
 		      		statusLabel.setString(Integer.toString(buffer_team[1]));
+		      		button_bear_team_item_select(5, buffer_team[1], 10);
 		      		break;
 		      	}
 		    	case 6:
 		      	{
 		      		
 		      		statusLabel.setString(Integer.toString(buffer_team[2]));
+		      		button_bear_team_item_select(6, buffer_team[2], 10);
 		      		break;
 		      	}
 		    	case 7:
 		      	{
 		      		
 		      		statusLabel.setString(Integer.toString(buffer_team[3]));
+		      		button_bear_team_item_select(7, buffer_team[3], 10);
 		      		break;
 		      	}
 		      	
@@ -212,37 +218,35 @@ public class GameLayer extends CCLayer
 			   case 2:
 		      	{
 
-		   		statusLabel.setString(Float.toString(1));
-		      		
+		   		statusLabel.setString(Float.toString(buffer_ability_items[1]));
 		      		break;
 		      	}
 			   case 3:
 		      	{
-		      		statusLabel.setString(Float.toString(2));
-		      		
+		      		statusLabel.setString(Float.toString(buffer_ability_items[2]));
 		      		break;
 		      	}
 			   case 4:
 		      	{
-		      		statusLabel.setString(Float.toString(3));
+		      		button_ability_item_press(4);
 		      		
 		      		break;
 		      	}
 			   case 7:
 		      	{
-		      		statusLabel.setString(Float.toString(4));
+		      		button_ability_item_press(7);
 		      		
 		      		break;
 		      	}
 			   case 10:
 		      	{
-		      		statusLabel.setString(Float.toString(5));
+		      		button_ability_item_press(10);
 		      		
 		      		break;
 		      	}
 			   case 13:
 		      	{
-		      		statusLabel.setString(Float.toString(6));
+		      		button_ability_item_press(13);
 		      		
 		      		break;
 		      	}
@@ -404,15 +408,54 @@ public class GameLayer extends CCLayer
     	 statusLabel.setString("Reusit");
      }
 
-     private void button_ability_item_press(int index)
+    private void  button_bear_team_item_select(int index, int item_tag, int time)
      {
-    	 if(menus_game.get(1).get_item(index).get_touch_state())
+    	 if(menus_game.get(0).get_item(index).get_touch_state())
     	 {
     		 
     	 }
     	 else
     	 {
+    		 menus_game.get(0).change_Image_item("block/"+item_tag+"b.png", index);
+    		 menus_game.get(0).get_item(index).set_touch_state(true);
+    		 menus_game.get(0).get_item(index).time_progress_bar_init("choosed/"+item_tag+"a.png");
+    		 menus_game.get(0).get_item(index).set_path_progress_bar("neutral/"+item_tag+"n.png");
+    		 menus_game.get(0).get_item(index).time_progress(time);
+    	 }
+     }
+     private void button_ability_item_press(int index)
+     {
+    	 if(menus_game.get(1).get_item(index).get_touch_state())
+    	 {
+    		 menus_game.get(1).get_item(index).set_touch_state(false);
+    		 menus_game.get(1).change_Image_item("ability_icons/"+index+"a.png", index);
+    		 for(int i=1;i<4;i++)
+    		 {
+    			 menus_game.get(1).get_item(i).setOpacity(0);
+    			 menus_game.get(1).get_item(i).setisTouchEnabled(false);
+    		     //last_touch_ability =4;
+    		 }
+    		
+    	 }
+    	 else
+    	 {
     		 menus_game.get(1).get_item(index).set_touch_state(true);
+    		 menus_game.get(1).change_Image_item("ability_icons/"+index+"p.png", index);
+    		 if(index!=last_touch_ability){
+    		  menus_game.get(1).change_Image_item("ability_icons/"+last_touch_ability+"a.png", last_touch_ability);
+    		  menus_game.get(1).get_item(last_touch_ability).set_touch_state(false);
+    		 }
+    		 for(int i=0;i<3;i++)
+    		 {
+    		     menus_game.get(1).change_Image_item("ability_icons/"+(index+i)+"a.png", i+1);
+    		     menus_game.get(1).get_item(i+1).setOpacity(255);
+    		     menus_game.get(1).get_item(i+1).setisTouchEnabled(true);
+    		     buffer_ability_items[i]=index+i;
+    		 }
+    		
+    		 
+    		 last_touch_ability=index;
+    		 //System.out.println();
     	 }
      } 
      private void main_menu_init(CGSize size_menu, CGSize scale_factors)
@@ -427,7 +470,6 @@ public class GameLayer extends CCLayer
          main_menu.add_item("ability_unpress.png",3, CGPoint.make(652,13), CGSize.make(50, 50));
          main_menu.add_item("neutral/1n.png", 4, CGPoint.make(227, 8), CGSize.make(60, 60));
          main_menu.get_item(4).setisTouchEnabled(true);
-         
          main_menu.add_item("neutral/2n.png", 5, CGPoint.make(327, 8), CGSize.make(60, 60));
          main_menu.add_item("neutral/3n.png", 6, CGPoint.make(427, 8), CGSize.make(60, 60));
          main_menu.add_item("neutral/4n.png", 7, CGPoint.make(527, 8), CGSize.make(60, 60));
@@ -456,16 +498,16 @@ public class GameLayer extends CCLayer
      {
     	int row=2, col=1, count=0;
     	int posy=312, posx=40; 
-    	menus_game.get(1).add_item("ability_icons/2ab_i/1a.png", 1, CGPoint.make(40, 395), CGSize.make(50, 50));
-    	menus_game.get(1).add_item("ability_icons/2ab_i/2a.png", 2, CGPoint.make(132, 395), CGSize.make(50, 50));
+    	menus_game.get(1).add_item("ability_icons/4a.png", 1, CGPoint.make(40, 395), CGSize.make(50, 50));
+    	menus_game.get(1).add_item("ability_icons/5a.png", 2, CGPoint.make(132, 395), CGSize.make(50, 50));
     	menus_game.get(1).get_item(2).setisTouchEnabled(true);
     	
-    	menus_game.get(1).add_item("ability_icons/2ab_i/3a.png", 3, CGPoint.make(224, 395), CGSize.make(50, 50));
+    	menus_game.get(1).add_item("ability_icons/6a.png", 3, CGPoint.make(224, 395), CGSize.make(50, 50));
     	menus_game.get(1).get_item(3).setisTouchEnabled(true);
     	
     	 for(int i=4;i<16;i++)
     	 {
-           menus_game.get(1).add_item("ability_icons/"+row+"ab_i/"+col+"a.png", i, CGPoint.make(posx, posy), CGSize.make(50, 50));
+           menus_game.get(1).add_item("ability_icons/"+i+"a.png", i, CGPoint.make(posx, posy), CGSize.make(50, 50));
            
     		 //
     	  posx+=92;
@@ -477,7 +519,7 @@ public class GameLayer extends CCLayer
     		 }else
     		 {
     			 menus_game.get(1).get_item(i-2).setisTouchEnabled(false);
-    			 menus_game.get(1).change_Image_item("ability_icons/"+row+"ab_i/"+(col-2)+"b.png", i-2);
+    			 menus_game.get(1).change_Image_item("ability_icons/"+(i-2)+"b.png", i-2);
     			 
     		 }
     		  count++;
@@ -489,7 +531,9 @@ public class GameLayer extends CCLayer
     	  
     	 }
     	
-    	
+    	menus_game.get(1).change_Image_item("ability_icons/"+4+"p.png", 4);
+     	menus_game.get(1).get_item(4).set_touch_state(true);
+     	last_touch_ability=4;
      }
      private void bears_menu_init(CGSize size_menu, CGSize scale_factors)
      {
@@ -631,6 +675,8 @@ public class GameLayer extends CCLayer
     			 //
     			 path="neutral/"+Integer.toString(buffer_team[i])+"n.png";
     			menus_game.get(0).change_Image_item(path, i+4);
+    			path="choosed/"+Integer.toString(buffer_team[i])+"a.png";
+    			menus_game.get(0).get_item(4).time_progress_bar_init(path);
     			menus_game.get(0).get_item(i+4).setOpacity(255);
     			menus_game.get(0).get_item(i+4).setisTouchEnabled(true);
     			

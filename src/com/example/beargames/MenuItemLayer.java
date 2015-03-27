@@ -23,14 +23,19 @@ public class MenuItemLayer extends CCSprite
 	private Boolean is_touch = null;
 	private float sfactor_x=0f;
 	private float sfactor_y=0f;
+	private String path_progress_bar_refrash=null;
 	private static float time_request;
+	private static float time_count;
 	//private static float count
 	private static CCProgressTimer image_progress = null;
 	 public MenuItemLayer (String path, int tag )
 	{
 		super(path);
 		Boolean state_item=false;
+		path_progress_bar_refrash = new String();
 		Boolean is_touch = false;
+		time_count= 0;
+		time_request=0;
 		this._isTouchEnabled = state_item;
 		this.is_touch= is_touch;
 		this.setAnchorPoint(0f, 0f);
@@ -38,28 +43,65 @@ public class MenuItemLayer extends CCSprite
 		
 	}
 	
-	 public void set_scale_factors(CGPoint value)
+	 public void set_path_progress_bar(String path)
 	 {
-		 this.sfactor_x = value.x;
-		 this.sfactor_y= value.y;
+		  path_progress_bar_refrash= path; 
+	 }
+	 public String get_path_progress_bar()
+	 {
+		 return path_progress_bar_refrash;
+	 }
+	 public void set_scale_factors(CGSize value)
+	 {
+		 this.sfactor_x = value.width;
+		 this.sfactor_y= value.height;
 	 } 
-	 public CGPoint get_scale_factors()
+	 public CGSize get_scale_factors()
 	 {
-		 return CGPoint.make(sfactor_x, sfactor_y);
+		 return CGSize.make(sfactor_x, sfactor_y);
 	 }
 	 
-	 public void time_progress_bar_init(String image_path, CGPoint position_bar, CGSize scale_local_factor, CGSize scale_general_factor  )
+	 public void time_progress_bar_init(String image_path )
 	 {
 		 image_progress = CCProgressTimer.progress(image_path);
 		 image_progress.setAnchorPoint(CGPoint.make(0, 0));
+		 image_progress.setPosition(0, 0);
 		 image_progress.setType(CCProgressTimer.kCCProgressTimerTypeVerticalBarBT);
 		 image_progress.setPercentage(0f);
+		 image_progress.setScaleX(sfactor_x);
+		 image_progress.setScaleY(sfactor_y);
 		 this.addChild(image_progress);
 	 }
+	
 	 
-	 public void time_progress(float time)
+	
+	 protected void time_progress(float time)
 	 {
-		 
+		 time_request = time;
+		 time_count=0;
+		 this.schedule("life", 0.1f);
+	 }
+	 public void life (float dtime)
+	 {
+		 if(time_count<=time_request)
+		 {
+			 time_count+=1;
+			 //System.out.println("Auuuu");
+			 image_progress.setPercentage(time_count*10); 
+		 }
+		 else
+		 {
+			 this.unschedule("life");
+			 image_progress.setPercentage(0f);
+				CCTexture2D s=  CCTextureCache.sharedTextureCache().addImage(path_progress_bar_refrash);
+				this.setTexture(s);
+		        this.setScaleX(sfactor_x);
+		        this.setScaleY(sfactor_y);
+				this.is_touch=false;
+			 time_count=0;
+			 time_request=0;
+			 System.out.println("Bastaaaaaaaa");
+		 }
 	 }
 	 public void set_Position ( MenuLayer menu, CGPoint position_intem, CGSize scale_local_factor, CGSize scale_general_factor ) 
 	 {

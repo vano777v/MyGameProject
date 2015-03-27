@@ -107,6 +107,7 @@ public class MenuLayer extends CCColorLayer{
     	  item_size = calc_image_size(item, new_item_size, this.local_scale_factor,this.general_scale_factor);
     	  item.setScaleX(item_size.width);
     	  item.setScaleY(item_size.height);
+    	  item.set_scale_factors(item_size);
     	  item.setContentSize(50f, 50f);
     	  item.setSize(new_item_size, this.local_scale_factor, this.general_scale_factor);
     	  item.set_Position(this, position_item,this.local_scale_factor, this.general_scale_factor);
