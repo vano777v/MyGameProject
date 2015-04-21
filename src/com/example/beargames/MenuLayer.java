@@ -24,36 +24,40 @@ public class MenuLayer extends CCColorLayer{
     protected float scaled_size_height=0;
     private int item_touch_tag=-1;
     private int touch_state = -1;
-    private CGSize general_scale_factor= null;
-    private CGSize local_scale_factor=null;
+    private float general_scale_factor= 0;
+    static private CGPoint translation = null;
     private  ArrayList<MenuItemLayer> menuitems = null;
-	protected MenuLayer(ccColor4B color, String image_path, int tag, CGSize menu_size,CGSize general_scale_factor) 
+	protected MenuLayer(ccColor4B color, String image_path, int tag, CGSize menu_size, float general_scale_factor) 
 	{
 		super(color);
 		
 		this.setTag(tag);
 		this.setAnchorPoint(0f, 0f);
+		CGSize real_size = CGSize.make(menu_size.width,menu_size.height);
+		menu_size.set(menu_size.width*general_scale_factor, menu_size.height*general_scale_factor);
+		
 		this.setContentSize(menu_size);
+		float trans_x = this.getContentSize().width/real_size.width; 
+		float trans_y = this.getContentSize().height/real_size.height;
+		translation = CGPoint.make(trans_x, trans_y);
 		this.general_scale_factor= general_scale_factor;
-		CGSize screen_size = CCDirector.sharedDirector().winSize(); 
-		CGSize local_scale_factor = this.calc_local_scale_factor(screen_size, menu_size); 
-		this.local_scale_factor = local_scale_factor; 
+	
 		CGSize scale_menu= null;
-		System.out.println(this.local_scale_factor+" "+this.general_scale_factor);
+		
 		if(image_path!= null)
 		{
 		  menu = CCSprite.sprite(image_path);
-		  scale_menu =calc_image_size(menu,menu_size, this.local_scale_factor, this.general_scale_factor);
+		  scale_menu =calc_image_size(menu,menu_size);
 		  menu.setScaleX(scale_menu.width);
 		  menu.setScaleY(scale_menu.height);
-		  this.addChild(menu);
 		  menu.setContentSize(this.getContentSize());
+		  this.addChild(menu);
 		  menu.setAnchorPoint(0f, 0f);
 			menu.setPosition(0f, 0f);
 		}
 		
-		scaled_size_height = this.getContentSize().height*general_scale_factor.height;
-		scaled_size_width = this.getContentSize().width*general_scale_factor.width;
+		scaled_size_height = this.getContentSize().height;
+		scaled_size_width = this.getContentSize().width;
 		
 		
 		menuitems = new ArrayList<MenuItemLayer>();
@@ -61,38 +65,37 @@ public class MenuLayer extends CCColorLayer{
 		// TODO Auto-generated constructor stub
 	}
 	
-     public void set_size( CGSize new_size, CGSize general_scale_factor)
+    /* public void set_size( CGSize new_size, CGSize general_scale_factor)
      {
        
-    	 CGSize screen_size = CCDirector.sharedDirector().displaySize();
+    	 
     	 this.setContentSize(new_size);
     	 CGSize menu_size = null;
-    	 this.local_scale_factor = this.calc_local_scale_factor(screen_size, new_size);
- 		 menu_size=calc_image_size(menu, new_size,this.local_scale_factor, general_scale_factor);
+ 		 menu_size=calc_image_size(menu, new_size, general_scale_factor);
  		 menu.setScaleX(menu_size.width);
  		 menu.setScaleY(menu_size.height);
  		 for(int i=0;i<menuitems.size();i++){
- 			 this.setItemSize(menuitems.get(i).getSize(this.local_scale_factor, general_scale_factor), this.local_scale_factor, general_scale_factor, i+1);
+ 			 this.setItemSize(menuitems.get(i).getSize( general_scale_factor),  general_scale_factor, i+1);
  			 this.setItemPosition(this.getItemPosition(i+1), i+1);
  		 }
  		 this.scaled_size_width = this.getContentSize().width*general_scale_factor.width;
  		 this.scaled_size_height = this.getContentSize().height*general_scale_factor.height;
  	
-     }
+     }*/
      
-     public void setItemSize(CGSize new_size, CGSize local_scale_factor, CGSize general_scale_factor, int tag)
+     public void setItemSize(CGSize new_size,  float general_scale_factor, int tag)
      {
     	 CGSize item_image_size = null;
-    	 menuitems.get(tag-1).setSize(new_size, local_scale_factor, general_scale_factor);
-    	 item_image_size=calc_image_size(menuitems.get(tag-1), new_size, local_scale_factor, general_scale_factor);
+    	 menuitems.get(tag-1).setSize(new_size, general_scale_factor);
+    	 item_image_size=calc_image_size(menuitems.get(tag-1), new_size);
     	 menuitems.get(tag-1).setScaleX(item_image_size.width);
     	 menuitems.get(tag-1).setScaleY(item_image_size.height);
      } 
      
-     public CGSize get_size(CGSize general_scale_factor)
+     public CGSize get_size()
      
      {
-    	 CGSize size_menu = CGSize.make(this.scaled_size_width/general_scale_factor.width, this.scaled_size_height/general_scale_factor.height);
+    	 CGSize size_menu = CGSize.make(this.scaled_size_width, this.scaled_size_height);
     	 return size_menu;
      }
     
@@ -100,17 +103,18 @@ public class MenuLayer extends CCColorLayer{
      {
     	  MenuItemLayer item = null;
     	  item = new MenuItemLayer(path, tag);
-    	  
+    	  CGSize item_s = CGSize.make(new_item_size.width*general_scale_factor, new_item_size.height*general_scale_factor);
+    	 
     	 // item.setPosition(512f, 360f);
     	  //item.setColor(ccColor3B.ccBLUE);
     	  CGSize item_size = null;
-    	  item_size = calc_image_size(item, new_item_size, this.local_scale_factor,this.general_scale_factor);
+    	  item_size = calc_image_size(item, item_s);
     	  item.setScaleX(item_size.width);
     	  item.setScaleY(item_size.height);
     	  item.set_scale_factors(item_size);
-    	  item.setContentSize(50f, 50f);
-    	  item.setSize(new_item_size, this.local_scale_factor, this.general_scale_factor);
-    	  item.set_Position(this, position_item,this.local_scale_factor, this.general_scale_factor);
+    	  item.setSize(new_item_size,general_scale_factor);
+    	  System.out.println("IIIIIII"+translation);
+    	  item.set_Position(this, position_item, translation);
     	  menuitems.add(item); 
     	  addChild(menuitems.get(tag-1));
      }
@@ -118,23 +122,23 @@ public class MenuLayer extends CCColorLayer{
      public void change_Image_item(String new_image_path, int tag)
      {
     	 CCSprite img = CCSprite.sprite(new_image_path);
-    	 CGSize image_size = this.get_item(tag).getSize(this.local_scale_factor, this.general_scale_factor);
+    	 CGSize image_size = this.get_item(tag).getSize();
     	 System.out.println("PSD  "+new_image_path);
-    	 this.get_item(tag).change_path(new_image_path, this.local_scale_factor, this.general_scale_factor);
-    	 CGSize scale_factors = calc_image_size(img, image_size, this.local_scale_factor,this.general_scale_factor);
+    	 this.get_item(tag).change_path(new_image_path);
+    	 CGSize scale_factors = calc_image_size(img, image_size);
    	      this.get_item(tag).setScaleX(scale_factors.width);
    	      this.get_item(tag).setScaleY(scale_factors.height);
    	    
      }
      public void setItemPosition( CGPoint location, int tag )
      {
-    	 menuitems.get(tag-1).set_Position(this, location, this.local_scale_factor, this.general_scale_factor);
+    	 menuitems.get(tag-1).set_Position(this, location, translation);
     
      } 
      
      public CGPoint getItemPosition(int tag)
      { 
-    	return  menuitems.get(tag-1).get_Position(this.local_scale_factor, this.general_scale_factor);
+    	return  menuitems.get(tag-1).get_Position( );
 
      }
     
@@ -160,8 +164,8 @@ public class MenuLayer extends CCColorLayer{
      { 
    	  int tag=-1; 
    	  
-   	  float x_coord = this.getPosition().x/general_scale_factor.width;//local_scale_factor.width+menu.getPosition().x;
-   	  float y_coord = this.getPosition().y/general_scale_factor.height;//local_scale_factor.height+menu.getPosition().y;
+   	  float x_coord = this.getPosition().x;
+   	  float y_coord = this.getPosition().y;
    	System.out.println("Bleaa suka "+x_coord+" "+y_coord);
          CGRect sprite = CGRect.make(x_coord,y_coord,this.getContentSize().width,this.getContentSize().height);        
    		if(sprite.contains(location_touch.x, location_touch.y) && this.isTouchEnabled()==true)	           
@@ -179,13 +183,16 @@ public class MenuLayer extends CCColorLayer{
     	  
     	if(this.touch_state!=-1)
     	{  
+    		 	
     	 int menu_item_length = menuitems.size();
+    	 System.out.println("touch state "+touch_state+" "+menu_item_length);
          for(int i =0; i<menu_item_length;i++)
         	 if(menuitems.get(i).get_isTouchEnabel())
         	 {
-          	   item_touch_tag=menuitems.get(i).Touch_Detect(this,location,this.local_scale_factor, this.general_scale_factor);
+        		 
+          	   item_touch_tag=menuitems.get(i).Touch_Detect(this,location);
                if(item_touch_tag!=-1) return true;   
-               System.out.println("Auu "+i);
+               
         	 }
          return true;
     	}
@@ -207,11 +214,11 @@ public class MenuLayer extends CCColorLayer{
     	 local_scale = CGSize.make(width, height);
     	 return local_scale;
      }
-     public CGSize calc_image_size (CCSprite image, CGSize req_size,CGSize local_scale_factor, CGSize general_scale_factor )
+     public CGSize calc_image_size (CCSprite image, CGSize req_size)
      { 
     	
-    	 float scalex = req_size.width/image.getContentSize().width*general_scale_factor.width;
-    	 float scaley = req_size.height/image.getContentSize().height*general_scale_factor.height;
+    	 float scalex = req_size.width/image.getContentSize().width;
+    	 float scaley = req_size.height/image.getContentSize().height;
          return CGSize.make(scalex, scaley);
     	
      }
@@ -230,7 +237,7 @@ public class MenuLayer extends CCColorLayer{
     		    scaled_size_height=0;
     		    item_touch_tag=0;
     		    touch_state = 0;
-    		    general_scale_factor = null;
-    		    local_scale_factor=null;
+    		    general_scale_factor = 0;
+    		   
      }
 }

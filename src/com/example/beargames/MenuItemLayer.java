@@ -23,6 +23,7 @@ public class MenuItemLayer extends CCSprite
 	private Boolean is_touch = null;
 	private float sfactor_x=0f;
 	private float sfactor_y=0f;
+	private CGPoint translation_factor = null;
 	private String path_progress_bar_refrash=null;
 	private static float time_request;
 	private static float time_count;
@@ -56,6 +57,14 @@ public class MenuItemLayer extends CCSprite
 		 this.sfactor_x = value.width;
 		 this.sfactor_y= value.height;
 	 } 
+	 public void set_trans_factor(CGPoint point )
+	 {
+		 translation_factor= CGPoint.make(point.x, point.y);
+	 }
+	 public CGPoint get_trans_factor()
+	 {
+		 return this.translation_factor;
+	 }
 	 public CGSize get_scale_factors()
 	 {
 		 return CGSize.make(sfactor_x, sfactor_y);
@@ -103,23 +112,23 @@ public class MenuItemLayer extends CCSprite
 			 System.out.println("Bastaaaaaaaa");
 		 }
 	 }
-	 public void set_Position ( MenuLayer menu, CGPoint position_intem, CGSize scale_local_factor, CGSize scale_general_factor ) 
+	 public void set_Position ( MenuLayer menu, CGPoint position_intem, CGPoint translation ) 
 	 {
 		 //CGSize size_menu_panel= null;
 		
 			 
-			 float pos_x_item =position_intem.x*scale_general_factor.width;//*scale_local_factor;
-			 float pos_y_item =position_intem.y*scale_general_factor.height;//*scale_local_factor.height*
-			  
+			 float pos_x_item =position_intem.x*translation.x;
+			 float pos_y_item =position_intem.y*translation.y;
+			 System.out.println(pos_x_item+" "+pos_y_item);
 			if((this.size_width+pos_x_item) > menu.scaled_size_width) 
 				 pos_x_item = (menu.scaled_size_width-this.size_width);
 			 
 			 if((this.size_height+pos_y_item) > menu.scaled_size_height) 
 				 pos_y_item = (menu.scaled_size_height-this.size_height);
-			 //System.out.println(menu.get_size().width);
+			 System.out.println(menu.get_size());
 			 //System.out.println(menu.get_size().height);
 	             this.setPosition(pos_x_item, pos_y_item);
-      	     
+	             
 		 
 	}
 	
@@ -134,39 +143,39 @@ public class MenuItemLayer extends CCSprite
 		 item.setTexture(s);
 		 
 	 }
-	 public CGPoint get_Position(CGSize local_scale_factor, CGSize general_scale_factor ) 
+	 public CGPoint get_Position(  ) 
 	 {
 		CGPoint position = null;
-		float x_coord= this.getPosition().x/local_scale_factor.width/general_scale_factor.width;
-		float y_coord = this.getPosition().y/local_scale_factor.height/general_scale_factor.height;
-		return position.make(x_coord,y_coord); 
+		float x_coord= this.getPosition().x;
+		float y_coord = this.getPosition().y;
+		return CGPoint.make(x_coord,y_coord); 
 	 } 
-	 public void setSize ( CGSize new_size, CGSize local_scale_factor, CGSize general_scale_factor)
+	 public void setSize ( CGSize new_size, float general_scale_factor)
 	 {
-			size_width =  new_size.width;//*local_scale_factor.width*general_scale_factor.width;
-			size_height = new_size.height;//*local_scale_factor.height*general_scale_factor.width;
+			size_width =  new_size.width*general_scale_factor;
+			size_height = new_size.height*general_scale_factor;
 			
 			
 			this.setContentSize(size_width, size_height);
 	 }
-	 public CGSize getSize (CGSize local_scale_factor, CGSize general_scale_factor)
+	 public CGSize getSize ()
 	 {
-	     float width = this.size_width/general_scale_factor.width;//local_scale_factor.width;
-	     float height = this.size_height/general_scale_factor.height;//local_scale_factor.height/general_scale_factor.height;
+	     float width = this.size_width;
+	     float height = this.size_height;
 		 CGSize size = CGSize.make(width, height);
 		 
 		 return size;
 	 }
 	 
 	 
-	 public void change_path (String path, CGSize local_scale_factor, CGSize general_scale_factor)
+	 public void change_path (String path)
 	 {
 		
 	
 		CCTexture2D s=  CCTextureCache.sharedTextureCache().addImage(path);
 		this.setTexture(s);
-        this.setScaleX(general_scale_factor.width);
-        this.setScaleY(general_scale_factor.height);
+        this.setScaleX(sfactor_x);
+        this.setScaleY(sfactor_y);
 	 }
 	
       public Boolean get_isTouchEnabel()
@@ -178,12 +187,12 @@ public class MenuItemLayer extends CCSprite
     	  this._isTouchEnabled = value;
       }
       
-      public int Touch_Detect (MenuLayer menu, CGPoint location_touch, CGSize local_scale_factor, CGSize general_scale_factor )
+      public int Touch_Detect (MenuLayer menu, CGPoint location_touch )
       { 
     	  int tag=-1; 
     	  
-    	  float x_coord = (this.getPosition().x+menu.getPosition().x)/general_scale_factor.width;//local_scale_factor.width+menu.getPosition().x;
-    	  float y_coord = (this.getPosition().y+menu.getPosition().y)/general_scale_factor.height;//local_scale_factor.height+menu.getPosition().y;
+    	  float x_coord = (this.getPosition().x+menu.getPosition().x);
+    	  float y_coord = (this.getPosition().y+menu.getPosition().y);
     	  
           CGRect sprite = CGRect.make(x_coord,y_coord,this.size_width,this.size_height);        
     		if(sprite.contains(location_touch.x, location_touch.y))	           
