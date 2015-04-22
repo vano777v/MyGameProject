@@ -491,9 +491,23 @@ public class GameLayer extends CCLayer
     	 MenuLayer main_menu =   new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menus/menu2.png",2, CGSize.make(3048f, 250f), perc);
     	 main_menu.setPosition(0,0);
     	 main_menu.setIsTouchEnabled(true);
-    	 
-        /* main_menu.add_item("choose_unpress.png", 1, CGPoint.make(15, 15), CGSize.make(50, 50));
-         main_menu.get_item(1).setisTouchEnabled(true);
+    	 main_menu.add_item("menus/rim_stone.png", 1, CGPoint.make(348, 10), CGSize.make(200, 200));
+         main_menu.add_item("menus/strategy_unpress.png",2, CGPoint.make(358, 20), CGSize.make(180, 180));
+         main_menu.add_item("menus/rim_stone.png",3, CGPoint.make(69, 10), CGSize.make(200, 200));
+         main_menu.add_item("menus/main_unpress.png",4, CGPoint.make(79, 20), CGSize.make(180, 180));
+         float dist = 678;
+         int count=1;
+         for(int i=5;i<=12;i++)
+         {
+        	 main_menu.add_item("menus/rim.png", i, CGPoint.make(dist, 10), CGSize.make(200, 200));
+        	 i++;
+        	 count=i/2-2;
+             main_menu.add_item("menus/neutral/"+count+"n.png", i, CGPoint.make(dist+10, 20), CGSize.make(180, 180));
+             dist+=300;
+         } 
+         
+         
+         /*main_menu.get_item(1).setisTouchEnabled(true);
          main_menu.add_item("strategy_unpress.png",2, CGPoint.make(108,13), CGSize.make(50, 50));
          main_menu.add_item("ability_unpress.png",3, CGPoint.make(652,13), CGSize.make(50, 50));
          main_menu.add_item("neutral/1n.png", 4, CGPoint.make(227, 8), CGSize.make(60, 60));
@@ -717,28 +731,30 @@ public class GameLayer extends CCLayer
     		 } 
      }
      
-      private void update_control_team()
+      private void update_control_team(int menu_index)
      {
     	   String path=new String();
     	   sort_bear_buffer(buffer_team);
+    	  
     	 for(int i=0;i<buffer_team.length;i++)
     	 {
     		 if(buffer_team[i]!=0)
     		 {
     			 //
-    			 path="neutral/"+Integer.toString(buffer_team[i])+"n.png";
-    			menus_game.get(0).change_Image_item(path, i+4);
-    			path="choosed/"+Integer.toString(buffer_team[i])+"a.png";
-    			menus_game.get(0).get_item(4).time_progress_bar_init(path);
-    			menus_game.get(0).get_item(i+4).setOpacity(255);
-    			menus_game.get(0).get_item(i+4).setisTouchEnabled(true);
+    			 
+    			 path="neutral/"+Integer.toString(buffer_team[i]/2)+"n.png";
+    			menus_game.get(menu_index).change_Image_item(path, i+4);
+    			path="choosed/"+Integer.toString(buffer_team[i]/2)+"a.png";
+    			menus_game.get(menu_index).get_item(i*2+6).time_progress_bar_init(path);
+    			menus_game.get(menu_index).get_item(i*2+6).setOpacity(255);
+    			menus_game.get(menu_index).get_item(i*2+6).setisTouchEnabled(true);
     			
     			
     		 }
     		 else
     		 {
-    			 menus_game.get(0).get_item(i+4).setOpacity(0);
-    			 menus_game.get(0).get_item(i+4).setisTouchEnabled(false);
+    			 menus_game.get(menu_index).get_item(i*2+6).setOpacity(0);
+    			 menus_game.get(menu_index).get_item(i*2+6).setisTouchEnabled(false);
     			// menus_game.get(0).change_Image_item(path,4);
     			 // 
     			 //menus_game.get(0).change_Image_item("block/"+buffer_team[i]+"b.png", i+4);
