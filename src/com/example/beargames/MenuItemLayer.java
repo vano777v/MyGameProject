@@ -1,6 +1,8 @@
 package com.example.beargames;
 
 import java.lang.reflect.GenericSignatureFormatError;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.cocos2d.actions.CCProgressTimer;
 import org.cocos2d.events.CCTouchDispatcher;
@@ -25,8 +27,9 @@ public class MenuItemLayer extends CCSprite
 	private float sfactor_y=0f;
 	private CGPoint translation_factor = null;
 	private String path_progress_bar_refrash=null;
-	private static float time_request;
-	private static float time_count;
+	private  long time_request_sec;
+	private  long time_count;
+	private static Timer timer_item_press = null;
 	//private static float count
 	private static CCProgressTimer image_progress = null;
 	 public MenuItemLayer (String path, int tag )
@@ -36,12 +39,12 @@ public class MenuItemLayer extends CCSprite
 		path_progress_bar_refrash = new String();
 		Boolean is_touch = false;
 		time_count= 0;
-		time_request=0;
+		time_request_sec=0;
 		this._isTouchEnabled = state_item;
 		this.is_touch= is_touch;
 		this.setAnchorPoint(0f, 0f);
 		setTag(tag);
-		
+		timer_item_press =  new Timer();
 	}
 	
 	 public void set_path_progress_bar(String path)
@@ -77,38 +80,54 @@ public class MenuItemLayer extends CCSprite
 		 image_progress.setPosition(0, 0);
 		 image_progress.setType(CCProgressTimer.kCCProgressTimerTypeVerticalBarBT);
 		 image_progress.setPercentage(0f);
-		 image_progress.setScaleX(sfactor_x);
-		 image_progress.setScaleY(sfactor_y);
+		// image_progress.setScaleX(sfactor_x);
+		 //image_progress.setScaleY(sfactor_y);
+		  
 		 this.addChild(image_progress);
 	 }
 	
 	 
 	
-	 protected void time_progress(float time)
+	 protected void time_progress(long time)
 	 {
-		 time_request = time;
-		 time_count=0;
-		 this.schedule("life", 0.1f);
+		 this.time_request_sec = time*100;
+		 this.time_count=0;
+		
+		 TimerTask task = new TimerTask(
+				 ) {
+			
+		
+			public void run() {
+				life();
+				
+			}
+		};
+		 timer_item_press.schedule(task, 10,time_request_sec);
 	 }
-	 public void life (float dtime)
+	 public void life ()
 	 {
-		 if(time_count<=time_request)
+		 if(this.time_count<=this.time_request_sec)
 		 {
-			 time_count+=1;
+			 this.time_count+=100;
 			 //System.out.println("Auuuu");
-			 image_progress.setPercentage(time_count*10); 
+			 
+			 if(this.time_request_sec!=0)
+			     image_progress.setPercentage(time_count*100/time_request_sec); 
 		 }
 		 else
 		 {
-			 this.unschedule("life");
+			//timer_item_press.cancel();
+			//timer_item_press.purge();
+			
 			 image_progress.setPercentage(0f);
 				CCTexture2D s=  CCTextureCache.sharedTextureCache().addImage(path_progress_bar_refrash);
 				this.setTexture(s);
 		        this.setScaleX(sfactor_x);
 		        this.setScaleY(sfactor_y);
 				this.is_touch=false;
-			 time_count=0;
-			 time_request=0;
+				this.setisTouchEnabled(true);
+			 this.time_count=0;
+			 this.time_request_sec=0;
 			 System.out.println("Bastaaaaaaaa");
 		 }
 	 }
