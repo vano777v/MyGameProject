@@ -29,9 +29,9 @@ public class MenuItemLayer extends CCSprite
 	private String path_progress_bar_refrash=null;
 	private  long time_request_sec;
 	private  long time_count;
-	private static Timer timer_item_press = null;
+	private  Timer timer_item_press = null;
 	//private static float count
-	private static CCProgressTimer image_progress = null;
+	private  CCProgressTimer image_progress = null;
 	 public MenuItemLayer (String path, int tag )
 	{
 		super(path);
@@ -44,7 +44,7 @@ public class MenuItemLayer extends CCSprite
 		this.is_touch= is_touch;
 		this.setAnchorPoint(0f, 0f);
 		setTag(tag);
-		timer_item_press =  new Timer();
+		this.timer_item_press =  new Timer();
 	}
 	
 	 public void set_path_progress_bar(String path)
@@ -82,15 +82,20 @@ public class MenuItemLayer extends CCSprite
 		 image_progress.setPercentage(0f);
 		// image_progress.setScaleX(sfactor_x);
 		 //image_progress.setScaleY(sfactor_y);
-		  
+		 this.timer_item_press =  new Timer();
 		 this.addChild(image_progress);
 	 }
 	
-	 
+	 public Boolean timer_is_working()
+	 {
+		 Boolean is_working = false;
+		 if(this.time_count!=0) is_working=true;
+		 return is_working; 
+	 }
 	
 	 protected void time_progress(long time)
 	 {
-		 this.time_request_sec = time*100;
+		 this.time_request_sec = time*1000;
 		 this.time_count=0;
 		
 		 TimerTask task = new TimerTask(
@@ -102,22 +107,23 @@ public class MenuItemLayer extends CCSprite
 				
 			}
 		};
-		 timer_item_press.schedule(task, 10,time_request_sec);
+	
+		 this.timer_item_press.schedule(task, 100,time_request_sec);
 	 }
-	 public void life ()
+	 private void life ()
 	 {
 		 if(this.time_count<=this.time_request_sec)
 		 {
 			 this.time_count+=100;
-			 //System.out.println("Auuuu");
+			 System.out.println("Timer : "+this.time_count);
 			 
 			 if(this.time_request_sec!=0)
-			     image_progress.setPercentage(time_count*100/time_request_sec); 
+			     this.image_progress.setPercentage(time_count*100/time_request_sec); 
 		 }
 		 else
 		 {
-			//timer_item_press.cancel();
-			//timer_item_press.purge();
+			this.timer_item_press.cancel();
+			this.timer_item_press.purge();
 			
 			 image_progress.setPercentage(0f);
 				CCTexture2D s=  CCTextureCache.sharedTextureCache().addImage(path_progress_bar_refrash);

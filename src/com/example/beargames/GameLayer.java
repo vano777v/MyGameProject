@@ -437,9 +437,9 @@ public class GameLayer extends CCLayer
 
     private void  button_bear_team_item_select(int menu_index, int index, int item_tag, long time)
      {
-    	 if(menus_game.get(0).get_item(index).get_touch_state())
+    	 if(menus_game.get(menu_index).get_item(index).get_touch_state())
     	 {
-    		 
+    		 java.lang.System.out.println("Trala lala la");
     	 }
     	 else
     	 {
@@ -794,7 +794,8 @@ public class GameLayer extends CCLayer
      
      private void set_place_to_free(int index)
      {
-    	 buffer_team[index]=0;
+
+    		 buffer_team[index]=0;
      }
   
      private void button_bears_choose( int menu_index, int menu_move, int item_index)
