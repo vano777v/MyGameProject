@@ -27,9 +27,13 @@ public class MenuItemLayer extends CCSprite
 	private float sfactor_y=0f;
 	private CGPoint translation_factor = null;
 	private String path_progress_bar_refrash=null;
-	private  long time_request_sec;
-	private  long time_count;
-	private  Timer timer_item_press = null;
+	private  float time_request_sec;
+	private  float time_count;
+	public static int team_count=0; 
+	private int[] bears_team;
+	private int tag_item_bear=0;
+	private MenuLayer bear_menu=null;
+	//private  Timer timer_item_press = null;
 	//private static float count
 	private  CCProgressTimer image_progress = null;
 	 public MenuItemLayer (String path, int tag )
@@ -44,7 +48,7 @@ public class MenuItemLayer extends CCSprite
 		this.is_touch= is_touch;
 		this.setAnchorPoint(0f, 0f);
 		setTag(tag);
-		this.timer_item_press =  new Timer();
+		
 	}
 	
 	 public void set_path_progress_bar(String path)
@@ -82,8 +86,9 @@ public class MenuItemLayer extends CCSprite
 		 image_progress.setPercentage(0f);
 		// image_progress.setScaleX(sfactor_x);
 		 //image_progress.setScaleY(sfactor_y);
-		 this.timer_item_press =  new Timer();
+		 
 		 this.addChild(image_progress);
+		
 	 }
 	
 	 public Boolean timer_is_working()
@@ -93,28 +98,29 @@ public class MenuItemLayer extends CCSprite
 		 return is_working; 
 	 }
 	
-	 protected void time_progress(long time)
+	 protected void time_progress(float time, MenuLayer bears, int tag_intem, int team_bear_count, int[] bears_team)
 	 {
-		 this.time_request_sec = time*1000;
+		 this.time_request_sec = time*10;
 		 this.time_count=0;
-		
-		 TimerTask task = new TimerTask(
-				 ) {
-			
-		
-			public void run() {
-				life();
-				
-			}
-		};
-	
-		 this.timer_item_press.schedule(task, 100,time_request_sec);
+		 bear_menu=bears;
+		 tag_item_bear=tag_intem;
+		// team_count=team_bear_count;
+		 this.bears_team=bears_team;
+		 this.schedule("life", 0.1f);		
+
 	 }
-	 private void life ()
+	 private Boolean searhc_in_vector(int[] vector, int item)
+	 { Boolean result = false;
+	  
+	  for(int i=0; i<vector.length;i++)
+		  if(vector[i]==item) result=true;
+		return result; 
+	 }
+	 public void life (float dtime)
 	 {
 		 if(this.time_count<=this.time_request_sec)
 		 {
-			 this.time_count+=100;
+			 this.time_count+=0.1f;
 			 System.out.println("Timer : "+this.time_count);
 			 
 			 if(this.time_request_sec!=0)
@@ -122,8 +128,8 @@ public class MenuItemLayer extends CCSprite
 		 }
 		 else
 		 {
-			this.timer_item_press.cancel();
-			this.timer_item_press.purge();
+
+			 
 			
 			 image_progress.setPercentage(0f);
 				CCTexture2D s=  CCTextureCache.sharedTextureCache().addImage(path_progress_bar_refrash);
@@ -134,9 +140,25 @@ public class MenuItemLayer extends CCSprite
 				this.setisTouchEnabled(true);
 			 this.time_count=0;
 			 this.time_request_sec=0;
-			 System.out.println("Bastaaaaaaaa");
+			 java.lang.System.out.println("PPP"+bear_menu.get_item(tag_item_bear).getOpacity());
+			bear_menu.change_Image_item("menus/choosed/"+tag_item_bear+"a.png", tag_item_bear*2);
+			team_count++;
+			if(team_count==4) team_count=0;
+			for(int i=2;i<18;i+=2)
+			{
+				if( !bear_menu.get_item(i).get_isTouchEnabel()&&bear_menu.get_item(i).get_touch_state()&&!searhc_in_vector(bears_team, i))
+					bear_menu.change_Image_item("menus/neutral/"+(i/2)+"n.png", i);
+				    bear_menu.get_item(i).set_touch_state(false); 
+				    bear_menu.get_item(i).setisTouchEnabled(true);
+			}
+			bear_menu.get_item(tag_item_bear*2).setisTouchEnabled(true);
+			
+			 System.out.println("Bastaaaaaaaa "+team_count);
+			 this.unschedule("life");
 		 }
 	 }
+	 
+	
 	 public void set_Position ( MenuLayer menu, CGPoint position_intem, CGPoint translation ) 
 	 {
 		 //CGSize size_menu_panel= null;
