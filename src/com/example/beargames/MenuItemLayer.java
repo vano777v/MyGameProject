@@ -146,9 +146,9 @@ public class MenuItemLayer extends CCSprite
 			if(team_count==4) team_count=0;
 			for(int i=2;i<18;i+=2)
 			{
-				if( !bear_menu.get_item(i).get_isTouchEnabel()&&bear_menu.get_item(i).get_touch_state()&&!searhc_in_vector(bears_team, i))
+				if( !bear_menu.get_item(i).get_isTouchEnabel()&&!bear_menu.get_item(i).get_touch_state()&&!searhc_in_vector(bears_team, i))
 					bear_menu.change_Image_item("menus/neutral/"+(i/2)+"n.png", i);
-				    bear_menu.get_item(i).set_touch_state(false); 
+				    //bear_menu.get_item(i).set_touch_state(false); 
 				    bear_menu.get_item(i).setisTouchEnabled(true);
 			}
 			bear_menu.get_item(tag_item_bear*2).setisTouchEnabled(true);

@@ -126,13 +126,14 @@ public class GameLayer extends CCLayer
     		}
     	    
     		String path= null;
-    		int i=6;
+    		int i=7;
     		while(i<=8)
     		{
     			
     			path = "menus/block/"+(i)+"b.png";
     			menus_game.get(menu_index).change_Image_item(path, i*2);
     			menus_game.get(menu_index).get_item(i*2).setisTouchEnabled(false);
+    			menus_game.get(menu_index).get_item(i*2).set_touch_state(true);
     			i++;
     		}
     		
@@ -459,9 +460,9 @@ public class GameLayer extends CCLayer
     		 {
     			 for(int i=2;i<18;i+=2)
     			 {
-    			   if(menus_game.get(bear_menu_index).get_item(i).get_isTouchEnabel()){	 
+    			   if(menus_game.get(bear_menu_index).get_item(i).get_isTouchEnabel()&& !menus_game.get(bear_menu_index).get_item(i).get_touch_state()){	 
     				  menus_game.get(bear_menu_index).change_Image_item("menus/neutral_press/"+(i/2)+"np.png", i);
-    				  menus_game.get(bear_menu_index).get_item(i).set_touch_state(true);
+    				 // menus_game.get(bear_menu_index).get_item(i).set_touch_state(true);
     				  menus_game.get(bear_menu_index).get_item(i).setisTouchEnabled(false);
     			   }
     			 }
@@ -562,7 +563,7 @@ public class GameLayer extends CCLayer
     	 ability_menu.add_item("ability_icons/3n.png", 5, CGPoint.make(570, 715), CGSize.make(140, 140));
     	 
     	 ability_menu.add_item("ability_icons/4n.png", 6, CGPoint.make(285, 705), CGSize.make(521, 160));
-    	 ability_menu.add_item("ability_icons/2n.png", 7, CGPoint.make(30, 950), CGSize.make(200, 200));
+    	 //ability_menu.add_item("ability_icons/2n.png", 7, CGPoint.make(30, 950), CGSize.make(200, 200));
     	 addChild(ability_menu);
     	  
     	 //menus_game.add(2, ability_menu);
