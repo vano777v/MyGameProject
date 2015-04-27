@@ -64,7 +64,7 @@ public class GameLayer extends CCLayer
 	private static final int MOVES_LABEL_TAG =20; 
     private static int[] buffer_team;
     private static int[] buffer_ability_items={0,0,0};
-    private static int[] buffer_ability_team = {2,4,5,8};
+    private static int[] buffer_ability_team = {2,3,5,8};
 	private CCMenu gen = null;
 	 static CCProgressTimer item1;
 	private CCBitmapFontAtlas statusLabel;
@@ -122,7 +122,7 @@ public class GameLayer extends CCLayer
     		for(int i=0;i<buffer_team.length;i++){
     	      buffer_team[i]=(i+1)*2;
     	      //java.lang.System.out.println("Aleoonaaa "+buffer_team[i]);
-    	     button_item_bears_press(buffer_team[i],0);
+    	     button_item_bears_press(buffer_team[i],0,1);
     		}
     	    
     		String path= null;
@@ -295,51 +295,51 @@ public class GameLayer extends CCLayer
 		   		case 2: 
 		   	   {
 		   		statusLabel.setString(Float.toString(31f));
-		   		  button_item_bears_press(item_tag, menu_tag-1);
+		   		  button_item_bears_press(item_tag, menu_tag-1,1);
 		   		   
 		   		   break;
 		   	   }
 		   		case 4: 
 		   		{
-		   		 button_item_bears_press(item_tag, menu_tag-1);
+		   		 button_item_bears_press(item_tag, menu_tag-1,1);
 		   			statusLabel.setString(Float.toString(22f));
 		   			break;
 		   		}
 		   		
 		   		case 6: 
 		   		{
-		   		 button_item_bears_press(item_tag, menu_tag-1);
+		   		 button_item_bears_press(item_tag, menu_tag-1,1);
 		   			statusLabel.setString(Float.toString(23f));
 		   			break;
 		   		}
 		   		
 		   		case 8: 
 		   		{
-		   		 button_item_bears_press(item_tag, menu_tag-1);
+		   		 button_item_bears_press(item_tag, menu_tag-1,1);
 		   			statusLabel.setString(Float.toString(24f));
 		   			break;
 		   		}
 		   		case 10: 
 		   		{
-		   		 button_item_bears_press(item_tag, menu_tag-1);
+		   		 button_item_bears_press(item_tag, menu_tag-1,1);
 		   			statusLabel.setString(Float.toString(25f));
 		   			break;
 		   		}
 		   		case 12: 
 		   		{
-		   		 button_item_bears_press(item_tag, menu_tag-1);
+		   		 button_item_bears_press(item_tag, menu_tag-1,1);
 		   			statusLabel.setString(Float.toString(26f));
 		   			break;
 		   		}
 		   		case 14: 
 		   		{
-		   		 button_item_bears_press(item_tag, menu_tag-1);
+		   		 button_item_bears_press(item_tag, menu_tag-1,1);
 		   			statusLabel.setString(Float.toString(27f));
 		   			break;
 		   		}
 		   		case 16: 
 		   		{
-		   		 button_item_bears_press(item_tag, menu_tag-1);
+		   		 button_item_bears_press(item_tag, menu_tag-1,1);
 		   			statusLabel.setString(Float.toString(28f));
 		   			break;
 		   		}
@@ -456,7 +456,7 @@ public class GameLayer extends CCLayer
     		 team_selected++;
     		
     		 java.lang.System.out.println("kkkk "+team_selected+" "+ menus_game.get(menu_index).get_item(index).team_count);
-    		 if((team_selected-menus_game.get(menu_index).get_item(index).team_count)==4)
+    		 if((team_selected-menus_game.get(menu_index).get_item(index).team_count)==4||(team_selected-menus_game.get(menu_index).get_item(index).team_count)==0)
     		 {
     			 for(int i=2;i<18;i+=2)
     			 {
@@ -553,7 +553,7 @@ public class GameLayer extends CCLayer
     	
     	 
     	
-    	 ability_menu.setPosition(screenSize.width-ability_menu.scaled_size_width,0f-(ability_menu.scaled_size_height-menus_game.get(1).scaled_size_height));
+    	 ability_menu.setPosition(screenSize.width-ability_menu.scaled_size_width,0f);//-(ability_menu.scaled_size_height-menus_game.get(1).scaled_size_height));
     	
     	 ability_menu.setIsTouchEnabled(true);
     	 ability_menu.add_item("ability_icons/1b.png", 1, CGPoint.make(20, 930), CGSize.make(225, 225));
@@ -692,7 +692,7 @@ public class GameLayer extends CCLayer
     	 menus_game.add(3, setting_menu);
      }*/
      
-     private void button_item_bears_press(int item_index, int menu_tag)
+     private void button_item_bears_press(int item_index, int menu_tag, int menu_main_index)
      {
     	 int item_team=-1, place_free=-1;
     	 int delete_item=0;
@@ -737,13 +737,14 @@ public class GameLayer extends CCLayer
     			 else
     			 {
     				
-    				int tag= buffer_team[buffer_team.length-1];
-    				 buffer_team[buffer_team.length-1]=item_index;
+    			  if(search_not_progress_place(menu_main_index)!=-1){	 
+    				int tag= buffer_team[(search_not_progress_place(menu_main_index)-6)/2];
+    				 buffer_team[(search_not_progress_place(menu_main_index)-6)/2]=item_index;
     				 path = "menus/neutral/"+(tag/2)+"n.png";
     				 menus_game.get(menu_tag).get_item(tag).set_touch_state(false);
     	    		 menus_game.get(menu_tag).change_Image_item(path, tag);
     				 //System.out.println("sUKA "+tag);
-    				
+    			  }
     			 }
     		 }
     		
@@ -751,6 +752,13 @@ public class GameLayer extends CCLayer
     	 
        if(menus_game.size()>=2)	 
     	update_control_team(1);
+     }
+     private int  search_not_progress_place(int menu_index)
+     {
+    	 int item_index=-1;
+    	 for(int i=6;i<13; i+=2)
+            if(!menus_game.get(menu_index).get_item(i).timer_is_working()) return item_index=i;  
+    	 return item_index;
      }
      private void sort_bear_buffer(int[] bufer)
      {
@@ -770,7 +778,7 @@ public class GameLayer extends CCLayer
     	  
     	 for(int i=0;i<buffer_team.length;i++)
     	 {
-    		 if(buffer_team[i]!=0)
+    		 if(buffer_team[i]!=0 && !menus_game.get(menu_index).get_item(i*2+6).timer_is_working())
     		 {
     			 // 
     			path="menus/neutral/"+Integer.toString(buffer_team[i]/2)+"n.png";
@@ -784,8 +792,10 @@ public class GameLayer extends CCLayer
     		 }
     		 else
     		 {
+    			 if(!menus_game.get(menu_index).get_item(i*2+6).timer_is_working()){
     			 menus_game.get(menu_index).get_item(i*2+6).setOpacity(0);
     			 menus_game.get(menu_index).get_item(i*2+6).setisTouchEnabled(false);
+    			 }
     			
     			// menus_game.get(0).change_Image_item(path,4);
     			 // 
