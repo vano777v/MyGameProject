@@ -24,6 +24,7 @@ public class MenuLayer extends CCColorLayer{
     protected float scaled_size_height=0;
     private int item_touch_tag=-1;
     private int touch_state = -1;
+    
     private float general_scale_factor= 0;
     static private CGPoint translation = null;
     private  ArrayList<MenuItemLayer> menuitems = null;
@@ -186,7 +187,7 @@ public class MenuLayer extends CCColorLayer{
     		 	
     	 int menu_item_length = menuitems.size();
     	 System.out.println("touch state "+touch_state+" "+menu_item_length);
-         for(int i =0; i<menu_item_length;i++)
+         for(int i =0; i<menu_item_length;i++){
         	 if(menuitems.get(i).get_isTouchEnabel())
         	 {
         		 
@@ -194,7 +195,10 @@ public class MenuLayer extends CCColorLayer{
                if(item_touch_tag!=-1) return true;   
                
         	 }
-         return true;
+            
+        	 }
+          touch_state=-1;
+        // return true;
     	}
        //;
    	  //System.out.println("COORDOnate "+menuitems.size()+" "+location);
