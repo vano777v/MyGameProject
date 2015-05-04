@@ -91,6 +91,33 @@ public class MenuItemLayer extends CCSprite
 		
 	 }
 	
+	 public void button_press (String main_path,String delay_path, float time)
+	 {
+		 this.time_request_sec = time;
+		 this.time_count=0;
+		 this.tag_item_bear = this.getTag();
+		 path_progress_bar_refrash= main_path;
+		 this.schedule("delay_press", 0.1f);
+		    CCTexture2D s=  CCTextureCache.sharedTextureCache().addImage(delay_path);
+			this.setTexture(s);
+	        this.setScaleX(sfactor_x);
+	        this.setScaleY(sfactor_y);
+	 }
+	 
+	 public void delay_press(float dtime)
+	 {
+		 if(this.time_count<=this.time_request_sec)
+		 {
+			 this.time_count+=0.1f;
+		 }else
+		 {
+			 CCTexture2D s=  CCTextureCache.sharedTextureCache().addImage(path_progress_bar_refrash);
+				this.setTexture(s);
+		        this.setScaleX(sfactor_x);
+		        this.setScaleY(sfactor_y);
+		        this.unschedule("delay_press");
+		 }
+	 }
 	 public Boolean timer_is_working()
 	 {
 		 Boolean is_working = false;
