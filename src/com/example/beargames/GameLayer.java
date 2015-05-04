@@ -528,7 +528,9 @@ public class GameLayer extends CCLayer
          main_menu.add_item("menus/strategy_unpress.png",2, CGPoint.make(370, 20), CGSize.make(180, 180));
          main_menu.add_item("menus/rim_stone.png",3, CGPoint.make(20, 10), CGSize.make(200, 200));
          main_menu.add_item("menus/main_unpress.png",4, CGPoint.make(30, 20), CGSize.make(180, 180));
-         float dist = ((screenSize.width-762*perc-580*perc-1100*perc)/2)/perc+580f;
+         float button_dist =((screenSize.width-762f*perc-590f*perc-800f*perc)/5f)/perc;
+         float dist = button_dist+590f;
+         java.lang.System.out.println("dist "+dist);
          int count=1;
          for(int i=5;i<=12;i++)
          {
@@ -536,7 +538,7 @@ public class GameLayer extends CCLayer
         	 i++;
         	 count=i/2-2;
              main_menu.add_item("menus/neutral/"+count+"n.png", i, CGPoint.make(dist+10, 20), CGSize.make(180, 180));
-             dist+=300;
+             dist+=(200+button_dist);
          } 
          
          
