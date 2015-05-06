@@ -88,8 +88,11 @@ public class GameLayer extends CCLayer
         menus_game = new ArrayList<MenuLayer>();
         buffer_team =  new int[4];
     	CGSize percents = CGSize.make(800/2560f, 1082/1600f);
+    	float pp = screenSize.height/1600f;  
         CGSize scale_factors = CGSize.make(1, 1);
-        
+        Level_1_1_Layer level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255));
+        level.setPosition(CGPoint.make(0, 250f*pp));
+        addChild(level);
         //size_menus.set(304, 486);
         this.bears_menu_init(screenSize, percents);
         this.main_menu_init( 0.16f);
@@ -105,6 +108,7 @@ public class GameLayer extends CCLayer
         //this.ablity_items_init();
         //for(int i=1;i<=5; i++)
         	//bear_init.add(i*2);
+        
        statusLabel = CCBitmapFontAtlas.bitmapFontAtlas (Float.toString(20), "bionic.fnt");
         //statusLabel.setScale( generalscalefactor_h); //scaled
         statusLabel.setAnchorPoint(CGPoint.ccp(0,1));
@@ -555,7 +559,7 @@ public class GameLayer extends CCLayer
      private void ability_menu_init()
      {
     	 float perc = screenSize.height/1600f;
-    	 MenuLayer ability_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menus/menu3.png",3, CGSize.make(762f, 1180f), perc);
+    	 MenuLayer ability_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menus/menu3.png",3, CGSize.make(762f, 1227f), perc);
     	
     	
     	 
@@ -573,14 +577,14 @@ public class GameLayer extends CCLayer
      
      private void ablity_items_init(MenuLayer ability_menu , int bear_menu_index)
      {
-    	float coord_x=80, coord_y=705;
+    	float coord_x=80, coord_y=752;
     	int j=0, count=1, count_bear_main=0;
     	String path=null;
-    	ability_menu.add_item("menus/ability_icons/5ab_i/5_mb_a.png", 1, CGPoint.make(20, 930), CGSize.make(225, 225));
+    	ability_menu.add_item("menus/ability_icons/5ab_i/5_mb_a.png", 1, CGPoint.make(20, 977), CGSize.make(225, 225));
     	ability_menu.get_item(1).setisTouchEnabled(true);
-    	ability_menu.add_item("menus/ability_icons/5ab_i/2a.png", 2, CGPoint.make(320, 970), CGSize.make(150, 150));
+    	ability_menu.add_item("menus/ability_icons/5ab_i/2a.png", 2, CGPoint.make(320, 1017), CGSize.make(150, 150));
     	ability_menu.get_item(2).setisTouchEnabled(true);
-    	ability_menu.add_item("menus/ability_icons/5ab_i/3a.png", 3, CGPoint.make(570, 970), CGSize.make(150, 150));
+    	ability_menu.add_item("menus/ability_icons/5ab_i/3a.png", 3, CGPoint.make(570, 1017), CGSize.make(150, 150));
     	ability_menu.get_item(3).setisTouchEnabled(true);
     	 for(int i=4;i<20;i+=4)
     	{
@@ -633,7 +637,7 @@ public class GameLayer extends CCLayer
     	 }
     		 count_bear_main++;
     	}
-    	 coord_y=705;
+    	 coord_y=752;
     	 for(int i=20;i<24;i++)
     	 {
     		 ability_menu.add_item("menus/ability_icons/glass.png", i, CGPoint.make(285, coord_y), CGSize.make(521, 160));
