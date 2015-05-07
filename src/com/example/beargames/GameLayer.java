@@ -69,6 +69,7 @@ public class GameLayer extends CCLayer
 	 static CCProgressTimer item1;
 	private CCBitmapFontAtlas statusLabel;
 	private int istouch =0;
+	private Level_1_1_Layer level;
 	private  int  last_touch_ability=0;
 	private  MenuLayer bar_menu, bnm;
 	private CCSprite player;
@@ -90,7 +91,7 @@ public class GameLayer extends CCLayer
     	CGSize percents = CGSize.make(800/2560f, 1082/1600f);
     	float pp = screenSize.height/1600f;  
         CGSize scale_factors = CGSize.make(1, 1);
-        Level_1_1_Layer level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255));
+        level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255));
         level.setPosition(CGPoint.make(0, 250f*pp));
         addChild(level);
         //size_menus.set(304, 486);
@@ -152,6 +153,7 @@ public class GameLayer extends CCLayer
     	}
     	//update_control_team();
     }
+    private int trans=0;
      public boolean ccTouchesEnded(MotionEvent event) 
      {
     	
@@ -380,6 +382,9 @@ public class GameLayer extends CCLayer
 		   		case 2: 
 		   		{
 		   			button_restart_press(menu_tag-1, 2);
+		   			trans -=20;
+		   			level.setPosition(trans,menus_game.get(1).scaled_size_height);
+		   			
 		   			statusLabel.setString(Float.toString(22f));
 		   			break;
 		   		}
