@@ -91,7 +91,7 @@ public class GameLayer extends CCLayer
     	CGSize percents = CGSize.make(800/2560f, 1082/1600f);
     	float pp = screenSize.height/1600f;  
         CGSize scale_factors = CGSize.make(1, 1);
-        level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255));
+        level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255),pp);
         level.setPosition(CGPoint.make(0, 250f*pp));
         addChild(level);
         //size_menus.set(304, 486);
