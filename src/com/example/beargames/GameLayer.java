@@ -917,7 +917,7 @@ public class GameLayer extends CCLayer
      private void button_zoom_out (int menu_index, int item_tag)
      {
     	 menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/zoom_out_unpress.png","menus/settings_items/zoom_out_press.png", 0.2f);
-    	  
+    	  level.zoom_out();
 
 		
      }
@@ -925,7 +925,7 @@ public class GameLayer extends CCLayer
      {
     	 
     	 menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/zoom_in_unpress.png","menus/settings_items/zoom_in_press.png", 0.2f);
-
+         level.zoom_in(); 
 		
      }
       private void button_ability_press(int menu_index, int menu_item)

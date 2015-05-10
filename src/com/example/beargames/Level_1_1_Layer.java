@@ -29,31 +29,38 @@ public class Level_1_1_Layer extends CCColorLayer
 	protected Level_1_1_Layer(ccColor4B color, float perc) {
 		super(color);
 		// TODO Auto-generated constructor stub
-		this.setContentSize(CGSize.make(winSize.width*3, winSize.height));			
+		this.setContentSize(CGSize.make(winSize.width*3, 2048*pp));			
 		this.setPosition(CGPoint.ccp(0, 0));
 		this.setIsTouchEnabled(true);
 		 pp = perc;
 		//tback.setContentSize(2560f*pp,2560*pp);
 		
-		    mback.setTextureRect(0, 0, winSize.width*4, winSize.height*(35f/winSize.height), false);
+		    mback.setTextureRect(0, 0,  (2048/winSize.width)*winSize.width*3*1.1f, winSize.height*(2048f/winSize.height), false);
 			mback.getTexture().setTexParameters(GL10.GL_LINEAR, GL10.GL_LINEAR, GL10.GL_REPEAT, GL10.GL_REPEAT);
-			
-			sback.setScale(0.8f);
-			sback.setTextureRect(0, 0,  winSize.width*4, winSize.height*(2560f/winSize.height), false);
+			mback.setContentSize(CGSize.make((2048/winSize.width)*winSize.width*3*1.1f, 2048*pp));
+			mback.setScale(pp);
+			sback.setTextureRect(0, 0,   (2048/winSize.width)*winSize.width*3*1.1f*1.5f, winSize.height*(2048f/winSize.height), false);
 			sback.getTexture().setTexParameters(GL10.GL_LINEAR, GL10.GL_LINEAR, GL10.GL_REPEAT, GL10.GL_REPEAT);
-			
-			tback.setTextureRect(0, 0,  winSize.width*5, winSize.height*(2048/winSize.height), false);
+			sback.setContentSize(CGSize.make((2048/winSize.width)*winSize.width*3*1.15f, 2048*pp));
+			sback.setScale(pp);
+			tback.setTextureRect(0, 0,   (2048/winSize.width)*winSize.width*3*1.1f*3f, winSize.height*(2048/winSize.height), false);
 			tback.getTexture().setTexParameters(GL10.GL_LINEAR, GL10.GL_LINEAR, GL10.GL_REPEAT, GL10.GL_REPEAT);
-			
+			tback.setContentSize(CGSize.make((2048/winSize.width)*winSize.width*3*1.3f, 2048*pp));
+			tback.setScale(pp);
+			top_back.setTextureRect(0, 0,  (2048/winSize.width)*winSize.width*3, winSize.height*(2048/winSize.height), false);
+			top_back.getTexture().setTexParameters(GL10.GL_LINEAR, GL10.GL_LINEAR, GL10.GL_REPEAT, GL10.GL_REPEAT);
+			top_back.setContentSize(CGSize.make( (2048/winSize.width)*winSize.width*3, 2048*pp));
+			top_back.setScale(pp);
 			mback.setAnchorPoint(CGPoint.make(0,0));
 			sback.setAnchorPoint(CGPoint.make(0,0));
 			tback.setAnchorPoint(CGPoint.make(0,0));
+			top_back.setAnchorPoint(CGPoint.make(0,0));
 		
 		CCParallaxNode voidNode = CCParallaxNode.node();
 		voidNode.addChild(top_back, 0, 0, 0, 0, 0);    	
-    	voidNode.addChild(tback, 1, 0.3f, 0.6f, 0, -700);
-    	voidNode.addChild(sback, 2, 0.15f, 0.4f, 0, -100);
-    	voidNode.addChild(mback, 3, 0.1f, 0.2f, 0, 250f*pp);
+    	voidNode.addChild(tback, 1, 0.3f, 0, 0, 0);
+    	voidNode.addChild(sback, 2, 0.15f, 0, 0, 250*pp);
+    	voidNode.addChild(mback, 3, 0.1f, 0, 0, 250*pp);
     	addChild(voidNode, 0, 6);
     	//this.schedule("update", 1);
 	}
@@ -71,10 +78,27 @@ public class Level_1_1_Layer extends CCColorLayer
 		
 	
 		   float lim=this.getPosition().x+(translation.x)*(-1);
-			System.out.println("Leap leap "+lim);
-		   if(lim<0 )
+			System.out.println("Leap leap "+winSize+" "+pp);
+		   if(lim<0 && lim*(-1)<this.getContentSize().width*3)
 		     this.setPosition(lim, 250f*pp);
 		   old_touch=touchLocation;
 		return true;
+	}
+	public void zoom_in ()
+	{
+	    pp *=1.2f; 
+		//top_back.setScale(scale);
+		tback.setScale(pp);
+		sback.setScale(pp);
+		mback.setScale(pp);
+	}
+	
+	public void zoom_out ()
+	{
+		pp/=1.2f;
+		//top_back.setScale(scale);
+		tback.setScale(pp);
+		sback.setScale(pp);
+		mback.setScale(pp);
 	}
 }
