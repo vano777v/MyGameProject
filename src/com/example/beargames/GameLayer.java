@@ -91,9 +91,17 @@ public class GameLayer extends CCLayer
     	CGSize percents = CGSize.make(800/2560f, 1082/1600f);
     	float pp = screenSize.height/1600f;  
         CGSize scale_factors = CGSize.make(1, 1);
-        level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255),pp);
-        level.setPosition(CGPoint.make(0, 250f*pp));
-        addChild(level);
+        
+        Game_Arena arena =  new Game_Arena(ccColor4B.ccc4(255,0, 0,255), pp, percents, 6);
+        arena.setPosition(0, 300f*pp);
+        arena.set_size_arena(CGSize.make(screenSize.width*3, 2048*pp));
+        arena.add_Paralax_Child("campaign_1/level_1/paralax/noise.png", CGPoint.make(0, 0),CGPoint.make(0, 0), 0);
+        arena.add_Paralax_Child("campaign_1/level_1/paralax/sback.png", CGPoint.make(0, 250f*pp),CGPoint.make(0.3f, 0), 1);
+        addChild(arena);
+        //level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255),pp);
+        //level.setPosition(CGPoint.make(0, 250f*pp));
+        
+        //addChild(level);
         //size_menus.set(304, 486);
         this.bears_menu_init(screenSize, percents);
         this.main_menu_init( 0.16f);

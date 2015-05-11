@@ -142,4 +142,8 @@ public class CCParallaxNode extends CCNode {
         super.visit(gl);
     }
     
+   public ArrayList<CCPointObject> get_paralax_nodes_list()
+    {
+    	return parallaxArray_;
+    }
 }

@@ -39,13 +39,13 @@ public class Level_1_1_Layer extends CCColorLayer
 			mback.getTexture().setTexParameters(GL10.GL_LINEAR, GL10.GL_LINEAR, GL10.GL_REPEAT, GL10.GL_REPEAT);
 			mback.setContentSize(CGSize.make((2048/winSize.width)*winSize.width*3*1.1f, 2048*pp));
 			mback.setScale(pp);
-			sback.setTextureRect(0, 0,   (2048/winSize.width)*winSize.width*3*1.1f*1.5f, winSize.height*(2048f/winSize.height), false);
+			sback.setTextureRect(0, 0,   (2048/winSize.width)*winSize.width*3*1.1f*1.3f*1.2f, winSize.height*(2048f/winSize.height), false);
 			sback.getTexture().setTexParameters(GL10.GL_LINEAR, GL10.GL_LINEAR, GL10.GL_REPEAT, GL10.GL_REPEAT);
-			sback.setContentSize(CGSize.make((2048/winSize.width)*winSize.width*3*1.15f, 2048*pp));
+			sback.setContentSize(CGSize.make((2048/winSize.width)*winSize.width*3*1.1f*1.3f*1.2f, 2048*pp));
 			sback.setScale(pp);
-			tback.setTextureRect(0, 0,   (2048/winSize.width)*winSize.width*3*1.1f*3f, winSize.height*(2048/winSize.height), false);
+			tback.setTextureRect(0, 0,   (2048/winSize.width)*winSize.width*3*1.1f*1.2f, winSize.height*(2048/winSize.height), false);
 			tback.getTexture().setTexParameters(GL10.GL_LINEAR, GL10.GL_LINEAR, GL10.GL_REPEAT, GL10.GL_REPEAT);
-			tback.setContentSize(CGSize.make((2048/winSize.width)*winSize.width*3*1.3f, 2048*pp));
+			tback.setContentSize(CGSize.make((2048/winSize.width)*winSize.width*3*1.1f*1.2f, 2048*pp));
 			tback.setScale(pp);
 			top_back.setTextureRect(0, 0,  (2048/winSize.width)*winSize.width*3, winSize.height*(2048/winSize.height), false);
 			top_back.getTexture().setTexParameters(GL10.GL_LINEAR, GL10.GL_LINEAR, GL10.GL_REPEAT, GL10.GL_REPEAT);
@@ -58,8 +58,8 @@ public class Level_1_1_Layer extends CCColorLayer
 		
 		CCParallaxNode voidNode = CCParallaxNode.node();
 		voidNode.addChild(top_back, 0, 0, 0, 0, 0);    	
-    	voidNode.addChild(tback, 1, 0.3f, 0, 0, 0);
-    	voidNode.addChild(sback, 2, 0.15f, 0, 0, 250*pp);
+    	voidNode.addChild(tback, 1, 0.2f, 0, 0, 0);
+    	voidNode.addChild(sback, 2, 0.3f, 0, 0, 250*pp);
     	voidNode.addChild(mback, 3, 0.1f, 0, 0, 250*pp);
     	addChild(voidNode, 0, 6);
     	//this.schedule("update", 1);
@@ -81,7 +81,7 @@ public class Level_1_1_Layer extends CCColorLayer
 			System.out.println("Leap leap "+winSize+" "+pp);
 		   if(lim<0 && lim*(-1)<this.getContentSize().width*3)
 		     this.setPosition(lim, 250f*pp);
-		   old_touch=touchLocation;
+		 
 		return true;
 	}
 	public void zoom_in ()
