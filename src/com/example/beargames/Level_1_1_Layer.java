@@ -59,7 +59,7 @@ public class Level_1_1_Layer extends CCColorLayer
 		CCParallaxNode voidNode = CCParallaxNode.node();
 		voidNode.addChild(top_back, 0, 0, 0, 0, 0);    	
     	voidNode.addChild(tback, 1, 0.2f, 0, 0, 0);
-    	voidNode.addChild(sback, 2, 0.3f, 0, 0, 250*pp);
+    	voidNode.addChild(sback, 2, 0.3f, 0, 0, 100*pp);
     	voidNode.addChild(mback, 3, 0.1f, 0, 0, 250*pp);
     	addChild(voidNode, 0, 6);
     	//this.schedule("update", 1);

@@ -92,16 +92,18 @@ public class GameLayer extends CCLayer
     	float pp = screenSize.height/1600f;  
         CGSize scale_factors = CGSize.make(1, 1);
         
-        Game_Arena arena =  new Game_Arena(ccColor4B.ccc4(255,0, 0,255), pp, percents, 6);
-        arena.setPosition(0, 300f*pp);
-        arena.set_size_arena(CGSize.make(screenSize.width*3, 2048*pp));
-        arena.add_Paralax_Child("campaign_1/level_1/paralax/noise.png", CGPoint.make(0, 0),CGPoint.make(0, 0), 0);
-        arena.add_Paralax_Child("campaign_1/level_1/paralax/sback.png", CGPoint.make(0, 250f*pp),CGPoint.make(0.3f, 0), 1);
-        addChild(arena);
-        //level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255),pp);
-        //level.setPosition(CGPoint.make(0, 250f*pp));
+        //Game_Arena arena =  new Game_Arena(ccColor4B.ccc4(255,0, 0,255), pp, percents, 6);
+        //arena.setPosition(0, 0);
+        //arena.set_size_arena(CGSize.make(screenSize.width*3, 2048*pp));
+        //arena.add_Paralax_Child("campaign_1/level_1/paralax/noise.png", CGPoint.make(0, 250f*pp),CGPoint.make(0, 0), 0);
+        //arena.add_Paralax_Child("campaign_1/level_1/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
+        //arena.add_Paralax_Child("campaign_1/level_1/paralax/sback.png", CGPoint.make(0, 125f*pp),CGPoint.make(0.3f, 0), 2);
+        //arena.add_Paralax_Child("campaign_1/level_1/paralax/mback.png", CGPoint.make(0, 250f*pp),CGPoint.make(0.1f, 0), 2);
+        //addChild(arena);
+        level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255),pp);
+        level.setPosition(CGPoint.make(0, 250f*pp));
         
-        //addChild(level);
+        addChild(level);
         //size_menus.set(304, 486);
         this.bears_menu_init(screenSize, percents);
         this.main_menu_init( 0.16f);
@@ -109,7 +111,7 @@ public class GameLayer extends CCLayer
         //size_menus.set(800,1082);
        
         //size_menus.set(300, 250);
-        //this.setting_menu_init(size_menus, scale_factors);
+        //this.setting/_menu_init(size_menus, scale_factors);
         //size_menus.set(1024, 75);
         this.setting_menu_init(0.16f);
         this.top_menu_init();
