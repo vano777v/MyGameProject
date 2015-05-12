@@ -9,6 +9,7 @@ import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.nodes.CCParallaxNode;
 import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.types.CGPoint;
+import org.cocos2d.types.CGRect;
 import org.cocos2d.types.CGSize;
 import org.cocos2d.types.ccColor4B;
 
@@ -22,6 +23,7 @@ public class Game_Arena extends CCColorLayer
     private CGSize translation=null;
     private CGPoint start_touch=null;
     private ArrayList<CCSprite> paralax_element=null; 
+  
 	protected Game_Arena(ccColor4B color, float scale_factor, CGSize translation, int tag_arena) 
 	{
 		super(color);
@@ -40,6 +42,7 @@ public class Game_Arena extends CCColorLayer
     { 
     	this.setContentSize(new_size);
     	this.arena_size.set(new_size);
+    	
     }
 	
 	
@@ -95,9 +98,11 @@ public class Game_Arena extends CCColorLayer
 	}
 	public void set_paralax_scale (float scale_factor)
 	{
-		int size= paralax.getChildren().size();
+		int size= paralax_element.size();
 		for(int i=0;i<size;i++)
-			paralax.getChildren().get(i).setScale(scale_factor);
+			paralax_element.get(i).setScale(scale_factor);
+		
+
 	}
 	
 	public void ccTouchesBegan(CGPoint event)
@@ -106,7 +111,7 @@ public class Game_Arena extends CCColorLayer
 		start_touch = event;
 		
 	}
-	public boolean ccTouchesMoved(CGPoint move_point)
+	public void ccTouchesMoved(CGPoint move_point)
 	{
 		CGPoint touchLocation, translation;
 		touchLocation = move_point;
@@ -117,7 +122,15 @@ public class Game_Arena extends CCColorLayer
 			//System.out.println("Leap leap "+winSize+" "+pp);
 		   if(lim<0 && lim*(-1)<this.getContentSize().width)
 		     this.setPosition(lim, 250f*scale_factor);
-		return true;
+		
+	}
+	public boolean touch_detect_arena(MenuLayer top_menu, MenuLayer main_menu,CGSize screen , CGPoint touch_point)
+	{
+		boolean result= false;
+		
+		CGRect arena = CGRect.make(0, main_menu.scaled_size_height, screen.width, screen.height-top_menu.scaled_size_height-main_menu.scaled_size_height);
+		if(arena.contains(touch_point.x, touch_point.y)) result=true;
+		return result;
 	}
    
 }

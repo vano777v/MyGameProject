@@ -69,7 +69,7 @@ public class GameLayer extends CCLayer
 	 static CCProgressTimer item1;
 	private CCBitmapFontAtlas statusLabel;
 	private int istouch =0;
-	private Level_1_1_Layer level;
+	private  Game_Arena arena;
 	private  int  last_touch_ability=0;
 	private  MenuLayer bar_menu, bnm;
 	private CCSprite player;
@@ -78,6 +78,9 @@ public class GameLayer extends CCLayer
 	private static int team_selected=0;
 	protected static Activity mMyApp;
 	private  MenuLayer choose= null;
+	private static int count_zoom=0;
+	private static float scale_factor=0;
+
 	private ArrayList<MenuLayer> menus_game= null;
     public GameLayer(Activity m)
     {
@@ -89,21 +92,22 @@ public class GameLayer extends CCLayer
         menus_game = new ArrayList<MenuLayer>();
         buffer_team =  new int[4];
     	CGSize percents = CGSize.make(800/2560f, 1082/1600f);
-    	float pp = screenSize.height/1600f;  
+    	float pp = screenSize.height/1600f;
+    	scale_factor=pp;
         CGSize scale_factors = CGSize.make(1, 1);
+        count_zoom=2;  
+        arena =  new Game_Arena(ccColor4B.ccc4(255,0, 0,255), pp, percents, 6);
+        arena.setPosition(0, 0);
+        arena.set_size_arena(CGSize.make(screenSize.width*3, 2048*pp));
+        arena.add_Paralax_Child("campaign_1/level_1/paralax/noise.png", CGPoint.make(0, 250f*pp),CGPoint.make(0, 0), 0);
+        arena.add_Paralax_Child("campaign_1/level_1/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
+        arena.add_Paralax_Child("campaign_1/level_1/paralax/sback.png", CGPoint.make(0, 125f*pp),CGPoint.make(0.3f, 0), 2);
+        arena.add_Paralax_Child("campaign_1/level_1/paralax/mback.png", CGPoint.make(0, 250f*pp),CGPoint.make(0.1f, 0), 2);
+        addChild(arena);
+        //level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255),pp);
+        //level.setPosition(CGPoint.make(0, 250f*pp));
         
-        //Game_Arena arena =  new Game_Arena(ccColor4B.ccc4(255,0, 0,255), pp, percents, 6);
-        //arena.setPosition(0, 0);
-        //arena.set_size_arena(CGSize.make(screenSize.width*3, 2048*pp));
-        //arena.add_Paralax_Child("campaign_1/level_1/paralax/noise.png", CGPoint.make(0, 250f*pp),CGPoint.make(0, 0), 0);
-        //arena.add_Paralax_Child("campaign_1/level_1/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
-        //arena.add_Paralax_Child("campaign_1/level_1/paralax/sback.png", CGPoint.make(0, 125f*pp),CGPoint.make(0.3f, 0), 2);
-        //arena.add_Paralax_Child("campaign_1/level_1/paralax/mback.png", CGPoint.make(0, 250f*pp),CGPoint.make(0.1f, 0), 2);
-        //addChild(arena);
-        level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255),pp);
-        level.setPosition(CGPoint.make(0, 250f*pp));
-        
-        addChild(level);
+       // addChild(level);
         //size_menus.set(304, 486);
         this.bears_menu_init(screenSize, percents);
         this.main_menu_init( 0.16f);
@@ -170,7 +174,7 @@ public class GameLayer extends CCLayer
     	//;
     	 CGPoint location  = CCDirector.sharedDirector().convertToGL(CGPoint.ccp(event.getX(),event.getY())); 
     	 int menu_tag = -1;
-    	
+    	 
     	 java.lang.System.out.println("AIIII "+menus_game.get(0).scaled_size_width+" "+menus_game.get(0).scaled_size_height);
     	 
     	 for(int i=0; i<menus_game.size(); i++)
@@ -393,7 +397,7 @@ public class GameLayer extends CCLayer
 		   		{
 		   			button_restart_press(menu_tag-1, 2);
 		   			trans -=20;
-		   			level.setPosition(trans,menus_game.get(1).scaled_size_height);
+		   			//level.setPosition(trans,menus_game.get(1).scaled_size_height);
 		   			
 		   			statusLabel.setString(Float.toString(22f));
 		   			break;
@@ -452,13 +456,34 @@ public class GameLayer extends CCLayer
 		   
 		  
 		
-		default: statusLabel.setString(Float.toString(0));
+		default: 
+		{arena.touch_detect_arena(menus_game.get(4), menus_game.get(1), screenSize,location );
+			statusLabel.setString("0");
 			break;
+		}
 		}
          return true;
     	
 }
      
+     public boolean ccTouchesBegan (MotionEvent event) 
+     {
+    	 CGPoint location =  CCDirector.sharedDirector().convertToGL(CGPoint.ccp(event.getX(),event.getY()));
+    	 if(arena.touch_detect_arena(menus_game.get(4), menus_game.get(1), screenSize,location ) )
+    	 {
+    		 arena.ccTouchesBegan(location);
+    	 }
+    	 return true;
+     }
+     public boolean ccTouchesMoved(MotionEvent event)
+     {
+    	 CGPoint location =  CCDirector.sharedDirector().convertToGL(CGPoint.ccp(event.getX(),event.getY()));
+    	 if(arena.touch_detect_arena(menus_game.get(4), menus_game.get(1), screenSize,location ) )
+    	 {
+    		 arena.ccTouchesMoved(location);  
+    	 }
+    	 return true;
+     }
      public void Menu_Move ()
      {
     	//MenuLayer menu = (MenuLayer)sender;
@@ -926,16 +951,31 @@ public class GameLayer extends CCLayer
      }
      private void button_zoom_out (int menu_index, int item_tag)
      {
-    	 menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/zoom_out_unpress.png","menus/settings_items/zoom_out_press.png", 0.2f);
-    	  level.zoom_out();
+    	if(count_zoom<3&&count_zoom>0)
+    	{
+    	  menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/zoom_out_unpress.png","menus/settings_items/zoom_out_press.png", 0.2f);
+    	  scale_factor/=1.2f;
+    	  arena.set_paralax_scale(scale_factor);
+    	  arena.setContentSize(arena.getContentSize().width/1.2f, arena.getContentSize().height/1.2f);
+    	  count_zoom--;
+    	}
 
 		
      }
      private void button_zoom_in (int menu_index, int item_tag)
      {
     	 
-    	 menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/zoom_in_unpress.png","menus/settings_items/zoom_in_press.png", 0.2f);
-         level.zoom_in(); 
+    	 
+        // level.zoom_in();
+    	 if(count_zoom<2&&count_zoom>=0)
+    	 {
+    		 menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/zoom_in_unpress.png","menus/settings_items/zoom_in_press.png", 0.2f);
+    		scale_factor *=1.2f;
+    		arena.set_paralax_scale(scale_factor);
+    		arena.setContentSize(arena.getContentSize().width*1.2f, arena.getContentSize().height*1.2f);
+    		count_zoom++;
+    		
+    	 }
 		
      }
       private void button_ability_press(int menu_index, int menu_item)
