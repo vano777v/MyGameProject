@@ -1,5 +1,5 @@
 package com.example.beargames;
-
+import com.bearsvsvimpires.menus.MenuItemLayer;
 import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
 import java.util.EventListener;
@@ -52,7 +52,7 @@ import android.support.v4.view.MotionEventCompat;
 import android.view.MotionEvent;
 import android.view.animation.BounceInterpolator;
 import android.widget.ProgressBar;
-
+import com.bearsvsvimpires.menus.MenuLayer;
 public class GameLayer extends CCLayer
 {
 	private static CGSize screenSize; 

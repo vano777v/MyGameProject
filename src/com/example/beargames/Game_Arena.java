@@ -14,7 +14,8 @@ import org.cocos2d.types.CGSize;
 import org.cocos2d.types.ccColor4B;
 
 import android.view.MotionEvent;
-
+import com.bearsvsvimpires.menus.MenuItemLayer;
+import com.bearsvsvimpires.menus.MenuLayer;
 public class Game_Arena extends CCColorLayer
 {
 	private CCParallaxNode paralax; 
