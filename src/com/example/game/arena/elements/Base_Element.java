@@ -16,15 +16,13 @@ public class Base_Element extends CCSprite
 	private float scale_factor=0;
  // The sprite instance.
 
-    Base_Element (String path, float  scale_factor, CGSize req_size)
+    Base_Element (String path, float  scale_factor)
     {
     	super(path);
     	this.setAnchorPoint(0, 0);
     	atac_area = CGSize.make(0, 0);
     	this.scale_factor=scale_factor;
-    	float scale_coff = req_size.width/this.getContentSize().width;
-    	this.setScale(scale_coff*scale_factor);
-    	this.setContentSize(this.getContentSize().width*scale_coff*scale_factor, this.getContentSize().height*scale_coff*scale_factor);
+    	
     }
 	
 	
@@ -110,7 +108,7 @@ public class Base_Element extends CCSprite
 	{
 		this.setPosition(position.x*scale_factor, position.y*scale_factor);
 	}
-	public void setNewSize(CGSize new_size )
+	public void setSize(CGSize new_size )
 	{
 		float coff = new_size.width/this.getContentSize().width;
 		this.setContentSize(new_size.width*coff*scale_factor,new_size.height*coff*scale_factor );

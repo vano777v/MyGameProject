@@ -13,9 +13,8 @@ import org.cocos2d.types.CGRect;
 import org.cocos2d.types.CGSize;
 import org.cocos2d.types.ccColor4B;
 
-import android.view.MotionEvent;
-import com.bearsvsvimpires.menus.MenuItemLayer;
-import com.bearsvsvimpires.menus.MenuLayer;
+import com.example.game.arena.elements.Main_Base;
+
 public class Game_Arena extends CCColorLayer
 {
 	private CCParallaxNode paralax; 
@@ -132,6 +131,13 @@ public class Game_Arena extends CCColorLayer
 		CGRect arena = CGRect.make(0, main_menu.scaled_size_height, screen.width, screen.height-top_menu.scaled_size_height-main_menu.scaled_size_height);
 		if(arena.contains(touch_point.x, touch_point.y)) result=true;
 		return result;
+	}
+	public void add_base_node(String source_path, CGSize base_size, CGPoint base_location, String is_who)
+	{
+		Main_Base base = new Main_Base(ccColor4B.ccc4(255,0, 0,255), source_path,scale_factor, is_who );
+	    base.setSize(base_size);
+	    base.setBasePosition(CGPoint.make(0, 0));
+	    addChild(base);
 	}
    
 }

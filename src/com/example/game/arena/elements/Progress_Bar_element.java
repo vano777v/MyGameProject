@@ -3,14 +3,17 @@ package com.example.game.arena.elements;
 import org.cocos2d.actions.CCProgressTimer;
 import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.types.CGPoint;
+import org.cocos2d.types.CGSize;
 
 public class Progress_Bar_element  extends CCSprite
 {
    private  CCProgressTimer progress_bar_life = null;
-   Progress_Bar_element (String path_image, String path_progress_bar)
+   private float scale_factor = 0;
+   Progress_Bar_element (String path_image, String path_progress_bar, float scale_factor)
    {
 	   super(path_image);
 	   this.setAnchorPoint(0, 0);
+	   this.scale_factor=scale_factor;
 	   progress_bar_init(path_progress_bar);
    }
    
@@ -33,4 +36,14 @@ public class Progress_Bar_element  extends CCSprite
 	   return this.progress_bar_life.getPercentage();
    }
    
+   public void setSize(CGSize new_size)
+   {
+	   float coff = this.getContentSize().width/new_size.width;
+	   this.setContentSize(new_size.width*coff*scale_factor, new_size.height*coff*scale_factor);
+	   this.setScale(coff*scale_factor);
+   }
+   public void setBarPosition(CGPoint location)
+   {
+	   this.setPosition(location.x*scale_factor, location.y*scale_factor);
+   }
 }

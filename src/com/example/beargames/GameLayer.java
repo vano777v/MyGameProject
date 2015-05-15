@@ -1,58 +1,28 @@
 package com.example.beargames;
-import com.bearsvsvimpires.menus.MenuItemLayer;
-import java.security.PrivilegedExceptionAction;
+
 import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.EventListenerProxy;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.cocos2d.actions.CCProgressTimer;
-import org.cocos2d.actions.base.CCRepeatForever;
 import org.cocos2d.actions.instant.CCCallFunc;
-import org.cocos2d.actions.interval.CCAnimate;
 import org.cocos2d.actions.interval.CCMoveTo;
 import org.cocos2d.actions.interval.CCSequence;
-import org.cocos2d.layers.CCColorLayer;
 import org.cocos2d.layers.CCLayer;
 import org.cocos2d.layers.CCScene;
 import org.cocos2d.menus.CCMenu;
-import org.cocos2d.menus.CCMenuItem;
-import org.cocos2d.menus.CCMenuItemImage;
-import org.cocos2d.nodes.CCAnimation;
 import org.cocos2d.nodes.CCDirector;
-import org.cocos2d.nodes.CCNode;
 import org.cocos2d.nodes.CCSprite;
-import org.cocos2d.nodes.CCSpriteFrame;
-import org.cocos2d.nodes.CCSpriteFrameCache;
-import org.cocos2d.nodes.CCSpriteSheet;
 import org.cocos2d.opengl.CCBitmapFontAtlas;
 import org.cocos2d.sound.SoundEngine;
 import org.cocos2d.types.CGPoint;
-import org.cocos2d.types.CGRect;
 import org.cocos2d.types.CGSize;
-import org.cocos2d.types.ccColor3B;
 import org.cocos2d.types.ccColor4B;
 import org.cocos2d.utils.CCFormatter;
 
+import android.app.Activity;
+import android.view.MotionEvent;
+
 import com.example.beargames.R.raw;
 
-import android.R.bool;
-import android.app.Activity;
-import android.content.Context;
-import android.gesture.GesturePoint;
-import android.graphics.Color;
-import android.hardware.Camera.Size;
-
-import android.provider.ContactsContract.CommonDataKinds.Event;
-import android.provider.Settings.System;
-import android.support.v4.view.MotionEventCompat;
-
-import android.view.MotionEvent;
-import android.view.animation.BounceInterpolator;
-import android.widget.ProgressBar;
-import com.bearsvsvimpires.menus.MenuLayer;
 public class GameLayer extends CCLayer
 {
 	private static CGSize screenSize; 
@@ -103,6 +73,7 @@ public class GameLayer extends CCLayer
         arena.add_Paralax_Child("campaign_1/level_1/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
         arena.add_Paralax_Child("campaign_1/level_1/paralax/sback.png", CGPoint.make(0, 125f*pp),CGPoint.make(0.3f, 0), 2);
         arena.add_Paralax_Child("campaign_1/level_1/paralax/mback.png", CGPoint.make(0, 250f*pp),CGPoint.make(0.1f, 0), 2);
+        arena.add_base_node("campaign_1/level_1", CGSize.make(1500, 1500), CGPoint.make(0, 0), "b");
         addChild(arena);
         //level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255),pp);
         //level.setPosition(CGPoint.make(0, 250f*pp));
