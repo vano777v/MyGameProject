@@ -132,12 +132,13 @@ public class Game_Arena extends CCColorLayer
 		if(arena.contains(touch_point.x, touch_point.y)) result=true;
 		return result;
 	}
-	public void add_base_node(String source_path, CGSize base_size, CGPoint base_location, String is_who)
+	public Main_Base add_base_node(String source_path, CGSize base_size, CGPoint base_location, String is_who)
 	{
-		Main_Base base = new Main_Base(ccColor4B.ccc4(255,0, 0,255), source_path,scale_factor, is_who );
+	     Main_Base base = new Main_Base(ccColor4B.ccc4(255,0, 0,255), source_path,scale_factor, is_who );
 	    base.setSize(base_size);
-	    base.setBasePosition(CGPoint.make(0, 0));
+	    base.setBasePosition(base_location);
 	    addChild(base);
+	    return base;
 	}
-   
+	
 }

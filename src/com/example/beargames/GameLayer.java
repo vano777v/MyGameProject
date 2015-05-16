@@ -1,6 +1,8 @@
 package com.example.beargames;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.cocos2d.actions.CCProgressTimer;
 import org.cocos2d.actions.instant.CCCallFunc;
@@ -22,6 +24,7 @@ import android.app.Activity;
 import android.view.MotionEvent;
 
 import com.example.beargames.R.raw;
+import com.example.game.arena.elements.Main_Base;
 
 public class GameLayer extends CCLayer
 {
@@ -50,7 +53,9 @@ public class GameLayer extends CCLayer
 	private  MenuLayer choose= null;
 	private static int count_zoom=0;
 	private static float scale_factor=0;
-
+    private  Main_Base bear_base=null;
+    private CCSprite m, n = null; 
+    private  Main_Base vimpir_base=null;
 	private ArrayList<MenuLayer> menus_game= null;
     public GameLayer(Activity m)
     {
@@ -59,21 +64,25 @@ public class GameLayer extends CCLayer
           java.lang.System.out.println("Antonio"+screenSize);
         bear_init= new ArrayList<Integer>();
     	this.setIsTouchEnabled(true);
+    	
         menus_game = new ArrayList<MenuLayer>();
         buffer_team =  new int[4];
     	CGSize percents = CGSize.make(800/2560f, 1082/1600f);
     	float pp = screenSize.height/1600f;
+    	this.setContentSize(3*2560f*pp, 1600*pp);
     	scale_factor=pp;
         CGSize scale_factors = CGSize.make(1, 1);
         count_zoom=2;  
         arena =  new Game_Arena(ccColor4B.ccc4(255,0, 0,255), pp, percents, 6);
-        arena.setPosition(0, 0);
+        arena.setPosition(0, 250*pp);
         arena.set_size_arena(CGSize.make(screenSize.width*3, 2048*pp));
         arena.add_Paralax_Child("campaign_1/level_1/paralax/noise.png", CGPoint.make(0, 250f*pp),CGPoint.make(0, 0), 0);
         arena.add_Paralax_Child("campaign_1/level_1/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
         arena.add_Paralax_Child("campaign_1/level_1/paralax/sback.png", CGPoint.make(0, 125f*pp),CGPoint.make(0.3f, 0), 2);
         arena.add_Paralax_Child("campaign_1/level_1/paralax/mback.png", CGPoint.make(0, 250f*pp),CGPoint.make(0.1f, 0), 2);
-        arena.add_base_node("campaign_1/level_1", CGSize.make(1500, 1500), CGPoint.make(0, 0), "b");
+        bear_base=arena.add_base_node("campaign_1/level_1", CGSize.make(1500, 1500), CGPoint.make(50f, 0), "b");
+        vimpir_base= arena.add_base_node("campaign_1/level_1", CGSize.make(1300, 1300), CGPoint.make(4*this.getContentSize().width- 1500f*pp, 0), "v");
+    
         addChild(arena);
         //level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255),pp);
         //level.setPosition(CGPoint.make(0, 250f*pp));
@@ -88,8 +97,8 @@ public class GameLayer extends CCLayer
         //size_menus.set(300, 250);
         //this.setting/_menu_init(size_menus, scale_factors);
         //size_menus.set(1024, 75);
-        this.setting_menu_init(0.16f);
-        this.top_menu_init();
+         this.setting_menu_init();
+         this.top_menu_init();
        
         //this.ablity_items_init();
         //for(int i=1;i<=5; i++)
@@ -704,7 +713,7 @@ public class GameLayer extends CCLayer
      private void top_menu_init ()
      {
     	 float perc = screenSize.height/1600f;
-    	 MenuLayer top_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menus/menu4.png",5, CGSize.make(3840f, 188f), perc);
+    	final  MenuLayer top_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menus/menu4.png",5, CGSize.make(3840f, 188f), perc);
     	 top_menu.setOpacity(0);
     	 float orig_x= (top_menu.scaled_size_width-screenSize.width)/perc;
     	 top_menu.setPosition(screenSize.width-top_menu.scaled_size_width,screenSize.height-top_menu.scaled_size_height);
@@ -723,11 +732,11 @@ public class GameLayer extends CCLayer
     	menus_game.add(4, top_menu);
      }
      
-    private void setting_menu_init (float percentage)
+    private void setting_menu_init ()
      {
     	
     	 float perc = screenSize.height/1600f;
-    	 MenuLayer setting_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menus/menu5.png",4, CGSize.make(762f, 754f), perc);
+    	 final MenuLayer setting_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menus/menu5.png",4, CGSize.make(762f, 754f), perc);
     	setting_menu.setOpacity(0);
     	 setting_menu.setPosition(screenSize.width-975f*perc,screenSize.height-188f*perc);
     	 setting_menu.add_item("menus/settings_items/sound_on.png", 1, CGPoint.make(93,270 ), CGSize.make(150, 150));
@@ -928,6 +937,7 @@ public class GameLayer extends CCLayer
     	  scale_factor/=1.2f;
     	  arena.set_paralax_scale(scale_factor);
     	  arena.setContentSize(arena.getContentSize().width/1.2f, arena.getContentSize().height/1.2f);
+    	  bear_base.setScale(bear_base.getScale()/1.2f);
     	  count_zoom--;
     	}
 
@@ -944,6 +954,8 @@ public class GameLayer extends CCLayer
     		scale_factor *=1.2f;
     		arena.set_paralax_scale(scale_factor);
     		arena.setContentSize(arena.getContentSize().width*1.2f, arena.getContentSize().height*1.2f);
+    		 bear_base.setScale(bear_base.getScale()*1.2f);
+    	
     		count_zoom++;
     		
     	 }

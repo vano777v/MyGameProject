@@ -9,12 +9,14 @@ public class Progress_Bar_element  extends CCSprite
 {
    private  CCProgressTimer progress_bar_life = null;
    private float scale_factor = 0;
-   Progress_Bar_element (String path_image, String path_progress_bar, float scale_factor)
+   private CCSprite img=null;
+   public Progress_Bar_element (String path_image, String path_progress_bar, float scale_factor)
    {
+	  // img = new CCSprite(path_image);
 	   super(path_image);
 	   this.setAnchorPoint(0, 0);
 	   this.scale_factor=scale_factor;
-	   progress_bar_init(path_progress_bar);
+	   //progress_bar_init(path_progress_bar);
    }
    
    private void progress_bar_init(String path)
@@ -38,7 +40,7 @@ public class Progress_Bar_element  extends CCSprite
    
    public void setSize(CGSize new_size)
    {
-	   float coff = this.getContentSize().width/new_size.width;
+	   float coff = new_size.height/this.getContentSize().height;
 	   this.setContentSize(new_size.width*coff*scale_factor, new_size.height*coff*scale_factor);
 	   this.setScale(coff*scale_factor);
    }

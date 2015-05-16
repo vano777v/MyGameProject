@@ -14,15 +14,22 @@ public class Base_Element extends CCSprite
 	private int count_unit = 0;
 	private CGSize atac_area=null;
 	private float scale_factor=0;
+	private CCSprite img=null;
  // The sprite instance.
 
-    Base_Element (String path, float  scale_factor)
+  public Base_Element (String path, float  scale_factor)
     {
-    	super(path);
+    	//img= new CCSprite(path);
+    	//float coff = 1500f/this.getContentSize().height; 
+    	//img.setContentSize(coff*scale_factor*img.getContentSize().width, coff*scale_factor*img.getContentSize().height);
+	  super(path);
+	  //System.out.println("sssssssss"+path);
+    	
+    	//img.setScale(coff*scale_factor);
     	this.setAnchorPoint(0, 0);
     	atac_area = CGSize.make(0, 0);
     	this.scale_factor=scale_factor;
-    	
+    	//addChild(img);
     }
 	
 	

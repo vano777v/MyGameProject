@@ -47,7 +47,7 @@ public class MenuLayer extends CCColorLayer{
 		
 		if(image_path!= null)
 		{
-		  menu = CCSprite.sprite(image_path);
+		  menu = new CCSprite(image_path);
 		  scale_menu =calc_image_size(menu,menu_size);
 		  menu.setScaleX(scale_menu.width);
 		  menu.setScaleY(scale_menu.height);
