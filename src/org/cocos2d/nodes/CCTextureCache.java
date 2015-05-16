@@ -220,6 +220,7 @@ public class CCTextureCache {
 					is.close();
 
 					((CCTexture2D)res).initWithImage(bmp);
+					bmp = null;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
