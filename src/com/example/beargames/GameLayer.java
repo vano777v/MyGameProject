@@ -29,32 +29,32 @@ import com.example.game.arena.elements.Main_Base;
 public class GameLayer extends CCLayer
 {
 	private static CGSize screenSize; 
-	private float generalscalefactor_h;
-	private float generalscalefactor_w;
-	private float poi=0;
-	private static final int STATUS_LABEL_TAG = 20;
+	//private float generalscalefactor_h;
+	//private float generalscalefactor_w;
+	//private float poi=0;
+	//private static final int STATUS_LABEL_TAG = 20;
 	private static final int TIMER_LABEL_TAG =20;
-	private static final int MOVES_LABEL_TAG =20; 
+	//private static final int MOVES_LABEL_TAG =20; 
     private static int[] buffer_team;
     private static int[] buffer_ability_items={0,0,0};
     private static int[] buffer_ability_team = {4,6,10,16};
-	private CCMenu gen = null;
+	//private CCMenu gen = null;
 	 static CCProgressTimer item1;
 	private CCBitmapFontAtlas statusLabel;
-	private int istouch =0;
+	//private int istouch =0;
 	private  Game_Arena arena;
 	private  int  last_touch_ability=0;
-	private  MenuLayer bar_menu, bnm;
-	private CCSprite player;
-	private ArrayList<Integer>  bear_init= null;
+	//private  MenuLayer bar_menu, bnm;
+	//private CCSprite player;
+	//private ArrayList<Integer>  bear_init= null;
 	private static int thetime = 0 ;
 	private static int team_selected=0;
 	protected static Activity mMyApp;
-	private  MenuLayer choose= null;
+	//private  MenuLayer choose= null;
 	private static int count_zoom=0;
 	private static float scale_factor=0;
     private  Main_Base bear_base=null;
-    private CCSprite m, n = null; 
+   // private CCSprite m, n = null; 
     private  Main_Base vimpir_base=null;
 	private ArrayList<MenuLayer> menus_game= null;
     public GameLayer(Activity m)
@@ -62,7 +62,7 @@ public class GameLayer extends CCLayer
     	screenSize = CCDirector.sharedDirector().winSize();
         mMyApp = m; 
           java.lang.System.out.println("Antonio"+screenSize);
-        bear_init= new ArrayList<Integer>();
+      //  bear_init= new ArrayList<Integer>();
     	this.setIsTouchEnabled(true);
     	
         menus_game = new ArrayList<MenuLayer>();
@@ -73,15 +73,15 @@ public class GameLayer extends CCLayer
     	scale_factor=pp;
         CGSize scale_factors = CGSize.make(1, 1);
         count_zoom=2;  
-        arena =  new Game_Arena(ccColor4B.ccc4(255,0, 0,255), pp, percents, 6);
+        arena =  new Game_Arena(ccColor4B.ccc4(255,255, 255,255), pp, percents, 6);
         arena.setPosition(0, 250*pp);
         arena.set_size_arena(CGSize.make(screenSize.width*3, 2048*pp));
         arena.add_Paralax_Child("campaign_1/level_1/paralax/noise.png", CGPoint.make(0, 250f*pp),CGPoint.make(0, 0), 0);
         arena.add_Paralax_Child("campaign_1/level_1/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
         arena.add_Paralax_Child("campaign_1/level_1/paralax/sback.png", CGPoint.make(0, 125f*pp),CGPoint.make(0.3f, 0), 2);
-        arena.add_Paralax_Child("campaign_1/level_1/paralax/mback.png", CGPoint.make(0, 250f*pp),CGPoint.make(0.1f, 0), 2);
+        //arena.add_Paralax_Child("campaign_1/level_1/paralax/mback.png", CGPoint.make(0, 250f*pp),CGPoint.make(0.1f, 0), 2);
         bear_base=arena.add_base_node("campaign_1/level_1", CGSize.make(1500, 1500), CGPoint.make(50f, 0), "b");
-        vimpir_base= arena.add_base_node("campaign_1/level_1", CGSize.make(1300, 1300), CGPoint.make(4*this.getContentSize().width- 1500f*pp, 0), "v");
+        vimpir_base= arena.add_base_node("campaign_1/level_1", CGSize.make(1500, 1500), CGPoint.make(1100f, 0), "v");
     
         addChild(arena);
         //level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255),pp);
@@ -97,7 +97,7 @@ public class GameLayer extends CCLayer
         //size_menus.set(300, 250);
         //this.setting/_menu_init(size_menus, scale_factors);
         //size_menus.set(1024, 75);
-         this.setting_menu_init();
+        this.setting_menu_init();
          this.top_menu_init();
        
         //this.ablity_items_init();
