@@ -7,6 +7,8 @@ import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 
+import javax.microedition.khronos.opengles.GL10;
+
 import org.cocos2d.config.ccMacros;
 import org.cocos2d.opengl.CCTexture2D;
 import org.cocos2d.opengl.GLResourceHelper;
@@ -14,6 +16,8 @@ import org.cocos2d.opengl.GLResourceHelper.Resource;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.opengl.GLES10;
 
 /** Singleton that handles the loading of textures
  * Once the texture is loaded, the next time it will return
@@ -202,7 +206,8 @@ public class CCTextureCache {
             return ;
         textures.remove(textureKeyName);
     }
-
+    
+    /*
     private static CCTexture2D createTextureFromFilePath(final String path) {
             
     	CCTexture2D tex = new CCTexture2D();
@@ -220,7 +225,7 @@ public class CCTextureCache {
 					is.close();
 
 					((CCTexture2D)res).initWithImage(bmp);
-					bmp = null;
+					//bmp = null;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -229,6 +234,92 @@ public class CCTextureCache {
 		});
         
         return tex;
+    }
+    */
+    
+    private static CCTexture2D createTextureFromFilePath(final String path) {
+        
+    	CCTexture2D tex = new CCTexture2D();
+        tex.setLoader(new GLResourceHelper.GLResourceLoader() {
+			
+			
+			public void load(Resource res) {
+	            
+				InputStream is = null;
+			    Bitmap bitmap = null;
+				try {
+		        	is = CCDirector.sharedDirector().getActivity().getAssets().open(path);
+		        	
+		        	BitmapFactory.Options options = new BitmapFactory.Options();
+		        	options.inJustDecodeBounds = true;
+		        	BitmapFactory.decodeStream(is, null, options);
+		        	
+		        	//get the maximum allowed width from openGL
+		        	//will be different for different devices
+		        	//--------------
+		        	//Vano tu poti sa te joci cu valori concrete
+		        	//ex: cind se cheama calculateInSampleSize(options, 1024, 1024)
+		        	int[] maxSize = new int[1];
+		        	GLES10.glGetIntegerv(GLES10.GL_MAX_TEXTURE_SIZE, maxSize, 0);
+		        	System.out.println("GLES10 max: " + String.valueOf(maxSize[0]));
+		        	
+		        	options.inSampleSize = calculateInSampleSize(options,maxSize[0],maxSize[0]);
+		        	is.close();
+		        	
+		        	options.inJustDecodeBounds = false;
+		        	is = CCDirector.sharedDirector().getActivity().getAssets().open(path);
+		        	bitmap = BitmapFactory.decodeStream(is, null, options);
+		        	
+		        	is.close();
+
+					((CCTexture2D)res).initWithImage(bitmap);
+				} catch (IOException e) {
+					bitmap = null;
+					e.printStackTrace();
+				}
+				
+				finally {
+			        if (is != null) {
+			            try {
+			                is.close();
+			            } catch (IOException ignored) {
+			            }
+			        }
+			    }
+			}
+		});
+        
+        return tex;
+    }
+    
+    private static int calculateInSampleSize(
+          BitmapFactory.Options options, int reqWidth, int reqHeight) {
+	    // Raw height and width of image
+	    final int height = options.outHeight;
+	    final int width = options.outWidth;
+	    
+	    System.out.println("calculateInSampleSize: height="+height);
+	    System.out.println("calculateInSampleSize: width="+width);
+	    
+	    int inSampleSize = 1;
+	
+	    if (height > reqHeight || width > reqWidth) {
+	
+	        final int halfHeight = height / 2;
+	        final int halfWidth = width / 2;
+	
+	        // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+	        // height and width larger than the requested height and width.
+	        while ((halfHeight / inSampleSize) > reqHeight
+	                && (halfWidth / inSampleSize) > reqWidth) {
+	            inSampleSize *= 2;
+	        }
+	    }
+	    
+	    
+	    System.out.println("calculateInSampleSize: inSampleSize="+inSampleSize);
+	    
+	    return inSampleSize;
     }
     
     private static CCTexture2D createTextureFromFilePathExternal(final String path) {
