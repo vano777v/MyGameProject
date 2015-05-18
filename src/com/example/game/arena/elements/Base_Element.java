@@ -14,6 +14,8 @@ public class Base_Element extends CCSprite
 	private int count_unit = 0;
 	private CGSize atac_area=null;
 	private float scale_factor=0;
+	protected float scalex=0;
+	protected float scaley=0;
 	private CCSprite img=null;
  // The sprite instance.
 
@@ -31,6 +33,7 @@ public class Base_Element extends CCSprite
     	this.scale_factor=scale_factor;
     	//addChild(img);
     }
+	
 	
 	
 	protected void setTotalBaseLife(int BaseLife)
@@ -111,15 +114,23 @@ public class Base_Element extends CCSprite
 		this.removeFromParentAndCleanup(true);
 	}
 	
+	public void setscalefactor(float sX, float sY)
+	{
+		scalex=sX;
+		scaley=sY;
+	}
 	public void setPositionBaseElement(CGPoint position)
 	{
 		this.setPosition(position.x*scale_factor, position.y*scale_factor);
 	}
 	public void setSize(CGSize new_size )
 	{
-		float coff = new_size.width/this.getContentSize().width;
-		this.setContentSize(new_size.width*coff*scale_factor,new_size.height*coff*scale_factor );
-		this.setScale(coff*scale_factor);
+	    float coff1 = new_size.width*scalex/this.getContentSize().width;
+	    float coff2 = new_size.height*scaley/this.getContentSize().height;
+		
+		this.setContentSize(new_size.width*coff1,new_size.height*coff2);
+		this.setScaleX(coff2);
+		this.setScaleY(coff1);
 	}
 	
 }

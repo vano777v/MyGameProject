@@ -79,9 +79,9 @@ public class GameLayer extends CCLayer
         arena.add_Paralax_Child("campaign_1/level_1/paralax/noise.png", CGPoint.make(0, 250f*pp),CGPoint.make(0, 0), 0);
         arena.add_Paralax_Child("campaign_1/level_1/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
         arena.add_Paralax_Child("campaign_1/level_1/paralax/sback.png", CGPoint.make(0, 125f*pp),CGPoint.make(0.3f, 0), 2);
-        //arena.add_Paralax_Child("campaign_1/level_1/paralax/mback.png", CGPoint.make(0, 250f*pp),CGPoint.make(0.1f, 0), 2);
-        bear_base=arena.add_base_node("campaign_1/level_1", CGSize.make(1500, 1500), CGPoint.make(50f, 0), "b");
-        vimpir_base= arena.add_base_node("campaign_1/level_1", CGSize.make(1500, 1500), CGPoint.make(1100f, 0), "v");
+        arena.add_Paralax_Child("campaign_1/level_1/paralax/mback.png", CGPoint.make(0, 250f*pp),CGPoint.make(0.1f, 0), 2);
+        bear_base=arena.add_base_node("campaign_1/level_1", CGSize.make(1400, 1400), CGPoint.make(50f, 0), "b");
+        //vimpir_base= arena.add_base_node("campaign_1/level_1", CGSize.make(1500, 1500), CGPoint.make(1100f, 0), "v");
     
         addChild(arena);
         //level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255),pp);
