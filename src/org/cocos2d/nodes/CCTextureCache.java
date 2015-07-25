@@ -240,11 +240,13 @@ public class CCTextureCache {
     private static CCTexture2D createTextureFromFilePath(final String path) {
         
     	CCTexture2D tex = new CCTexture2D();
+   
         tex.setLoader(new GLResourceHelper.GLResourceLoader() {
 			
 			
 			public void load(Resource res) {
-	            
+	          
+				System.out.println("SSSSSS"+path);
 				InputStream is = null;
 			    Bitmap bitmap = null;
 				try {
@@ -267,12 +269,17 @@ public class CCTextureCache {
 		        	is.close();
 		        	
 		        	options.inJustDecodeBounds = false;
+		        	if(maxSize[0]>1024)
+		        	     options.inPreferredConfig = Bitmap.Config.ARGB_4444;
+		        	else options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		        	is = CCDirector.sharedDirector().getActivity().getAssets().open(path);
 		        	bitmap = BitmapFactory.decodeStream(is, null, options);
 		        	
 		        	is.close();
-
+                      
 					((CCTexture2D)res).initWithImage(bitmap);
+					bitmap = null;
+					System.gc();
 				} catch (IOException e) {
 					bitmap = null;
 					e.printStackTrace();

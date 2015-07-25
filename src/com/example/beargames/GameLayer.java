@@ -17,6 +17,7 @@ import org.cocos2d.opengl.CCBitmapFontAtlas;
 import org.cocos2d.sound.SoundEngine;
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGSize;
+import org.cocos2d.types.ccColor3B;
 import org.cocos2d.types.ccColor4B;
 import org.cocos2d.utils.CCFormatter;
 
@@ -54,9 +55,12 @@ public class GameLayer extends CCLayer
 	private static int count_zoom=0;
 	private static float scale_factor=0;
     private  Main_Base bear_base=null;
+    private float pers_dim = 512;
+    private float base_dimm = 1500;
    // private CCSprite m, n = null; 
     private  Main_Base vimpir_base=null;
 	private ArrayList<MenuLayer> menus_game= null;
+	  float vp=0 ,dt=0,pz=0;
     public GameLayer(Activity m)
     {
     	screenSize = CCDirector.sharedDirector().winSize();
@@ -69,20 +73,48 @@ public class GameLayer extends CCLayer
         buffer_team =  new int[4];
     	CGSize percents = CGSize.make(800/2560f, 1082/1600f);
     	float pp = screenSize.height/1600f;
-    	this.setContentSize(3*2560f*pp, 1600*pp);
+    	this.setContentSize(screenSize.width*3, 1600*pp);
     	scale_factor=pp;
         CGSize scale_factors = CGSize.make(1, 1);
         count_zoom=2;  
-        arena =  new Game_Arena(ccColor4B.ccc4(255,255, 255,255), pp, percents, 6);
+        arena =  new Game_Arena(ccColor4B.ccc4(255,0, 0,255), pp,3f,screenSize, pers_dim, base_dimm,6);
         arena.setPosition(0, 250*pp);
-        arena.set_size_arena(CGSize.make(screenSize.width*3, 2048*pp));
+        arena.set_size_arena(CGSize.make(screenSize.width*3, screenSize.height ));
+        arena.set_action_arena(15);
         arena.add_Paralax_Child("campaign_1/level_1/paralax/noise.png", CGPoint.make(0, 250f*pp),CGPoint.make(0, 0), 0);
         arena.add_Paralax_Child("campaign_1/level_1/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
-        arena.add_Paralax_Child("campaign_1/level_1/paralax/sback.png", CGPoint.make(0, 125f*pp),CGPoint.make(0.3f, 0), 2);
-        arena.add_Paralax_Child("campaign_1/level_1/paralax/mback.png", CGPoint.make(0, 250f*pp),CGPoint.make(0.1f, 0), 2);
-        bear_base=arena.add_base_node("campaign_1/level_1", CGSize.make(1400, 1400), CGPoint.make(50f, 0), "b");
-        //vimpir_base= arena.add_base_node("campaign_1/level_1", CGSize.make(1500, 1500), CGPoint.make(1100f, 0), "v");
-    
+        arena.add_Paralax_Child("campaign_1/level_1/paralax/sback.png", CGPoint.make(0, 70f*pp),CGPoint.make(0.3f, 0), 2);
+        arena.add_Paralax_Child("campaign_1/level_1/paralax/mback.png", CGPoint.make(0,60*pp),CGPoint.make(0.1f, 0), 2);
+        CCSprite pers = CCSprite.sprite("campaign_1/L4.png");
+        pers.setAnchorPoint(0, 0);
+        pers.setPosition(230, 0);
+        //pers.setColor(ccColor3B.ccBLUE);
+        pers.setScale(pp*1.2f);
+        pers.setScaleX(pers.getScaleX()/3);
+        //pers.setScale(pers.getScale()*1.2f);
+      //  arena.addChild(pers);
+        CCSprite pers2 = CCSprite.sprite("campaign_1/L5.png");
+        pers2.setAnchorPoint(0, 0);
+        pers2.setPosition(326, 0);
+        //pers.setColor(ccColor3B.ccBLUE);
+        pers2.setScale(pp*1.2f);
+        pers2.setScaleX(pers2.getScaleX()/3);
+        //pers.setScale(pers.getScale()*1.2f);
+        arena.addChild(pers2);
+        
+       bear_base=arena.add_base_node("campaign_1/level_1", CGSize.make(base_dimm, base_dimm), CGPoint.make(16.66f, 0), "b");
+       bear_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(0, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(0, 0),CGSize.make(pers_dim*2, pers_dim*2),CGPoint.make(0, 0), CGSize.make(600, 600), CGPoint.make(260, 600));
+       bear_base.init_flag_move("campaign_1/level_1", 1, 9);
+       bear_base.init_pers_default_movie("campaign_1/level_1", 1, 8); 
+        
+        vimpir_base= arena.add_base_node("campaign_1/level_1", CGSize.make(base_dimm, base_dimm), CGPoint.make(arena.get_action_arena()-base_dimm*pp/3f, 0), "v");
+        vimpir_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(base_dimm-118f, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(0, 0),CGSize.make(pers_dim*2, pers_dim*2),CGPoint.make(-50, 420), CGSize.make(600, 600), CGPoint.make(350, 820));
+        vimpir_base.init_flag_move("campaign_1/level_1", 1, 9); 
+        vimpir_base.init_pers_default_movie("campaign_1/level_1", 1, 7);
+        //System.out.println("Distante "+vimpir_base.getContentSize().width); 
+        System.out.println("pp "+vimpir_base.getPosition());
+         
+    System.out.println("screen"+arena.getScaleX());
         addChild(arena);
         //level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255),pp);
         //level.setPosition(CGPoint.make(0, 250f*pp));
@@ -155,7 +187,7 @@ public class GameLayer extends CCLayer
     	 CGPoint location  = CCDirector.sharedDirector().convertToGL(CGPoint.ccp(event.getX(),event.getY())); 
     	 int menu_tag = -1;
     	 
-    	 java.lang.System.out.println("AIIII "+menus_game.get(0).scaled_size_width+" "+menus_game.get(0).scaled_size_height);
+    	 java.lang.System.out.println("AIIII "+location);
     	 
     	 for(int i=0; i<menus_game.size(); i++)
     	 {
@@ -929,16 +961,24 @@ public class GameLayer extends CCLayer
     	// }
     	 
      }
+     
      private void button_zoom_out (int menu_index, int item_tag)
      {
     	if(count_zoom<3&&count_zoom>0)
     	{
+    		
     	  menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/zoom_out_unpress.png","menus/settings_items/zoom_out_press.png", 0.2f);
     	  scale_factor/=1.2f;
-    	  arena.set_paralax_scale(scale_factor);
-    	  arena.setContentSize(arena.getContentSize().width/1.2f, arena.getContentSize().height/1.2f);
-    	  bear_base.setScale(bear_base.getScale()/1.2f);
-    	  count_zoom--;
+    	  
+    	 // arena.set_paralax_scale(scale_factor);
+    	  ///System.out.println("Scale arena "+arena.getContentSize().width+" "+vp+" "+vimpir_base.getContentSize()+" "+vimpir_base.getScaleX());
+    	  arena.paralax_zoom_out(1.2f);
+    	  
+    	 
+    	  bear_base.zoom_out(1.2f);
+    	   vimpir_base.zoom_out(1.2f);
+    	  
+    	     	  count_zoom--;
     	}
 
 		
@@ -950,12 +990,20 @@ public class GameLayer extends CCLayer
         // level.zoom_in();
     	 if(count_zoom<2&&count_zoom>=0)
     	 {
+    		 //float mc = arena.getPosition();
+    		 
+    		 
+    		
+    		 
+    		 
     		 menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/zoom_in_unpress.png","menus/settings_items/zoom_in_press.png", 0.2f);
     		scale_factor *=1.2f;
-    		arena.set_paralax_scale(scale_factor);
-    		arena.setContentSize(arena.getContentSize().width*1.2f, arena.getContentSize().height*1.2f);
-    		 bear_base.setScale(bear_base.getScale()*1.2f);
-    	
+    		
+    		
+    		arena.paralax_zoom_in(1.2f);
+    		vimpir_base.zoom_in(1.2f);
+    		bear_base.zoom_in(1.2f);
+    		 
     		count_zoom++;
     		
     	 }

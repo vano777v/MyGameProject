@@ -8,15 +8,19 @@ import org.cocos2d.types.CGSize;
 public class Progress_Bar_element  extends CCSprite
 {
    private  CCProgressTimer progress_bar_life = null;
-   private float scale_factor = 0;
+   private float parent_scale_x = 0;
+   private float parent_scale_y = 0;
+   private float local_scale_x = 0;
+   private float local_scale_y = 0;
+   private float general_scale_factor =0;
    private CCSprite img=null;
    public Progress_Bar_element (String path_image, String path_progress_bar, float scale_factor)
    {
 	  // img = new CCSprite(path_image);
 	   super(path_image);
 	   this.setAnchorPoint(0, 0);
-	   this.scale_factor=scale_factor;
-	   //progress_bar_init(path_progress_bar);
+	   progress_bar_init(path_progress_bar);
+	   general_scale_factor = scale_factor;
    }
    
    private void progress_bar_init(String path)
@@ -40,12 +44,21 @@ public class Progress_Bar_element  extends CCSprite
    
    public void setSize(CGSize new_size)
    {
-	   float coff = new_size.height/this.getContentSize().height;
-	   this.setContentSize(new_size.width*coff*scale_factor, new_size.height*coff*scale_factor);
-	   this.setScale(coff*scale_factor);
+	     local_scale_x = new_size.width/this.getContentSize().width;
+	    local_scale_y = new_size.height/this.getContentSize().height;
+		
+		this.setContentSize(new_size.width*(1/parent_scale_x)*general_scale_factor,new_size.height*(1/parent_scale_y)*general_scale_factor);
+		this.setScaleX(local_scale_x*(1/parent_scale_x)*general_scale_factor);
+		this.setScaleY(local_scale_y*(1/parent_scale_y)*general_scale_factor);
    }
    public void setBarPosition(CGPoint location)
    {
-	   this.setPosition(location.x*scale_factor, location.y*scale_factor);
+	   this.setPosition(location.x*local_scale_x*(1/parent_scale_x)*general_scale_factor, location.y*local_scale_y*(1/parent_scale_y)*general_scale_factor);
+   }
+   
+   public void setParentScaleFactors(float scx, float scy)
+   {
+	   parent_scale_x=scx;
+	   parent_scale_y=scy;
    }
 }
