@@ -29,7 +29,8 @@ public class GameInit extends Activity
 		 CCDirector.sharedDirector().setDisplayFPS(true);  //display fps
 	     Activity s= GameInit.this;
 		CCDirector.sharedDirector().setAnimationInterval(1.0f / 60.0f);  //set frame rate
-	    CCScene scene = new GameLayer(s).scene();
+	   
+		CCScene scene = new GameLayer().scene();
 		CCDirector.sharedDirector().runWithScene(scene); 
 
 	}

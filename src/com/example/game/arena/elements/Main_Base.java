@@ -10,19 +10,19 @@ public class Main_Base extends CCColorLayer{
 private  float general_scale_factor=0;
 private  CGSize local_scale_factor=null;
 private Base_Element base_element=null;
-private Progress_Bar_element bar_life=null;
+private  Progress_Bar_element bar_life=null;
 private Personage_Element boss = null;
 private Flag_Element flag = null;
 private static  String source_path=null;
 private String is_who=null;
-	public Main_Base(ccColor4B color, final String campaign_path,CGSize local_scale_factor, float general_scale_factor, String is_who ) 
+	  public Main_Base(ccColor4B color, final String campaign_path,CGSize local_scale_factor, float general_scale_factor, String is_who ) 
 	{
 		super(color);
 		this.setAnchorPoint(0, 0);
 		this.general_scale_factor=general_scale_factor;
 		this.local_scale_factor = CGSize.make(local_scale_factor.width,local_scale_factor.height);
 		source_path = campaign_path;
-		//System.out.println(source_path+"/bar/progress_bar_base"+is_who+".png");
+		
 		bar_life=  new Progress_Bar_element(source_path+"/bar/main_bar_base.png",source_path+"/bar/progress_bar_base"+is_who+".png", general_scale_factor );
 	    boss = new Personage_Element(source_path+"/castle/personage/boss_"+is_who+".png", general_scale_factor);
 		base_element =  new Base_Element(source_path+"/castle/base"+is_who+".png", general_scale_factor);
@@ -36,6 +36,7 @@ private String is_who=null;
 		addChild(base_element);
 		addChild(flag);
 		addChild(bar_life);
+		//System.gc();
 		
 	}
 	

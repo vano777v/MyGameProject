@@ -7,80 +7,80 @@
             <key>1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{168,220}}</string>
+                <string>{{444,742},{332,440}}</string>
                 <key>offset</key>
-                <string>{31,-18}</string>
+                <string>{63,-36}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{75,36},{168,220}}</string>
+                <string>{{153,72},{332,440}}</string>
                 <key>sourceSize</key>
-                <string>{256,256}</string>
+                <string>{512,512}</string>
             </dict>
             <key>2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{172,2},{176,220}}</string>
+                <string>{{2,734},{348,440}}</string>
                 <key>offset</key>
-                <string>{35,-18}</string>
+                <string>{71,-36}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{75,36},{176,220}}</string>
+                <string>{{153,72},{348,440}}</string>
                 <key>sourceSize</key>
-                <string>{256,256}</string>
+                <string>{512,512}</string>
             </dict>
             <key>3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,224},{188,220}}</string>
+                <string>{{2,2},{376,440}}</string>
                 <key>offset</key>
-                <string>{32,-18}</string>
+                <string>{64,-36}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{66,36},{188,220}}</string>
+                <string>{{132,72},{376,440}}</string>
                 <key>sourceSize</key>
-                <string>{256,256}</string>
+                <string>{512,512}</string>
             </dict>
             <key>4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{192,224},{186,220}}</string>
+                <string>{{444,372},{368,440}}</string>
                 <key>offset</key>
-                <string>{30,-18}</string>
+                <string>{61,-36}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{65,36},{186,220}}</string>
+                <string>{{133,72},{368,440}}</string>
                 <key>sourceSize</key>
-                <string>{256,256}</string>
+                <string>{512,512}</string>
             </dict>
             <key>5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,446},{178,220}}</string>
+                <string>{{2,380},{352,440}}</string>
                 <key>offset</key>
-                <string>{26,-18}</string>
+                <string>{53,-36}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{65,36},{178,220}}</string>
+                <string>{{133,72},{352,440}}</string>
                 <key>sourceSize</key>
-                <string>{256,256}</string>
+                <string>{512,512}</string>
             </dict>
             <key>6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{182,446},{186,220}}</string>
+                <string>{{444,2},{368,440}}</string>
                 <key>offset</key>
-                <string>{30,-18}</string>
+                <string>{61,-36}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{65,36},{186,220}}</string>
+                <string>{{133,72},{368,440}}</string>
                 <key>sourceSize</key>
-                <string>{256,256}</string>
+                <string>{512,512}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -90,9 +90,9 @@
             <key>realTextureFileName</key>
             <string>bossm_v.png</string>
             <key>size</key>
-            <string>{512,1024}</string>
+            <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8f660164402259f0315d738ad0bbbc9c$</string>
+            <string>$TexturePacker:SmartUpdate:3c2089fa7ad87414a59e59a891d48dc5$</string>
             <key>textureFileName</key>
             <string>bossm_v.png</string>
         </dict>

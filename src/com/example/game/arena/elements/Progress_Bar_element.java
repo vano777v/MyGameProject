@@ -21,6 +21,7 @@ public class Progress_Bar_element  extends CCSprite
 	   this.setAnchorPoint(0, 0);
 	   progress_bar_init(path_progress_bar);
 	   general_scale_factor = scale_factor;
+	   System.out.println("Marcela");
    }
    
    private void progress_bar_init(String path)
