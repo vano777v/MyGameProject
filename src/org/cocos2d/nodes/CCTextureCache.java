@@ -261,15 +261,16 @@ public class CCTextureCache {
 		        	//--------------
 		        	//Vano tu poti sa te joci cu valori concrete
 		        	//ex: cind se cheama calculateInSampleSize(options, 1024, 1024)
-		        	int[] maxSize = new int[1];
-		        	GLES10.glGetIntegerv(GLES10.GL_MAX_TEXTURE_SIZE, maxSize, 0);
-		        	System.out.println("GLES10 max: " + String.valueOf(maxSize[0]));
+		        	int maxSize = CCDirector.getMaxTexture();
 		        	
-		        	options.inSampleSize = calculateInSampleSize(options,maxSize[0],maxSize[0]);
+		        	
+		        	System.out.println("GLES10 max: " + String.valueOf(maxSize));
+		        	
+		        	options.inSampleSize = calculateInSampleSize(options,maxSize,maxSize);
 		        	is.close();
 		        	
 		        	options.inJustDecodeBounds = false;
-		        	if(maxSize[0]>1024)
+		        	if(maxSize>1024)
 		        	     options.inPreferredConfig = Bitmap.Config.ARGB_4444;
 		        	else options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		        	is = CCDirector.sharedDirector().getActivity().getAssets().open(path);

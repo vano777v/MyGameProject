@@ -30,8 +30,16 @@ public class GameInit extends Activity
 	     Activity s= GameInit.this;
 		CCDirector.sharedDirector().setAnimationInterval(1.0f / 60.0f);  //set frame rate
 	   
+		//---> set texture max to CCDirector for later use
+				String maxTexture = s.getIntent().getStringExtra("maxtext");
+				System.out.println("maxTexture="+maxTexture);
+				CCDirector.setMaxTexture(Integer.valueOf(maxTexture));
+		//<--- set texture max to CCDirector for later use		
+		
 		CCScene scene = new GameLayer().scene();
-		CCDirector.sharedDirector().runWithScene(scene); 
+		CCDirector.sharedDirector().runWithScene(scene);
+		
+		
 
 	}
 

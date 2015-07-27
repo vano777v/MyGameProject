@@ -108,7 +108,10 @@ public class CCDirector implements GLSurfaceView.Renderer {
 
     /// Detault projection is 3D projection
     public static final int kCCDirectorProjectionDefault = kCCDirectorProjection3D;
-
+    
+    
+    public static int MAXTEXTURE = 1024;
+    
     /** Sets an OpenGL projection
       @since v0.8.2
       */
@@ -116,6 +119,14 @@ public class CCDirector implements GLSurfaceView.Renderer {
 
     public int getProjection() {
         return projection_;
+    }
+    
+    public static void setMaxTexture(int maxtexture){
+    	MAXTEXTURE = maxtexture;
+    }
+    
+    public static int getMaxTexture(){
+    	return MAXTEXTURE;
     }
 
     public void setProjection(int p) {
