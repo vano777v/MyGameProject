@@ -6,10 +6,10 @@ package com.example.beargames;
 
 import java.util.HashMap;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.opengl.GLSurfaceView;
@@ -39,44 +39,49 @@ private GLSurfaceView           _surface  = null; // < Instance of OpenGL ES
         
         //---> required for OPEN GL Hardware Rendering
         
-        WindowManager winmgr = getWindowManager();
-        Display display = winmgr.getDefaultDisplay(); 
-        int width;
-        int height;
-        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-        if (currentapiVersion >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2)
-        {
-        	Point s = new Point();
-        	display.getSize(s);
-        	width = s.x;
-        	height = s.y;
-        }
-        else
-        {
-        	DisplayMetrics d = new DisplayMetrics();
-        	display.getMetrics(d);
-        	width = d.widthPixels;
-        	height = d.heightPixels;
-        }
-        _surface = new GLSurfaceView(this);
-        _renderer = new HardwareRenderer(this, width, height);
-        _surface.setRenderer(_renderer);
+        SharedPreferences settings = getSharedPreferences("APP_PREF", 0);
+        String maxtext = settings.getString("gl_max_texture_size", "none");
+        if (maxtext.contains("none")){
+        	WindowManager winmgr = getWindowManager();
+            Display display = winmgr.getDefaultDisplay(); 
+            int width;
+            int height;
+            int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+            if (currentapiVersion >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2)
+            {
+            	Point s = new Point();
+            	display.getSize(s);
+            	width = s.x;
+            	height = s.y;
+            }
+            else
+            {
+            	DisplayMetrics d = new DisplayMetrics();
+            	display.getMetrics(d);
+            	width = d.widthPixels;
+            	height = d.heightPixels;
+            }
+            _surface = new GLSurfaceView(this);
+            _renderer = new HardwareRenderer(this, width, height);
+            _surface.setRenderer(_renderer);
+            
+            
+            
+            
+            setContentView(R.layout.startup);
+            RelativeLayout surface_container = (RelativeLayout) findViewById(R.id.startup_layout_surface_container);
+            
+            surface_container.addView(_surface);
+          //<--- required for OPEN GL Hardware Rendering
+        	
+        } else{
         
-        
-        
-        
-        setContentView(R.layout.startup);
-        RelativeLayout surface_container = (RelativeLayout) findViewById(R.id.startup_layout_surface_container);
-        
-        surface_container.addView(_surface);
-        
-        //<--- required for OPEN GL Hardware Rendering
-        
-        /*
+    
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-            	//finish();
+            	
+            	finish();
                 //Intent mi = new Intent(MainActivity.this, MenuActivity.class);
                 //startActivity(mi);
                 
@@ -86,8 +91,8 @@ private GLSurfaceView           _surface  = null; // < Instance of OpenGL ES
 
             }
         }, 2000);
-        */
         
+        } 
         
         
         
@@ -102,7 +107,11 @@ private GLSurfaceView           _surface  = null; // < Instance of OpenGL ES
 	public void onResume() 
     {
 		super.onResume();
-		_renderer.enableHardwareProfiling();
+		SharedPreferences settings = getSharedPreferences("APP_PREF", 0);
+        String maxtext = settings.getString("gl_max_texture_size", "none");
+        if (maxtext.contains("none")){
+        	_renderer.enableHardwareProfiling();
+        }
 	}
 
 	void continueLoad(final HashMap<String, String> mInfo){
@@ -119,8 +128,15 @@ private GLSurfaceView           _surface  = null; // < Instance of OpenGL ES
 			                //Intent mi = new Intent(MainActivity.this, MenuActivity.class);
 			                //startActivity(mi);
 			                
+			            	//---> open the second level
+							SharedPreferences settings = getSharedPreferences("APP_PREF", 0);
+							SharedPreferences.Editor editor = settings.edit();
+							editor.putString("gl_max_texture_size", mInfo.get("gl_max_texture_size"));
+							editor.commit();
+							//<-- open the second level
+			            	
 			                Intent si = new Intent(MainActivity.this, com.example.beargames.GameInit.class);
-							si.putExtra("maxtext", mInfo.get("gl_max_texture_size"));
+							//si.putExtra("maxtext", mInfo.get("gl_max_texture_size"));
 			                startActivity(si);
 			            }
 			        }, 2000);

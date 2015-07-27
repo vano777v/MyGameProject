@@ -5,6 +5,7 @@ import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.opengl.CCGLSurfaceView;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,9 +32,16 @@ public class GameInit extends Activity
 		CCDirector.sharedDirector().setAnimationInterval(1.0f / 60.0f);  //set frame rate
 	   
 		//---> set texture max to CCDirector for later use
+		/*
 				String maxTexture = s.getIntent().getStringExtra("maxtext");
 				System.out.println("maxTexture="+maxTexture);
 				CCDirector.setMaxTexture(Integer.valueOf(maxTexture));
+		*/
+		SharedPreferences settings = getSharedPreferences("APP_PREF", 0);
+		String maxTexture = settings.getString("gl_max_texture_size", "1024");
+		System.out.println("maxTexture="+maxTexture);
+		CCDirector.setMaxTexture(Integer.valueOf(maxTexture));
+		
 		//<--- set texture max to CCDirector for later use		
 		
 		CCScene scene = new GameLayer().scene();
