@@ -24,9 +24,9 @@ private String is_who=null;
 		source_path = campaign_path;
 		
 		bar_life=  new Progress_Bar_element(source_path+"/bar/main_bar_base.png",source_path+"/bar/progress_bar_base"+is_who+".png", general_scale_factor );
-	    boss = new Personage_Element(source_path+"/castle/personage/boss_"+is_who+".png", general_scale_factor);
+	    boss = new Personage_Element(source_path+"/castle/personage/boss_"+is_who+".png", general_scale_factor, is_who);
 		base_element =  new Base_Element(source_path+"/castle/base"+is_who+".png", general_scale_factor);
-		flag = new Flag_Element(source_path+"/castle/flag/flag_"+is_who+".png", general_scale_factor);
+		flag = new Flag_Element(source_path+"/castle/flag/flag_"+is_who+".png", general_scale_factor, is_who);
 		//bar_life.setBarPosition(CGPoint.make(300, 0));
 		
 		this.setOpacity(0);
@@ -107,9 +107,10 @@ private String is_who=null;
 		String path = path_anim_file+"/castle/flag/flagm_"+is_who;
 		flag.init_animation(path, start_index, stop_index);
 	}
-	public void init_pers_default_movie(String path_anim_file, int start_index, int stop_index)
+	
+	
+	public Personage_Element get_main_Personage()
 	{
-		String path = path_anim_file+"/castle/personage/bossm_"+is_who;
-		boss.init_default_animation(path, start_index, stop_index);
-	}
+		return boss; 
+	}	
 }

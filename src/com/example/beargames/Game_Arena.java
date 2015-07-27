@@ -96,7 +96,7 @@ public class Game_Arena extends CCColorLayer
 		      paralax_node.getTexture().setTexParameters(GL10.GL_LINEAR, GL10.GL_LINEAR, GL10.GL_REPEAT, GL10.GL_REPEAT);
 		      paralax_node.setContentSize((real_size.width/win_size.width)*getSize_arena().width*(speed.x+1), getSize_arena().height*(speed.y+1));
 		      paralax_node.setTag(tag);
-		      paralax_node.setScale(this.general_scale_factor);
+		      paralax_node.setScale(this.general_scale_factor*2);
 		      paralax.addChild(paralax_node,tag,speed.x, speed.y,offset_coord.x, offset_coord.y);
 		     
 		      paralax_node.setAnchorPoint(CGPoint.make(0,0));
@@ -112,7 +112,7 @@ public class Game_Arena extends CCColorLayer
 	    	  paralax_node.setTextureRect(0, 0,(real_size.width/win_size.width)*getSize_arena().width*(speed.x+1)*coff, real_size.height*(speed.y+1), false);
 		      paralax_node.getTexture().setTexParameters(GL10.GL_LINEAR, GL10.GL_LINEAR, GL10.GL_REPEAT, GL10.GL_REPEAT);
 		      paralax_node.setContentSize((real_size.width/win_size.width)*getSize_arena().width*(speed.x+1)*coff, getSize_arena().height*(speed.y+1));
-		      paralax_node.setScale(this.general_scale_factor);
+		      paralax_node.setScale(this.general_scale_factor*2);
 		      paralax.addChild(paralax_node,tag,speed.x, speed.y,offset_coord.x, offset_coord.y);
 		      paralax_node.setAnchorPoint(CGPoint.make(0,0));
 		      paralax_element.add(paralax_node);
@@ -180,6 +180,7 @@ public class Game_Arena extends CCColorLayer
 		{
 			paralax_element.get(i).setScaleX(paralax_element.get(i).getScaleX()*1.2f);
 			paralax_element.get(i).setScaleY(paralax_element.get(i).getScaleY()*1.2f);
+			paralax_element.get(i).setPosition(paralax_element.get(i).getPosition().x/1.2f, paralax_element.get(i).getPosition().y*1.2f);
 		}
 		float a_seg = this.getPosition().x*(-1); 
 		float roi =  a_seg+screen_size.width;
@@ -210,6 +211,7 @@ public class Game_Arena extends CCColorLayer
 		{
 			paralax_element.get(i).setScaleX(paralax_element.get(i).getScaleX()/1.2f);
 			paralax_element.get(i).setScaleY(paralax_element.get(i).getScaleY()/1.2f);
+			paralax_element.get(i).setPosition(paralax_element.get(i).getPosition().x*1.2f, paralax_element.get(i).getPosition().y/1.2f);
 		}
 		float a_seg = this.getPosition().x*(-1); 
 		float roi =  a_seg+screen_size.width;

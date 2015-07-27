@@ -14,9 +14,9 @@ public class Flag_Element extends Personage_Element
 {
 	  
 	ArrayList<CCSpriteFrame> flag_move = null;
-	public Flag_Element(String location_path, float  general_scale_factor)
+	public Flag_Element(String location_path, float  general_scale_factor, String is_who)
 	{
-	   super(location_path, general_scale_factor);	
+	   super(location_path, general_scale_factor, is_who);	
 	   
 	}
 	

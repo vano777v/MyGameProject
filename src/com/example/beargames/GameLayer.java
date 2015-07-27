@@ -24,7 +24,7 @@ import org.cocos2d.utils.CCFormatter;
 import android.app.Activity;
 import android.view.MotionEvent;
 
-import com.example.beargames.R.raw;
+//import com.example.beargames.R.raw;
 import com.example.game.arena.elements.Main_Base;
 
 public class GameLayer extends CCLayer
@@ -105,14 +105,17 @@ public class GameLayer extends CCLayer
         arena.addChild(pers2);
         
        bear_base=arena.add_base_node("campaign_1/level_1", CGSize.make(base_dimm, base_dimm), CGPoint.make(16.66f, 0), "b");
-       bear_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(0, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(0, 0),CGSize.make(pers_dim*2, pers_dim*2),CGPoint.make(0, 0), CGSize.make(600, 600), CGPoint.make(260, 600));
+       bear_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(0, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(0, 0),CGSize.make(pers_dim, pers_dim),CGPoint.make(780, 570), CGSize.make(600, 600), CGPoint.make(260, 600));
        bear_base.init_flag_move("campaign_1/level_1", 1, 9);
-       bear_base.init_pers_default_movie("campaign_1/level_1", 1, 8); 
-        
-        vimpir_base= arena.add_base_node("campaign_1/level_1", CGSize.make(base_dimm, base_dimm), CGPoint.make(arena.get_action_arena()-base_dimm*pp/3f, 0), "v");
-        vimpir_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(base_dimm-118f, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(0, 0),CGSize.make(pers_dim*2, pers_dim*2),CGPoint.make(-50, 420), CGSize.make(600, 600), CGPoint.make(350, 820));
-        vimpir_base.init_flag_move("campaign_1/level_1", 1, 9); 
-        vimpir_base.init_pers_default_movie("campaign_1/level_1", 1, 7);
+       bear_base.get_main_Personage().add_action("campaign_1/level_1","bossm_b", 0.7f, 1, 8);
+       bear_base.get_main_Personage().add_action("campaign_1/level_1","bossma1_b", 0.5f, 1, 6);
+       bear_base.get_main_Personage().start_action(0);
+         vimpir_base= arena.add_base_node("campaign_1/level_1", CGSize.make(base_dimm, base_dimm), CGPoint.make(arena.get_action_arena()-base_dimm*pp/3f, 0), "v");
+        vimpir_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(base_dimm-118f, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(0, 0),CGSize.make(pers_dim, pers_dim),CGPoint.make(-50, 420), CGSize.make(600, 600), CGPoint.make(350, 820));
+        vimpir_base.init_flag_move("campaign_1/level_1", 1, 9);
+        vimpir_base.get_main_Personage().add_action("campaign_1/level_1","bossm_v", 0.7f, 1, 7);
+        vimpir_base.get_main_Personage().start_action(0);
+        //vimpir_base.init_pers_default_movie("campaign_1/level_1", 1, 7);
         //System.out.println("Distante "+vimpir_base.getContentSize().width); 
         System.out.println("pp "+vimpir_base.getPosition());
          
@@ -972,7 +975,7 @@ public class GameLayer extends CCLayer
     		
     	  menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/zoom_out_unpress.png","menus/settings_items/zoom_out_press.png", 0.2f);
     	  scale_factor/=1.2f;
-    	  
+    	  bear_base.get_main_Personage().start_action(1);
     	 // arena.set_paralax_scale(scale_factor);
     	  ///System.out.println("Scale arena "+arena.getContentSize().width+" "+vp+" "+vimpir_base.getContentSize()+" "+vimpir_base.getScaleX());
     	  arena.paralax_zoom_out(1.2f);
@@ -997,7 +1000,7 @@ public class GameLayer extends CCLayer
     		 
     		 
     		
-    		 
+    		 bear_base.get_main_Personage().start_action(0);
     		 
     		 menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/zoom_in_unpress.png","menus/settings_items/zoom_in_press.png", 0.2f);
     		scale_factor *=1.2f;

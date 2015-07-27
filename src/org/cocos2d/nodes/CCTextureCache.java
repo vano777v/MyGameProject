@@ -283,6 +283,7 @@ public class CCTextureCache {
 					System.gc();
 				} catch (IOException e) {
 					bitmap = null;
+					
 					e.printStackTrace();
 				}
 				
