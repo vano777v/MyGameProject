@@ -3,6 +3,12 @@ package com.example.beargames;
 import org.cocos2d.layers.CCScene;
 import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.opengl.CCGLSurfaceView;
+import org.cocos2d.types.CGSize;
+
+import com.example.beargames.Campaign_1.Level_1_1;
+import com.example.beargames.Campaign_1.Level_1_2;
+import com.example.beargames.Campaign_1.Level_1_3;
+import com.example.beargames.Campaign_1.Level_1_4;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -41,10 +47,15 @@ public class GameInit extends Activity
 		String maxTexture = settings.getString("gl_max_texture_size", "1024");
 		System.out.println("maxTexture="+maxTexture);
 		CCDirector.setMaxTexture(Integer.valueOf(maxTexture));
-		
+		CGSize screen_size = CCDirector.sharedDirector().displaySize();
+		float general_scale_factor = screen_size.height/1600f;
 		//<--- set texture max to CCDirector for later use		
-		
-		CCScene scene = new GameLayer().scene();
+		//Level_1_2 level_1 = new Level_1_2("campaign_1/","level_2", general_scale_factor,screen_size);
+		//CCScene scene = level_1.get_Level().scene();
+		//Level_1_3 level_3 = new Level_1_3("campaign_1/","level_3", general_scale_factor,screen_size);
+		//CCScene scene = level_3.get_Level().scene();
+		Level_1_4 level_4 = new Level_1_4("campaign_1/","level_4", general_scale_factor,screen_size);
+		CCScene scene = level_4.get_Level().scene();
 		CCDirector.sharedDirector().runWithScene(scene);
 		
 		

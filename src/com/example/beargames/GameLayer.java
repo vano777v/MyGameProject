@@ -45,7 +45,7 @@ public class GameLayer extends CCLayer
 	 static CCProgressTimer item1;
 	private CCBitmapFontAtlas statusLabel;
 	//private int istouch =0;
-	private  Game_Arena arena;
+	private  Game_Arena arena = null;
 	private  int  last_touch_ability=0;
 	//private  MenuLayer bar_menu, bnm;
 	//private CCSprite player;
@@ -54,6 +54,7 @@ public class GameLayer extends CCLayer
 	private static int team_selected=0;
 	///protected static Activity mMyApp;
 	//private  MenuLayer choose= null;
+	private static String campaign=null;
 	private static int count_zoom=0;
 	private static float scale_factor=0;
     private  Main_Base bear_base=null;
@@ -63,14 +64,14 @@ public class GameLayer extends CCLayer
     private  Main_Base vimpir_base=null;
 	private ArrayList<MenuLayer> menus_game= null;
 	  float vp=0 ,dt=0,pz=0;
-    public GameLayer()
+    public GameLayer( String campaign, Game_Arena new_level )
     {
     	screenSize = CCDirector.sharedDirector().winSize();
        /// mMyApp = m; 
           java.lang.System.out.println("Antonio"+screenSize);
       //  bear_init= new ArrayList<Integer>();
     	this.setIsTouchEnabled(true);
-    	
+    	this.campaign = campaign;
         menus_game = new ArrayList<MenuLayer>();
         buffer_team =  new int[4];
     	CGSize percents = CGSize.make(800/2560f, 1082/1600f);
@@ -79,62 +80,16 @@ public class GameLayer extends CCLayer
     	scale_factor=pp;
         CGSize scale_factors = CGSize.make(1, 1);
         count_zoom=2;  
-        arena =  new Game_Arena(ccColor4B.ccc4(255,0, 0,255), pp,3f,screenSize, pers_dim, base_dimm,6);
-        arena.setPosition(0, 250*pp);
-        arena.set_size_arena(CGSize.make(screenSize.width*3, screenSize.height ));
-        arena.set_action_arena(15);
-        arena.add_Paralax_Child("campaign_1/level_1/paralax/noise.png", CGPoint.make(0, 250f*pp),CGPoint.make(0, 0), 0);
-        arena.add_Paralax_Child("campaign_1/level_1/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
-        arena.add_Paralax_Child("campaign_1/level_1/paralax/sback.png", CGPoint.make(0, 70f*pp),CGPoint.make(0.3f, 0), 2);
-        arena.add_Paralax_Child("campaign_1/level_1/paralax/mback.png", CGPoint.make(0,60*pp),CGPoint.make(0.1f, 0), 2);
-        CCSprite pers = CCSprite.sprite("campaign_1/L4.png");
-        pers.setAnchorPoint(0, 0);
-        pers.setPosition(230, 0);
-        //pers.setColor(ccColor3B.ccBLUE);
-        pers.setScale(pp*1.2f);
-        pers.setScaleX(pers.getScaleX()/3);
-        //pers.setScale(pers.getScale()*1.2f);
-      //  arena.addChild(pers);
-        CCSprite pers2 = CCSprite.sprite("campaign_1/L5.png");
-        pers2.setAnchorPoint(0, 0);
-        pers2.setPosition(326, 0);
-        //pers.setColor(ccColor3B.ccBLUE);
-        pers2.setScale(pp*1.2f);
-        pers2.setScaleX(pers2.getScaleX()/3);
-        //pers.setScale(pers.getScale()*1.2f);
-        arena.addChild(pers2);
+       
+     
+        arena = new_level;
+        addChild(new_level);
         
-       bear_base=arena.add_base_node("campaign_1/level_1", CGSize.make(base_dimm, base_dimm), CGPoint.make(16.66f, 0), "b");
-       bear_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(0, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(0, 0),CGSize.make(pers_dim, pers_dim),CGPoint.make(780, 570), CGSize.make(600, 600), CGPoint.make(260, 600));
-       bear_base.init_flag_move("campaign_1/level_1", 1, 9);
-       bear_base.get_main_Personage().add_action("campaign_1/level_1","bossm_b", 0.7f, 1, 8);
-       bear_base.get_main_Personage().add_action("campaign_1/level_1","bossma1_b", 0.5f, 1, 6);
-       bear_base.get_main_Personage().start_action(0);
-         vimpir_base= arena.add_base_node("campaign_1/level_1", CGSize.make(base_dimm, base_dimm), CGPoint.make(arena.get_action_arena()-base_dimm*pp/3f, 0), "v");
-        vimpir_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(base_dimm-118f, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(0, 0),CGSize.make(pers_dim, pers_dim),CGPoint.make(-50, 420), CGSize.make(600, 600), CGPoint.make(350, 820));
-        vimpir_base.init_flag_move("campaign_1/level_1", 1, 9);
-        vimpir_base.get_main_Personage().add_action("campaign_1/level_1","bossm_v", 0.7f, 1, 7);
-        vimpir_base.get_main_Personage().start_action(0);
-        //vimpir_base.init_pers_default_movie("campaign_1/level_1", 1, 7);
-        //System.out.println("Distante "+vimpir_base.getContentSize().width); 
-        System.out.println("pp "+vimpir_base.getPosition());
-         
-    System.out.println("screen"+arena.getScaleX());
-        addChild(arena);
-        
-        //level = new Level_1_1_Layer(ccColor4B.ccc4(255,255, 255,255),pp);
-        //level.setPosition(CGPoint.make(0, 250f*pp));
-        
-       // addChild(level);
-        //size_menus.set(304, 486);
+       
         this.bears_menu_init(screenSize, percents);
         this.main_menu_init( 0.16f);
         this.ability_menu_init();
-        //size_menus.set(800,1082);
-       
-        //size_menus.set(300, 250);
-        //this.setting/_menu_init(size_menus, scale_factors);
-        //size_menus.set(1024, 75);
+     
         this.setting_menu_init();
          this.top_menu_init();
        
@@ -170,7 +125,7 @@ public class GameLayer extends CCLayer
     		while(i<=8)
     		{
     			
-    			path = "menus/block/"+(i)+"b.png";
+    			path = this.campaign+"menus/block/"+(i)+"b.png";
     			menus_game.get(menu_index).change_Image_item(path, i*2);
     			menus_game.get(menu_index).get_item(i*2).setisTouchEnabled(false);
     			menus_game.get(menu_index).get_item(i*2).set_touch_state(true);
@@ -519,14 +474,14 @@ public class GameLayer extends CCLayer
     	 }
     	 else
     	 {
-    		 menus_game.get(menu_index).change_Image_item("menus/block/"+item_tag+"b.png", index);
+    		 menus_game.get(menu_index).change_Image_item(this.campaign+"menus/block/"+item_tag+"b.png", index);
     		 menus_game.get(menu_index).get_item(index).setisTouchEnabled(false);
     		 menus_game.get(menu_index).get_item(index).set_touch_state(true);
-    		 menus_game.get(menu_index).get_item(index).time_progress_bar_init("menus/choosed/"+item_tag+"a.png");
-    		 menus_game.get(menu_index).get_item(index).set_path_progress_bar("menus/neutral/"+item_tag+"n.png");
+    		 menus_game.get(menu_index).get_item(index).time_progress_bar_init(this.campaign+"menus/choosed/"+item_tag+"a.png");
+    		 menus_game.get(menu_index).get_item(index).set_path_progress_bar(this.campaign+"menus/neutral/"+item_tag+"n.png");
     		 menus_game.get(menu_index).get_item(index).time_progress(time,menus_game.get(bear_menu_index),item_tag, team_selected, buffer_team);
     		 menus_game.get(bear_menu_index).get_item(item_tag*2).setisTouchEnabled(false);
-    		 menus_game.get(bear_menu_index).change_Image_item("menus/press/"+item_tag+"p.png", item_tag*2);
+    		 menus_game.get(bear_menu_index).change_Image_item(this.campaign+"menus/press/"+item_tag+"p.png", item_tag*2);
     		 team_selected++;
     		
     		 java.lang.System.out.println("kkkk "+team_selected+" "+ menus_game.get(menu_index).get_item(index).team_count);
@@ -535,7 +490,7 @@ public class GameLayer extends CCLayer
     			 for(int i=2;i<18;i+=2)
     			 {
     			   if(menus_game.get(bear_menu_index).get_item(i).get_isTouchEnabel()&& !menus_game.get(bear_menu_index).get_item(i).get_touch_state()){	 
-    				  menus_game.get(bear_menu_index).change_Image_item("menus/neutral_press/"+(i/2)+"np.png", i);
+    				  menus_game.get(bear_menu_index).change_Image_item(this.campaign+"menus/neutral_press/"+(i/2)+"np.png", i);
     				 // menus_game.get(bear_menu_index).get_item(i).set_touch_state(true);
     				  menus_game.get(bear_menu_index).get_item(i).setisTouchEnabled(false);
     			   }
@@ -546,10 +501,10 @@ public class GameLayer extends CCLayer
      }
      private void button_ability_item_press(int index, int menu_index)
      {
-    	 String path="menus/ability_icons/"+last_touch_ability+"ab_i/1a.png";
+    	 String path=this.campaign+"menus/ability_icons/"+last_touch_ability+"ab_i/1a.png";
 	     menus_game.get(menu_index).change_Image_item(path, last_touch_ability);
 	     menus_game.get(menu_index).get_item(last_touch_ability).setisTouchEnabled(true);
-    	 path="menus/ability_icons/"+index+"ab_i/1p.png";
+    	 path=this.campaign+"menus/ability_icons/"+index+"ab_i/1p.png";
     	 menus_game.get(menu_index).change_Image_item(path, index);
     
     	 for(int i=0;i<3;i++)
@@ -557,11 +512,11 @@ public class GameLayer extends CCLayer
     	 	buffer_ability_items[i]=index+i;
     	 	if(i==0)
     	 	{
-    	 		 menus_game.get(menu_index).change_Image_item("menus/ability_icons/"+index+"ab_i/"+index+"_mb_a.png", i+1);
+    	 		 menus_game.get(menu_index).change_Image_item(this.campaign+"menus/ability_icons/"+index+"ab_i/"+index+"_mb_a.png", i+1);
     	    	
     	 	}else
     	 	{
-    	 		 menus_game.get(menu_index).change_Image_item("menus/ability_icons/"+index+"ab_i/"+(i+1)+"a.png", i+1);
+    	 		 menus_game.get(menu_index).change_Image_item(this.campaign+"menus/ability_icons/"+index+"ab_i/"+(i+1)+"a.png", i+1);
     	 	}
     	 	
     	 	
@@ -583,23 +538,23 @@ public class GameLayer extends CCLayer
      private void main_menu_init(float percents)
      {
     	 float perc = screenSize.height/1600;
-    	 MenuLayer main_menu =   new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menus/menu2.png",2, CGSize.make(3048f, 250f), perc);
+    	 MenuLayer main_menu =   new MenuLayer(ccColor4B.ccc4(255,255, 255,255),this.campaign,this.campaign+"menus/menu2.png",2, CGSize.make(3048f, 250f), perc);
     	 main_menu.setPosition(0,0);
     	 main_menu.setIsTouchEnabled(true);
-    	 main_menu.add_item("menus/rim_stone.png", 1, CGPoint.make(360, 10), CGSize.make(200, 200));
-         main_menu.add_item("menus/strategy_unpress.png",2, CGPoint.make(370, 20), CGSize.make(180, 180));
-         main_menu.add_item("menus/rim_stone.png",3, CGPoint.make(20, 10), CGSize.make(200, 200));
-         main_menu.add_item("menus/main_unpress.png",4, CGPoint.make(30, 20), CGSize.make(180, 180));
+    	 main_menu.add_item(this.campaign+"menus/rim_stone.png", 1, CGPoint.make(360, 10), CGSize.make(200, 200));
+         main_menu.add_item(this.campaign+"menus/strategy_unpress.png",2, CGPoint.make(370, 20), CGSize.make(180, 180));
+         main_menu.add_item(this.campaign+"menus/rim_stone.png",3, CGPoint.make(20, 10), CGSize.make(200, 200));
+         main_menu.add_item(this.campaign+"menus/main_unpress.png",4, CGPoint.make(30, 20), CGSize.make(180, 180));
          float button_dist =((screenSize.width-762f*perc-590f*perc-800f*perc)/5f)/perc;
          float dist = button_dist+590f;
          java.lang.System.out.println("dist "+dist);
          int count=1;
          for(int i=5;i<=12;i++)
          {
-        	 main_menu.add_item("menus/rim.png", i, CGPoint.make(dist, 10), CGSize.make(200, 200));
+        	 main_menu.add_item(this.campaign+"menus/rim.png", i, CGPoint.make(dist, 10), CGSize.make(200, 200));
         	 i++;
         	 count=i/2-2;
-             main_menu.add_item("menus/neutral/"+count+"n.png", i, CGPoint.make(dist+10, 20), CGSize.make(180, 180));
+             main_menu.add_item(this.campaign+"menus/neutral/"+count+"n.png", i, CGPoint.make(dist+10, 20), CGSize.make(180, 180));
              dist+=(200+button_dist);
          } 
          
@@ -617,7 +572,7 @@ public class GameLayer extends CCLayer
      private void ability_menu_init()
      {
     	 float perc = screenSize.height/1600f;
-    	 MenuLayer ability_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menus/menu3.png",3, CGSize.make(762f, 1227f), perc);
+    	 MenuLayer ability_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),this.campaign,this.campaign+"menus/menu3.png",3, CGSize.make(762f, 1227f), perc);
     	
     	
     	 
@@ -638,32 +593,32 @@ public class GameLayer extends CCLayer
     	float coord_x=80, coord_y=752;
     	int j=0, count=1, count_bear_main=0;
     	String path=null;
-    	ability_menu.add_item("menus/ability_icons/5ab_i/5_mb_a.png", 1, CGPoint.make(20, 977), CGSize.make(225, 225));
+    	ability_menu.add_item(this.campaign+"menus/ability_icons/5ab_i/5_mb_a.png", 1, CGPoint.make(20, 977), CGSize.make(225, 225));
     	ability_menu.get_item(1).setisTouchEnabled(true);
-    	ability_menu.add_item("menus/ability_icons/5ab_i/2a.png", 2, CGPoint.make(320, 1017), CGSize.make(150, 150));
+    	ability_menu.add_item(this.campaign+"menus/ability_icons/5ab_i/2a.png", 2, CGPoint.make(320, 1017), CGSize.make(150, 150));
     	ability_menu.get_item(2).setisTouchEnabled(true);
-    	ability_menu.add_item("menus/ability_icons/5ab_i/3a.png", 3, CGPoint.make(570, 1017), CGSize.make(150, 150));
+    	ability_menu.add_item(this.campaign+"menus/ability_icons/5ab_i/3a.png", 3, CGPoint.make(570, 1017), CGSize.make(150, 150));
     	ability_menu.get_item(3).setisTouchEnabled(true);
     	 for(int i=4;i<20;i+=4)
     	{
     		 
     		 j=i;
     	 if(menus_game.get(bear_menu_index).get_item(buffer_ability_team[count_bear_main]).get_isTouchEnabel()){	 
-    		 ability_menu.add_item("menus/rim.png", i, CGPoint.make(coord_x,coord_y), CGSize.make(160, 160));
+    		 ability_menu.add_item(this.campaign+"menus/rim.png", i, CGPoint.make(coord_x,coord_y), CGSize.make(160, 160));
     		 j++;
     		 coord_x+=10;
     		 coord_y+=10;
-    		 path="menus/ability_icons/"+j+"ab_i/"+count;
+    		 path=this.campaign+"menus/ability_icons/"+j+"ab_i/"+count;
     		 ability_menu.add_item(path+"a.png", j, CGPoint.make(coord_x,coord_y), CGSize.make(140, 140));
     		 ability_menu.get_item(j).setisTouchEnabled(true);
     		 count++;
     		 coord_x+=230;
-    		 path="menus/ability_icons/"+j+"ab_i/"+count;
+    		 path=this.campaign+"menus/ability_icons/"+j+"ab_i/"+count;
     		 ability_menu.add_item(path+"a.png", (j+1), CGPoint.make(coord_x,coord_y), CGSize.make(140, 140));
     		
     		 count++;
     		 coord_x+=250;
-    		 path="menus/ability_icons/"+j+"ab_i/"+count;
+    		 path=this.campaign+"menus/ability_icons/"+j+"ab_i/"+count;
     		 ability_menu.add_item(path+"a.png", (j+2), CGPoint.make(coord_x,coord_y), CGSize.make(140, 140));
     		
     		 count=1;
@@ -672,21 +627,21 @@ public class GameLayer extends CCLayer
     	 }
     	 else
     	 {
-    		 ability_menu.add_item("menus/rim.png", i, CGPoint.make(coord_x,coord_y), CGSize.make(160, 160));
+    		 ability_menu.add_item(this.campaign+"menus/rim.png", i, CGPoint.make(coord_x,coord_y), CGSize.make(160, 160));
     		 j++;
     		 coord_x+=10;
     		 coord_y+=10;
-    		 path="menus/ability_icons/"+j+"ab_i/"+count;
+    		 path=this.campaign+"menus/ability_icons/"+j+"ab_i/"+count;
     		 ability_menu.add_item(path+"b.png", j, CGPoint.make(coord_x,coord_y), CGSize.make(140, 140));
     		 ability_menu.get_item(j).setisTouchEnabled(false);
     		 count++;
     		 coord_x+=230;
-    		 path="menus/ability_icons/"+j+"ab_i/"+count;
+    		 path=this.campaign+"menus/ability_icons/"+j+"ab_i/"+count;
     		 ability_menu.add_item(path+"b.png", (j+1), CGPoint.make(coord_x,coord_y), CGSize.make(140, 140));
     		
     		 count++;
     		 coord_x+=250;
-    		 path="menus/ability_icons/"+j+"ab_i/"+count;
+    		 path=this.campaign+"menus/ability_icons/"+j+"ab_i/"+count;
     		 ability_menu.add_item(path+"b.png", (j+2), CGPoint.make(coord_x,coord_y), CGSize.make(140, 140));
     		
     		 count=1;
@@ -698,7 +653,7 @@ public class GameLayer extends CCLayer
     	 coord_y=752;
     	 for(int i=20;i<24;i++)
     	 {
-    		 ability_menu.add_item("menus/ability_icons/glass.png", i, CGPoint.make(285, coord_y), CGSize.make(521, 160));
+    		 ability_menu.add_item(this.campaign+"menus/ability_icons/glass.png", i, CGPoint.make(285, coord_y), CGSize.make(521, 160));
     		 coord_y-=240;
     	 }
     	 
@@ -710,7 +665,7 @@ public class GameLayer extends CCLayer
     	// CGSize size_menu=CGSize.make( screen_size.width*percents.width, screen_size.height*percents.height);
     	// CGSize scale_factors = CGSize.make(1, 1); 
     	 float s = screen_size.height/1600f;
-    	 MenuLayer bears_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menus/menu1.png",1, CGSize.make(800f, 1082f), s);    	
+    	 MenuLayer bears_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),this.campaign,this.campaign+"menus/menu1.png",1, CGSize.make(800f, 1082f), s);    	
     	 bears_menu.setPosition(-bears_menu.scaled_size_width,250f*s );                                                                                                                                                                                                 
     	 bears_menu.setIsTouchEnabled(true);
     	float sizex = bears_menu.get_size().width/800f;
@@ -722,11 +677,11 @@ public class GameLayer extends CCLayer
     	 for(int i=1;i<17;i++)
     	 {
     		 
-    		 bears_menu.add_item("menus/rim.png", i, CGPoint.make(coordx, coordy), CGSize.make(160f, 160f));
+    		 bears_menu.add_item(this.campaign+"menus/rim.png", i, CGPoint.make(coordx, coordy), CGSize.make(160f, 160f));
     		 i++;
-    		 bears_menu.add_item("menus/neutral/"+(i/2)+"n.png", i, CGPoint.make(coordx+10, coordy+10), CGSize.make(140f, 140f));
+    		 bears_menu.add_item(this.campaign+"menus/neutral/"+(i/2)+"n.png", i, CGPoint.make(coordx+10, coordy+10), CGSize.make(140f, 140f));
     		 bears_menu.get_item(i).setisTouchEnabled(true);
-    		 java.lang.System.out.println("menus/neutral/"+i+"n.png");
+    		 java.lang.System.out.println(this.campaign+"menus/neutral/"+i+"n.png");
     		 count++; 
     		 coordx+=370;
     		 if(count==3)
@@ -751,15 +706,15 @@ public class GameLayer extends CCLayer
      private void top_menu_init ()
      {
     	 float perc = screenSize.height/1600f;
-    	final  MenuLayer top_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menus/menu4.png",5, CGSize.make(3840f, 188f), perc);
+    	final  MenuLayer top_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),this.campaign,this.campaign+"menus/menu4.png",5, CGSize.make(3840f, 188f), perc);
     	 top_menu.setOpacity(0);
     	 float orig_x= (top_menu.scaled_size_width-screenSize.width)/perc;
     	 top_menu.setPosition(screenSize.width-top_menu.scaled_size_width,screenSize.height-top_menu.scaled_size_height);
-    	 top_menu.add_item("menus/rim_stone.png", 1, CGPoint.make(orig_x+20,12f), CGSize.make(170f, 170f));
-    	 top_menu.add_item("menus/rim_stone.png", 2, CGPoint.make(3650f,12f ), CGSize.make(170, 170));
+    	 top_menu.add_item(this.campaign+"menus/rim_stone.png", 1, CGPoint.make(orig_x+20,12f), CGSize.make(170f, 170f));
+    	 top_menu.add_item(this.campaign+"menus/rim_stone.png", 2, CGPoint.make(3650f,12f ), CGSize.make(170, 170));
     	 
-    	 top_menu.add_item("menus/settings_items/zoom_in_unpress.png", 3, CGPoint.make(orig_x+30,22f ), CGSize.make(150, 150));
-    	 top_menu.add_item("menus/settings_items/zoom_out_unpress.png", 4, CGPoint.make(3660f,22f ), CGSize.make(150, 150));
+    	 top_menu.add_item(this.campaign+"menus/settings_items/zoom_in_unpress.png", 3, CGPoint.make(orig_x+30,22f ), CGSize.make(150, 150));
+    	 top_menu.add_item(this.campaign+"menus/settings_items/zoom_out_unpress.png", 4, CGPoint.make(3660f,22f ), CGSize.make(150, 150));
     	 top_menu.get_item(3).setisTouchEnabled(true);
     	 top_menu.get_item(4).setisTouchEnabled(true);
     	 top_menu.setIsTouchEnabled(true);
@@ -774,18 +729,18 @@ public class GameLayer extends CCLayer
      {
     	
     	 float perc = screenSize.height/1600f;
-    	 final MenuLayer setting_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),"menus/menu5.png",4, CGSize.make(762f, 754f), perc);
+    	 final MenuLayer setting_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),this.campaign,this.campaign+"menus/menu5.png",4, CGSize.make(762f, 754f), perc);
     	setting_menu.setOpacity(0);
     	 setting_menu.setPosition(screenSize.width-975f*perc,screenSize.height-188f*perc);
-    	 setting_menu.add_item("menus/settings_items/sound_on.png", 1, CGPoint.make(93,270 ), CGSize.make(150, 150));
+    	 setting_menu.add_item(this.campaign+"menus/settings_items/sound_on.png", 1, CGPoint.make(93,270 ), CGSize.make(150, 150));
     	 setting_menu.get_item(1).setisTouchEnabled(true);
-    	 setting_menu.add_item("menus/settings_items/restart_unpress.png", 2, CGPoint.make(343,270 ), CGSize.make(150, 150));
+    	 setting_menu.add_item(this.campaign+"menus/settings_items/restart_unpress.png", 2, CGPoint.make(343,270 ), CGSize.make(150, 150));
     	 setting_menu.get_item(2).setisTouchEnabled(true);
-    	 setting_menu.add_item("menus/settings_items/save_unpress.png", 3, CGPoint.make(588,270 ), CGSize.make(152, 150));
+    	 setting_menu.add_item(this.campaign+"menus/settings_items/save_unpress.png", 3, CGPoint.make(588,270 ), CGSize.make(152, 150));
     	 setting_menu.get_item(3).setisTouchEnabled(true);
-    	 setting_menu.add_item("menus/settings_items/pause.png", 4, CGPoint.make(588,23 ), CGSize.make(152, 150));
+    	 setting_menu.add_item(this.campaign+"menus/settings_items/pause.png", 4, CGPoint.make(588,23 ), CGSize.make(152, 150));
     	 setting_menu.get_item(4).setisTouchEnabled(true);
-    	 setting_menu.add_item("menus/settings_items/stop_unpress.png", 5, CGPoint.make(588,518 ), CGSize.make(152, 150));
+    	 setting_menu.add_item(this.campaign+"menus/settings_items/stop_unpress.png", 5, CGPoint.make(588,518 ), CGSize.make(152, 150));
     	 setting_menu.get_item(5).setisTouchEnabled(true);
     	 
     	 setting_menu.setIsTouchEnabled(true);
@@ -803,7 +758,7 @@ public class GameLayer extends CCLayer
     	 //java.lang.System.out.println("Zaibali "+menu_tag+" "+item_index);
     	 if(menus_game.get(menu_tag).get_item(item_index).get_touch_state())
     	 {
-    		path = "menus/neutral/"+(item_index/2)+"n.png";
+    		path =  this.campaign+"menus/neutral/"+(item_index/2)+"n.png";
     		 menus_game.get(menu_tag).get_item(item_index).set_touch_state(false);
     		 menus_game.get(menu_tag).change_Image_item(path, item_index);
     		  item_team=search_bear_team(menu_tag, item_index);
@@ -818,7 +773,7 @@ public class GameLayer extends CCLayer
     	 }
     	 else 
     	 {
-    		 path = "menus/choosed/"+(item_index/2)+"a.png";
+    		 path = this.campaign+"menus/choosed/"+(item_index/2)+"a.png";
     		 menus_game.get(menu_tag).get_item(item_index).set_touch_state(true);
     		 menus_game.get(menu_tag).change_Image_item(path, item_index);
     		 item_team= search_bear_team(menu_tag, item_index);
@@ -843,7 +798,7 @@ public class GameLayer extends CCLayer
     			  if(search_not_progress_place(menu_main_index)!=-1){	 
     				int tag= buffer_team[(search_not_progress_place(menu_main_index)-6)/2];
     				 buffer_team[(search_not_progress_place(menu_main_index)-6)/2]=item_index;
-    				 path = "menus/neutral/"+(tag/2)+"n.png";
+    				 path = this.campaign+"menus/neutral/"+(tag/2)+"n.png";
     				 menus_game.get(menu_tag).get_item(tag).set_touch_state(false);
     	    		 menus_game.get(menu_tag).change_Image_item(path, tag);
     				 //System.out.println("sUKA "+tag);
@@ -884,9 +839,9 @@ public class GameLayer extends CCLayer
     		 if(buffer_team[i]!=0 && !menus_game.get(menu_index).get_item(i*2+6).timer_is_working())
     		 {
     			 // 
-    			path="menus/neutral/"+Integer.toString(buffer_team[i]/2)+"n.png";
+    			path=this.campaign+"menus/neutral/"+Integer.toString(buffer_team[i]/2)+"n.png";
     			menus_game.get(menu_index).change_Image_item(path, i*2+6);
-    			path="menus/choosed/"+Integer.toString(buffer_team[i]/2)+"a.png";
+    			path=this.campaign+"menus/choosed/"+Integer.toString(buffer_team[i]/2)+"a.png";
     			menus_game.get(menu_index).get_item(i*2+6).time_progress_bar_init(path);
     			menus_game.get(menu_index).get_item(i*2+6).setOpacity(255);
     			menus_game.get(menu_index).get_item(i*2+6).setisTouchEnabled(true);
@@ -946,7 +901,7 @@ public class GameLayer extends CCLayer
     		
     		 menus_game.get(menu_index).get_item(item_index).set_touch_state(false);
     		  // SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), raw.bear_growl_002);
-    		  menus_game.get(menu_index).change_Image_item("menus/main_unpress.png", item_index);
+    		  menus_game.get(menu_index).change_Image_item(this.campaign+"menus/main_unpress.png", item_index);
     		  
     		   menus_game.get(menu_move).runAction(CCSequence.actions(CCMoveTo.action(0.5f, CGPoint.make(-menus_game.get(menu_move).scaled_size_width, move_menu.y)), CCCallFunc.action(this, "Menu_Move")));
     		   statusLabel.setString(Float.toString(11f));
@@ -956,7 +911,7 @@ public class GameLayer extends CCLayer
     		{
     			   menus_game.get(menu_index).get_item(item_index).set_touch_state(true);
     			  // SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), raw.bear_growl_001);
-    			   menus_game.get(menu_index).change_Image_item("menus/main_press.png", item_index);
+    			   menus_game.get(menu_index).change_Image_item(this.campaign+"menus/main_press.png", item_index);
 	      		   menus_game.get(menu_move).runAction(CCSequence.actions(CCMoveTo.action(0.5f, CGPoint.make(0, move_menu.y)), CCCallFunc.action(this, "Menu_Move")));
 	      		   statusLabel.setString(Float.toString(11f));
 	      		   
@@ -973,16 +928,20 @@ public class GameLayer extends CCLayer
     	if(count_zoom<3&&count_zoom>0)
     	{
     		
-    	  menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/zoom_out_unpress.png","menus/settings_items/zoom_out_press.png", 0.2f);
+    	  menus_game.get(menu_index).get_item(item_tag).button_press(this.campaign+"menus/settings_items/zoom_out_unpress.png",this.campaign+"menus/settings_items/zoom_out_press.png", 0.2f);
     	  scale_factor/=1.2f;
-    	  bear_base.get_main_Personage().start_action(1);
+    	  arena.get_Main_Base_list(0).get_main_Personage().start_action(1);
+    	  arena.get_Main_Base_list(1).get_main_Personage().set_pers_Position(CGPoint.make(-42, 620));
+    	  arena.get_Main_Base_list(1).get_main_Personage().start_action(1);
+    	  if(arena.get_Main_Base_list(1).get_main_Personage().getActionBase(1).isDone()==true)
+    		  arena.get_Main_Base_list(1).get_main_Personage().setOpacity(0); 
+    	  
     	 // arena.set_paralax_scale(scale_factor);
     	  ///System.out.println("Scale arena "+arena.getContentSize().width+" "+vp+" "+vimpir_base.getContentSize()+" "+vimpir_base.getScaleX());
     	  arena.paralax_zoom_out(1.2f);
     	  
     	 
-    	  bear_base.zoom_out(1.2f);
-    	   vimpir_base.zoom_out(1.2f);
+    	 
     	  
     	     	  count_zoom--;
     	}
@@ -1000,15 +959,14 @@ public class GameLayer extends CCLayer
     		 
     		 
     		
-    		 bear_base.get_main_Personage().start_action(0);
+    		 arena.get_Main_Base_list(0).get_main_Personage().start_action(0);
     		 
-    		 menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/zoom_in_unpress.png","menus/settings_items/zoom_in_press.png", 0.2f);
+    		 menus_game.get(menu_index).get_item(item_tag).button_press(this.campaign+"menus/settings_items/zoom_in_unpress.png",this.campaign+"menus/settings_items/zoom_in_press.png", 0.2f);
     		scale_factor *=1.2f;
     		
     		
     		arena.paralax_zoom_in(1.2f);
-    		vimpir_base.zoom_in(1.2f);
-    		bear_base.zoom_in(1.2f);
+    		
     		 
     		count_zoom++;
     		
@@ -1018,7 +976,7 @@ public class GameLayer extends CCLayer
       private void button_ability_press(int menu_index, int menu_item)
      {
     	   if(!menus_game.get(menu_index).get_item(menu_item).get_touch_state()){
-    		   menus_game.get(menu_index).change_Image_item("menus/ability_icons/"+buffer_ability_items[0]+"ab_i/"+buffer_ability_items[0]+"_mb_p.png",menu_item );
+    		   menus_game.get(menu_index).change_Image_item(this.campaign+"menus/ability_icons/"+buffer_ability_items[0]+"ab_i/"+buffer_ability_items[0]+"_mb_p.png",menu_item );
     	   	   menus_game.get(menu_index).get_item(menu_item).set_touch_state(true);
     	   	   if(menus_game.get(menu_index+1).getPosition().y==(screenSize.height-menus_game.get(menu_index+1).scaled_size_height+menus_game.get(menu_index+1).get_item(5).getSize().height*0.5f)){
     	   	   		button_pause_press(menu_index+1, 4);
@@ -1032,7 +990,7 @@ public class GameLayer extends CCLayer
     	   }
     	   else
     	   {
-    		   menus_game.get(menu_index).change_Image_item("menus/ability_icons/"+buffer_ability_items[0]+"ab_i/"+buffer_ability_items[0]+"_mb_a.png",menu_item );
+    		   menus_game.get(menu_index).change_Image_item(this.campaign+"menus/ability_icons/"+buffer_ability_items[0]+"ab_i/"+buffer_ability_items[0]+"_mb_a.png",menu_item );
     	   	   menus_game.get(menu_index).get_item(menu_item).set_touch_state(false);
     	   	  /// SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.wooden_door_being_closed); 
     	   	   menus_game.get(menu_index).runAction(CCSequence.actions(CCMoveTo.action(0.5f, CGPoint.make(menus_game.get(menu_index).getPosition().x, 0-menus_game.get(menu_index).scaled_size_height+menus_game.get(menu_index-1).scaled_size_height)), CCCallFunc.action(this, "Menu_Move")));	
@@ -1040,7 +998,7 @@ public class GameLayer extends CCLayer
      }
       private void button_stop_press(int menu_index, int item_tag )
       {
-    	  menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/stop_unpress.png", "menus/settings_items/stop_press.png", 0.2f);
+    	  menus_game.get(menu_index).get_item(item_tag).button_press(this.campaign+"menus/settings_items/stop_unpress.png", this.campaign+"menus/settings_items/stop_press.png", 0.2f);
     	  for(int i=menus_game.size()-1;i>=0;i--){
 				//menus_game.get(i).Destroy();
 				//menus_game.remove(i);
@@ -1056,7 +1014,7 @@ public class GameLayer extends CCLayer
     	  if(menus_game.get(menu_index).get_item(item_tag).get_touch_state()){ 
    		   
      		 menus_game.get(menu_index).get_item(item_tag).set_touch_state(false);
-     		 menus_game.get(menu_index).change_Image_item("menus/settings_items/sound_on.png", item_tag);
+     		 menus_game.get(menu_index).change_Image_item(this.campaign+"menus/settings_items/sound_on.png", item_tag);
      		   statusLabel.setString(Float.toString(41f));
      		  
      		 // SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.button_press);
@@ -1065,7 +1023,7 @@ public class GameLayer extends CCLayer
      		else
      		{
      			menus_game.get(menu_index).get_item(item_tag).set_touch_state(true);
-       		    menus_game.get(menu_index).change_Image_item("menus/settings_items/sound_off.png", item_tag);
+       		    menus_game.get(menu_index).change_Image_item(this.campaign+"menus/settings_items/sound_off.png", item_tag);
        		    statusLabel.setString(Float.toString(41f));
        		// SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.button_press);
    	      		 
@@ -1078,7 +1036,7 @@ public class GameLayer extends CCLayer
     	 if(menus_game.get(menu_index).get_item(item_index).get_touch_state()){ 
     		   
     		 menus_game.get(menu_index).get_item(item_index).set_touch_state(false);
-    		 menus_game.get(menu_index).change_Image_item("menus/settings_items/pause.png", item_index);
+    		 menus_game.get(menu_index).change_Image_item(this.campaign+"menus/settings_items/pause.png", item_index);
     		// SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.wood_internal_door_handle_movement_version_2);
     		menus_game.get(menu_index).runAction(CCSequence.actions(CCMoveTo.action(0.5f, CGPoint.make(coord_x,screenSize.height-menus_game.get(4).scaled_size_height)), CCCallFunc.action(this, "Menu_Move")));
     		   statusLabel.setString(Float.toString(41f));
@@ -1089,7 +1047,7 @@ public class GameLayer extends CCLayer
     		else
     		{
     			menus_game.get(menu_index).get_item(item_index).set_touch_state(true);
-      		  	menus_game.get(menu_index).change_Image_item("menus/settings_items/play.png", item_index);
+      		  	menus_game.get(menu_index).change_Image_item(this.campaign+"menus/settings_items/play.png", item_index);
       		  		if(menus_game.get(menu_index-1).getPosition().y==0)
       		  		{
       		  			button_ability_press(menu_index-1, 1);
@@ -1105,12 +1063,12 @@ public class GameLayer extends CCLayer
      }
      private void button_restart_press(int menu_index, int item_tag)
      {
-    	 menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/restart_unpress.png", "menus/settings_items/restart_press.png", 0.2f);
+    	 menus_game.get(menu_index).get_item(item_tag).button_press(this.campaign+"menus/settings_items/restart_unpress.png", this.campaign+"menus/settings_items/restart_press.png", 0.2f);
     	 //SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.button_press);
      }
      private void button_save_press(int menu_index, int item_tag)
      {
-    	 menus_game.get(menu_index).get_item(item_tag).button_press("menus/settings_items/save_unpress.png", "menus/settings_items/save_press.png", 0.2f);
+    	 menus_game.get(menu_index).get_item(item_tag).button_press(this.campaign+"menus/settings_items/save_unpress.png", this.campaign+"menus/settings_items/save_press.png", 0.2f);
     	 //SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.button_press);
      }
     public  CCScene scene()
@@ -1123,6 +1081,8 @@ public class GameLayer extends CCLayer
     	return scene;
     	
     }
+    
+   
     
     public void updateTimeLabel(float dt) {
  

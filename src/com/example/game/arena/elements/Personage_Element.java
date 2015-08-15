@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.cocos2d.actions.base.CCRepeatForever;
 import org.cocos2d.actions.interval.CCAnimate;
+import org.cocos2d.actions.interval.CCRepeat;
 import org.cocos2d.nodes.CCAnimation;
 import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.nodes.CCSpriteFrame;
@@ -55,18 +56,23 @@ public class Personage_Element extends CCSprite
   public void add_action(String path_anim_file, String name_action,  float speed_action, int start_index, int stop_index)
 	{
 		ArrayList<CCSpriteFrame>personage_frame =null; 
-	   CCSpriteFrameCache.sharedSpriteFrameCache().addSpriteFrames(path_anim_file+"/castle/personage/animation/"+is_who+"/"+name_action+".plist");
+	   CCSpriteFrameCache.sharedSpriteFrameCache().addSpriteFrames(path_anim_file+"castle/personage/animation/"+is_who+"/"+name_action+".plist");
 	    // set png file created with 
-		CCSpriteSheet spriteSheet = CCSpriteSheet.spriteSheet(path_anim_file+"/castle/personage/animation/"+is_who+"/"+name_action+".png");
+		CCSpriteSheet spriteSheet = CCSpriteSheet.spriteSheet(path_anim_file+"castle/personage/animation/"+is_who+"/"+name_action+".png");
 		
 	    addChild(spriteSheet);
 	    personage_frame = new ArrayList<CCSpriteFrame>();
 	    for(int i=start_index; i<stop_index;i++)
 	    	personage_frame.add(CCSpriteFrameCache.sharedSpriteFrameCache().spriteFrameByName( i+".png"));
+	 
+	   
 	   
 	    CCAnimation atAnimation = CCAnimation.animation("boss_movie_default", speed_action, personage_frame);
 	    CCRepeatForever atAction = CCRepeatForever.action(CCAnimate.action(atAnimation, false));
-        base_action.add(atAction);     
+         
+	    base_action.add(atAction);
+        
+        //base_action.add(ghj);
 	}  
 		
   public void start_action(int index_action)

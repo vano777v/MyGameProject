@@ -24,14 +24,15 @@ public class MenuLayer extends CCColorLayer{
     protected float scaled_size_height=0;
     private int item_touch_tag=-1;
     private int touch_state = -1;
-    
+    private String campaign_path = null;
     private float general_scale_factor= 0;
     static private CGPoint translation = null;
     private  ArrayList<MenuItemLayer> menuitems = null;
-	protected MenuLayer(ccColor4B color, String image_path, int tag, CGSize menu_size, float general_scale_factor) 
+	protected MenuLayer(ccColor4B color, String campaign, String image_path, int tag, CGSize menu_size, float general_scale_factor) 
 	{
 		super(color);
 		
+		this.campaign_path = campaign;
 		this.setTag(tag);
 		this.setAnchorPoint(0f, 0f);
 		CGSize real_size = CGSize.make(menu_size.width,menu_size.height);
@@ -103,7 +104,7 @@ public class MenuLayer extends CCColorLayer{
      public void add_item(String path, int tag, CGPoint position_item, CGSize new_item_size)
      {
     	  MenuItemLayer item = null;
-    	  item = new MenuItemLayer(path, tag);
+    	  item = new MenuItemLayer(this.campaign_path,path, tag);
     	  CGSize item_s = CGSize.make(new_item_size.width*general_scale_factor, new_item_size.height*general_scale_factor);
     	 
     	 // item.setPosition(512f, 360f);

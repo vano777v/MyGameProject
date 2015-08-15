@@ -26,9 +26,10 @@ public class Game_Arena extends CCColorLayer
     private float start_point_arena =0, action_arena=0;
     private float base_dimm=0, pers_dimm=0;  
     private ArrayList<CCSprite> paralax_element=null; 
+    private ArrayList<Main_Base> base_list=null; 
     private float limt=0;
     
-	protected Game_Arena(ccColor4B color,  float general_scale_factor, float locala_scale_factor, CGSize screen_size,float pers_dimm, float base_dimm, int tag_arena) 
+	public Game_Arena(ccColor4B color,  float general_scale_factor, float locala_scale_factor, CGSize screen_size,float pers_dimm, float base_dimm, int tag_arena) 
 	{
 		super(color);
 		// TODO Auto-generated constructor stub
@@ -44,6 +45,7 @@ public class Game_Arena extends CCColorLayer
 		this.pers_dimm = pers_dimm;
 		this.base_dimm = base_dimm;
 		paralax_element = new ArrayList<CCSprite>();
+		base_list = new ArrayList<Main_Base>();
 		addChild(paralax, 0, 6);
 	} 
     public void set_size_arena(CGSize new_size)
@@ -162,15 +164,20 @@ public class Game_Arena extends CCColorLayer
 	}
 	
 	
-	public Main_Base add_base_node(String source_path, CGSize base_size, CGPoint base_location, String is_who)
+	public Main_Base add_base_node(String source_path, String castle_level,CGSize base_size, CGPoint base_location, String is_who)
 	{
-	     Main_Base base = new Main_Base(ccColor4B.ccc4(0,255, 0,255), source_path,local_scale_factor,general_scale_factor, is_who );
+	     Main_Base base = new Main_Base(ccColor4B.ccc4(0,255, 0,255), source_path,castle_level,local_scale_factor,general_scale_factor, is_who );
 	    base.setSize(base_size);
 	    base.setBasePosition(base_location);
+	    base_list.add(base);
 	    addChild(base);
 	    return base;
 	}
 	
+	public Main_Base get_Main_Base_list(int index)
+	{
+		return base_list.get(index);
+	}
 	public void paralax_zoom_in(float scale_factor)
 	{
 		this.setContentSize(this.getContentSize().width*scale_factor,this.getContentSize().height*scale_factor);
@@ -181,6 +188,10 @@ public class Game_Arena extends CCColorLayer
 			paralax_element.get(i).setScaleX(paralax_element.get(i).getScaleX()*1.2f);
 			paralax_element.get(i).setScaleY(paralax_element.get(i).getScaleY()*1.2f);
 			paralax_element.get(i).setPosition(paralax_element.get(i).getPosition().x/1.2f, paralax_element.get(i).getPosition().y*1.2f);
+		}
+		for (int i = 0; i < base_list.size(); i++) 
+		{
+		    base_list.get(i).zoom_in(scale_factor);	
 		}
 		float a_seg = this.getPosition().x*(-1); 
 		float roi =  a_seg+screen_size.width;
@@ -206,12 +217,20 @@ public class Game_Arena extends CCColorLayer
 	}
 	public void paralax_zoom_out(float scale_factor)
 	{
-		float anch_point =0, scaled_roi=0;
+		float anch_point =0, scaled_roi=0, cord_x=0, cord_y=0;
 		for(int i=0;i<paralax_element.size();i++)
 		{
+			cord_x=paralax_element.get(i).getPosition().x;
+			cord_y=paralax_element.get(i).getPosition().y;
 			paralax_element.get(i).setScaleX(paralax_element.get(i).getScaleX()/1.2f);
 			paralax_element.get(i).setScaleY(paralax_element.get(i).getScaleY()/1.2f);
-			paralax_element.get(i).setPosition(paralax_element.get(i).getPosition().x*1.2f, paralax_element.get(i).getPosition().y/1.2f);
+			System.out.println("offset"+paralax_element.get(i).getPosition());
+			paralax_element.get(i).setPosition(cord_x/1.2f, cord_y/1.2f);
+			System.out.println("offset2"+paralax_element.get(i).getPosition());
+		}
+		for (int i = 0; i < base_list.size(); i++) 
+		{
+		    base_list.get(i).zoom_out(scale_factor);	
 		}
 		float a_seg = this.getPosition().x*(-1); 
 		float roi =  a_seg+screen_size.width;

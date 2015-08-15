@@ -277,8 +277,45 @@ public class CCTextureCache {
 		        	bitmap = BitmapFactory.decodeStream(is, null, options);
 		        	
 		        	is.close();
-                      
-					((CCTexture2D)res).initWithImage(bitmap);
+                      try
+                      {
+					   ((CCTexture2D)res).initWithImage(bitmap);
+                      }
+                      catch(Throwable t)
+                      {
+                    	  t.printStackTrace();
+                    	  is = CCDirector.sharedDirector().getActivity().getAssets().open(path);
+      		        	
+      		            options = new BitmapFactory.Options();
+      		        	options.inJustDecodeBounds = true;
+      		        	BitmapFactory.decodeStream(is, null, options);
+      		        	
+      		        	//get the maximum allowed width from openGL
+      		        	//will be different for different devices
+      		        	//--------------
+      		        	//Vano tu poti sa te joci cu valori concrete
+      		        	//ex: cind se cheama calculateInSampleSize(options, 1024, 1024)
+      		        	//int maxSize = CCDirector.getMaxTexture();
+      		        	
+      		        	
+      		        	System.out.println("GLES10 max: " + String.valueOf(maxSize));
+      		        	
+      		        	options.inSampleSize = calculateInSampleSize(options,1024,1024);
+      		        	is.close();
+      		        	
+                    	  
+                    	  
+                    	  //options.inSampleSize = calculateInSampleSize(options,1024,1024);
+                    	  options.inJustDecodeBounds = false;
+      		        	if(maxSize>1024)
+      		        	     options.inPreferredConfig = Bitmap.Config.ARGB_4444;
+      		        	else options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+      		        	is = CCDirector.sharedDirector().getActivity().getAssets().open(path);
+      		        	bitmap = BitmapFactory.decodeStream(is, null, options);
+      		        	
+      		        	is.close();
+      		        	((CCTexture2D)res).initWithImage(bitmap);
+                      }
 					bitmap = null;
 					System.gc();
 				} catch (IOException e) {

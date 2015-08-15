@@ -225,9 +225,19 @@ public class CCTexture2D implements Resource {
         }
         
         if (needDownScale) {
+        	try{
         	Bitmap bitmap = Bitmap.createScaledBitmap(image, (int)imageSize.width, (int)imageSize.height, false);
         	image.recycle();
         	image = bitmap;
+        	}
+        	catch(Throwable t)
+        	{t.printStackTrace();
+             //if(image == null)
+        	   //   return;
+        	Bitmap bitmap = Bitmap.createScaledBitmap(image, (int)imageSize.width, (int)imageSize.height, false);
+        	image.recycle();
+        	image = bitmap;
+        	}
         }
 
         if (imageSize.width != width || imageSize.height != height) {

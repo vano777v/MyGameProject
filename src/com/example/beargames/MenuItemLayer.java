@@ -27,6 +27,7 @@ public class MenuItemLayer extends CCSprite
 	private float sfactor_y=0f;
 	private CGPoint translation_factor = null;
 	private String path_progress_bar_refrash=null;
+	private String campaign= null; 
 	private  float time_request_sec;
 	private  float time_count;
 	public static int team_count=0; 
@@ -36,7 +37,7 @@ public class MenuItemLayer extends CCSprite
 	//private  Timer timer_item_press = null;
 	//private static float count
 	private  CCProgressTimer image_progress = null;
-	 public MenuItemLayer (String path, int tag )
+	 public MenuItemLayer (String campaign, String path, int tag )
 	{
 		super(path);
 		Boolean state_item=false;
@@ -44,6 +45,7 @@ public class MenuItemLayer extends CCSprite
 		Boolean is_touch = false;
 		time_count= 0;
 		time_request_sec=0;
+		this.campaign = campaign;
 		this._isTouchEnabled = state_item;
 		this.is_touch= is_touch;
 		this.setAnchorPoint(0f, 0f);
@@ -168,13 +170,13 @@ public class MenuItemLayer extends CCSprite
 			 this.time_count=0;
 			 this.time_request_sec=0;
 			 java.lang.System.out.println("PPP"+bear_menu.get_item(tag_item_bear).getOpacity());
-			bear_menu.change_Image_item("menus/choosed/"+tag_item_bear+"a.png", tag_item_bear*2);
+			bear_menu.change_Image_item(this.campaign+"menus/choosed/"+tag_item_bear+"a.png", tag_item_bear*2);
 			team_count++;
 			if(team_count==4) team_count=0;
 			for(int i=2;i<18;i+=2)
 			{
 				if( !bear_menu.get_item(i).get_isTouchEnabel()&&!bear_menu.get_item(i).get_touch_state()&&!searhc_in_vector(bears_team, i))
-					bear_menu.change_Image_item("menus/neutral/"+(i/2)+"n.png", i);
+					bear_menu.change_Image_item(this.campaign+"menus/neutral/"+(i/2)+"n.png", i);
 				    //bear_menu.get_item(i).set_touch_state(false); 
 				    bear_menu.get_item(i).setisTouchEnabled(true);
 			}

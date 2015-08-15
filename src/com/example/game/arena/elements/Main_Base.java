@@ -15,7 +15,7 @@ private Personage_Element boss = null;
 private Flag_Element flag = null;
 private static  String source_path=null;
 private String is_who=null;
-	  public Main_Base(ccColor4B color, final String campaign_path,CGSize local_scale_factor, float general_scale_factor, String is_who ) 
+	  public Main_Base(ccColor4B color, final String campaign_path,String castle_level,CGSize local_scale_factor, float general_scale_factor, String is_who ) 
 	{
 		super(color);
 		this.setAnchorPoint(0, 0);
@@ -23,10 +23,10 @@ private String is_who=null;
 		this.local_scale_factor = CGSize.make(local_scale_factor.width,local_scale_factor.height);
 		source_path = campaign_path;
 		
-		bar_life=  new Progress_Bar_element(source_path+"/bar/main_bar_base.png",source_path+"/bar/progress_bar_base"+is_who+".png", general_scale_factor );
-	    boss = new Personage_Element(source_path+"/castle/personage/boss_"+is_who+".png", general_scale_factor, is_who);
-		base_element =  new Base_Element(source_path+"/castle/base"+is_who+".png", general_scale_factor);
-		flag = new Flag_Element(source_path+"/castle/flag/flag_"+is_who+".png", general_scale_factor, is_who);
+		bar_life=  new Progress_Bar_element(source_path+"bar/main_bar_base.png",source_path+"bar/progress_bar_base"+is_who+".png", general_scale_factor );
+	    boss = new Personage_Element(source_path+"castle/personage/boss_"+is_who+".png", general_scale_factor, is_who);
+		base_element =  new Base_Element(source_path+"castle/"+castle_level+"/base"+is_who+".png", general_scale_factor);
+		flag = new Flag_Element(source_path+"castle/flag/flag_"+is_who+".png", general_scale_factor, is_who);
 		//bar_life.setBarPosition(CGPoint.make(300, 0));
 		
 		this.setOpacity(0);
@@ -104,7 +104,7 @@ private String is_who=null;
 	}
 	public void init_flag_move( String path_anim_file, int start_index, int stop_index)
 	{
-		String path = path_anim_file+"/castle/flag/flagm_"+is_who;
+		String path = path_anim_file+"castle/flag/flagm_"+is_who;
 		flag.init_animation(path, start_index, stop_index);
 	}
 	
