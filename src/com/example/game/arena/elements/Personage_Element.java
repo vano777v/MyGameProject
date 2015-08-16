@@ -2,6 +2,7 @@ package com.example.game.arena.elements;
 
 import java.util.ArrayList;
 
+import org.cocos2d.actions.base.CCAction;
 import org.cocos2d.actions.base.CCRepeatForever;
 import org.cocos2d.actions.interval.CCAnimate;
 import org.cocos2d.actions.interval.CCRepeat;
@@ -20,7 +21,7 @@ public class Personage_Element extends CCSprite
 	   private float local_scale_x = 0;
 	   private float local_scale_y = 0;
 	   private float general_scale_factor =0;
-	   private ArrayList<CCRepeatForever> base_action=null;
+	   private ArrayList<CCAction> base_action=null;
 	   private int last_action_runing=-1; 
 	   private String is_who =null;
 	   //ArrayList<CCSpriteFrame> personage_def = null;
@@ -29,7 +30,7 @@ public class Personage_Element extends CCSprite
 	  super(location_path);
 	  this.setAnchorPoint(0, 0);
 	  this.general_scale_factor = general_scale_factor;
-	  base_action =  new ArrayList<CCRepeatForever>();
+	  base_action =  new ArrayList<CCAction>();
 	  this.is_who = is_who;
   }
   
@@ -71,7 +72,7 @@ public class Personage_Element extends CCSprite
 	    CCRepeatForever atAction = CCRepeatForever.action(CCAnimate.action(atAnimation, false));
          
 	    base_action.add(atAction);
-        
+     
         //base_action.add(ghj);
 	}  
 		
@@ -89,7 +90,7 @@ public class Personage_Element extends CCSprite
 	  }
 	  
   }
-  public CCRepeatForever getActionBase(int index_action )
+  public CCAction getActionBase(int index_action )
   {
 	  return base_action.get(index_action);
   }
