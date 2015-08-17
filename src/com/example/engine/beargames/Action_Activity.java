@@ -12,14 +12,19 @@ import org.cocos2d.nodes.CCSpriteFrame;
 import org.cocos2d.nodes.CCSpriteFrameCache;
 import org.cocos2d.nodes.CCSpriteSheet;
 
+import android.os.storage.StorageManager;
+
 public class Action_Activity 
 {
    private ArrayList<CCAction> action_animation= null;
    private String is_who = null;
    private CCSprite sprite= null;
+   private ArrayList<Boolean> action_type = null;
+   private int last_action_index=-1;
    public Action_Activity(CCSprite sprite, String is_who)
    {
 	  action_animation = new ArrayList<CCAction>();
+	  action_type = new ArrayList<Boolean>();
 	  this.is_who= is_who;
 	  this.sprite = sprite;
    }
@@ -42,8 +47,10 @@ public class Action_Activity
 		    	atAction = CCRepeatForever.action(CCAnimate.action(atAnimation, false));
 		    else 
 		    	atAction = CCRepeat.action(CCAnimate.action(atAnimation, false), 1);
+		    action_type.add(is_forever);
 		    
 		    action_animation.add(atAction);
+		    atAction.setTag(action_animation.size()-1);
 		    
 	}
 	
@@ -54,6 +61,95 @@ public class Action_Activity
 		 return action_animation.get(index);
 	}
 	
+	public Boolean get_is_forever(int index)
+	{
+		if(action_type.size()< index) return null;
+		return action_type.get(index);
+	}
+	
+	public int remove_action (int index)
+	{
+		if(action_animation.size()>index && action_type.size()>index && !action_animation.isEmpty())
+		{
+			sprite.stopAction(action_animation.get(index));
+			action_animation.remove(index);
+			action_type.remove(index);
+			return 1;
+		}
+		else return 0;
+	}
+	public void start_action(int index)
+	{
+		if(last_action_index!=-1)
+		{
+			if(!get_is_forever(last_action_index)&& get_is_forever(last_action_index)!=null)
+			{
+				loop:
+					if(sprite.getAction(last_action_index).isDone())
+					{
+						sprite.runAction(action_animation.get(index));
+						last_action_index = index;
+					}
+					else
+						break loop;
+				
+			}
+			else 
+			{
+				if(get_is_forever(last_action_index)!=null)
+				{
+					sprite.getAction(last_action_index).stop();
+					sprite.runAction(action_animation.get(index));
+					last_action_index = index;
+				}
+			}
+		}
+		else
+		{
+			sprite.runAction(action_animation.get(index));
+			last_action_index = index;
+		}
+			
+	}
+	
+	public void action_stop(int index)
+	{
+		
+			if(!get_is_forever(index)&& get_is_forever(index)!=null)
+			{
+				loop:
+					if(sprite.getAction(index).isDone())
+					{
+						sprite.getAction(index).stop();
+						last_action_index = -1;
+					}
+					else
+						break loop;
+				
+			}
+			else 
+			{ 
+				if(get_is_forever(index)!=null)
+				{
+						sprite.getAction(index).stop();
+						last_action_index = -1;
+				}
+			}
+		
+	}
+	public void Destroy()
+	{
+		for (int i=action_animation.size()-1; i>=0;i--)
+		{
+			sprite.getAction(i).stop();
+			action_animation.remove(i);
+			action_type.remove(i);
+		}
+		
+	     sprite.cleanup();
+	     action_animation = null;
+	     action_type = null;
+	}
 	
 	
 	

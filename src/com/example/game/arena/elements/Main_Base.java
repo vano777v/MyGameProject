@@ -5,6 +5,8 @@ import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGSize;
 import org.cocos2d.types.ccColor4B;
 
+import com.example.engine.beargames.Action_Activity;
+
 public class Main_Base extends CCColorLayer{
 
 private  float general_scale_factor=0;
@@ -13,6 +15,7 @@ private Base_Element base_element=null;
 private  Progress_Bar_element bar_life=null;
 private Personage_Element boss = null;
 private Flag_Element flag = null;
+private Action_Activity 
 private static  String source_path=null;
 private String is_who=null;
 	  public Main_Base(ccColor4B color, final String campaign_path,String castle_level,CGSize local_scale_factor, float general_scale_factor, String is_who ) 
