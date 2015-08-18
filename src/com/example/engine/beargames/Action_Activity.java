@@ -16,14 +16,16 @@ import android.os.storage.StorageManager;
 
 public class Action_Activity 
 {
-   private ArrayList<CCAction> action_animation= null;
+   private ArrayList<CCRepeatForever> forever_animation= null;
+   private ArrayList<CCRepeat> interval_animation= null;
    private String is_who = null;
    private CCSprite sprite= null;
    private ArrayList<Boolean> action_type = null;
    private int last_action_index=-1;
    public Action_Activity(CCSprite sprite, String is_who)
    {
-	  action_animation = new ArrayList<CCAction>();
+	  forever_animation = new ArrayList<CCRepeatForever>();
+	  interval_animation = new ArrayList<CCRepeat>();
 	  action_type = new ArrayList<Boolean>();
 	  this.is_who= is_who;
 	  this.sprite = sprite;
@@ -32,34 +34,45 @@ public class Action_Activity
 	public void  add_animation(String animation_path,String file_name, String name_action, float speed_action, int start_index, int stop_index, Boolean is_forever )
 	{
 		ArrayList<CCSpriteFrame>personage_frame =null; 
-		CCAction atAction = null;
-	
+		CCRepeatForever atAction_forever = null;
+	    CCRepeat atAction_interval = null;
 		   CCSpriteFrameCache.sharedSpriteFrameCache().addSpriteFrames(animation_path+file_name+is_who+".plist");
 		    // set png file created with 
 			CCSpriteSheet spriteSheet = CCSpriteSheet.spriteSheet(animation_path+file_name+is_who+".png");
+			CCRepeat d;
 			
 		    sprite.addChild(spriteSheet);
 		    personage_frame = new ArrayList<CCSpriteFrame>();
 		    for(int i=start_index; i<stop_index;i++)
 		    	personage_frame.add(CCSpriteFrameCache.sharedSpriteFrameCache().spriteFrameByName( i+".png"));
 		    CCAnimation atAnimation = CCAnimation.animation(name_action, speed_action, personage_frame);
-		    if(is_forever)
-		    	atAction = CCRepeatForever.action(CCAnimate.action(atAnimation, false));
-		    else 
-		    	atAction = CCRepeat.action(CCAnimate.action(atAnimation, false), 1);
 		    action_type.add(is_forever);
+		    if(is_forever)
+		    {
+		    	atAction_forever = CCRepeatForever.action(CCAnimate.action(atAnimation, false));
+		    	atAction_forever.setTag(action_type.size()-1);
+		    	forever_animation.add(atAction_forever);
+		    }
+		    else 
+		    {
+		    	atAction_interval = CCRepeat.action(CCAnimate.action(atAnimation, false), 1);
+		    	atAction_interval.setTag(action_type.size()-1);
+		    	interval_animation.add(atAction_interval);
+		    }
 		    
-		    action_animation.add(atAction);
-		    atAction.setTag(action_animation.size()-1);
+		    
+		  
+		   
+		    
 		    
 	}
 	
-	public CCAction get_Animation (int index)
+	/*public CCAction get_Animation (int index)
 	{
 	   if(index>action_animation.size()) return null;
 	   else
 		 return action_animation.get(index);
-	}
+	}*/
 	
 	public Boolean get_is_forever(int index)
 	{
@@ -67,7 +80,7 @@ public class Action_Activity
 		return action_type.get(index);
 	}
 	
-	public int remove_action (int index)
+	/*public int remove_action (int index)
 	{
 		if(action_animation.size()>index && action_type.size()>index && !action_animation.isEmpty())
 		{
@@ -77,21 +90,45 @@ public class Action_Activity
 			return 1;
 		}
 		else return 0;
+	}*/
+	private int get_index(int index)
+	{ 
+		int get_index =-1, count=0;
+		Boolean value = get_is_forever(index);
+		if(value)
+		{
+			for(int i=0;i<index;i++)
+				if(action_type.get(i)) count++;
+		}
+		else
+		{
+			for(int i=0;i<index;i++)
+				if(!action_type.get(i)) count++;
+		}
+		get_index=count;
+		return get_index;
 	}
 	public void start_action(int index)
-	{
+	{ 
+	
+	
 		if(last_action_index!=-1)
 		{
 			if(!get_is_forever(last_action_index)&& get_is_forever(last_action_index)!=null)
 			{
-				loop:
-					if(sprite.getAction(last_action_index).isDone())
-					{
-						sprite.runAction(action_animation.get(index));
+				 Boolean value;
+				 value = interval_animation.get(0).isDone();
+				while (value !=true)
+				{
+					value = interval_animation.get(0).isDone();
+				}
+			     
+			    	 
+				       // sprite.stopAction(0);
+						sprite.runAction(forever_animation.get(0));
 						last_action_index = index;
-					}
-					else
-						break loop;
+						System.out.println("Vera1");
+						
 				
 			}
 			else 
@@ -99,14 +136,14 @@ public class Action_Activity
 				if(get_is_forever(last_action_index)!=null)
 				{
 					sprite.getAction(last_action_index).stop();
-					sprite.runAction(action_animation.get(index));
+					//sprite.runAction(action_animation.get(index));
 					last_action_index = index;
 				}
 			}
 		}
 		else
 		{
-			sprite.runAction(action_animation.get(index));
+			sprite.runAction(interval_animation.get(0));
 			last_action_index = index;
 		}
 			
@@ -137,7 +174,7 @@ public class Action_Activity
 			}
 		
 	}
-	public void Destroy()
+	/*public void Destroy()
 	{
 		for (int i=action_animation.size()-1; i>=0;i--)
 		{
@@ -149,7 +186,7 @@ public class Action_Activity
 	     sprite.cleanup();
 	     action_animation = null;
 	     action_type = null;
-	}
+	}*/
 	
 	
 	

@@ -1,5 +1,7 @@
 package com.example.game.arena.elements;
 
+import java.util.ArrayList;
+
 import org.cocos2d.layers.CCColorLayer;
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGSize;
@@ -13,19 +15,20 @@ private  float general_scale_factor=0;
 private  CGSize local_scale_factor=null;
 private Base_Element base_element=null;
 private  Progress_Bar_element bar_life=null;
-private Personage_Element boss = null;
 private Flag_Element flag = null;
-private Action_Activity 
+private ArrayList<Action_Activity>  animation_element=null;
+private Personage_Element boss = null;
 private static  String source_path=null;
 private String is_who=null;
 	  public Main_Base(ccColor4B color, final String campaign_path,String castle_level,CGSize local_scale_factor, float general_scale_factor, String is_who ) 
 	{
+	
 		super(color);
 		this.setAnchorPoint(0, 0);
 		this.general_scale_factor=general_scale_factor;
 		this.local_scale_factor = CGSize.make(local_scale_factor.width,local_scale_factor.height);
 		source_path = campaign_path;
-		
+	     animation_element = new ArrayList<Action_Activity>();
 		bar_life=  new Progress_Bar_element(source_path+"bar/main_bar_base.png",source_path+"bar/progress_bar_base"+is_who+".png", general_scale_factor );
 	    boss = new Personage_Element(source_path+"castle/personage/boss_"+is_who+".png", general_scale_factor, is_who);
 		base_element =  new Base_Element(source_path+"castle/"+castle_level+"/base"+is_who+".png", general_scale_factor);
@@ -39,6 +42,8 @@ private String is_who=null;
 		addChild(base_element);
 		addChild(flag);
 		addChild(bar_life);
+		animation_element.add(new Action_Activity(boss, is_who));
+		animation_element.add(new Action_Activity(flag, is_who));
 		//System.gc();
 		
 	}
@@ -105,15 +110,10 @@ private String is_who=null;
 		this.setScaleY(this.getScaleY()/scale_factor);
 		this.setPosition(this.getPosition().x/scale_factor,this.getPosition().y/scale_factor );
 	}
-	public void init_flag_move( String path_anim_file, int start_index, int stop_index)
-	{
-		String path = path_anim_file+"castle/flag/flagm_"+is_who;
-		flag.init_animation(path, start_index, stop_index);
-	}
 	
 	
-	public Personage_Element get_main_Personage()
+	public Action_Activity get_animation_element( int index)
 	{
-		return boss; 
+		return animation_element.get(index); 
 	}	
 }

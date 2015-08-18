@@ -27,16 +27,11 @@ public class Level_1_1
 	        arena.add_Paralax_Child(campaign+level+"/paralax/mback.png", CGPoint.make(0,60*general_scale_factor),CGPoint.make(0.1f, 0), 2);
 	        bear_base=arena.add_base_node(campaign,"level_1_3" ,CGSize.make(base_dimm, base_dimm), CGPoint.make(16.66f, 0), "b");
 	        bear_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(0, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(0, 0),CGSize.make(pers_dim, pers_dim),CGPoint.make(780, 570), CGSize.make(600, 600), CGPoint.make(260, 600));
-	        bear_base.init_flag_move(campaign, 1, 9);
-	        bear_base.get_main_Personage().add_action(campaign,"bossm_b", 0.7f, 1, 8);
-	        bear_base.get_main_Personage().add_action(campaign,"bossma1_b", 0.5f, 1, 6);
-	        bear_base.get_main_Personage().start_action(0);
+	        bear_base.get_animation_element(0).add_animation(campaign+"castle/personage/animation/b/","bossm_","smoking_first",0.5f, 1, 4, false);
+	        bear_base.get_animation_element(0).add_animation(campaign+"castle/personage/animation/b/","bossm_","smoking_first", 0.8f,3, 8, true);
 	        vimpir_base= arena.add_base_node(campaign, "level_1_3",CGSize.make(base_dimm, base_dimm), CGPoint.make(arena.get_action_arena()-base_dimm*general_scale_factor/3f, 0), "v");
 	        vimpir_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(base_dimm-118f, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(0, 0),CGSize.make(pers_dim, pers_dim),CGPoint.make(-50, 420), CGSize.make(600, 600), CGPoint.make(350, 820));
-	        vimpir_base.init_flag_move(campaign, 1, 9);
-	        vimpir_base.get_main_Personage().add_action(campaign,"bossm_v", 0.5f, 1, 7);
-	        vimpir_base.get_main_Personage().start_action(0);
-	        vimpir_base.get_main_Personage().add_action(campaign, "bossma1_v", 0.7f, 1, 8);
+	        
 	         level_1 = new GameLayer(campaign, arena);
 	
 	}
