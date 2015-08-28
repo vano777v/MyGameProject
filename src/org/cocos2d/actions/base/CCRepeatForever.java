@@ -10,7 +10,7 @@ import org.cocos2d.nodes.CCNode;
  */
 public class CCRepeatForever extends CCAction {
     protected CCIntervalAction other;
-
+    public Boolean is_done=false; 
     /** creates the action */
     public static CCRepeatForever action(CCIntervalAction action) {
         return new CCRepeatForever(action);
@@ -35,7 +35,9 @@ public class CCRepeatForever extends CCAction {
     @Override
     public void step(float dt) {
         other.step(dt);
+        is_done=false;
         if (other.isDone()) {
+        	is_done=true;
             float diff = dt + other.duration - other.getElapsed();
         	other.start(target);
         	other.step(diff);
@@ -43,8 +45,13 @@ public class CCRepeatForever extends CCAction {
     }
 
     @Override
-    public boolean isDone() {
+    public boolean isDone() 
+    {
         return false;
+    }
+    public boolean is_Done()
+    {
+    	return is_done;
     }
 
     public CCRepeatForever reverse() {

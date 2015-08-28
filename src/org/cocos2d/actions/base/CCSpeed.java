@@ -71,4 +71,10 @@ public class CCSpeed extends CCAction {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public boolean is_Done() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

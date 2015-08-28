@@ -76,8 +76,10 @@ public abstract class CCAction implements Copyable {
     //! return YES if the action has finished
     public boolean isDone() {
         return true;
+       
     }
-
+    
+    public abstract boolean is_Done();
     //! called every frame with it's delta time. DON'T override unless you know what you are doing.
     public abstract void step(float dt);
 

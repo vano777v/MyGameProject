@@ -50,4 +50,10 @@ public class CCFiniteTimeAction extends CCAction {
 	public void update(float time) {
 		// TODO Auto-generated method stub
 	}
+
+	@Override
+	public boolean is_Done() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

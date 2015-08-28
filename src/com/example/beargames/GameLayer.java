@@ -92,7 +92,9 @@ public class GameLayer extends CCLayer
      
         this.setting_menu_init();
          this.top_menu_init();
-       
+         
+         arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
+         arena.get_Main_Base_list(0).get_animation_element(0).start_action(1);
         //this.ablity_items_init();
         //for(int i=1;i<=5; i++)
         	//bear_init.add(i*2);
@@ -931,9 +933,9 @@ public class GameLayer extends CCLayer
     	  menus_game.get(menu_index).get_item(item_tag).button_press(this.campaign+"menus/settings_items/zoom_out_unpress.png",this.campaign+"menus/settings_items/zoom_out_press.png", 0.2f);
     	  scale_factor/=1.2f;
     	
-    	arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
-    	//arena.get_Main_Base_list(0).get_animation_element(0).start_action(1);
-    	  
+    	  arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
+    	  arena.get_Main_Base_list(0).get_animation_element(0).start_action(1);
+    	 // arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
     	 // arena.set_paralax_scale(scale_factor);
     	  ///System.out.println("Scale arena "+arena.getContentSize().width+" "+vp+" "+vimpir_base.getContentSize()+" "+vimpir_base.getScaleX());
     	  arena.paralax_zoom_out(1.2f);
@@ -957,11 +959,11 @@ public class GameLayer extends CCLayer
     		 
     		 
     		
-    			arena.get_Main_Base_list(0).get_animation_element(0).start_action(1);
+    		 arena.get_Main_Base_list(0).get_animation_element(0).action_stop(1);
     		 
     		 menus_game.get(menu_index).get_item(item_tag).button_press(this.campaign+"menus/settings_items/zoom_in_unpress.png",this.campaign+"menus/settings_items/zoom_in_press.png", 0.2f);
     		scale_factor *=1.2f;
-    		
+    		//arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
     		
     		arena.paralax_zoom_in(1.2f);
     		

@@ -43,7 +43,9 @@ private String is_who=null;
 		addChild(flag);
 		addChild(bar_life);
 		animation_element.add(new Action_Activity(boss, is_who));
+		this.addChild( animation_element.get(0));
 		animation_element.add(new Action_Activity(flag, is_who));
+		this.addChild(animation_element.get(1));
 		//System.gc();
 		
 	}
@@ -116,4 +118,6 @@ private String is_who=null;
 	{
 		return animation_element.get(index); 
 	}	
+	
+	
 }
