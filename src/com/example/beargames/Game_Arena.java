@@ -14,6 +14,8 @@ import org.cocos2d.types.CGSize;
 import org.cocos2d.types.ccColor4B;
 
 import com.example.game.arena.elements.Main_Base;
+import com.example.game.arena.elements.Main_Personage;
+import com.example.game.arena.elements.Personage_Element;
 
 public class Game_Arena extends CCColorLayer
 {
@@ -26,6 +28,8 @@ public class Game_Arena extends CCColorLayer
     private float start_point_arena =0, action_arena=0;
     private float base_dimm=0, pers_dimm=0;  
     private ArrayList<CCSprite> paralax_element=null; 
+    private ArrayList<Main_Personage> bears_element = null;
+    private ArrayList<Main_Personage> vimpire_element = null;
     private ArrayList<Main_Base> base_list=null; 
     private float limt=0;
     
@@ -46,6 +50,8 @@ public class Game_Arena extends CCColorLayer
 		this.base_dimm = base_dimm;
 		paralax_element = new ArrayList<CCSprite>();
 		base_list = new ArrayList<Main_Base>();
+		bears_element = new ArrayList<Main_Personage>();
+		vimpire_element = new ArrayList<Main_Personage>();
 		addChild(paralax, 0, 6);
 	} 
     public void set_size_arena(CGSize new_size)
@@ -166,17 +172,35 @@ public class Game_Arena extends CCColorLayer
 	
 	public Main_Base add_base_node(String source_path, String castle_level,CGSize base_size, CGPoint base_location, String is_who)
 	{
-	     Main_Base base = new Main_Base(ccColor4B.ccc4(0,255, 0,255), source_path,castle_level,local_scale_factor,general_scale_factor, is_who );
+	     Main_Base base = new Main_Base(ccColor4B.ccc4(0,255, 255,255), source_path,castle_level,local_scale_factor,general_scale_factor, is_who );
 	    base.setSize(base_size);
 	    base.setBasePosition(base_location);
 	    base_list.add(base);
 	    addChild(base);
 	    return base;
 	}
+	public void add_personage (String source_path, String name_path,CGSize pers_size, CGPoint pers_location, String is_who)
+	{
+		Main_Personage personage = new Main_Personage(ccColor4B.ccc4(0,255, 0,255), source_path, name_path, this.local_scale_factor, this.general_scale_factor, is_who);
+		personage.setSize(pers_size);
+		personage.set_Pers_Position(pers_location);
+		addChild(personage);
+		if(is_who.equalsIgnoreCase("b")) 
+			bears_element.add(personage);
+		else 
+			vimpire_element.add(personage);
+	}
 	
 	public Main_Base get_Main_Base_list(int index)
 	{
 		return base_list.get(index);
+	}
+	public Main_Personage get_Main_List (String is_who, int index)
+	{
+	   
+		if(is_who.equalsIgnoreCase("b"))
+			return bears_element.get(index);
+		else return vimpire_element.get(index);
 	}
 	public void paralax_zoom_in(float scale_factor)
 	{
