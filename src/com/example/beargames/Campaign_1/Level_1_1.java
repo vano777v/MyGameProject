@@ -6,6 +6,7 @@ import org.cocos2d.types.ccColor4B;
 
 import com.example.beargames.GameLayer;
 import com.example.beargames.Game_Arena;
+import com.example.engine.beargames.Logic_Engine_Level_1;
 import com.example.game.arena.elements.Main_Base;
 
 public class Level_1_1 
@@ -21,26 +22,19 @@ public class Level_1_1
 	        arena.setPosition(0, 250*general_scale_factor);
 	        arena.set_size_arena(CGSize.make(screenSize.width*3, screenSize.height ));
 	        arena.set_action_arena(15);
-	        arena.add_Paralax_Child(campaign+level+"/paralax/noise.png", CGPoint.make(0, 250f*general_scale_factor),CGPoint.make(0, 0), 0);
-	        arena.add_Paralax_Child(campaign+level+"/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
-	        arena.add_Paralax_Child(campaign+level+"/paralax/sback.png", CGPoint.make(0, 70f*general_scale_factor),CGPoint.make(0.3f, 0), 2);
-	        arena.add_Paralax_Child(campaign+level+"/paralax/mback.png", CGPoint.make(0,60*general_scale_factor),CGPoint.make(0.1f, 0), 2);
-	        bear_base=arena.add_base_node(campaign,"level_1_3" ,CGSize.make(base_dimm, base_dimm), CGPoint.make(16.66f, 0), "b");
-	        bear_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(0, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(150, 0),CGSize.make(pers_dim, pers_dim),CGPoint.make(930, 570), CGSize.make(600, 600), CGPoint.make(400, 610));
-	        bear_base.get_animation_element(0).add_animation(campaign+"castle/personage/animation/b/","bossm_","smoking_first",0.5f, 1, 4, false);
-	        bear_base.get_animation_element(0).add_animation(campaign+"castle/personage/animation/b/","bossm_","smoking_first", 0.8f,3, 8, true);
-	        bear_base.get_animation_element(1).add_animation(campaign+"castle/flag/", "flagm_", "falg_movie", 0.1f, 1, 9, true);
-	        vimpir_base= arena.add_base_node(campaign, "level_1_3",CGSize.make(base_dimm, base_dimm), CGPoint.make(arena.get_action_arena()-base_dimm*general_scale_factor/3f, 0), "v");
-	        vimpir_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(base_dimm/1.2f+10f, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(0, 0),CGSize.make(pers_dim, pers_dim),CGPoint.make(-50, 420), CGSize.make(600, 600), CGPoint.make(350, 820));
-	        arena.add_personage(campaign,"b_box", CGSize.make(614f, 614f), CGPoint.make(bear_base.getPosition().x+bear_base.getContentSize().width, 0), "b");
-	        arena.get_Main_List("b", 0).set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(614f, 614f), CGPoint.make(0, 0));
-	        arena.get_Main_List("b", 0).get_animation(0).add_animation(campaign+"Personages/b/b_box/default/","engine_", "default",1.2f, 1, 3, true);
-	        arena.get_Main_List("b", 0).get_animation(0).add_animation(campaign+"Personages/b/b_box/default/","engine_", "default",0.2f, 3, 9, true);
-	        arena.get_Main_List("b", 0).get_animation(0).add_animation(campaign+"Personages/b/b_box/default/","engine_", "default",0.4f, 9, 16, true);
-	        System.out.println("wer"+arena.get_Main_List("b", 0).getContentSize());
-	        System.out.println("wer2"+bear_base.getPosition());
-	        arena.get_Main_List("b", 0).get_animation(0).start_action(0);
-	         level_1 = new GameLayer(campaign, arena);
+	        Logic_Engine_Level_1 logic =  new Logic_Engine_Level_1(arena, general_scale_factor);
+	        //arena.add_personage(campaign,"b_box", CGSize.make(614f, 614f), CGPoint.make(bear_base.getPosition().x+bear_base.getContentSize().width, 0), "b");
+	       /// arena.get_Main_List("b", 0).set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(614f, 614f), CGPoint.make(0, 0));
+	        //arena.get_Main_List("b", 0).get_animation(0).add_animation(campaign+"Personages/b/b_box/default/","engine_", "default",1.2f, 1, 3, true);
+	        //arena.get_Main_List("b", 0).get_animation(0).add_animation(campaign+"Personages/b/b_box/default/","engine_", "default",0.2f, 3, 9, true);
+	        //arena.get_Main_List("b", 0).get_animation(0).add_animation(campaign+"Personages/b/b_box/default/","engine_", "default",0.4f, 9, 16, true);
+	        
+	       //System.out.println("wer"+arena.get_Main_List("b", 0).getContentSize());
+	        //System.out.println("wer2"+bear_base.getPosition());
+	        //arena.get_Main_List("b", 0).get_animation(0).start_action(0);
+	        
+	         
+	         level_1 = new GameLayer(campaign, logic);
 	
 	}
 	

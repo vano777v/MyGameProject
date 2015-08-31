@@ -24,6 +24,7 @@ import org.cocos2d.utils.CCFormatter;
 import android.app.Activity;
 import android.view.MotionEvent;
 
+import com.example.engine.beargames.Logic_Engine_Level_1;
 //import com.example.beargames.R.raw;
 import com.example.game.arena.elements.Main_Base;
 
@@ -64,7 +65,7 @@ public class GameLayer extends CCLayer
     private  Main_Base vimpir_base=null;
 	private ArrayList<MenuLayer> menus_game= null;
 	  float vp=0 ,dt=0,pz=0;
-    public GameLayer( String campaign, Game_Arena new_level )
+    public GameLayer( String campaign, Logic_Engine_Level_1 engine )
     {
     	screenSize = CCDirector.sharedDirector().winSize();
        /// mMyApp = m; 
@@ -82,8 +83,8 @@ public class GameLayer extends CCLayer
         count_zoom=2;  
        
      
-        arena = new_level;
-        addChild(new_level);
+        arena = engine.get_Arena();
+        addChild(arena);
         
        
         this.bears_menu_init(screenSize, percents);
@@ -93,9 +94,8 @@ public class GameLayer extends CCLayer
         this.setting_menu_init();
          this.top_menu_init();
          
-         arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
-         arena.get_Main_Base_list(0).get_animation_element(0).start_action(1);
-         arena.get_Main_Base_list(0).get_animation_element(1).start_action(0);
+        
+        
         //this.ablity_items_init();
         //for(int i=1;i<=5; i++)
         	//bear_init.add(i*2);
@@ -934,9 +934,9 @@ public class GameLayer extends CCLayer
     	  menus_game.get(menu_index).get_item(item_tag).button_press(this.campaign+"menus/settings_items/zoom_out_unpress.png",this.campaign+"menus/settings_items/zoom_out_press.png", 0.2f);
     	  scale_factor/=1.2f;
     	
-    	  arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
-    	  arena.get_Main_Base_list(0).get_animation_element(0).start_action(1);
-    	  arena.get_Main_List("b", 0).get_animation(0).start_action(1);
+    	  //arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
+    	//  arena.get_Main_Base_list(0).get_animation_element(0).start_action(1);
+    	 // arena.get_Main_List("b", 0).get_animation(0).start_action(1);
     	 // arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
     	 // arena.set_paralax_scale(scale_factor);
     	  ///System.out.println("Scale arena "+arena.getContentSize().width+" "+vp+" "+vimpir_base.getContentSize()+" "+vimpir_base.getScaleX());
@@ -961,8 +961,8 @@ public class GameLayer extends CCLayer
     		 
     		 
     		
-    		 arena.get_Main_Base_list(0).get_animation_element(0).action_stop(1);
-    		 arena.get_Main_List("b", 0).get_animation(0).start_action(2);
+    		 //arena.get_Main_Base_list(0).get_animation_element(0).action_stop(1);
+    		 //arena.get_Main_List("b", 0).get_animation(0).start_action(2);
     		 menus_game.get(menu_index).get_item(item_tag).button_press(this.campaign+"menus/settings_items/zoom_in_unpress.png",this.campaign+"menus/settings_items/zoom_in_press.png", 0.2f);
     		scale_factor *=1.2f;
     		//arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);

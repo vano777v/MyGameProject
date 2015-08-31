@@ -31,7 +31,7 @@ public class Level_1_2
 	        vimpir_base= arena.add_base_node(campaign, "level_1_3",CGSize.make(base_dimm, base_dimm), CGPoint.make(arena.get_action_arena()-base_dimm*general_scale_factor/3f, 0), "v");
 	        vimpir_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(base_dimm-118f, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(0, 0),CGSize.make(pers_dim, pers_dim),CGPoint.make(-50, 420), CGSize.make(600, 600), CGPoint.make(350, 820));
 	        
-	         this.level = new GameLayer(campaign, arena);
+	         //this.level = new GameLayer(campaign, arena);
 	
 	}
 	
