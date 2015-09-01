@@ -23,7 +23,7 @@ public class Level_1_1
 	        arena.set_size_arena(CGSize.make(screenSize.width*3, screenSize.height ));
 	        arena.set_action_arena(15);
 	        Logic_Engine_Level_1 logic =  new Logic_Engine_Level_1(arena, general_scale_factor);
-	        //arena.add_personage(campaign,"b_box", CGSize.make(614f, 614f), CGPoint.make(bear_base.getPosition().x+bear_base.getContentSize().width, 0), "b");
+	        //a
 	       /// arena.get_Main_List("b", 0).set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(614f, 614f), CGPoint.make(0, 0));
 	        //arena.get_Main_List("b", 0).get_animation(0).add_animation(campaign+"Personages/b/b_box/default/","engine_", "default",1.2f, 1, 3, true);
 	        //arena.get_Main_List("b", 0).get_animation(0).add_animation(campaign+"Personages/b/b_box/default/","engine_", "default",0.2f, 3, 9, true);

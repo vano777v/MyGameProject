@@ -20,7 +20,7 @@ public class Logic_Engine_Level_1 extends CCLayer
 		this.general_scale_factor = general_scale_factor;
 		init_paralax();
 		init_bases();
-	
+        //box_bear_init("default/");
 	}
 	
 
@@ -76,6 +76,24 @@ public class Logic_Engine_Level_1 extends CCLayer
 		arena.get_Main_Base_list(1).get_animation_element(0).start_action(0);
 		arena.get_Main_Base_list(1).get_animation_element(0).start_action(1);
 	}
+	
+	public void box_bear_init( String update_path)
+	{
+		arena.add_personage(Constants_Game.camapign_1,"b_box", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(0).getPosition().x+arena.get_Main_Base_list(0).getContentSize().width, 0), "b");
+		//System.out.println("ERT"+arena.bears_element.size());
+		arena.get_Main_List("b", 0).set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(614f, 614f), CGPoint.make(0, 0));
+		init_animation_bear_box_engine(update_path);
+	}
+	
+	public void init_animation_bear_box_engine(String update_path)
+	{
+	    arena.get_Main_List("b", 0).get_animation(0).add_animation(Constants_Game.camapign_1+Constants_Game.bear_box_engine_path+update_path,"engine_", "default",1.2f, 1, 3, true);
+        arena.get_Main_List("b", 0).get_animation(0).add_animation(Constants_Game.camapign_1+Constants_Game.bear_box_engine_path+update_path,"engine_", "default",0.2f, 3, 9, true);
+        arena.get_Main_List("b", 0).get_animation(0).add_animation(Constants_Game.camapign_1+Constants_Game.bear_box_engine_path+update_path,"engine_", "default",0.4f, 9, 16, true);
+
+	}
+	
+	
 	
 	public Game_Arena get_Arena()
 	{

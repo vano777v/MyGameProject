@@ -28,7 +28,7 @@ public class Game_Arena extends CCColorLayer
     private float start_point_arena =0, action_arena=0;
     private float base_dimm=0, pers_dimm=0;  
     private ArrayList<CCSprite> paralax_element=null; 
-    private ArrayList<Main_Personage> bears_element = null;
+    public ArrayList<Main_Personage> bears_element = null;
     private ArrayList<Main_Personage> vimpire_element = null;
     private ArrayList<Main_Base> base_list=null; 
     private float limt=0;

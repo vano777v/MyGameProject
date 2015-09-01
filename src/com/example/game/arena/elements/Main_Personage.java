@@ -17,6 +17,14 @@ public class Main_Personage  extends CCColorLayer{
 	private Personage_Element boss = null;
 	private static  String source_path=null;
 	private String is_who=null;
+	private int pers_index=0;
+	private int total_pers_life=0;
+	private int real_life=0;
+	private CGSize attack_area=null;
+	private int attack_demage=0;
+	private ArrayList<Integer> imunnity_enimy=null;
+	private int ability=0;
+	private int building_time =0;
 	public Main_Personage(ccColor4B color, final String campaign_path,String default_path,CGSize local_scale_factor, float general_scale_factor, String is_who) 
 	{
 		super(color);
@@ -29,6 +37,8 @@ public class Main_Personage  extends CCColorLayer{
 	    boss = new Personage_Element(source_path+"Personages/"+is_who+"/"+default_path+"/"+"1.png", general_scale_factor, is_who);
 	    this.setOpacity(30);
 		this.is_who = is_who;
+		this.attack_area=CGSize.make(0, 0);
+		this.imunnity_enimy = new ArrayList<Integer>();
 		addChild(bar_life);
 		addChild(boss);
 		animation_element.add(new Action_Activity(boss, is_who));
@@ -83,5 +93,62 @@ public class Main_Personage  extends CCColorLayer{
 	{
 		
 		return animation_element.get(index);
+	}
+	public void set_building_time(int time)
+	{
+		this.building_time=time;
+	}
+	public int get_building_time()
+	{
+		return this.building_time;
+	}
+	public void set_ability(int ability)
+	{
+		this.ability= ability;
+	}
+	public int get_ability ()
+	{
+		return ability;
+	} 
+	public void set_total_life (int life)
+	{
+		this.total_pers_life = life;
+	}
+	public int get_bear_lif()
+	{
+		return total_pers_life;
+	}
+	public void set_attack_area (int width, int height)
+	{
+		this.attack_area.set(width, height);
+	}
+	public CGSize get_attack_area ()
+	{
+		return this.attack_area;
+	}
+	public void set_attack_demage (int value)
+	{
+		this.attack_demage = value;
+	}
+	public int get_attack_demage()
+	{
+		return this.attack_demage;
+	}
+	public void add_imunity(int enimy_index)
+	{
+		this.imunnity_enimy.add(enimy_index);
+	}
+	public ArrayList<Integer> get_imunity_list()
+	{
+		return imunnity_enimy;
+	}
+	public void set_real_life(int value)
+	{
+		this.real_life= value;
+		bar_life.setPercentageBarLife(value, this.total_pers_life);
+	}
+	public int get_real_life()
+	{
+		return real_life;
 	}
 }
