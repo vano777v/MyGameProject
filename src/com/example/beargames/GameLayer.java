@@ -65,7 +65,7 @@ public class GameLayer extends CCLayer
     private  Main_Base vimpir_base=null;
 	private ArrayList<MenuLayer> menus_game= null;
 	  float vp=0 ,dt=0,pz=0;
-    public GameLayer( String campaign, Logic_Engine_Level_1 engine )
+    public GameLayer( String campaign, Game_Arena arena)
     {
     	screenSize = CCDirector.sharedDirector().winSize();
        /// mMyApp = m; 
@@ -83,7 +83,7 @@ public class GameLayer extends CCLayer
         count_zoom=2;  
        
      
-        arena = engine.get_Arena();
+        this.arena =  arena;
         addChild(arena);
         
        

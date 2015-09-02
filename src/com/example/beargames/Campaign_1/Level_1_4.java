@@ -20,7 +20,7 @@ public class Level_1_4
 	    private  Main_Base  bear_base=null,vimpir_base=null;
 	public Level_1_4(String campaign,String level,float general_scale_factor, CGSize screenSize)
 	{
-		    arena =  new Game_Arena(ccColor4B.ccc4(255,0, 0,255),general_scale_factor,3f,screenSize, pers_dim, base_dimm,6);
+		    //arena =  new Game_Arena(ccColor4B.ccc4(255,0, 0,255),general_scale_factor,3f,screenSize, pers_dim, base_dimm,6);
 	        arena.setPosition(0, 250*general_scale_factor);
 	        arena.set_size_arena(CGSize.make(screenSize.width*3, screenSize.height ));
 	        arena.set_action_arena(15);

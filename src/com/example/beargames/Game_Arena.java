@@ -33,14 +33,14 @@ public class Game_Arena extends CCColorLayer
     private ArrayList<Main_Base> base_list=null; 
     private float limt=0;
     
-	public Game_Arena(ccColor4B color,  float general_scale_factor, float locala_scale_factor, CGSize screen_size,float pers_dimm, float base_dimm, int tag_arena) 
+	public Game_Arena(ccColor4B color,  float general_scale_factor,  CGSize screen_size,float pers_dimm, float base_dimm, int tag_arena) 
 	{
 		super(color);
 		// TODO Auto-generated constructor stub
 		paralax =  CCParallaxNode.node();
 		paralax.setPosition(0,0);
 		paralax.setAnchorPoint(0,0);
-		paralax.setScaleX(1/locala_scale_factor);
+		
 		arena_size = CGSize.make(0, 0);
 		this.general_scale_factor = general_scale_factor;
 		//this.local_scale_factor = locala_scale_factor;
@@ -60,6 +60,7 @@ public class Game_Arena extends CCColorLayer
     	this.setContentSize(new_size);
     	CGSize local_scale_factor = CGSize.make(new_size.width/screen_size.width,new_size.height/screen_size.height );
     	this.local_scale_factor = CGSize.make(local_scale_factor.width,local_scale_factor.height);
+    	paralax.setScaleX(1/this.local_scale_factor.width);
     	this.arena_size.set(new_size);
     	this.setScaleX(this.local_scale_factor.width);
     	this.setScaleY(this.local_scale_factor.height);

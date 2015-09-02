@@ -14,6 +14,9 @@ import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGRect;
 import org.cocos2d.types.CGSize;
 
+
+import com.example.game.arena.elements.Main_Personage;
+
 import android.gesture.GesturePoint;
 import android.graphics.Bitmap;
 
@@ -34,6 +37,7 @@ public class MenuItemLayer extends CCSprite
 	private int[] bears_team;
 	private int tag_item_bear=0;
 	private MenuLayer bear_menu=null;
+	private Main_Personage pers= null;
 	//private  Timer timer_item_press = null;
 	//private static float count
 	private  CCProgressTimer image_progress = null;
@@ -127,13 +131,14 @@ public class MenuItemLayer extends CCSprite
 		 return is_working; 
 	 }
 	
-	 protected void time_progress(float time, MenuLayer bears, int tag_intem, int team_bear_count, int[] bears_team)
+	 protected void time_progress( Main_Personage personage,float time, MenuLayer bears, int tag_intem,  int[] bears_team)
 	 {
 		 this.time_request_sec = time*10;
 		 this.time_count=0;
 		 bear_menu=bears;
 		 tag_item_bear=tag_intem;
 		// team_count=team_bear_count;
+		 this.pers = personage;
 		 this.bears_team=bears_team;
 		 this.schedule("life", 0.1f);		
 
