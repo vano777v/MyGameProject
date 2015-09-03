@@ -50,8 +50,8 @@ public class GameInit extends Activity
 		CGSize screen_size = CCDirector.sharedDirector().displaySize();
 		float general_scale_factor = screen_size.height/1600f;
 		//<--- set texture max to CCDirector for later use
-		Level_1_1 level_1 = new Level_1_1("campaign_1/","level_1", general_scale_factor,screen_size);
-		CCScene scene = level_1.get_Level().scene();
+		Level_1_1 level_1 = new Level_1_1(1,1, general_scale_factor,screen_size);
+		CCScene scene = level_1.get_logic_game().scene();
 		//Level_1_2 level_1 = new Level_1_2("campaign_1/","level_2", general_scale_factor,screen_size);
 		//CCScene scene = level_1.get_Level().scene();
 		//Level_1_3 level_3 = new Level_1_3("campaign_1/","level_3", general_scale_factor,screen_size);

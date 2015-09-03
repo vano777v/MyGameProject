@@ -12,7 +12,8 @@ public class Constants_Game
     public static int    base_pers_dim            =          512;
     public static int    pers_dim                 =          614;
     public static int    main_menu_dim            =          250;
-    public static int arena_area_coff             =          3;
-    
-
+    public static int    arena_area_coff          =          3;
+    public int paralax_child=0;
+    public static Float[][] parlax_value;
+    public String [] paralax_path;
 }

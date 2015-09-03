@@ -131,14 +131,14 @@ public class MenuItemLayer extends CCSprite
 		 return is_working; 
 	 }
 	
-	 protected void time_progress( Main_Personage personage,float time, MenuLayer bears, int tag_intem,  int[] bears_team)
+	 protected void time_progress( float time, MenuLayer bears, int tag_intem,int team_bear_count,  int[] bears_team)
 	 {
 		 this.time_request_sec = time*10;
 		 this.time_count=0;
 		 bear_menu=bears;
 		 tag_item_bear=tag_intem;
-		// team_count=team_bear_count;
-		 this.pers = personage;
+		 team_count=team_bear_count;
+		// this.pers = personage;
 		 this.bears_team=bears_team;
 		 this.schedule("life", 0.1f);		
 

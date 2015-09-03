@@ -10,14 +10,14 @@ import com.example.beargames.Inputs_Outputs.Constants_Game;
 public class Level 
 {
 	private Game_Arena arena= null;
-	private String campaign= null;
-	private String level_game=null;
+	private int campaign= 0;
+	private int level_game=0;
 	private float general_scale_factor=0;
 	private CGSize screen = null;
 	private int arena_area_coff =0;
 	private int pers_limit=0;
 	
-   public Level (String campaign, String level, int arena_area, int pers_limit, float general_scale_factor, CGSize screenSize)
+   public Level (int campaign, int level, int arena_area, int pers_limit, float general_scale_factor, CGSize screenSize)
    {
 	   
 	   this.campaign= campaign;
@@ -37,13 +37,15 @@ public class Level
        arena.set_action_arena(this.pers_limit);
        return arena;
    }
-   public String get_current_level()
+   public int get_current_level()
    {
 	   return level_game;
    }
-   public String get_campaign()
+   public int get_campaign()
    {
 	   return campaign;   
    }
+   
+  
    
 }
