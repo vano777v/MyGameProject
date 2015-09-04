@@ -47,10 +47,10 @@ public class Logic_Engine_Level_1_1 extends GameLayer
 	
 	public void init_paralax()
 	{
-		    arena.add_Paralax_Child(level.get_campaign()+level.get_current_level()+"/paralax/noise.png", CGPoint.make(0, 250f*general_scale_factor),CGPoint.make(0, 0), 0);
-	        arena.add_Paralax_Child(level.get_campaign()+level.get_current_level()+"/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
-	        arena.add_Paralax_Child(level.get_campaign()+level.get_current_level()+"/paralax/sback.png", CGPoint.make(0, 70f*general_scale_factor),CGPoint.make(0.3f, 0), 2);
-	        arena.add_Paralax_Child(level.get_campaign()+level.get_current_level()+"/paralax/mback.png", CGPoint.make(0,60*general_scale_factor),CGPoint.make(0.1f, 0), 2);
+		    //arena.add_Paralax_Child(level.get_campaign()+level.get_current_level()+"/paralax/noise.png", CGPoint.make(0, 250f*general_scale_factor),CGPoint.make(0, 0), 0);
+	        //arena.add_Paralax_Child(level.get_campaign()+level.get_current_level()+"/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
+	        //arena.add_Paralax_Child(level.get_campaign()+level.get_current_level()+"/paralax/sback.png", CGPoint.make(0, 70f*general_scale_factor),CGPoint.make(0.3f, 0), 2);
+	        //arena.add_Paralax_Child(level.get_campaign()+level.get_current_level()+"/paralax/mback.png", CGPoint.make(0,60*general_scale_factor),CGPoint.make(0.1f, 0), 2);
 	}
 	public void init_action_bear_base ()
 	{

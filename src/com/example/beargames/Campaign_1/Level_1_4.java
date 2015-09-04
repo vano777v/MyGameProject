@@ -24,10 +24,10 @@ public class Level_1_4
 	        arena.setPosition(0, 250*general_scale_factor);
 	        arena.set_size_arena(CGSize.make(screenSize.width*3, screenSize.height ));
 	        arena.set_action_arena(15);
-	        arena.add_Paralax_Child(campaign+level+"/paralax/noise.png", CGPoint.make(0, 250f*general_scale_factor),CGPoint.make(0, 0), 0);
-	        arena.add_Paralax_Child(campaign+level+"/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
-	        arena.add_Paralax_Child(campaign+level+"/paralax/sback.png", CGPoint.make(0, 120f*general_scale_factor),CGPoint.make(0.3f, 0), 2);
-	        arena.add_Paralax_Child(campaign+level+"/paralax/mback.png", CGPoint.make(0,100*general_scale_factor),CGPoint.make(0.1f, 0), 2);
+	       // arena.add_Paralax_Child(campaign+level+"/paralax/noise.png", CGPoint.make(0, 250f*general_scale_factor),CGPoint.make(0, 0), 0);
+	        //arena.add_Paralax_Child(campaign+level+"/paralax/tback.png", CGPoint.make(0, 0),CGPoint.make(0.2f, 0), 1);
+	       // arena.add_Paralax_Child(campaign+level+"/paralax/sback.png", CGPoint.make(0, 120f*general_scale_factor),CGPoint.make(0.3f, 0), 2);
+	        //arena.add_Paralax_Child(campaign+level+"/paralax/mback.png", CGPoint.make(0,100*general_scale_factor),CGPoint.make(0.1f, 0), 2);
 	        bear_base=arena.add_base_node(campaign,"level_4_7",CGSize.make(base_dimm, base_dimm), CGPoint.make(16.66f, 0), "b");
 	        bear_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(-50, 0), CGSize.make(base_dimm/1.2f, base_dimm/1.2f), CGPoint.make(0, 0),CGSize.make(pers_dim, pers_dim),CGPoint.make(880, 570), CGSize.make(600, 600), CGPoint.make(190, 650));
 	     

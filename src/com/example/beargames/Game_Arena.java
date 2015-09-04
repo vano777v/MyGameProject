@@ -13,6 +13,7 @@ import org.cocos2d.types.CGRect;
 import org.cocos2d.types.CGSize;
 import org.cocos2d.types.ccColor4B;
 
+import com.example.engine.beargames.Action_Activity;
 import com.example.game.arena.elements.Main_Base;
 import com.example.game.arena.elements.Main_Personage;
 import com.example.game.arena.elements.Personage_Element;
@@ -88,28 +89,32 @@ public class Game_Arena extends CCColorLayer
     }
     
     
-	public void add_Paralax_Child(String path, CGPoint offset_coord, CGPoint speed, int tag) 
+	public void add_Paralax_Child(String path, CGPoint offset_coord, CGPoint speed, int tag, String[] animation_info, float speed_anim, Integer[] anim_config, Boolean animation) 
 	{
 		CGSize real_size;
 		CGSize win_size = CCDirector.sharedDirector().displaySize();
+		int nr_paralx_animated=0;
 		CCSprite paralax_node = new CCSprite(path);
 		real_size = CGSize.make(paralax_node.getContentSize().width, paralax_node.getContentSize().height);
-	
+	    paralax_node=null;
 		if(paralax_element.isEmpty())
 		{
 			
 			if(getSize_arena()!=null)
 			{
 				//float x = real_size.width
-		      paralax_node.setTextureRect(0, 0,(real_size.width/win_size.width)*getSize_arena().width*(speed.x+1), real_size.height*(speed.y+1), false);
-		      paralax_node.getTexture().setTexParameters(GL10.GL_LINEAR, GL10.GL_LINEAR, GL10.GL_REPEAT, GL10.GL_REPEAT);
-		      paralax_node.setContentSize((real_size.width/win_size.width)*getSize_arena().width*(speed.x+1), getSize_arena().height*(speed.y+1));
-		      paralax_node.setTag(tag);
-		      paralax_node.setScale(this.general_scale_factor*2);
-		      paralax.addChild(paralax_node,tag,speed.x, speed.y,offset_coord.x, offset_coord.y);
-		     
-		      paralax_node.setAnchorPoint(CGPoint.make(0,0));
-		      paralax_element.add(paralax_node);
+				if(!animation)
+					this.paralax_nod_init(win_size, 1, path, offset_coord, speed, tag, animation_info, speed_anim, anim_config, animation);
+				else
+				{
+					nr_paralx_animated=(int)(this.getSize_arena().width/real_size.width);
+					for(int i= 0;i<nr_paralx_animated;i++)
+					{
+						this.paralax_nod_init(win_size, 1, path, offset_coord, speed, tag, animation_info, speed_anim, anim_config, animation);
+						offset_coord.set(offset_coord.x+real_size.width, offset_coord.y);
+						
+					}
+				}
 		    }
 	    }else
 		{
@@ -118,16 +123,44 @@ public class Game_Arena extends CCColorLayer
 	    		
 	    	int nr_elem = paralax_element.size();
 	    	 float coff = paralax_element.get(nr_elem-1).getContentSize().width/((real_size.width/win_size.width)*getSize_arena().width*(speed.x+1));
-	    	  paralax_node.setTextureRect(0, 0,(real_size.width/win_size.width)*getSize_arena().width*(speed.x+1)*coff, real_size.height*(speed.y+1), false);
-		      paralax_node.getTexture().setTexParameters(GL10.GL_LINEAR, GL10.GL_LINEAR, GL10.GL_REPEAT, GL10.GL_REPEAT);
-		      paralax_node.setContentSize((real_size.width/win_size.width)*getSize_arena().width*(speed.x+1)*coff, getSize_arena().height*(speed.y+1));
-		      paralax_node.setScale(this.general_scale_factor*2);
-		      paralax.addChild(paralax_node,tag,speed.x, speed.y,offset_coord.x, offset_coord.y);
-		      paralax_node.setAnchorPoint(CGPoint.make(0,0));
-		      paralax_element.add(paralax_node);
-		  	//System.out.println("Lea"+paralax.getChildByTag(1).getPosition());
-	    	}
+	    	 if(!animation)
+					this.paralax_nod_init(win_size, coff, path, offset_coord, speed, tag, animation_info, speed_anim, anim_config, animation);
+				else
+				{
+					nr_paralx_animated=(int)(this.getSize_arena().width/real_size.width);
+					for(int i= 0;i<nr_paralx_animated;i++)
+					{
+						this.paralax_nod_init(win_size, 1, path, offset_coord, speed, tag, animation_info, speed_anim, anim_config, animation);
+						offset_coord.set(offset_coord.x+real_size.width, offset_coord.y);
+						
+					}
+	    	     }
 		}
+	}
+	}
+	
+	private void  paralax_nod_init(CGSize win_size, float coff,String path, CGPoint offset_coord, CGPoint speed, int tag, String[] animation_info, float speed_anim, Integer[] anim_config, Boolean animation)
+	{
+		CGSize real_size;
+		CCSprite paralax_node = new CCSprite(path);
+		real_size = CGSize.make(paralax_node.getContentSize().width, paralax_node.getContentSize().height);
+		 paralax_node.setTextureRect(0, 0,(real_size.width/win_size.width)*getSize_arena().width*(speed.x+1)*coff, real_size.height*(speed.y+1), false);
+	     if(!animation)
+	     {
+	    	  paralax_node.getTexture().setTexParameters(GL10.GL_LINEAR, GL10.GL_LINEAR, GL10.GL_REPEAT, GL10.GL_REPEAT);
+	    	  
+	     }
+	     else
+	     {
+	    	 Action_Activity anim_paralax = new Action_Activity(paralax_node, "p");
+	    	  anim_paralax.add_animation(animation_info[0], animation_info[1], animation_info[2], speed_anim, anim_config[0], anim_config[1], true);
+	    	  anim_paralax.start_action(0); 
+	     }
+	      paralax_node.setContentSize((real_size.width/win_size.width)*getSize_arena().width*(speed.x+1)*coff, getSize_arena().height*(speed.y+1));
+	      paralax_node.setScale(this.general_scale_factor*2);
+	      paralax.addChild(paralax_node,tag,speed.x, speed.y,offset_coord.x, offset_coord.y);
+	      paralax_node.setAnchorPoint(CGPoint.make(0,0));
+	      paralax_element.add(paralax_node);
 	}
 	public void set_paralax_scale (float scale_factor)
 	{
