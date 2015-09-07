@@ -35,9 +35,7 @@ private Game_Arena arena = null;
 	  int k=0;
 	  for(int i =0;i<const_level.paralax_child;i++)
 	  {
-		  //
-	  //String [] par={campaign+current_level+"/paralax/","sback","fire"};
-	  //Integer[] al={1,7};
+		  
 		  if(const_level.paralax_anim[i])
 		  {
 			  Integer[] buff = new Integer[]{Integer.parseInt(const_level.pralax_conf[k][4]),Integer.parseInt(const_level.pralax_conf[k][5])};
@@ -48,11 +46,10 @@ private Game_Arena arena = null;
 		  {
 			  arena.add_Paralax_Child(campaign+current_level+const_level.paralax_path[i], CGPoint.make(const_level.parlax_value[i][0], const_level.parlax_value[i][1]*general_scale_factor),CGPoint.make(const_level.parlax_value[i][2], const_level.parlax_value[i][3]), i+1,null,0,null,false);
 		  }
-	  //arena.add_Paralax_Child(campaign+current_level+const_level.paralax_path[1], CGPoint.make(const_level.parlax_value[1][0], const_level.parlax_value[1][1]*general_scale_factor),CGPoint.make(const_level.parlax_value[1][2], const_level.parlax_value[1][3]), 1,null,0,null,false);
-	  //arena.add_Paralax_Child(campaign+current_level+const_level.paralax_path[2], CGPoint.make(const_level.parlax_value[2][0], const_level.parlax_value[2][1]*general_scale_factor),CGPoint.make(const_level.parlax_value[2][2], const_level.parlax_value[2][3]), 2,par,0.1f,al,true);
 	  
 	   }
   }
+  
   
   private Constants_Game detect_level (int value_camp, int value_level)
   {
