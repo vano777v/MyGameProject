@@ -32,12 +32,12 @@ public class Logic_Engine_Level_1_1 extends GameLayer
 	public void init_bases()
 	{       Main_Base bear_base=null, vimpir_base=null;
           //====================init Bear Base==================================	
-		    bear_base=arena.add_base_node(level.get_campaign(),"level_1_3" ,CGSize.make(Constants_Game.base_dim, Constants_Game.base_dim), CGPoint.make(16.66f, 0), "b");
+		    //bear_base=arena.add_base_node(level.get_campaign(),"level_1_3" ,CGSize.make(Constants_Game.base_dim, Constants_Game.base_dim), CGPoint.make(16.66f, 0), "b");
 	        bear_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(0, 0), CGSize.make(Constants_Game.base_dim/1.2f, Constants_Game.base_dim/1.2f), CGPoint.make(150, 0),CGSize.make(Constants_Game.base_pers_dim, Constants_Game.base_pers_dim),CGPoint.make(930, 570), CGSize.make(600, 600), CGPoint.make(400, 610));
 	        init_action_bear_base();
 	        start_bear_base_default_movie();
 	      //================================================================================================  
-	        vimpir_base= arena.add_base_node(level.get_campaign(), "level_1_3",CGSize.make(Constants_Game.base_dim, Constants_Game.base_dim), CGPoint.make(arena.get_action_arena()-Constants_Game.base_dim*general_scale_factor/3f, 0), "v");
+	        //vimpir_base= arena.add_base_node(level.get_campaign(), "level_1_3",CGSize.make(Constants_Game.base_dim, Constants_Game.base_dim), CGPoint.make(arena.get_action_arena()-Constants_Game.base_dim*general_scale_factor/3f, 0), "v");
 	        vimpir_base.set_base_elemnt(CGSize.make(118, 948), CGPoint.make(Constants_Game.base_dim/1.2f+10f, 0), CGSize.make(Constants_Game.base_dim/1.2f, Constants_Game.base_dim/1.2f), CGPoint.make(0, 0),CGSize.make(Constants_Game.base_pers_dim, Constants_Game.base_pers_dim),CGPoint.make(-50, 420), CGSize.make(600, 600), CGPoint.make(350, 820));
 	        init_action_vimpire_base();
 	        start_vimpire_base_default_movie();

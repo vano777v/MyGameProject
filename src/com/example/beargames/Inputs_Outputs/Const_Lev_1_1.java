@@ -15,10 +15,11 @@ public class Const_Lev_1_1 extends Constants_Game
     		   {{"campaign_1/level_1/paralax/","sback", "sb_fire","0.1","1","7"}, 
     		    {"campaign_1/level_1/paralax/","fback","fb_fire","0.1","1","7"}
     		   };
+       this.bases_pos = new Float[]{16.66f,0f,(float)Constants_Game.base_dim/this.arena_area_coff,0f};
        this.bases_config = new String[][]
     		   {
-    		      {"level_1_3","16.66;0", "b","118;948","0;0","1.2","150;0","930;570","600;600","400;610"},
-    		      {"level_1_3","1260;0", "v", "118;948", "1260;0","1.2", "0;0","-15;420","600;600","350;820"}
+    		      {"level_1_3", "b","1.2","118;948","0;0","150;0","930;570","600;600","400;610"},
+    		      {"level_1_3", "v", "1.2","118;948", "1260;0", "0;0","-15;420","600;600","350;820"}
     		   
     		   };
    }

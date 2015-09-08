@@ -19,4 +19,5 @@ public class Constants_Game
     public Boolean[] paralax_anim=null;
     public String[][] pralax_conf;
     public String[][] bases_config;
+    public Float[] bases_pos= null;
 }
