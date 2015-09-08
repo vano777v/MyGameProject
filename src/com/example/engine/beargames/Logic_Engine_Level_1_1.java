@@ -54,16 +54,16 @@ public class Logic_Engine_Level_1_1 extends GameLayer
 	}
 	public void init_action_bear_base ()
 	{
-		    arena.get_Main_Base_list(0).get_animation_element(0).add_animation(level.get_campaign()+Constants_Game.bbase_animation_path,"bossm_","smoking_first",0.4f, 9, 11, false);
-	        arena.get_Main_Base_list(0).get_animation_element(0).add_animation(level.get_campaign()+Constants_Game.bbase_animation_path,"bossm_","smoking_loop", 0.5f,1, 9, true);
-	        arena.get_Main_Base_list(0).get_animation_element(1).add_animation(level.get_campaign()+"castle/flag/", "flagm_", "falg_movie", 0.1f, 1, 9, true);
+		   // arena.get_Main_Base_list(0).get_animation_element(0).add_animation(level.get_campaign()+Constants_Game.bbase_animation_path,"bossm_","smoking_first",0.4f, 9, 11, false);
+	        //arena.get_Main_Base_list(0).get_animation_element(0).add_animation(level.get_campaign()+Constants_Game.bbase_animation_path,"bossm_","smoking_loop", 0.5f,1, 9, true);
+	        //arena.get_Main_Base_list(0).get_animation_element(1).add_animation(level.get_campaign()+"castle/flag/", "flagm_", "falg_movie", 0.1f, 1, 9, true);
 	} 
 	
 	public void init_action_vimpire_base()
 	{
-		arena.get_Main_Base_list(1).get_animation_element(0).add_animation(level.get_campaign()+Constants_Game.vbase_animation_path,"bossm_", "first_step", 0.3f, 1,3,false);
-		arena.get_Main_Base_list(1).get_animation_element(0).add_animation(level.get_campaign()+Constants_Game.vbase_animation_path,"bossm_", "first_step", 0.4f, 3,7,true);
-		arena.get_Main_Base_list(1).get_animation_element(1).add_animation(level.get_campaign()+"castle/flag/", "flagm_", "falg_movie", 0.1f, 1, 9, true);	
+		//arena.get_Main_Base_list(1).get_animation_element(0).add_animation(level.get_campaign()+Constants_Game.vbase_animation_path,"bossm_", "first_step", 0.3f, 1,3,false);
+		//arena.get_Main_Base_list(1).get_animation_element(0).add_animation(level.get_campaign()+Constants_Game.vbase_animation_path,"bossm_", "first_step", 0.4f, 3,7,true);
+		//arena.get_Main_Base_list(1).get_animation_element(1).add_animation(level.get_campaign()+"castle/flag/", "flagm_", "falg_movie", 0.1f, 1, 9, true);	
 	}
 	
 	public void start_flags_movie()

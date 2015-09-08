@@ -22,6 +22,20 @@ public class Const_Lev_1_1 extends Constants_Game
     		      {"level_1_3", "v", "1.2","118;948", "1260;0", "0;0","-15;420","600;600","350;820"}
     		   
     		   };
+       this.base_act_elem = 2;
+      this.action_base_config = new Integer[][]
+    		  { {2,1},
+    		    {2,1} 
+    		  };
+      this.action_base_list= new String[][]
+    		  {
+    		     {"castle/personage/animation/b/","bossm_", "smoking_first","0.4", "9", "11", "false"},
+    		     {"castle/personage/animation/b/","bossm_", "smoking_loop", "0.5","1", "9", "true"},
+    		     {"castle/flag/", "flagm_", "falg_movie", "0.1", "1", "9", "true"},
+    		     {"castle/personage/animation/v/","bossm_", "first_step", "0.3", "1","3","false"},
+    		     {"castle/personage/animation/v/","bossm_", "first_step", "0.4", "4","7","true"},
+    		     {"castle/flag/", "flagm_", "falg_movie", "0.1", "1", "9", "true"}
+    		  };
    }
       
 }

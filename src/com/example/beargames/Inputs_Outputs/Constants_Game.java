@@ -5,8 +5,8 @@ import org.cocos2d.types.CGSize;
 public class Constants_Game
 {
    
-    public static String bbase_animation_path     =          "castle/personage/animation/b/";
-    public static String vbase_animation_path     =          "castle/personage/animation/v/";
+    public  int base_act_elem     =0;
+   
     public static String bear_box_engine_path     =          "Personages/b/b_box/";   
     public static int    base_dim                 =          1500;
     public static int    base_pers_dim            =          512;
@@ -20,4 +20,6 @@ public class Constants_Game
     public String[][] pralax_conf;
     public String[][] bases_config;
     public Float[] bases_pos= null;
+    public Integer[][] action_base_config = null; 
+    public String[][] action_base_list= null;
 }

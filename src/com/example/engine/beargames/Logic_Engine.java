@@ -32,8 +32,7 @@ private Game_Arena arena = null;
 		current_level = "level_"+level.get_current_level();
 		init_paralax();
 		init_bases();
-		init_action_bear_base();
-		init_action_vimpire_base();
+		init_action_base();
 		start_bear_base_default_movie();
 		start_vimpire_base_default_movie();
 		start_flags_movie();
@@ -76,19 +75,24 @@ private Game_Arena arena = null;
          
 	    
 	} 
-  public void init_action_bear_base ()
+  public void init_action_base()
 	{
-		    arena.get_Main_Base_list(0).get_animation_element(0).add_animation(campaign+Constants_Game.bbase_animation_path,"bossm_","smoking_first",0.4f, 9, 11, false);
-	        arena.get_Main_Base_list(0).get_animation_element(0).add_animation(campaign+Constants_Game.bbase_animation_path,"bossm_","smoking_loop", 0.5f,1, 9, true);
-	        arena.get_Main_Base_list(0).get_animation_element(1).add_animation(campaign+"castle/flag/", "flagm_", "falg_movie", 0.1f, 1, 9, true);
+		int p=0; 
+	    for(int i=0;i<2;i++)
+		    {
+		    	for(int j=0;j<const_level.base_act_elem;j++)
+		    	{
+		    		for(int k=0;k<const_level.action_base_config[i][j];k++)
+		    		{
+		    			arena.get_Main_Base_list(i).get_animation_element(j).add_animation(campaign+const_level.action_base_list[p][0],const_level.action_base_list[p][1], const_level.action_base_list[p][2], Float.parseFloat(const_level.action_base_list[p][3]),Integer.parseInt(const_level.action_base_list[p][4]),Integer.parseInt(const_level.action_base_list[p][5]),Boolean.parseBoolean(const_level.action_base_list[p][6]));
+		    			
+		    		    p++;
+		    		}
+		    	}
+		    }
 	} 
 	
-	public void init_action_vimpire_base()
-	{
-		arena.get_Main_Base_list(1).get_animation_element(0).add_animation(campaign+Constants_Game.vbase_animation_path,"bossm_", "first_step", 0.3f, 1,3,false);
-		arena.get_Main_Base_list(1).get_animation_element(0).add_animation(campaign+Constants_Game.vbase_animation_path,"bossm_", "first_step", 0.4f, 4,7,true);
-		arena.get_Main_Base_list(1).get_animation_element(1).add_animation(campaign+"castle/flag/", "flagm_", "falg_movie", 0.1f, 1, 9, true);	
-	}
+
 	
 	public void start_flags_movie()
 	{
