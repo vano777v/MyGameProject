@@ -29,6 +29,7 @@ public class Action_Activity extends CCLayer
    private ArrayList<Boolean> action_type = null;
    private int last_action_index=-1,  stop_index=-1;
    private ArrayList<Integer> index_current = null;
+   private ArrayList<String> name_action =null;
 
    public Action_Activity(CCSprite sprite, String is_who)
    {
@@ -36,6 +37,7 @@ public class Action_Activity extends CCLayer
 	  action_animation= new ArrayList<CCAction>();
 	  action_type = new ArrayList<Boolean>();
 	  index_current = new ArrayList<Integer>();
+	  name_action = new ArrayList<String>();
 	  this.is_who= is_who;
 	  this.sprite = sprite;
 	 
@@ -63,16 +65,29 @@ public class Action_Activity extends CCLayer
 		    	atAction_forever = CCRepeatForever.action(CCAnimate.action(atAnimation, false));
 		    	atAction_forever.setTag(action_type.size()-1);
 		    	action_animation.add(atAction_forever);
+		    	this.name_action.add(name_action);
 		    }
 		    else 
 		    {
 		    	atAction_interval = CCRepeat.action(CCAnimate.action(atAnimation, false), 1);
 		    	atAction_interval.setTag(action_type.size()-1);
 		    	action_animation.add(atAction_interval);
+		    	this.name_action.add(name_action);
 		    }
 		    
 		  
 		    
+	}
+	
+	public ArrayList<Integer> find_by_name(String name)
+	{
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		
+		for(int i=0;i<name_action.size();i++)
+		{
+			if(name_action.get(i).equalsIgnoreCase(name)) result.add(i);
+		}
+		return result;
 	}
 	
 	

@@ -2,6 +2,9 @@ package com.example.game.arena.elements;
 
 import java.util.ArrayList;
 
+import org.cocos2d.actions.instant.CCCallFunc;
+import org.cocos2d.actions.interval.CCMoveTo;
+import org.cocos2d.actions.interval.CCSequence;
 import org.cocos2d.layers.CCColorLayer;
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGSize;
@@ -13,7 +16,7 @@ public class Main_Personage  extends CCColorLayer{
 	private  float general_scale_factor=0;
 	private  CGSize local_scale_factor=null;
 	private  Progress_Bar_element bar_life=null;
-	private ArrayList<Action_Activity>  animation_element=null;
+	private ArrayList<Action_Activity>  animation_element=null; 
 	private Personage_Element boss = null;
 	private static  String source_path=null;
 	private String is_who=null;
@@ -25,6 +28,8 @@ public class Main_Personage  extends CCColorLayer{
 	private ArrayList<Integer> imunnity_enimy=null;
 	private int ability=0;
 	private int building_time =0;
+	private float walk_speed=0;
+	
 	public Main_Personage(ccColor4B color, final String campaign_path,String default_path,CGSize local_scale_factor, float general_scale_factor, String is_who) 
 	{
 		super(color);
@@ -38,7 +43,8 @@ public class Main_Personage  extends CCColorLayer{
 	    this.setOpacity(0);
 		this.is_who = is_who;
 		this.attack_area=CGSize.make(0, 0);
-		this.imunnity_enimy = new ArrayList<Integer>();
+		
+		
 		addChild(bar_life);
 		addChild(boss);
 		animation_element.add(new Action_Activity(boss, is_who));
@@ -151,4 +157,29 @@ public class Main_Personage  extends CCColorLayer{
 	{
 		return real_life;
 	}
+	public void set_walk_speed (float speed)
+	{
+		this.walk_speed=speed;
+	}
+	public void start_animation(String name)
+	{
+	   ArrayList<Integer> result = new ArrayList<Integer>();
+	   result=animation_element.get(0).find_by_name(name);
+	   for(int i=0;i<result.size();i++)
+		   animation_element.get(0).start_action(result.get(i));
+	}
+	
+	public void start_walk()
+	{
+	    start_animation("walk"); 
+		this.runAction(CCSequence.actions(CCMoveTo.action(1.2f, CGPoint.make(this.getPosition().x+this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
+	
+	}
+	
+	public void Move_Control()
+	{
+		//this.runAction(CCSequence.actions(CCMoveTo.action(this.walk_speed, CGPoint.make(this.getPosition().x+this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
+	    start_walk();
+	}
+	
 }

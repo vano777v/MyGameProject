@@ -192,6 +192,7 @@ public class MenuItemLayer extends CCSprite
 			 //System.out.println("Bastaaaaaaaa "+team_count);
 			 this.unschedule("life");
 			 arena.addChild(pers);
+			 pers.start_walk();
 		 }
 	 }
 	 

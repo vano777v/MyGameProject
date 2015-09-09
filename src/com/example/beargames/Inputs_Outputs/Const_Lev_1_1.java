@@ -69,15 +69,16 @@ public class Const_Lev_1_1 extends Constants_Game
 		//System.out.println("ERT"+arena.bears_element.size());
 		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
 		init_animation_bear_box_engine(update_path, pers);
-		pers.get_animation(0).start_action(0);
+		//pers.start_animation("attack");
 		pers.set_building_time(1);
+		pers.set_walk_speed(12);
 		return pers;
 	}
 	public void init_animation_bear_box_engine(String update_path, Main_Personage pers)
 	{
 	    pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_box_engine_path+update_path,"engine_", "default",1.2f, 1, 3, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_box_engine_path+update_path,"engine_", "walk",0.2f, 3, 9, true);
-        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_box_engine_path+update_path,"engine_", "attack",0.4f, 9, 16, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_box_engine_path+update_path,"engine_", "attack",0.2f, 9, 16, true);
 
 	}
 	
