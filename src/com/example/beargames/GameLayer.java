@@ -25,8 +25,11 @@ import android.app.Activity;
 import android.view.MotionEvent;
 
 
+import com.example.beargames.Inputs_Outputs.Constants_Game;
+import com.example.engine.beargames.Logic_Engine;
 //import com.example.beargames.R.raw;
 import com.example.game.arena.elements.Main_Base;
+import com.example.game.arena.elements.Main_Personage;
 
 public class GameLayer extends CCLayer
 {
@@ -63,8 +66,10 @@ public class GameLayer extends CCLayer
     private float base_dimm = 1500;
    // private CCSprite m, n = null; 
     private  Main_Base vimpir_base=null;
+    private Logic_Engine logic= null;
 	private ArrayList<MenuLayer> menus_game= null;
 	  float vp=0 ,dt=0,pz=0;
+	 protected Constants_Game const_level= null;
     public GameLayer( String campaign, Game_Arena arena)
     {
     	screenSize = CCDirector.sharedDirector().winSize();
@@ -82,7 +87,7 @@ public class GameLayer extends CCLayer
         CGSize scale_factors = CGSize.make(1, 1);
         count_zoom=2;  
        
-     
+        this.logic =  logic;
         this.arena =  arena;
         addChild(arena);
         
@@ -471,7 +476,8 @@ public class GameLayer extends CCLayer
 
     private void  button_bear_team_item_select(int menu_index, int bear_menu_index ,int index, int item_tag, float time)
      {
-    	 if(menus_game.get(menu_index).get_item(index).get_touch_state())
+    	Main_Personage pers = null;
+    	if(menus_game.get(menu_index).get_item(index).get_touch_state())
     	 {
     		 java.lang.System.out.println("Trala lala la");
     	 }
@@ -482,12 +488,13 @@ public class GameLayer extends CCLayer
     		 menus_game.get(menu_index).get_item(index).set_touch_state(true);
     		 menus_game.get(menu_index).get_item(index).time_progress_bar_init(this.campaign+"menus/choosed/"+item_tag+"a.png");
     		 menus_game.get(menu_index).get_item(index).set_path_progress_bar(this.campaign+"menus/neutral/"+item_tag+"n.png");
-    		 menus_game.get(menu_index).get_item(index).time_progress(time,menus_game.get(bear_menu_index),item_tag, team_selected, buffer_team);
+    		 pers=this.bear_build(item_tag);
+    		 menus_game.get(menu_index).get_item(index).time_progress(pers,arena,menus_game.get(bear_menu_index),item_tag, team_selected, buffer_team);
     		 menus_game.get(bear_menu_index).get_item(item_tag*2).setisTouchEnabled(false);
     		 menus_game.get(bear_menu_index).change_Image_item(this.campaign+"menus/press/"+item_tag+"p.png", item_tag*2);
     		 team_selected++;
     		
-    		 java.lang.System.out.println("kkkk "+team_selected+" "+ menus_game.get(menu_index).get_item(index).team_count);
+    		 java.lang.System.out.println("kkkk "+item_tag);
     		 if((team_selected-menus_game.get(menu_index).get_item(index).team_count)==4||(team_selected-menus_game.get(menu_index).get_item(index).team_count)==0)
     		 {
     			 for(int i=2;i<18;i+=2)
@@ -1093,6 +1100,19 @@ public class GameLayer extends CCLayer
     	CCBitmapFontAtlas timerLabel = (CCBitmapFontAtlas) getChildByTag(TIMER_LABEL_TAG) ;
     	timerLabel.setString(string);
     	}
-   
+    private Main_Personage bear_build(int tag) 
+    {
+    	Main_Personage personage=null;
+    	switch (tag) {
+		case 1:
+			
+			  personage=const_level.box_bear_init("default/");
+			break;
+
+		default:
+			break;
+		}
+		return personage;
+    }  
       
 }

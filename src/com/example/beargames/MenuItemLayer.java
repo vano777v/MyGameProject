@@ -38,6 +38,7 @@ public class MenuItemLayer extends CCSprite
 	private int tag_item_bear=0;
 	private MenuLayer bear_menu=null;
 	private Main_Personage pers= null;
+	private Game_Arena arena = null;
 	//private  Timer timer_item_press = null;
 	//private static float count
 	private  CCProgressTimer image_progress = null;
@@ -131,14 +132,15 @@ public class MenuItemLayer extends CCSprite
 		 return is_working; 
 	 }
 	
-	 protected void time_progress( float time, MenuLayer bears, int tag_intem,int team_bear_count,  int[] bears_team)
+	 protected void time_progress(Main_Personage pers, Game_Arena arena, MenuLayer bears, int tag_intem,int team_bear_count,  int[] bears_team)
 	 {
-		 this.time_request_sec = time*10;
+		 this.time_request_sec = pers.get_building_time()*10;
 		 this.time_count=0;
 		 bear_menu=bears;
 		 tag_item_bear=tag_intem;
 		 team_count=team_bear_count;
-		// this.pers = personage;
+		 this.pers = pers;
+		 this.arena= arena;
 		 this.bears_team=bears_team;
 		 this.schedule("life", 0.1f);		
 
@@ -187,8 +189,9 @@ public class MenuItemLayer extends CCSprite
 			}
 			bear_menu.get_item(tag_item_bear*2).setisTouchEnabled(true);
 			
-			 System.out.println("Bastaaaaaaaa "+team_count);
+			 //System.out.println("Bastaaaaaaaa "+team_count);
 			 this.unschedule("life");
+			 arena.addChild(pers);
 		 }
 	 }
 	 

@@ -35,7 +35,7 @@ public class Main_Personage  extends CCColorLayer{
 	    animation_element = new ArrayList<Action_Activity>();
 		bar_life=  new Progress_Bar_element(source_path+"bar/main_bar_pers.png",source_path+"bar/progress_bar_"+is_who+".png", general_scale_factor );
 	    boss = new Personage_Element(source_path+"Personages/"+is_who+"/"+default_path+"/"+"1.png", general_scale_factor, is_who);
-	    this.setOpacity(30);
+	    this.setOpacity(0);
 		this.is_who = is_who;
 		this.attack_area=CGSize.make(0, 0);
 		this.imunnity_enimy = new ArrayList<Integer>();

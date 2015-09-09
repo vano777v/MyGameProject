@@ -16,26 +16,27 @@ private Game_Arena arena = null;
     
     private float general_scale_factor=0;
     private Level level= null;
-    private Constants_Game const_level= null;
+  
     private String campaign=null;
     private String current_level= null;
   
   public Logic_Engine( Level level,  Game_Arena arena,  float general_scale_factor)
   {
 	 
-	  super("campaign_"+level.get_campaign()+"/", arena);
+	    super("campaign_"+level.get_campaign()+"/", arena );
 		this.level = level;
 		this.arena = arena;
 		this.general_scale_factor = general_scale_factor;
-		const_level = this.detect_level(level.get_campaign(), level.get_current_level());
+		this.const_level = this.detect_level(level.get_campaign(), level.get_current_level(), arena);
 		campaign = "campaign_"+level.get_campaign()+"/";
 		current_level = "level_"+level.get_current_level();
 		init_paralax();
 		init_bases();
 		init_action_base();
-		start_bear_base_default_movie();
-		start_vimpire_base_default_movie();
-		start_flags_movie();
+		const_level.start_flags_movie();
+		const_level.start_vimpire_base_default_movie();
+		const_level.start_bear_base_default_movie();
+		//const_level.box_bear_init("default/");
   }
   private void  init_paralax()
   {
@@ -94,21 +95,7 @@ private Game_Arena arena = null;
 	
 
 	
-	public void start_flags_movie()
-	{
-		 arena.get_Main_Base_list(0).get_animation_element(1).start_action(0);
-		 arena.get_Main_Base_list(1).get_animation_element(1).start_action(0);
-	}
-	public void start_bear_base_default_movie()
-	{
-		arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
-		arena.get_Main_Base_list(0).get_animation_element(0).start_action(1);
-	}
-	public void start_vimpire_base_default_movie()
-	{
-		arena.get_Main_Base_list(1).get_animation_element(0).start_action(0);
-		arena.get_Main_Base_list(1).get_animation_element(0).start_action(1);
-	}
+	
 	
   private float[] dispach_string_vector(String[]  vector, int start_index,int last_index)
   {
@@ -131,7 +118,7 @@ private Game_Arena arena = null;
 	  return result_vector;
   }
   
-  private Constants_Game detect_level (int value_camp, int value_level)
+  private Constants_Game detect_level (int value_camp, int value_level, Game_Arena arena)
   {
 	  Constants_Game game_const=null;
 	  switch (value_camp) {
@@ -139,7 +126,7 @@ private Game_Arena arena = null;
 	{
 		switch (value_level) {
 		case 1:
-			Const_Lev_1_1 lev = new Const_Lev_1_1();
+			Const_Lev_1_1 lev = new Const_Lev_1_1(arena);
 			game_const = lev;
 			break;
 		case 2:

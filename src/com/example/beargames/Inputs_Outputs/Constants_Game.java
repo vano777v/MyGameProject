@@ -2,7 +2,9 @@ package com.example.beargames.Inputs_Outputs;
 
 import org.cocos2d.types.CGSize;
 
-public class Constants_Game
+import com.example.game.arena.elements.Main_Personage;
+
+public abstract class Constants_Game
 {
    
     public  int base_act_elem     =0;
@@ -22,4 +24,10 @@ public class Constants_Game
     public Float[] bases_pos= null;
     public Integer[][] action_base_config = null; 
     public String[][] action_base_list= null;
+    
+    abstract  public void start_flags_movie();
+    abstract public void start_bear_base_default_movie();
+    abstract public void start_vimpire_base_default_movie();
+    abstract public Main_Personage box_bear_init( String update_path);
+    abstract public void init_animation_bear_box_engine(String update_path, Main_Personage pers);
 }
