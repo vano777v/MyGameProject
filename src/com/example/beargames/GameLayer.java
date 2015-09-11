@@ -41,6 +41,7 @@ public class GameLayer extends CCLayer
 	//private float poi=0;
 	//private static final int STATUS_LABEL_TAG = 20;
 	private static final int TIMER_LABEL_TAG =20;
+	public ArrayList<Main_Personage> bear_team_fight = null;
 	//private static final int MOVES_LABEL_TAG =20; 
     private static int[] buffer_team;
     private static int[] buffer_ability_items={0,0,0};
@@ -488,7 +489,7 @@ public class GameLayer extends CCLayer
     		 menus_game.get(menu_index).get_item(index).set_touch_state(true);
     		 menus_game.get(menu_index).get_item(index).time_progress_bar_init(this.campaign+"menus/choosed/"+item_tag+"a.png");
     		 menus_game.get(menu_index).get_item(index).set_path_progress_bar(this.campaign+"menus/neutral/"+item_tag+"n.png");
-    		 pers=this.bear_build(item_tag);
+    		 pers=bear_team_fight.get(item_tag-1);
     		 menus_game.get(menu_index).get_item(index).time_progress(pers,arena,menus_game.get(bear_menu_index),item_tag, team_selected, buffer_team);
     		 menus_game.get(bear_menu_index).get_item(item_tag*2).setisTouchEnabled(false);
     		 menus_game.get(bear_menu_index).change_Image_item(this.campaign+"menus/press/"+item_tag+"p.png", item_tag*2);

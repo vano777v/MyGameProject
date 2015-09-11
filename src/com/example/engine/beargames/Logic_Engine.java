@@ -1,5 +1,7 @@
 package com.example.engine.beargames;
 
+import java.util.ArrayList;
+
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGSize;
 
@@ -36,6 +38,7 @@ private Game_Arena arena = null;
 		const_level.start_flags_movie();
 		const_level.start_vimpire_base_default_movie();
 		const_level.start_bear_base_default_movie();
+		
 		//const_level.box_bear_init("default/");
   }
   private void  init_paralax()

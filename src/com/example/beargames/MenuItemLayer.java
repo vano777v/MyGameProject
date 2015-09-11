@@ -190,9 +190,10 @@ public class MenuItemLayer extends CCSprite
 			bear_menu.get_item(tag_item_bear*2).setisTouchEnabled(true);
 			
 			 //System.out.println("Bastaaaaaaaa "+team_count);
-			 this.unschedule("life");
-			 arena.addChild(pers);
-			 pers.start_walk();
+			arena.addChild(pers);
+			 pers.start_walk(); 
+			this.unschedule("life");
+			 
 		 }
 	 }
 	 

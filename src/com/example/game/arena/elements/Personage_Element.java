@@ -27,6 +27,7 @@ public class Personage_Element extends CCSprite
   public Personage_Element (String location_path, float  general_scale_factor, String is_who)
   {
 	  super(location_path);
+	  
 	  this.setAnchorPoint(0, 0);
 	  this.general_scale_factor = general_scale_factor;
 	

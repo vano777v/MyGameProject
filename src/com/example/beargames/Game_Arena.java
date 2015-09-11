@@ -32,6 +32,7 @@ public class Game_Arena extends CCColorLayer
     public ArrayList<Main_Personage> bears_element = null;
     private ArrayList<Main_Personage> vimpire_element = null;
     private ArrayList<Main_Base> base_list=null; 
+    
     private float limt=0;
     
 	public Game_Arena(ccColor4B color,  float general_scale_factor,  CGSize screen_size,float pers_dimm, float base_dimm, int tag_arena) 

@@ -1,5 +1,7 @@
 package com.example.beargames.Inputs_Outputs;
 
+import java.util.ArrayList;
+
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGSize;
 
@@ -13,6 +15,8 @@ public class Const_Lev_1_1 extends Constants_Game
    private Game_Arena arena=null;
    public Const_Lev_1_1(Game_Arena arena)
    {
+	   
+	  
 	   this.paralax_child=5;
 	   this.arena = arena;
 	   this.parlax_value= new Float[][]{{0f,250f, 0f,0f},{0f, 0f, 0.2f, 0f},{0f, 70f, 0.3f, 0f},{0f, 60f, 0.1f, 0f},{0f, 60f, 0.2f, 0f}};
@@ -45,7 +49,8 @@ public class Const_Lev_1_1 extends Constants_Game
     		  };
       
       
-      
+       bear_team_fight = new ArrayList<Main_Personage>();
+	   bear_team_fight.add(box_bear_init("update"));
    }
    public void start_flags_movie()
 	{
