@@ -21,9 +21,28 @@ public class Progress_Bar_element  extends CCSprite
 	   this.setAnchorPoint(0, 0);
 	   progress_bar_init(path_progress_bar);
 	   general_scale_factor = scale_factor;
-	   System.out.println("Marcela");
+	  // System.out.println("Marcela");
    }
    
+   public Progress_Bar_element (Progress_Bar_element main)
+   {
+	   super(main.getTexture());
+	   this.setAnchorPoint(main.getAnchorPoint());
+	   this.general_scale_factor = main.general_scale_factor;
+	   this.progress_bar_life = CCProgressTimer.progress( main.progress_bar_life.getSprite().getTexture());
+	   this.progress_bar_life.setAnchorPoint(main.progress_bar_life.getAnchorPoint());
+	   this.progress_bar_life.setPosition(main.progress_bar_life.getPosition());
+	   this.progress_bar_life.setType(main.progress_bar_life.getType());
+	   this.progress_bar_life.setPercentage(main.progress_bar_life.getPercentage());
+	   this.local_scale_x = main.local_scale_x;
+	   this.local_scale_y = main.local_scale_y;
+	   this.parent_scale_x = main.parent_scale_x;
+	   this.parent_scale_y = main.local_scale_y;
+	   this.setScaleX(main.getScaleX());
+	   this.setScaleY(main.getScaleY());
+	   this.setPosition(main.getPosition());
+	   this.addChild(this.progress_bar_life);
+   }
    private void progress_bar_init(String path)
    {
 	     progress_bar_life = CCProgressTimer.progress(path);

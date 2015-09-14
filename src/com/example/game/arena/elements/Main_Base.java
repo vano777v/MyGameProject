@@ -36,7 +36,7 @@ private String is_who=null;
 		flag = new Flag_Element(source_path+"castle/flag/flag_"+is_who+".png", general_scale_factor, is_who);
 		//bar_life.setBarPosition(CGPoint.make(300, 0));
 		
-		this.setOpacity(0);
+		this.setOpacity(30);
 		this.is_who = is_who;
 		//this.setContentSize(2048f,2048f);
 		addChild(boss);

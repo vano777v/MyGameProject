@@ -285,6 +285,7 @@ public class MenuItemLayer extends CCSprite
                 {tag= this.getTag();
       
                 }
+    		
     	  
     	  return tag;
       }

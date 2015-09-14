@@ -34,6 +34,22 @@ public class Personage_Element extends CCSprite
 	  this.is_who = is_who;
   }
   
+  public Personage_Element(Personage_Element main)
+  {
+	  super(main.getTexture());
+	  this.setAnchorPoint(main.getAnchorPoint());
+	  this.general_scale_factor = main.general_scale_factor;
+	  this.is_who= new String(main.is_who);
+	  this.setContentSize(main.getContentSize());
+	  this.setScaleX(main.getScaleX());
+	  this.setScaleY(main.getScaleY());
+	  this.local_scale_x = main.local_scale_x;
+	  this.local_scale_y = main.local_scale_y;
+	  this.setPosition(main.getPosition());
+	  this.parent_scale_x = main.parent_scale_x;
+	  this.parent_scale_y = main.parent_scale_y;
+  }
+  
   public void setSize(CGSize new_size)
   {
 	     local_scale_x = new_size.width/this.getContentSize().width;

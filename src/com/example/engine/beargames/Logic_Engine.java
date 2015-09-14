@@ -2,7 +2,9 @@ package com.example.engine.beargames;
 
 import java.util.ArrayList;
 
+import org.cocos2d.layers.CCColorLayer;
 import org.cocos2d.types.CGPoint;
+import org.cocos2d.types.CGRect;
 import org.cocos2d.types.CGSize;
 
 import com.example.beargames.GameLayer;
@@ -39,7 +41,9 @@ private Game_Arena arena = null;
 		const_level.start_vimpire_base_default_movie();
 		const_level.start_bear_base_default_movie();
 		
-		//const_level.box_bear_init("default/");
+		const_level.bear_team_fight.add(const_level.box_bear_init("default/"));
+		const_level.bear_team_fight.add(const_level.mace_bear_init("default/"));
+		this.schedule("main_control_activity", 0.1f);
   }
   private void  init_paralax()
   {
@@ -98,7 +102,31 @@ private Game_Arena arena = null;
 	
 
 	
+	public void main_control_activity(float dt)
+	{
+		for(int i=0;i<arena.bears_element.size();i++)
+		{
+		  if(intersect(arena.bears_element.get(i), arena.get_Main_Base_list(1))&&!arena.bears_element.get(i).action_is_runing_now().equalsIgnoreCase("attack") ) 
+			 arena.bears_element.get(i).stop_walk("attack");
+		
+		}
+		for(int i=0;i<arena.bears_element.size()-1;i++)
+			if(intersect(arena.bears_element.get(i),arena.bears_element.get(i+1))&&!arena.bears_element.get(i+1).action_is_runing_now().equalsIgnoreCase("default")) 
+				arena.bears_element.get(i+1).stop_walk("default");	
+	}
 	
+	private Boolean intersect(CCColorLayer first, CCColorLayer second)
+	{
+		Boolean result  = false; 
+		CGPoint first_pooint = CGPoint.make(first.getPosition().x, first.getPosition().y);
+		CGRect  object = CGRect.make(first_pooint, first.getContentSize());
+		if((object.contains(second.getPosition().x, second.getPosition().y))||
+				(object.contains(second.getPosition().x+second.getContentSize().width, second.getPosition().y))||
+				(object.contains(second.getPosition().x, second.getPosition().y+second.getContentSize().height))||
+						(object.contains(second.getPosition().x+second.getContentSize().width, second.getPosition().y+second.getContentSize().height))) 
+						result=true;
+		return result;
+	}
 	
   private float[] dispach_string_vector(String[]  vector, int start_index,int last_index)
   {

@@ -220,11 +220,19 @@ public class Game_Arena extends CCColorLayer
 		personage.setSize(pers_size);
 		personage.set_Pers_Position(pers_location);
 		
-		if(is_who.equalsIgnoreCase("b")) 
+		//if(is_who.equalsIgnoreCase("b")) 
+			//bears_element.add(personage);
+		//else 
+			//vimpire_element.add(personage);
+		return personage;
+	}
+	
+	public void add_personage (Main_Personage personage)
+	{
+		if(personage.is_who().equalsIgnoreCase("b"))
 			bears_element.add(personage);
 		else 
 			vimpire_element.add(personage);
-		return personage;
 	}
 	
 	public Main_Base get_Main_Base_list(int index)

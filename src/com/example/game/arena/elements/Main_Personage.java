@@ -8,7 +8,10 @@ import org.cocos2d.actions.interval.CCSequence;
 import org.cocos2d.layers.CCColorLayer;
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGSize;
+import org.cocos2d.types.ccColor3B;
 import org.cocos2d.types.ccColor4B;
+
+import android.R.menu;
 
 import com.example.engine.beargames.Action_Activity;
 
@@ -40,7 +43,7 @@ public class Main_Personage  extends CCColorLayer{
 	    animation_element = new ArrayList<Action_Activity>();
 		bar_life=  new Progress_Bar_element(source_path+"bar/main_bar_pers.png",source_path+"bar/progress_bar_"+is_who+".png", general_scale_factor );
 	    boss = new Personage_Element(source_path+"Personages/"+is_who+"/"+default_path+"/"+"1.png", general_scale_factor, is_who);
-	    this.setOpacity(0);
+	    this.setOpacity(30);
 		this.is_who = is_who;
 		this.attack_area=CGSize.make(0, 0);
 		
@@ -49,6 +52,39 @@ public class Main_Personage  extends CCColorLayer{
 		addChild(boss);
 		animation_element.add(new Action_Activity(boss, is_who));
 		this.addChild( animation_element.get(0));
+	}
+	
+	public Main_Personage(Main_Personage personage) 
+	{
+		super(personage.getccColor4B());
+		this.setAnchorPoint(personage.getAnchorPoint());
+		this.general_scale_factor= personage.general_scale_factor;
+		this.local_scale_factor=CGSize.make(personage.local_scale_factor.width, personage.local_scale_factor.height);
+		this.source_path = new String(personage.source_path);
+		this.animation_element = new ArrayList<Action_Activity>();
+		 this.bar_life = new Progress_Bar_element(personage.bar_life);
+		 this.boss = new Personage_Element(personage.boss);
+		 this.setOpacity(personage.getOpacity());
+		 this.is_who = new String(personage.is_who);
+		 
+		 this.setScaleX(personage.getScaleX());
+		 this.setScaleY(personage.getScaleY());
+		 this.setContentSize(personage.getContentSize());
+		 this.setPosition(personage.getPosition());
+		 this.set_building_time(personage.get_building_time());
+		 this.set_walk_speed(personage.walk_speed);
+		 addChild(bar_life);
+	     addChild(boss);
+		this.attack_area = CGSize.make(personage.attack_area.width, personage.attack_area.height);
+		Action_Activity action = new Action_Activity(this.boss, personage.get_animation(0));
+		animation_element.add(action);
+		this.addChild( animation_element.get(0));
+	
+	}
+	private ccColor4B getccColor4B ()
+	{
+		ccColor4B result = new ccColor4B(this.getColor().r, this.getColor().g, this.getColor().b, 255);
+		return result; 
 	}
 	public void setSize(CGSize main_size)
 	{
@@ -165,21 +201,46 @@ public class Main_Personage  extends CCColorLayer{
 	{
 	   ArrayList<Integer> result = new ArrayList<Integer>();
 	   result=animation_element.get(0).find_by_name(name);
+	   System.out.println("Pugaci"+result.get(0));
 	   for(int i=0;i<result.size();i++)
-		   animation_element.get(0).start_action(result.get(i));
+		   animation_element.get(0).start_action_sequences(result.get(i));
 	}
 	
+	public void stop_animation(String name)
+	{
+		 ArrayList<Integer> result = new ArrayList<Integer>();
+		   result=animation_element.get(0).find_by_name(name);
+		   //System.out.println("Pugaci"+result.get(0));
+		   for(int i=0;i<result.size();i++)
+			   animation_element.get(0).stop_action(result.get(i));
+	}
 	public void start_walk()
 	{
 	    start_animation("walk"); 
 		this.runAction(CCSequence.actions(CCMoveTo.action(1.2f, CGPoint.make(this.getPosition().x+this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
+	    
+	}
 	
+	public void stop_walk( String animation)
+	{
+		this.stopAllActions();
+		//this.stop_animation("walk");
+	    this.start_animation(animation);
 	}
 	
 	public void Move_Control()
 	{
-		//this.runAction(CCSequence.actions(CCMoveTo.action(this.walk_speed, CGPoint.make(this.getPosition().x+this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
-	    start_walk();
+		this.runAction(CCSequence.actions(CCMoveTo.action(1.2f, CGPoint.make(this.getPosition().x+this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
+	    //start_walk();
 	}
+	public String is_who()
+	{
+		return is_who;
+	}
+	
+	public String action_is_runing_now()
+	{
+		return this.animation_element.get(0).who_is_runing();
+	} 
 	
 }

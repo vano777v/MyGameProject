@@ -41,7 +41,7 @@ public class GameLayer extends CCLayer
 	//private float poi=0;
 	//private static final int STATUS_LABEL_TAG = 20;
 	private static final int TIMER_LABEL_TAG =20;
-	public ArrayList<Main_Personage> bear_team_fight = null;
+	
 	//private static final int MOVES_LABEL_TAG =20; 
     private static int[] buffer_team;
     private static int[] buffer_ability_items={0,0,0};
@@ -489,7 +489,9 @@ public class GameLayer extends CCLayer
     		 menus_game.get(menu_index).get_item(index).set_touch_state(true);
     		 menus_game.get(menu_index).get_item(index).time_progress_bar_init(this.campaign+"menus/choosed/"+item_tag+"a.png");
     		 menus_game.get(menu_index).get_item(index).set_path_progress_bar(this.campaign+"menus/neutral/"+item_tag+"n.png");
-    		 pers=bear_team_fight.get(item_tag-1);
+    		 pers=  new Main_Personage( const_level.bear_team_fight.get(item_tag-1));
+             //const_level.init_animation_bear_box_engine("default/", pers);
+    		 arena.add_personage(pers); 
     		 menus_game.get(menu_index).get_item(index).time_progress(pers,arena,menus_game.get(bear_menu_index),item_tag, team_selected, buffer_team);
     		 menus_game.get(bear_menu_index).get_item(item_tag*2).setisTouchEnabled(false);
     		 menus_game.get(bear_menu_index).change_Image_item(this.campaign+"menus/press/"+item_tag+"p.png", item_tag*2);
@@ -942,6 +944,8 @@ public class GameLayer extends CCLayer
     	  menus_game.get(menu_index).get_item(item_tag).button_press(this.campaign+"menus/settings_items/zoom_out_unpress.png",this.campaign+"menus/settings_items/zoom_out_press.png", 0.2f);
     	  scale_factor/=1.2f;
     	
+    	  for(int i=0;i<arena.bears_element.size();i++)
+    		  arena.bears_element.get(i).start_animation("death");
     	  //arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
     	//  arena.get_Main_Base_list(0).get_animation_element(0).start_action(1);
     	 // arena.get_Main_List("b", 0).get_animation(0).start_action(1);

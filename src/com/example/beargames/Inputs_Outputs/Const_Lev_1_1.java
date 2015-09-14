@@ -13,6 +13,7 @@ public class Const_Lev_1_1 extends Constants_Game
    public static int unit_limit          =         15;
    
    private Game_Arena arena=null;
+   
    public Const_Lev_1_1(Game_Arena arena)
    {
 	   
@@ -50,7 +51,7 @@ public class Const_Lev_1_1 extends Constants_Game
       
       
        bear_team_fight = new ArrayList<Main_Personage>();
-	   bear_team_fight.add(box_bear_init("update"));
+	  
    }
    public void start_flags_movie()
 	{
@@ -59,13 +60,13 @@ public class Const_Lev_1_1 extends Constants_Game
 	}
 	public void start_bear_base_default_movie()
 	{
-		arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
-		arena.get_Main_Base_list(0).get_animation_element(0).start_action(1);
+		arena.get_Main_Base_list(0).get_animation_element(0).start_action_sequences(0);
+		arena.get_Main_Base_list(0).get_animation_element(0).start_action_sequences(1);
 	}
 	public void start_vimpire_base_default_movie()
 	{
-		arena.get_Main_Base_list(1).get_animation_element(0).start_action(0);
-		arena.get_Main_Base_list(1).get_animation_element(0).start_action(1);
+		arena.get_Main_Base_list(1).get_animation_element(0).start_action_sequences(0);
+		arena.get_Main_Base_list(1).get_animation_element(0).start_action_sequences(1);
 	}
 	public Main_Personage box_bear_init( String update_path)
 	{
@@ -79,12 +80,40 @@ public class Const_Lev_1_1 extends Constants_Game
 		pers.set_walk_speed(12);
 		return pers;
 	}
+	
+	public Main_Personage mace_bear_init( String update_path)
+	{
+		Main_Personage pers=null; 
+		pers= arena.add_personage("campaign_1/","b_mace", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(0).getPosition().x+arena.get_Main_Base_list(0).getContentSize().width, 0), "b");
+		//System.out.println("ERT"+arena.bears_element.size());
+		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
+		init_animation_bear_mace_engine(update_path, pers);
+		//pers.start_animation("attack");
+		pers.set_building_time(2);
+		pers.set_walk_speed(12);
+		return pers;
+	}
 	public void init_animation_bear_box_engine(String update_path, Main_Personage pers)
 	{
 	    pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_box_engine_path+update_path,"engine_", "default",1.2f, 1, 3, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_box_engine_path+update_path,"engine_", "walk",0.2f, 3, 9, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_box_engine_path+update_path,"engine_", "attack",0.2f, 9, 16, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_box_engine_path+update_path,"engine_", "death",0.2f, 16, 30, false);
+	}
+	
+	public void init_animation_bear_mace_engine(String update_path, Main_Personage pers)
+	{
+	    pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "default",1.2f, 10, 12, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "walk",0.2f, 4, 10, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "attack",0.2f, 1, 4, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "death",0.2f, 12, 26, false);
 
+	}
+	
+	public Main_Personage get_bear(int index)
+	{
+		Main_Personage bear = bear_team_fight.get(index);
+		return bear;
 	}
 	
       
