@@ -12,7 +12,9 @@ import org.cocos2d.types.ccColor3B;
 import org.cocos2d.types.ccColor4B;
 
 import android.R.menu;
+import android.hardware.Camera.Area;
 
+import com.example.beargames.Game_Arena;
 import com.example.engine.beargames.Action_Activity;
 
 public class Main_Personage  extends CCColorLayer{
@@ -22,16 +24,20 @@ public class Main_Personage  extends CCColorLayer{
 	private ArrayList<Action_Activity>  animation_element=null; 
 	private Personage_Element boss = null;
 	private static  String source_path=null;
+	private int state_action =0;
 	private String is_who=null;
-	private int pers_index=0;
 	private int total_pers_life=0;
-	private int real_life=0;
+	private float real_life=0;
 	private CGSize attack_area=null;
 	private int attack_demage=0;
 	private ArrayList<Integer> imunnity_enimy=null;
 	private int ability=0;
 	private int building_time =0;
 	private float walk_speed=0;
+	private float attack_speed = 0;
+	private Integer[] demage_enemy = null;
+	private Main_Personage enemy =null;
+	
 	
 	public Main_Personage(ccColor4B color, final String campaign_path,String default_path,CGSize local_scale_factor, float general_scale_factor, String is_who) 
 	{
@@ -46,7 +52,7 @@ public class Main_Personage  extends CCColorLayer{
 	    this.setOpacity(30);
 		this.is_who = is_who;
 		this.attack_area=CGSize.make(0, 0);
-		
+		demage_enemy =  new Integer[8];
 		
 		addChild(bar_life);
 		addChild(boss);
@@ -56,7 +62,9 @@ public class Main_Personage  extends CCColorLayer{
 	
 	public Main_Personage(Main_Personage personage) 
 	{
+		
 		super(personage.getccColor4B());
+		demage_enemy =  new Integer[8];
 		this.setAnchorPoint(personage.getAnchorPoint());
 		this.general_scale_factor= personage.general_scale_factor;
 		this.local_scale_factor=CGSize.make(personage.local_scale_factor.width, personage.local_scale_factor.height);
@@ -71,8 +79,9 @@ public class Main_Personage  extends CCColorLayer{
 		 this.setScaleY(personage.getScaleY());
 		 this.setContentSize(personage.getContentSize());
 		 this.setPosition(personage.getPosition());
-		 this.set_building_time(personage.get_building_time());
-		 this.set_walk_speed(personage.walk_speed);
+		 
+		 this.set_main_parameters(personage.getTag(), personage.total_pers_life, personage.demage_enemy, personage.building_time, personage.attack_area, personage.walk_speed);
+		 this.attack_speed = personage.attack_speed;
 		 addChild(bar_life);
 	     addChild(boss);
 		this.attack_area = CGSize.make(personage.attack_area.width, personage.attack_area.height);
@@ -80,6 +89,12 @@ public class Main_Personage  extends CCColorLayer{
 		animation_element.add(action);
 		this.addChild( animation_element.get(0));
 	
+	}
+	
+	public void set_demage_enemy(Integer[] demage)
+	{
+		for(int i=0;i<7;i++)
+			this.demage_enemy[i] = demage[i];
 	}
 	private ccColor4B getccColor4B ()
 	{
@@ -189,7 +204,7 @@ public class Main_Personage  extends CCColorLayer{
 		this.real_life= value;
 		bar_life.setPercentageBarLife(value, this.total_pers_life);
 	}
-	public int get_real_life()
+	public float get_real_life()
 	{
 		return real_life;
 	}
@@ -214,20 +229,27 @@ public class Main_Personage  extends CCColorLayer{
 		   for(int i=0;i<result.size();i++)
 			   animation_element.get(0).stop_action(result.get(i));
 	}
-	public void start_walk()
+	public void start_walk( int state)
 	{
-	    start_animation("walk"); 
+	   if(state==this.state_action)
+	   {
+		start_animation("walk"); 
+		this.state_action = -1;
 	    if(this.is_who.equalsIgnoreCase("b"))
 		  this.runAction(CCSequence.actions(CCMoveTo.action(0.8f, CGPoint.make(this.getPosition().x+this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
 	    else 
 	    	  this.runAction(CCSequence.actions(CCMoveTo.action(0.8f, CGPoint.make(this.getPosition().x-this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
+	    }
 	}
 	
-	public void stop_walk( String animation)
+	public void stop_walk( String animation, int state)
 	{
+		
+		if(state == this.state_action){
 		this.stopAllActions();
 		//this.stop_animation("walk");
 	    this.start_animation(animation);
+	    this.state_action =-1;}
 	}
 	
 	public void Move_Control()
@@ -242,9 +264,106 @@ public class Main_Personage  extends CCColorLayer{
 		return is_who;
 	}
 	
+	public int get_demage_enemy (int index)
+	{
+		return this.demage_enemy[index];
+	}
 	public String action_is_runing_now()
 	{
 		return this.animation_element.get(0).who_is_runing();
 	} 
 	
+	public void attack_action(Main_Personage enemy)
+	{
+	   if(!find_imunity(enemy.getTag()))
+	   {
+		   
+		   this.enemy = enemy;
+		   state_action =2;
+		   this.start_animation("attack");
+		   this.schedule("start_attack_action", attack_speed);
+		   this.stopAllActions();
+	   }
+	  
+	}
+	
+	public void start_attack_action (float dt)
+	{
+		if(state_action ==2 && enemy.bar_life.getPercentageBarLife()>0){
+		    enemy.set_bar_life(this.get_demage_enemy(enemy.getTag()-1));
+		    System.out.println("yup"+this.state_action+" "+enemy.getTag()); 
+		}
+		else 
+		{
+			   enemy.stop_walk("death", 4);
+			    	 
+			   //this.sto;
+			this.unschedule("start_attack_action");
+		 
+		  
+		   
+		}
+	}
+	
+	public void death(Game_Arena arena, int state)
+	{
+		if(this.state_action == state)
+		{
+		   this.start_animation("death");
+		   this.state_action =-1;
+		   if(this.is_who.equalsIgnoreCase("b"))
+		      arena.bears_element.remove(this);
+		   else
+			   arena.vimpire_element.remove(this);
+		 }
+		
+	}
+	public void set_bar_life(int demage)
+	{
+		System.out.println("KIZ"+this.is_who+real_life +" "+demage);
+		this.real_life -= demage;
+		
+		
+		bar_life.setPercentageBarLife(real_life, this.total_pers_life);
+	}
+	
+	public Boolean find_imunity(int index)
+	{
+		Boolean result = false;
+		
+		if(this.imunnity_enimy!=null)
+		{
+			for(int i=0;i<imunnity_enimy.size();i++)
+				if(imunnity_enimy.get(i)==index)
+					result = true;
+		}
+		return result;
+	}
+	
+	public void set_main_parameters(int tag, int total_life, Integer[] demage, int building_time, CGSize attack_area, float walk_speed)
+	{
+		this.setTag(tag);
+		this.total_pers_life = total_life;
+		this.real_life = total_life;
+		this.set_demage_enemy(demage);
+		this.building_time = building_time;
+		this.walk_speed = walk_speed;
+		this.attack_area = CGSize.make(attack_area.width,attack_area.height) ;
+	}
+	public void set_attack_speed (float speed)
+	{
+		this.attack_speed = speed;
+	}
+	public float get_attack_speed ()
+	{
+		return this.attack_speed;
+	}
+	public void set_state_action (int i)
+	{
+		state_action =i;
+	}
+	public int get_state_action ()
+	{
+		return state_action;
+	}
 }

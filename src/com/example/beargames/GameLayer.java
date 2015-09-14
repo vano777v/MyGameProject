@@ -490,7 +490,7 @@ public class GameLayer extends CCLayer
     		 menus_game.get(menu_index).get_item(index).set_touch_state(true);
     		 menus_game.get(menu_index).get_item(index).time_progress_bar_init(this.campaign+"menus/choosed/"+item_tag+"a.png");
     		 menus_game.get(menu_index).get_item(index).set_path_progress_bar(this.campaign+"menus/neutral/"+item_tag+"n.png");
-    		 pers=  new Main_Personage( const_level.bear_team_fight.get(item_tag-1));
+    		pers=  new Main_Personage( const_level.bear_team_fight.get(item_tag-1));
     		 
              //const_level.init_animation_bear_box_engine("default/", pers);
     		 arena.add_personage(pers); 

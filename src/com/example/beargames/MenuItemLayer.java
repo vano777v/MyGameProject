@@ -191,7 +191,8 @@ public class MenuItemLayer extends CCSprite
 			
 			 //System.out.println("Bastaaaaaaaa "+team_count);
 			arena.addChild(pers);
-			 pers.start_walk(); 
+			pers.set_state_action(1);
+			 pers.start_walk(1); 
 			this.unschedule("life");
 			 
 		 }

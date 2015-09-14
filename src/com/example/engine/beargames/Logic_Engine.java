@@ -115,32 +115,59 @@ private Game_Arena arena = null;
 		for(int i=0;i<arena.bears_element.size();i++)
 		{
 		  if(intersect(arena.bears_element.get(i), arena.get_Main_Base_list(1))&&!arena.bears_element.get(i).action_is_runing_now().equalsIgnoreCase("attack") ) 
-			 arena.bears_element.get(i).stop_walk("attack");
+			{arena.bears_element.get(i).set_state_action(2); arena.bears_element.get(i).stop_walk("attack", 2);}
 		  
 		}
 		
 		for(int i=0; i<arena.vimpire_element.size();i++)
 		{
 			if(intersect(arena.vimpire_element.get(i), arena.get_Main_Base_list(0))&&!arena.vimpire_element.get(i).action_is_runing_now().equalsIgnoreCase("attack") ) 
-				 arena.vimpire_element.get(i).stop_walk("attack");
+				 {arena.vimpire_element.get(i).set_state_action(2); arena.vimpire_element.get(i).stop_walk("attack", 2);}
 		}
 		for(int i=0;i<arena.bears_element.size()-1;i++)
 			if(intersect(arena.bears_element.get(i),arena.bears_element.get(i+1))&&!arena.bears_element.get(i+1).action_is_runing_now().equalsIgnoreCase("default")) 
-				arena.bears_element.get(i+1).stop_walk("default");	
+				 arena.bears_element.get(i+1).set_state_action(0);	
 		
 		for(int i=0;i<arena.vimpire_element.size()-1;i++)
 			if(intersect(arena.vimpire_element.get(i),arena.vimpire_element.get(i+1))&&!arena.vimpire_element.get(i+1).action_is_runing_now().equalsIgnoreCase("default")) 
-				arena.vimpire_element.get(i+1).stop_walk("default");
+			  arena.vimpire_element.get(i+1).set_state_action(0);
 		for(int i=0;i<arena.bears_element.size();i++)
 			for(int j=0;j<arena.vimpire_element.size();j++)
-				if(intersect(arena.bears_element.get(i),arena.vimpire_element.get(j))) 
-					arena.bears_element.get(i).stop_walk("attack");
+				if(intersect(arena.bears_element.get(i),arena.vimpire_element.get(j)) && !arena.bears_element.get(i).action_is_runing_now().equalsIgnoreCase("attack")) 
+					arena.bears_element.get(i).attack_action(arena.vimpire_element.get(j));
 		
 		for(int i=0;i<arena.vimpire_element.size();i++)
 			for(int j=0;j<arena.bears_element.size();j++)
-				if(intersect(arena.bears_element.get(j),arena.vimpire_element.get(i))) 
-					arena.vimpire_element.get(i).stop_walk("attack");
+				if(intersect(arena.bears_element.get(j),arena.vimpire_element.get(i)) && !arena.vimpire_element.get(i).action_is_runing_now().equalsIgnoreCase("attack")) 
+					arena.vimpire_element.get(i).attack_action(arena.bears_element.get(j));
 		
+		refresh_arena();
+	}
+	
+	public void refresh_arena()
+	{
+		for(int i=0;i<arena.bears_element.size();i++ )
+		{
+			command_interface(arena.bears_element.get(i));
+		}
+		for(int i=0; i<arena.vimpire_element.size();i++)
+			command_interface(arena.vimpire_element.get(i));
+		
+	}
+	
+	public void command_interface (Main_Personage pers)
+	{
+		switch (pers.get_state_action()) {
+		case 0:
+			 pers.stop_walk("default", 0);
+			break;
+		case 4:
+			 pers.death(arena, 4);
+		case 1:
+			pers.start_walk(1);
+		default:
+			break;
+		}
 	}
 	
 	public void build_vimp_init(float dt)
@@ -164,7 +191,8 @@ private Game_Arena arena = null;
 		else
 		{
 		    arena.add_personage(vimp_pers);
-		    vimp_pers.start_walk();
+		    vimp_pers.set_state_action(1);
+		    vimp_pers.start_walk(1);
 			time_count_vimp=0;
 			this.unschedule("build_vimp");
 			vimp_build_is_runing= false;

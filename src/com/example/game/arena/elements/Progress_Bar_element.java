@@ -52,7 +52,7 @@ public class Progress_Bar_element  extends CCSprite
 		 progress_bar_life.setPercentage(100f);
 		 this.addChild(progress_bar_life);
    }
-   public void setPercentageBarLife(int real_value, int total_base_life)
+   public void setPercentageBarLife(float real_value, int total_base_life)
    {
 	   float value = real_value/total_base_life*100;
 	   progress_bar_life.setPercentage(value);
