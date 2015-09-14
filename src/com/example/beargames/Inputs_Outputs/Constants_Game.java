@@ -10,9 +10,10 @@ public abstract class Constants_Game
 {
    
     public  int base_act_elem     =0;
-   
+    public  int unit_limit=0; 
     public static String bear_box_engine_path     =          "Personages/b/b_box/";   
     public static String bear_mace_engine_path    =          "Personages/b/b_mace/";  
+    public static String vimp_cap_engine_path    =           "Personages/v/v_cap/";
     public static int    base_dim                 =          1500;
     public static int    base_pers_dim            =          512;
     public static int    pers_dim                 =          614;
@@ -28,6 +29,7 @@ public abstract class Constants_Game
     public Integer[][] action_base_config = null; 
     public String[][] action_base_list= null;
     public ArrayList<Main_Personage> bear_team_fight = null;
+    public ArrayList<Main_Personage> vimp_team_fight = null;
     abstract  public void start_flags_movie();
     abstract public void start_bear_base_default_movie();
     abstract public void start_vimpire_base_default_movie();
@@ -36,4 +38,7 @@ public abstract class Constants_Game
     abstract public Main_Personage mace_bear_init( String update_path);
     abstract public void init_animation_bear_mace_engine(String update_path, Main_Personage pers);
     abstract public Main_Personage get_bear(int index);
+    abstract public void init_animation_vimp_captain_engine(String update_path, Main_Personage pers);
+    abstract public Main_Personage captain_vimp_init( String update_path);
+    
 }

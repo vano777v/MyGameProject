@@ -12,9 +12,10 @@ public class Level_1_1 extends Level
 
 {
 	private Logic_Engine logic_level=null;
+	public static int units = 15; 
    public Level_1_1(int campaign, int level, float general_scale_factor, CGSize screenSize)
    {
-	   super(campaign, level,Const_Lev_1_1.arena_area_coff, Const_Lev_1_1.unit_limit, general_scale_factor, screenSize);
+	   super(campaign, level,Const_Lev_1_1.arena_area_coff, units, general_scale_factor, screenSize);
 	   logic_level =  new Logic_Engine(this, this.Game_Arena_init(), general_scale_factor);
    }
    

@@ -477,7 +477,8 @@ public class GameLayer extends CCLayer
 
     private void  button_bear_team_item_select(int menu_index, int bear_menu_index ,int index, int item_tag, float time)
      {
-    	Main_Personage pers = null;
+    	Main_Personage pers= null;
+    	Main_Personage pers2= null;
     	if(menus_game.get(menu_index).get_item(index).get_touch_state())
     	 {
     		 java.lang.System.out.println("Trala lala la");
@@ -490,6 +491,7 @@ public class GameLayer extends CCLayer
     		 menus_game.get(menu_index).get_item(index).time_progress_bar_init(this.campaign+"menus/choosed/"+item_tag+"a.png");
     		 menus_game.get(menu_index).get_item(index).set_path_progress_bar(this.campaign+"menus/neutral/"+item_tag+"n.png");
     		 pers=  new Main_Personage( const_level.bear_team_fight.get(item_tag-1));
+    		 
              //const_level.init_animation_bear_box_engine("default/", pers);
     		 arena.add_personage(pers); 
     		 menus_game.get(menu_index).get_item(index).time_progress(pers,arena,menus_game.get(bear_menu_index),item_tag, team_selected, buffer_team);

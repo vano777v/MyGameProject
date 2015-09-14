@@ -217,8 +217,10 @@ public class Main_Personage  extends CCColorLayer{
 	public void start_walk()
 	{
 	    start_animation("walk"); 
-		this.runAction(CCSequence.actions(CCMoveTo.action(1.2f, CGPoint.make(this.getPosition().x+this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
-	    
+	    if(this.is_who.equalsIgnoreCase("b"))
+		  this.runAction(CCSequence.actions(CCMoveTo.action(0.8f, CGPoint.make(this.getPosition().x+this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
+	    else 
+	    	  this.runAction(CCSequence.actions(CCMoveTo.action(0.8f, CGPoint.make(this.getPosition().x-this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
 	}
 	
 	public void stop_walk( String animation)
@@ -230,8 +232,10 @@ public class Main_Personage  extends CCColorLayer{
 	
 	public void Move_Control()
 	{
-		this.runAction(CCSequence.actions(CCMoveTo.action(1.2f, CGPoint.make(this.getPosition().x+this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
-	    //start_walk();
+		if(this.is_who.equalsIgnoreCase("b"))
+			  this.runAction(CCSequence.actions(CCMoveTo.action(0.8f, CGPoint.make(this.getPosition().x+this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
+		    else 
+		      this.runAction(CCSequence.actions(CCMoveTo.action(0.8f, CGPoint.make(this.getPosition().x-this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
 	}
 	public String is_who()
 	{

@@ -6,20 +6,23 @@ import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGSize;
 
 import com.example.beargames.Game_Arena;
+import com.example.beargames.Campaign_1.Level_1_1;
 import com.example.game.arena.elements.Main_Personage;
 
 public class Const_Lev_1_1 extends Constants_Game 
 {
-   public static int unit_limit          =         15;
+   
+   private static float general_scale_factor =0;
    
    private Game_Arena arena=null;
    
-   public Const_Lev_1_1(Game_Arena arena)
+   public Const_Lev_1_1(Game_Arena arena, float general_scale_factor)
    {
 	   
-	  
+	   this.unit_limit          =      Level_1_1.units;
 	   this.paralax_child=5;
 	   this.arena = arena;
+	   this.general_scale_factor = general_scale_factor;
 	   this.parlax_value= new Float[][]{{0f,250f, 0f,0f},{0f, 0f, 0.2f, 0f},{0f, 70f, 0.3f, 0f},{0f, 60f, 0.1f, 0f},{0f, 60f, 0.2f, 0f}};
        this.paralax_path = new String[] {"/paralax/noise.png","/paralax/tback.png", "/paralax/sback.png", "/paralax/mback.png","/paralax/fback.png"};
        this.paralax_anim = new Boolean[]{false, false, true, false, true};
@@ -51,6 +54,8 @@ public class Const_Lev_1_1 extends Constants_Game
       
       
        bear_team_fight = new ArrayList<Main_Personage>();
+       vimp_team_fight = new ArrayList<Main_Personage>();
+       
 	  
    }
    public void start_flags_movie()
@@ -77,7 +82,7 @@ public class Const_Lev_1_1 extends Constants_Game
 		init_animation_bear_box_engine(update_path, pers);
 		//pers.start_animation("attack");
 		pers.set_building_time(1);
-		pers.set_walk_speed(12);
+		pers.set_walk_speed(14);
 		return pers;
 	}
 	
@@ -90,7 +95,7 @@ public class Const_Lev_1_1 extends Constants_Game
 		init_animation_bear_mace_engine(update_path, pers);
 		//pers.start_animation("attack");
 		pers.set_building_time(2);
-		pers.set_walk_speed(12);
+		pers.set_walk_speed(14);
 		return pers;
 	}
 	public void init_animation_bear_box_engine(String update_path, Main_Personage pers)
@@ -104,16 +109,43 @@ public class Const_Lev_1_1 extends Constants_Game
 	public void init_animation_bear_mace_engine(String update_path, Main_Personage pers)
 	{
 	    pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "default",1.2f, 10, 12, true);
-        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "walk",0.2f, 4, 10, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "walk",0.23f, 4, 10, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "attack",0.2f, 1, 4, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "death",0.2f, 12, 26, false);
 
+	}
+	
+	public void init_animation_vimp_captain_engine(String update_path, Main_Personage pers)
+	{
+		pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_cap_engine_path+update_path,"engine_", "default",1.2f, 1, 3, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_cap_engine_path+update_path,"engine_", "walk",0.23f, 3, 10, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_cap_engine_path+update_path,"engine_", "attack",0.2f, 10, 13, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_cap_engine_path+update_path,"engine_", "death",0.14f, 13, 23, false);
+	}
+	public Main_Personage captain_vimp_init( String update_path)
+	{
+		Main_Personage pers=null; 
+		pers= arena.add_personage("campaign_1/","v_cap", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(1).getPosition().x-Constants_Game.pers_dim*general_scale_factor/Constants_Game.arena_area_coff, 0), "v");
+		//System.out.println("ERT"+arena.bears_element.size());
+		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
+		init_animation_vimp_captain_engine(update_path, pers);
+		//pers.start_animation("attack");
+		pers.set_building_time(1);
+		pers.set_walk_speed(14);
+		return pers;
+		
 	}
 	
 	public Main_Personage get_bear(int index)
 	{
 		Main_Personage bear = bear_team_fight.get(index);
 		return bear;
+	}
+	
+	
+	public int get_unit_limit()
+	{
+		return unit_limit;
 	}
 	
       

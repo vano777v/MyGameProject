@@ -12,6 +12,8 @@ import com.example.beargames.Game_Arena;
 import com.example.beargames.Inputs_Outputs.Const_Lev_1_1;
 import com.example.beargames.Inputs_Outputs.Constants_Game;
 import com.example.game.arena.elements.Main_Base;
+import com.example.game.arena.elements.Main_Personage;
+import com.example.game.arena.elements.Personage_Element;
 
 public class Logic_Engine extends GameLayer
 
@@ -23,6 +25,10 @@ private Game_Arena arena = null;
   
     private String campaign=null;
     private String current_level= null;
+    private float time_vimp_build=0;
+    private float time_count_vimp=0;
+    private Main_Personage vimp_pers= null;
+    private Boolean vimp_build_is_runing = false;
   
   public Logic_Engine( Level level,  Game_Arena arena,  float general_scale_factor)
   {
@@ -43,7 +49,9 @@ private Game_Arena arena = null;
 		
 		const_level.bear_team_fight.add(const_level.box_bear_init("default/"));
 		const_level.bear_team_fight.add(const_level.mace_bear_init("default/"));
+		const_level.vimp_team_fight.add(const_level.captain_vimp_init("default/"));
 		this.schedule("main_control_activity", 0.1f);
+		this.schedule("build_vimp_init", 6f);
   }
   private void  init_paralax()
   {
@@ -108,11 +116,59 @@ private Game_Arena arena = null;
 		{
 		  if(intersect(arena.bears_element.get(i), arena.get_Main_Base_list(1))&&!arena.bears_element.get(i).action_is_runing_now().equalsIgnoreCase("attack") ) 
 			 arena.bears_element.get(i).stop_walk("attack");
+		  
+		}
 		
+		for(int i=0; i<arena.vimpire_element.size();i++)
+		{
+			if(intersect(arena.vimpire_element.get(i), arena.get_Main_Base_list(0))&&!arena.vimpire_element.get(i).action_is_runing_now().equalsIgnoreCase("attack") ) 
+				 arena.vimpire_element.get(i).stop_walk("attack");
 		}
 		for(int i=0;i<arena.bears_element.size()-1;i++)
 			if(intersect(arena.bears_element.get(i),arena.bears_element.get(i+1))&&!arena.bears_element.get(i+1).action_is_runing_now().equalsIgnoreCase("default")) 
 				arena.bears_element.get(i+1).stop_walk("default");	
+		
+		for(int i=0;i<arena.vimpire_element.size()-1;i++)
+			if(intersect(arena.vimpire_element.get(i),arena.vimpire_element.get(i+1))&&!arena.vimpire_element.get(i+1).action_is_runing_now().equalsIgnoreCase("default")) 
+				arena.vimpire_element.get(i+1).stop_walk("default");
+		for(int i=0;i<arena.bears_element.size();i++)
+			for(int j=0;j<arena.vimpire_element.size();j++)
+				if(intersect(arena.bears_element.get(i),arena.vimpire_element.get(j))) 
+					arena.bears_element.get(i).stop_walk("attack");
+		
+		for(int i=0;i<arena.vimpire_element.size();i++)
+			for(int j=0;j<arena.bears_element.size();j++)
+				if(intersect(arena.bears_element.get(j),arena.vimpire_element.get(i))) 
+					arena.vimpire_element.get(i).stop_walk("attack");
+		
+	}
+	
+	public void build_vimp_init(float dt)
+	{
+		if(!vimp_build_is_runing && arena.get_pers_limit_count()<15)
+		{
+			System.out.println("OH"+arena.get_pers_limit_count());
+			vimp_pers = new Main_Personage(const_level.vimp_team_fight.get(0));
+			this.schedule("build_vimp", 0.1f);
+			vimp_build_is_runing=true;
+		}
+	}
+	
+	public void build_vimp(float dt)
+	{
+		if(time_count_vimp<=time_vimp_build)
+		{
+			time_count_vimp+=0.1f;
+			
+		}
+		else
+		{
+		    arena.add_personage(vimp_pers);
+		    vimp_pers.start_walk();
+			time_count_vimp=0;
+			this.unschedule("build_vimp");
+			vimp_build_is_runing= false;
+		}
 	}
 	
 	private Boolean intersect(CCColorLayer first, CCColorLayer second)
@@ -157,7 +213,7 @@ private Game_Arena arena = null;
 	{
 		switch (value_level) {
 		case 1:
-			Const_Lev_1_1 lev = new Const_Lev_1_1(arena);
+			Const_Lev_1_1 lev = new Const_Lev_1_1(arena, general_scale_factor);
 			game_const = lev;
 			break;
 		case 2:

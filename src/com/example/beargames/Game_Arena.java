@@ -13,6 +13,7 @@ import org.cocos2d.types.CGRect;
 import org.cocos2d.types.CGSize;
 import org.cocos2d.types.ccColor4B;
 
+import com.example.beargames.Inputs_Outputs.Const_Lev_1_1;
 import com.example.engine.beargames.Action_Activity;
 import com.example.game.arena.elements.Main_Base;
 import com.example.game.arena.elements.Main_Personage;
@@ -30,9 +31,11 @@ public class Game_Arena extends CCColorLayer
     private float base_dimm=0, pers_dimm=0;  
     private ArrayList<CCSprite> paralax_element=null; 
     public ArrayList<Main_Personage> bears_element = null;
-    private ArrayList<Main_Personage> vimpire_element = null;
+    public ArrayList<Main_Personage> vimpire_element = null;
     private ArrayList<Main_Base> base_list=null; 
-    
+    private int arena_limit_pers_count=0;
+    private int unit_limit;
+   
     private float limt=0;
     
 	public Game_Arena(ccColor4B color,  float general_scale_factor,  CGSize screen_size,float pers_dimm, float base_dimm, int tag_arena) 
@@ -74,6 +77,7 @@ public class Game_Arena extends CCColorLayer
 		float scale_pers = pers_dimm*general_scale_factor/local_scale_factor.width;
 		start_point_arena = (number_of_pers*scale_pers+2*scale_base)*3 - screen_size.width;
         action_arena=number_of_pers*scale_pers+2*scale_base;  	
+        unit_limit = number_of_pers;  
 	}
     
 	public float get_action_arena ()
@@ -229,10 +233,17 @@ public class Game_Arena extends CCColorLayer
 	
 	public void add_personage (Main_Personage personage)
 	{
+	 if(arena_limit_pers_count<unit_limit)
 		if(personage.is_who().equalsIgnoreCase("b"))
-			bears_element.add(personage);
-		else 
-			vimpire_element.add(personage);
+			{
+			    bears_element.add(personage);
+			    arena_limit_pers_count++;
+			}
+		else {
+			   vimpire_element.add(personage);
+			   this.addChild(personage);
+			   arena_limit_pers_count++;
+			 }
 	}
 	
 	public Main_Base get_Main_Base_list(int index)
@@ -323,6 +334,9 @@ public class Game_Arena extends CCColorLayer
 			
 	}
 	 
-	
+  public int get_pers_limit_count()
+  {
+	  return arena_limit_pers_count;
+  }
 
 }
