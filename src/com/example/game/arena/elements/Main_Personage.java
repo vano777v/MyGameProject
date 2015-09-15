@@ -35,6 +35,7 @@ public class Main_Personage  extends CCColorLayer{
 	private int building_time =0;
 	private float walk_speed=0;
 	private float attack_speed = 0;
+	private int enemy_tag =-1;
 	private Integer[] demage_enemy = null;
 	private Main_Personage enemy =null;
 	
@@ -279,7 +280,6 @@ public class Main_Personage  extends CCColorLayer{
 	   {
 		   
 		   this.enemy = enemy;
-		   state_action =2;
 		   this.start_animation("attack");
 		   this.schedule("start_attack_action", attack_speed);
 		   this.stopAllActions();
@@ -289,17 +289,18 @@ public class Main_Personage  extends CCColorLayer{
 	
 	public void start_attack_action (float dt)
 	{
-		if(state_action ==2 && enemy.bar_life.getPercentageBarLife()>0){
+		if( enemy.bar_life.getPercentageBarLife()>0 &&this.state_action==2){
 		    enemy.set_bar_life(this.get_demage_enemy(enemy.getTag()-1));
 		    System.out.println("yup"+this.state_action+" "+enemy.getTag()); 
 		}
 		else 
 		{
-			   enemy.stop_walk("death", 4);
-			    	 
+			   this.state_action=0;
+			   enemy.state_action=4; 	 
 			   //this.sto;
 			this.unschedule("start_attack_action");
-		 
+			enemy.unschedule("start_attack_action");
+		    
 		  
 		   
 		}
@@ -312,9 +313,17 @@ public class Main_Personage  extends CCColorLayer{
 		   this.start_animation("death");
 		   this.state_action =-1;
 		   if(this.is_who.equalsIgnoreCase("b"))
-		      arena.bears_element.remove(this);
+		      {
+			       arena.bears_element.remove(this);
+			       this.destroy();
+			       arena.removeChild(this, true);
+		      }
 		   else
-			   arena.vimpire_element.remove(this);
+			   {
+			          arena.vimpire_element.remove(this);
+			           this.destroy();
+				       arena.removeChild(this, true);
+			   }
 		 }
 		
 	}
@@ -365,5 +374,53 @@ public class Main_Personage  extends CCColorLayer{
 	public int get_state_action ()
 	{
 		return state_action;
+	}
+	public int get_enemy_tag()
+	{
+		return enemy_tag;
+	}
+	public void set_enemy_tag(int tag)
+	{
+		enemy_tag=tag;
+	}
+	
+	public void destroy()
+	{
+	   ability=0;
+	   attack_area = null;
+	   attack_demage=0;
+	   attack_speed=0;
+	   building_time=0;
+	   clean_demage_enemy();
+	   enemy_tag=0;
+	   general_scale_factor=0;
+	   imunnity_enimy.clear();
+	   imunnity_enimy=null;
+	   is_who=null;
+	   local_scale_factor=null;
+	   real_life=0;
+	   state_action=0;
+	   total_pers_life=0;
+	   walk_speed=0;
+	   for(int i=animation_element.size();i>=0;i--)
+		   {
+		       animation_element.get(i).Destroy();
+		       animation_element.remove(i);
+		   }
+	    animation_element=null;
+		bar_life.destroy();
+		this.removeChild(bar_life, true);
+		bar_life=null;
+		boss.destroy();
+		this.removeChild(boss, true);
+		boss=null;
+		
+		System.out.println("Destroy personage");
+	}
+	private void clean_demage_enemy()
+	{
+		for(int i=0;i<7;i++)
+			demage_enemy[i]=0;
+		demage_enemy=null;
 	}
 }

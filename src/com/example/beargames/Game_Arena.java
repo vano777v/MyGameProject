@@ -333,7 +333,17 @@ public class Game_Arena extends CCColorLayer
 		}
 			
 	}
-	 
+	
+	public remove_personage  (Main_Personage pers)
+	{
+		if(pers.is_who().equalsIgnoreCase("b"))
+		{	
+			bears_element.remove(pers);
+			
+		}
+		
+			
+	}
   public int get_pers_limit_count()
   {
 	  return arena_limit_pers_count;

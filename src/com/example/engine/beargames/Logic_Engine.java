@@ -112,34 +112,45 @@ private Game_Arena arena = null;
 	
 	public void main_control_activity(float dt)
 	{
-		for(int i=0;i<arena.bears_element.size();i++)
-		{
-		  if(intersect(arena.bears_element.get(i), arena.get_Main_Base_list(1))&&!arena.bears_element.get(i).action_is_runing_now().equalsIgnoreCase("attack") ) 
-			{arena.bears_element.get(i).set_state_action(2); arena.bears_element.get(i).stop_walk("attack", 2);}
+		//for(int i=0;i<arena.bears_element.size();i++)
+		//{
+		  //if(intersect(arena.bears_element.get(i), arena.get_Main_Base_list(1))&&!arena.bears_element.get(i).action_is_runing_now().equalsIgnoreCase("attack") ) 
+			//{arena.bears_element.get(i).set_state_action(2); arena.bears_element.get(i).stop_walk("attack", 2);}
 		  
-		}
+		//}
 		
-		for(int i=0; i<arena.vimpire_element.size();i++)
-		{
-			if(intersect(arena.vimpire_element.get(i), arena.get_Main_Base_list(0))&&!arena.vimpire_element.get(i).action_is_runing_now().equalsIgnoreCase("attack") ) 
-				 {arena.vimpire_element.get(i).set_state_action(2); arena.vimpire_element.get(i).stop_walk("attack", 2);}
-		}
+		//for(int i=0; i<arena.vimpire_element.size();i++)
+		//{
+			//if(intersect(arena.vimpire_element.get(i), arena.get_Main_Base_list(0))&&!arena.vimpire_element.get(i).action_is_runing_now().equalsIgnoreCase("attack") ) 
+				// {arena.vimpire_element.get(i).set_state_action(2); arena.vimpire_element.get(i).stop_walk("attack", 2);}
+		//}
 		for(int i=0;i<arena.bears_element.size()-1;i++)
 			if(intersect(arena.bears_element.get(i),arena.bears_element.get(i+1))&&!arena.bears_element.get(i+1).action_is_runing_now().equalsIgnoreCase("default")) 
 				 arena.bears_element.get(i+1).set_state_action(0);	
 		
 		for(int i=0;i<arena.vimpire_element.size()-1;i++)
 			if(intersect(arena.vimpire_element.get(i),arena.vimpire_element.get(i+1))&&!arena.vimpire_element.get(i+1).action_is_runing_now().equalsIgnoreCase("default")) 
-			  arena.vimpire_element.get(i+1).set_state_action(0);
+				arena.vimpire_element.get(i+1).set_state_action(0);
+		
 		for(int i=0;i<arena.bears_element.size();i++)
 			for(int j=0;j<arena.vimpire_element.size();j++)
-				if(intersect(arena.bears_element.get(i),arena.vimpire_element.get(j)) && !arena.bears_element.get(i).action_is_runing_now().equalsIgnoreCase("attack")) 
-					arena.bears_element.get(i).attack_action(arena.vimpire_element.get(j));
+				if(intersect(arena.bears_element.get(i),arena.vimpire_element.get(j)) && arena.bears_element.get(i).get_enemy_tag()!=j) 
+				{
+				   arena.bears_element.get(i).set_enemy_tag(j);
+				   arena.bears_element.get(i).set_state_action(2);	
+				   arena.bears_element.get(i).attack_action(arena.vimpire_element.get(j));
+					System.out.println("IOPTA urs");
+				}
 		
 		for(int i=0;i<arena.vimpire_element.size();i++)
 			for(int j=0;j<arena.bears_element.size();j++)
-				if(intersect(arena.bears_element.get(j),arena.vimpire_element.get(i)) && !arena.vimpire_element.get(i).action_is_runing_now().equalsIgnoreCase("attack")) 
+				if(intersect(arena.bears_element.get(j),arena.vimpire_element.get(i)) &&arena.vimpire_element.get(i).get_enemy_tag()!=j)
+				{ 
+					arena.vimpire_element.get(i).set_enemy_tag(j);
+					arena.vimpire_element.get(i).set_state_action(2);
 					arena.vimpire_element.get(i).attack_action(arena.bears_element.get(j));
+					System.out.println("IOPTA vamp");
+				}
 		
 		refresh_arena();
 	}
@@ -159,12 +170,15 @@ private Game_Arena arena = null;
 	{
 		switch (pers.get_state_action()) {
 		case 0:
-			 pers.stop_walk("default", 0);
-			break;
+			 {pers.stop_walk("default", 0);
+			break;}
 		case 4:
-			 pers.death(arena, 4);
+			 {pers.death(arena, 4);
+			 break;}
 		case 1:
-			pers.start_walk(1);
+			{pers.start_walk(1);
+			break;}
+		
 		default:
 			break;
 		}
@@ -199,7 +213,7 @@ private Game_Arena arena = null;
 		}
 	}
 	
-	private Boolean intersect(CCColorLayer first, CCColorLayer second)
+	private Boolean intersect(Main_Personage first, Main_Personage second)
 	{
 		Boolean result  = false; 
 		CGPoint first_pooint = CGPoint.make(first.getPosition().x, first.getPosition().y);
@@ -209,6 +223,7 @@ private Game_Arena arena = null;
 				(object.contains(second.getPosition().x, second.getPosition().y+second.getContentSize().height))||
 						(object.contains(second.getPosition().x+second.getContentSize().width, second.getPosition().y+second.getContentSize().height))) 
 						result=true;
+		
 		return result;
 	}
 	

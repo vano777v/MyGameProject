@@ -210,7 +210,14 @@ public class Action_Activity extends CCLayer
 	     action_type = null;
 	     last_action_index=0;
 	     index_current.clear();
+	     animation.clear();
+	     name_action.clear();
+	     name_action=null;
+	     animation=null;
 	     index_current=null;
+	     stop_index=0;
+	     is_who= null;
+	     System.out.println("Destroy action");
 	}
  public void action_run(float dt)
  {

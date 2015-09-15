@@ -69,10 +69,24 @@ public class Personage_Element extends CCSprite
 	   parent_scale_x=scx;
 	   parent_scale_y=scy;
   }
-  int k=1;
+
  
 
-
+ public void destroy()
+ {
+	
+	 
+	 general_scale_factor =0;
+	 is_who=null;
+	 local_scale_x = 0;
+	 local_scale_y =0;
+	 parent_scale_x=0;
+	 parent_scale_y=0;
+	 this.setPosition(0, 0);
+	 this.setContentSize(0, 0);
+	 System.out.println("Destroy personage element");
+			 
+ }
   
  
 }

@@ -81,4 +81,18 @@ public class Progress_Bar_element  extends CCSprite
 	   parent_scale_x=scx;
 	   parent_scale_y=scy;
    }
+   
+   public void destroy()
+   {
+	   this.setPosition(0, 0);
+	   this.setContentSize(0, 0);
+	   this.removeChild(progress_bar_life, true);
+	   progress_bar_life=null;
+	   this.general_scale_factor=0;
+	   this.local_scale_x=0;
+	   this.local_scale_y=0;
+	   this.parent_scale_x=0;
+	   this.parent_scale_y=0;
+	   System.out.println("Destroy progres bar");
+   }
 }
