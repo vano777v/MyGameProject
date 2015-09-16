@@ -54,7 +54,7 @@ public class Main_Personage  extends CCColorLayer{
 		this.is_who = is_who;
 		this.attack_area=CGSize.make(0, 0);
 		demage_enemy =  new Integer[8];
-		
+		imunnity_enimy = new ArrayList<Integer>();
 		addChild(bar_life);
 		addChild(boss);
 		animation_element.add(new Action_Activity(boss, is_who));
@@ -75,7 +75,7 @@ public class Main_Personage  extends CCColorLayer{
 		 this.boss = new Personage_Element(personage.boss);
 		 this.setOpacity(personage.getOpacity());
 		 this.is_who = new String(personage.is_who);
-		 
+		 imunnity_enimy = new ArrayList<Integer>();
 		 this.setScaleX(personage.getScaleX());
 		 this.setScaleY(personage.getScaleY());
 		 this.setContentSize(personage.getContentSize());
@@ -295,8 +295,9 @@ public class Main_Personage  extends CCColorLayer{
 		}
 		else 
 		{
-			   this.state_action=0;
+			   this.state_action=1;
 			   enemy.state_action=4; 	 
+			   this.enemy_tag=-1;
 			   //this.sto;
 			this.unschedule("start_attack_action");
 			enemy.unschedule("start_attack_action");
@@ -312,19 +313,21 @@ public class Main_Personage  extends CCColorLayer{
 		{
 		   this.start_animation("death");
 		   this.state_action =-1;
-		   if(this.is_who.equalsIgnoreCase("b"))
-		      {
-			       arena.bears_element.remove(this);
-			       this.destroy();
-			       arena.removeChild(this, true);
-		      }
-		   else
-			   {
-			          arena.vimpire_element.remove(this);
-			           this.destroy();
-				       arena.removeChild(this, true);
-			   }
-		 }
+		   if(this.is_who().equalsIgnoreCase("b"))
+		   
+				{
+			     arena.bears_element.get(1).set_state_action(1); 
+			      arena.bears_element.remove(this);
+			       
+				}
+			else 
+				{
+				 arena.vimpire_element.get(1).set_state_action(1);
+				  arena.vimpire_element.remove(this);
+				  
+				}
+		   arena.add_death_personage_buffer(this);
+		}
 		
 	}
 	public void set_bar_life(int demage)
@@ -394,17 +397,18 @@ public class Main_Personage  extends CCColorLayer{
 	   clean_demage_enemy();
 	   enemy_tag=0;
 	   general_scale_factor=0;
-	   imunnity_enimy.clear();
-	   imunnity_enimy=null;
-	   is_who=null;
-	   local_scale_factor=null;
+	  imunnity_enimy.clear();
+	  imunnity_enimy=null;
+	   //is_who=null;
+	  local_scale_factor=null;
 	   real_life=0;
 	   state_action=0;
 	   total_pers_life=0;
 	   walk_speed=0;
-	   for(int i=animation_element.size();i>=0;i--)
+	   for(int i=animation_element.size()-1;i>=0;i--)
 		   {
 		       animation_element.get(i).Destroy();
+		       this.removeChild(animation_element.get(i), true);
 		       animation_element.remove(i);
 		   }
 	    animation_element=null;

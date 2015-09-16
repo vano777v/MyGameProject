@@ -52,6 +52,7 @@ public class Action_Activity extends CCLayer
 	   action_type = new ArrayList<Boolean>(main.action_type);
 	   index_current = new ArrayList<Integer>(main.index_current);
 	   name_action = new ArrayList<String>(main.name_action);
+	   animation = new ArrayList<CCAnimation>();
 	   this.copy_animation_action(main);
 	   this.is_who = new String(main.is_who);
 	   this.sprite = sprite;
@@ -198,13 +199,9 @@ public class Action_Activity extends CCLayer
 	}
 	public void Destroy()
 	{
-		for (int i=action_animation.size()-1; i>=0;i--)
-		{
-			sprite.getAction(i).stop();
-			action_animation.remove(i);
-			action_type.remove(i);
-		}
-		
+		 sprite.stopAllActions();
+		 action_animation.clear();
+		 action_type.clear();
 	     sprite.cleanup();
 	     action_animation = null;
 	     action_type = null;
@@ -217,6 +214,7 @@ public class Action_Activity extends CCLayer
 	     index_current=null;
 	     stop_index=0;
 	     is_who= null;
+	     
 	     System.out.println("Destroy action");
 	}
  public void action_run(float dt)

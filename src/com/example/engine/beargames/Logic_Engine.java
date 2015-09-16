@@ -29,6 +29,7 @@ private Game_Arena arena = null;
     private float time_count_vimp=0;
     private Main_Personage vimp_pers= null;
     private Boolean vimp_build_is_runing = false;
+   
   
   public Logic_Engine( Level level,  Game_Arena arena,  float general_scale_factor)
   {
@@ -40,6 +41,7 @@ private Game_Arena arena = null;
 		this.const_level = this.detect_level(level.get_campaign(), level.get_current_level(), arena);
 		campaign = "campaign_"+level.get_campaign()+"/";
 		current_level = "level_"+level.get_current_level();
+		
 		init_paralax();
 		init_bases();
 		init_action_base();
@@ -52,6 +54,7 @@ private Game_Arena arena = null;
 		const_level.vimp_team_fight.add(const_level.captain_vimp_init("default/"));
 		this.schedule("main_control_activity", 0.1f);
 		this.schedule("build_vimp_init", 6f);
+		this.schedule("clear_memory_pers",4f);
   }
   private void  init_paralax()
   {
@@ -127,10 +130,12 @@ private Game_Arena arena = null;
 		for(int i=0;i<arena.bears_element.size()-1;i++)
 			if(intersect(arena.bears_element.get(i),arena.bears_element.get(i+1))&&!arena.bears_element.get(i+1).action_is_runing_now().equalsIgnoreCase("default")) 
 				 arena.bears_element.get(i+1).set_state_action(0);	
+			//else arena.bears_element.get(i+1).set_state_action(1);
 		
 		for(int i=0;i<arena.vimpire_element.size()-1;i++)
 			if(intersect(arena.vimpire_element.get(i),arena.vimpire_element.get(i+1))&&!arena.vimpire_element.get(i+1).action_is_runing_now().equalsIgnoreCase("default")) 
 				arena.vimpire_element.get(i+1).set_state_action(0);
+			//else arena.vimpire_element.get(i+1).set_state_action(1);
 		
 		for(int i=0;i<arena.bears_element.size();i++)
 			for(int j=0;j<arena.vimpire_element.size();j++)
@@ -173,11 +178,16 @@ private Game_Arena arena = null;
 			 {pers.stop_walk("default", 0);
 			break;}
 		case 4:
-			 {pers.death(arena, 4);
-			 break;}
+			 {
+				pers.death(arena, 4);
+				
+			 	break;
+			 	
+			 }
 		case 1:
 			{pers.start_walk(1);
-			break;}
+			  break;
+			}
 		
 		default:
 			break;
@@ -227,6 +237,10 @@ private Game_Arena arena = null;
 		return result;
 	}
 	
+	public void clear_memory_pers(float dt)
+	{
+		arena.remove_personage_buffer();
+	}
   private float[] dispach_string_vector(String[]  vector, int start_index,int last_index)
   {
 	  float[] result_vector = new float[(last_index-start_index)*2];

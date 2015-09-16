@@ -35,7 +35,7 @@ public class Game_Arena extends CCColorLayer
     private ArrayList<Main_Base> base_list=null; 
     private int arena_limit_pers_count=0;
     private int unit_limit;
-   
+    private ArrayList<Main_Personage> death_pers= null;
     private float limt=0;
     
 	public Game_Arena(ccColor4B color,  float general_scale_factor,  CGSize screen_size,float pers_dimm, float base_dimm, int tag_arena) 
@@ -54,11 +54,14 @@ public class Game_Arena extends CCColorLayer
 		this.pers_dimm = pers_dimm;
 		this.base_dimm = base_dimm;
 		paralax_element = new ArrayList<CCSprite>();
+		death_pers= new ArrayList<Main_Personage>();
 		base_list = new ArrayList<Main_Base>();
 		bears_element = new ArrayList<Main_Personage>();
 		vimpire_element = new ArrayList<Main_Personage>();
 		addChild(paralax, 0, 6);
 	} 
+	
+	
     public void set_size_arena(CGSize new_size)
     { 
     	
@@ -334,15 +337,27 @@ public class Game_Arena extends CCColorLayer
 			
 	}
 	
-	public remove_personage  (Main_Personage pers)
+	public void add_death_personage_buffer(Main_Personage pers )
 	{
-		if(pers.is_who().equalsIgnoreCase("b"))
-		{	
-			bears_element.remove(pers);
-			
-		}
-		
-			
+		death_pers.add(pers);
+	}
+	
+	public void remove_personage_buffer  ()
+	{
+		Main_Personage pers = null;
+		int index=0;
+		if( !death_pers.isEmpty())
+		{
+		  
+		   pers= death_pers.get(0);
+		   index = pers.get_animation(0).get_who_is_runing();
+		   if(pers.get_animation(0).action_animation.get(index).isDone())
+		   {
+			   death_pers.remove(0);
+			   pers.destroy();
+			   this.removeChild(pers, true);
+		   }
+	    }		
 	}
   public int get_pers_limit_count()
   {
