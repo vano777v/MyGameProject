@@ -38,6 +38,7 @@ public class Main_Personage  extends CCColorLayer{
 	private int enemy_tag =-1;
 	private Integer[] demage_enemy = null;
 	private Main_Personage enemy =null;
+	//private Main_Personage scan_death=null;
 	
 	
 	public Main_Personage(ccColor4B color, final String campaign_path,String default_path,CGSize local_scale_factor, float general_scale_factor, String is_who) 
@@ -234,7 +235,7 @@ public class Main_Personage  extends CCColorLayer{
 	{
 	   if(state==this.state_action)
 	   {
-		start_animation("walk"); 
+		this.start_animation("walk");  
 		this.state_action = -1;
 	    if(this.is_who.equalsIgnoreCase("b"))
 		  this.runAction(CCSequence.actions(CCMoveTo.action(0.8f, CGPoint.make(this.getPosition().x+this.walk_speed, this.getPosition().y)), CCCallFunc.action(this, "Move_Control")));
@@ -295,18 +296,20 @@ public class Main_Personage  extends CCColorLayer{
 		}
 		else 
 		{
-			   this.state_action=1;
-			   enemy.state_action=4; 	 
-			   this.enemy_tag=-1;
-			   //this.sto;
 			this.unschedule("start_attack_action");
 			enemy.unschedule("start_attack_action");
-		    
+		      
+			  this.state_action=1;
+			   enemy.state_action=4; 	
+			   enemy.bar_life.setVisible(false);
+			   this.enemy_tag=-1;
+			   //this.sto;
+			
 		  
 		   
 		}
 	}
-	
+	private Game_Arena arena_=null;
 	public void death(Game_Arena arena, int state)
 	{
 		if(this.state_action == state)
@@ -316,23 +319,66 @@ public class Main_Personage  extends CCColorLayer{
 		   if(this.is_who().equalsIgnoreCase("b"))
 		   
 				{
-			     arena.bears_element.get(1).set_state_action(1); 
+			     if(arena.get_personage(1, "b")!=null) 
+			         arena.get_personage(1, "b").set_state_action(1); 
 			      arena.bears_element.remove(this);
+			      
 			       
 				}
 			else 
 				{
-				 arena.vimpire_element.get(1).set_state_action(1);
+				  if(arena.get_personage(1, "v")!=null)
+				  arena.get_personage(1, "v").set_state_action(1);
 				  arena.vimpire_element.remove(this);
 				  
+				  
 				}
-		   arena.add_death_personage_buffer(this);
+		  
+		   this.schedule("scan_death", 0.01f);
+		 //  arena.add_death_personage_buffer(this);
+		   arena_ = arena;
 		}
 		
 	}
+	
+	public void scan_death(float dt)
+	{
+		int action_runing= animation_element.get(0).get_who_is_runing();
+		if(this.animation_element.get(0).action_animation.get(action_runing).isDone())
+		{
+			this.unschedule("scan_death");
+			;
+			
+			if(this.is_who.equalsIgnoreCase("b"))
+			{
+				this.runAction(CCSequence.actions(CCMoveTo.action(0.3f, CGPoint.make(this.getPosition().x, this.getPosition().y+35)), CCCallFunc.action(this, "bear_death_move")));
+			}
+			else
+			{
+				this.boss.setVisible(false);
+				arena_.add_death_personage_buffer(this);
+				System.out.println("o iesit vampir");
+			}
+		}
+		System.out.println("o intrat");
+	}
+	
+	public void bear_death_move()
+	{
+		if((this.getPosition().y+this.getContentSize().height)<=1600*general_scale_factor) 
+		   this.runAction(CCSequence.actions(CCMoveTo.action(0.3f, CGPoint.make(this.getPosition().x, this.getPosition().y+35)), CCCallFunc.action(this, "bear_death_move")));
+		else 
+		{
+			this.stopAllActions();
+			this.boss.setVisible(false);
+			arena_.add_death_personage_buffer(this);
+			System.out.println("o iesit");
+		}
+	}
+	
 	public void set_bar_life(int demage)
 	{
-		System.out.println("KIZ"+this.is_who+real_life +" "+demage);
+		
 		this.real_life -= demage;
 		
 		

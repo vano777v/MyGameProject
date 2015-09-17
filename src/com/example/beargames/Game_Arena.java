@@ -337,6 +337,26 @@ public class Game_Arena extends CCColorLayer
 			
 	}
 	
+	public Main_Personage get_personage (int index, String is_who)
+	{
+		Main_Personage pers = null;
+		
+		if(is_who.equalsIgnoreCase("b"))
+		{
+			if(!this.bears_element.isEmpty())
+				if(index<this.bears_element.size())
+					if(this.bears_element.get(index)!=null)
+						pers = this.bears_element.get(index);
+		}
+		else
+		{  
+		   if(!this.vimpire_element.isEmpty())
+			if(index<this.vimpire_element.size())   
+			 if(this.vimpire_element.get(index)!=null)
+				pers = this.vimpire_element.get(index);
+		}
+		return pers;
+	}
 	public void add_death_personage_buffer(Main_Personage pers )
 	{
 		death_pers.add(pers);

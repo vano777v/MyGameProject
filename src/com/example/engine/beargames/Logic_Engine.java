@@ -52,7 +52,7 @@ private Game_Arena arena = null;
 		const_level.bear_team_fight.add(const_level.box_bear_init("default/"));
 		const_level.bear_team_fight.add(const_level.mace_bear_init("default/"));
 		const_level.vimp_team_fight.add(const_level.captain_vimp_init("default/"));
-		this.schedule("main_control_activity", 0.1f);
+		this.schedule("main_control_activity", 0.05f);
 		this.schedule("build_vimp_init", 6f);
 		this.schedule("clear_memory_pers",4f);
   }
@@ -115,6 +115,7 @@ private Game_Arena arena = null;
 	
 	public void main_control_activity(float dt)
 	{
+		refresh_arena();
 		//for(int i=0;i<arena.bears_element.size();i++)
 		//{
 		  //if(intersect(arena.bears_element.get(i), arena.get_Main_Base_list(1))&&!arena.bears_element.get(i).action_is_runing_now().equalsIgnoreCase("attack") ) 
@@ -128,15 +129,17 @@ private Game_Arena arena = null;
 				// {arena.vimpire_element.get(i).set_state_action(2); arena.vimpire_element.get(i).stop_walk("attack", 2);}
 		//}
 		for(int i=0;i<arena.bears_element.size()-1;i++)
-			if(intersect(arena.bears_element.get(i),arena.bears_element.get(i+1))&&!arena.bears_element.get(i+1).action_is_runing_now().equalsIgnoreCase("default")) 
-				 arena.bears_element.get(i+1).set_state_action(0);	
+			if(intersect(arena.get_personage(i, "b"),arena.get_personage(i+1, "b"))) 
+					if(!arena.get_personage(i+1, "b").action_is_runing_now().equalsIgnoreCase("default"))
+				          arena.bears_element.get(i+1).set_state_action(0);	
 			//else arena.bears_element.get(i+1).set_state_action(1);
-		
+		refresh_arena();
 		for(int i=0;i<arena.vimpire_element.size()-1;i++)
-			if(intersect(arena.vimpire_element.get(i),arena.vimpire_element.get(i+1))&&!arena.vimpire_element.get(i+1).action_is_runing_now().equalsIgnoreCase("default")) 
-				arena.vimpire_element.get(i+1).set_state_action(0);
+			if(intersect(arena.get_personage(i, "v"),arena.get_personage(i+1, "v"))) 
+				if(!arena.get_personage(i+1, "v").action_is_runing_now().equalsIgnoreCase("default"))
+			          arena.vimpire_element.get(i+1).set_state_action(0);	
 			//else arena.vimpire_element.get(i+1).set_state_action(1);
-		
+		refresh_arena();
 		for(int i=0;i<arena.bears_element.size();i++)
 			for(int j=0;j<arena.vimpire_element.size();j++)
 				if(intersect(arena.bears_element.get(i),arena.vimpire_element.get(j)) && arena.bears_element.get(i).get_enemy_tag()!=j) 
@@ -144,8 +147,9 @@ private Game_Arena arena = null;
 				   arena.bears_element.get(i).set_enemy_tag(j);
 				   arena.bears_element.get(i).set_state_action(2);	
 				   arena.bears_element.get(i).attack_action(arena.vimpire_element.get(j));
-					System.out.println("IOPTA urs");
+				   System.out.println("IOPTA urs");
 				}
+
 		
 		for(int i=0;i<arena.vimpire_element.size();i++)
 			for(int j=0;j<arena.bears_element.size();j++)
@@ -225,14 +229,18 @@ private Game_Arena arena = null;
 	
 	private Boolean intersect(Main_Personage first, Main_Personage second)
 	{
-		Boolean result  = false; 
-		CGPoint first_pooint = CGPoint.make(first.getPosition().x, first.getPosition().y);
-		CGRect  object = CGRect.make(first_pooint, first.getContentSize());
-		if((object.contains(second.getPosition().x, second.getPosition().y))||
+	  
+		Boolean result  = false;
+		if(first!=null&& second!=null)
+		{
+			CGPoint first_pooint = CGPoint.make(first.getPosition().x, first.getPosition().y);
+			CGRect  object = CGRect.make(first_pooint, first.getContentSize());
+			if((object.contains(second.getPosition().x, second.getPosition().y))||
 				(object.contains(second.getPosition().x+second.getContentSize().width, second.getPosition().y))||
 				(object.contains(second.getPosition().x, second.getPosition().y+second.getContentSize().height))||
 						(object.contains(second.getPosition().x+second.getContentSize().width, second.getPosition().y+second.getContentSize().height))) 
 						result=true;
+		}
 		
 		return result;
 	}
