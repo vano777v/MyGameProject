@@ -52,7 +52,7 @@ private Game_Arena arena = null;
 		const_level.bear_team_fight.add(const_level.box_bear_init("default/"));
 		const_level.bear_team_fight.add(const_level.mace_bear_init("default/"));
 		const_level.vimp_team_fight.add(const_level.captain_vimp_init("default/"));
-		this.schedule("main_control_activity", 0.05f);
+		this.schedule("main_control_activity", 0.1f);
 		this.schedule("build_vimp_init", 6f);
 		this.schedule("clear_memory_pers",4f);
   }
@@ -150,7 +150,7 @@ private Game_Arena arena = null;
 				   System.out.println("IOPTA urs");
 				}
 
-		
+		refresh_arena();
 		for(int i=0;i<arena.vimpire_element.size();i++)
 			for(int j=0;j<arena.bears_element.size();j++)
 				if(intersect(arena.bears_element.get(j),arena.vimpire_element.get(i)) &&arena.vimpire_element.get(i).get_enemy_tag()!=j)
@@ -232,7 +232,10 @@ private Game_Arena arena = null;
 	  
 		Boolean result  = false;
 		if(first!=null&& second!=null)
+			
 		{
+		  if(first.is_live==true && second.is_live==true )
+		  {	
 			CGPoint first_pooint = CGPoint.make(first.getPosition().x, first.getPosition().y);
 			CGRect  object = CGRect.make(first_pooint, first.getContentSize());
 			if((object.contains(second.getPosition().x, second.getPosition().y))||
@@ -240,6 +243,7 @@ private Game_Arena arena = null;
 				(object.contains(second.getPosition().x, second.getPosition().y+second.getContentSize().height))||
 						(object.contains(second.getPosition().x+second.getContentSize().width, second.getPosition().y+second.getContentSize().height))) 
 						result=true;
+		  }
 		}
 		
 		return result;

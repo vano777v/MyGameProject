@@ -24,7 +24,7 @@ public class Main_Personage  extends CCColorLayer{
 	private ArrayList<Action_Activity>  animation_element=null; 
 	private Personage_Element boss = null;
 	private static  String source_path=null;
-	private int state_action =0;
+	private int state_action =-1;
 	private String is_who=null;
 	private int total_pers_life=0;
 	private float real_life=0;
@@ -35,6 +35,7 @@ public class Main_Personage  extends CCColorLayer{
 	private int building_time =0;
 	private float walk_speed=0;
 	private float attack_speed = 0;
+	public boolean is_live= false;
 	private int enemy_tag =-1;
 	private Integer[] demage_enemy = null;
 	private Main_Personage enemy =null;
@@ -235,6 +236,7 @@ public class Main_Personage  extends CCColorLayer{
 	{
 	   if(state==this.state_action)
 	   {
+		//this.boss.stopAllActions();
 		this.start_animation("walk");  
 		this.state_action = -1;
 	    if(this.is_who.equalsIgnoreCase("b"))
@@ -298,10 +300,12 @@ public class Main_Personage  extends CCColorLayer{
 		{
 			this.unschedule("start_attack_action");
 			enemy.unschedule("start_attack_action");
-		      
-			  this.state_action=1;
-			   enemy.state_action=4; 	
+		         
+			 this.set_state_action(1);
+			   enemy.state_action=4; 
+			   
 			   enemy.bar_life.setVisible(false);
+			   
 			   this.enemy_tag=-1;
 			   //this.sto;
 			
@@ -310,18 +314,24 @@ public class Main_Personage  extends CCColorLayer{
 		}
 	}
 	private Game_Arena arena_=null;
+	private Main_Personage winner=null;
 	public void death(Game_Arena arena, int state)
 	{
+		Main_Personage pers=null;
 		if(this.state_action == state)
 		{
 		   this.start_animation("death");
 		   this.state_action =-1;
+		  
 		   if(this.is_who().equalsIgnoreCase("b"))
 		   
 				{
 			     if(arena.get_personage(1, "b")!=null) 
-			         arena.get_personage(1, "b").set_state_action(1); 
-			      arena.bears_element.remove(this);
+			    	 arena.get_personage(1, "b").set_state_action(1); 
+			       
+			        this.is_live=false;
+			         arena.bears_element.remove(this);
+			         
 			      
 			       
 				}
@@ -329,11 +339,13 @@ public class Main_Personage  extends CCColorLayer{
 				{
 				  if(arena.get_personage(1, "v")!=null)
 				  arena.get_personage(1, "v").set_state_action(1);
+				  
+				  this.is_live=false;
 				  arena.vimpire_element.remove(this);
 				  
 				  
 				}
-		  
+		   arena.set_pers_limit_count(arena.get_pers_limit_count()-1);
 		   this.schedule("scan_death", 0.01f);
 		 //  arena.add_death_personage_buffer(this);
 		   arena_ = arena;
@@ -347,7 +359,7 @@ public class Main_Personage  extends CCColorLayer{
 		if(this.animation_element.get(0).action_animation.get(action_runing).isDone())
 		{
 			this.unschedule("scan_death");
-			;
+			
 			
 			if(this.is_who.equalsIgnoreCase("b"))
 			{
@@ -435,8 +447,11 @@ public class Main_Personage  extends CCColorLayer{
 	
 	public void destroy()
 	{
-	   ability=0;
+	   
+	   Action_Activity  activity=null;
+		ability=0;
 	   attack_area = null;
+	   is_live=false;
 	   attack_demage=0;
 	   attack_speed=0;
 	   building_time=0;
@@ -445,7 +460,7 @@ public class Main_Personage  extends CCColorLayer{
 	   general_scale_factor=0;
 	  imunnity_enimy.clear();
 	  imunnity_enimy=null;
-	   //is_who=null;
+	   is_who=null;
 	  local_scale_factor=null;
 	   real_life=0;
 	   state_action=0;
@@ -455,7 +470,9 @@ public class Main_Personage  extends CCColorLayer{
 		   {
 		       animation_element.get(i).Destroy();
 		       this.removeChild(animation_element.get(i), true);
+		       activity = animation_element.get(i);
 		       animation_element.remove(i);
+		       activity = null;
 		   }
 	    animation_element=null;
 		bar_life.destroy();

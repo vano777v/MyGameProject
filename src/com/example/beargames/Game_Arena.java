@@ -245,6 +245,7 @@ public class Game_Arena extends CCColorLayer
 		else {
 			   vimpire_element.add(personage);
 			   this.addChild(personage);
+			   personage.is_live=true;
 			   arena_limit_pers_count++;
 			 }
 	}
@@ -376,12 +377,17 @@ public class Game_Arena extends CCColorLayer
 			   death_pers.remove(0);
 			   pers.destroy();
 			   this.removeChild(pers, true);
+			   pers=null;
 		   }
 	    }		
 	}
   public int get_pers_limit_count()
   {
 	  return arena_limit_pers_count;
+  }
+  public void set_pers_limit_count(int value)
+  {
+	  arena_limit_pers_count=value;
   }
 
 }

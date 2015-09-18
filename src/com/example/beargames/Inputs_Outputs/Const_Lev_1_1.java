@@ -81,7 +81,7 @@ public class Const_Lev_1_1 extends Constants_Game
 		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
 		init_animation_bear_box_engine(update_path, pers);
 		//pers.start_animation("attack");
-		Integer[] enemy_demage = new Integer[]{10, 5, 25,5, 30, 0,0,20};
+		Integer[] enemy_demage = new Integer[]{10, 10, 25,5, 30, 0,0,20};
 		pers.set_main_parameters(1, 1500, enemy_demage, 1, CGSize.make(0, 0),14);
 		pers.set_attack_speed(0.4f);
 		return pers;
@@ -132,7 +132,7 @@ public class Const_Lev_1_1 extends Constants_Game
 		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
 		init_animation_vimp_captain_engine(update_path, pers);
 		//pers.start_animation("attack");
-		Integer[] enemy_demage = new Integer[]{100, 10, 50,50, 50, 0,0,20};
+		Integer[] enemy_demage = new Integer[]{50, 10, 50,50, 50, 0,0,20};
 		pers.set_main_parameters(2, 1000, enemy_demage, 2, CGSize.make(0, 0),14);
 		pers.set_attack_speed(0.6f);
 		return pers;

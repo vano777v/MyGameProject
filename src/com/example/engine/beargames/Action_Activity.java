@@ -301,6 +301,10 @@ public void action_scan(float dt)
 	}
 	
 }
+public void clear_activity_buffer()
+{
+	
+}
 	
 public int get_who_is_runing()
 {
