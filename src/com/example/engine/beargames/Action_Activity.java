@@ -31,6 +31,7 @@ public class Action_Activity extends CCLayer
    private ArrayList<Integer> index_current = null;
    private ArrayList<String> name_action =null;
    private ArrayList<CCAnimation> animation = null;
+   private int lost_index=-1;
 
    public Action_Activity(CCSprite sprite, String is_who)
    {
@@ -174,6 +175,7 @@ public class Action_Activity extends CCLayer
 		{
 			sprite.runAction(action_animation.get(index));
 			last_action_index = index;
+			lost_index =index;
 		}
 			
 	}
@@ -213,6 +215,7 @@ public class Action_Activity extends CCLayer
 	     animation=null;
 	     index_current=null;
 	     stop_index=0;
+	     lost_index =0;
 	     is_who= null;
 	     
 	     System.out.println("Destroy action");
@@ -228,6 +231,7 @@ public class Action_Activity extends CCLayer
 		 
 		 sprite.runAction(action_animation.get(index_current.get(0)));
 		 last_action_index=index_current.get(0);
+		 lost_index = index_current.get(0);
 		 index_current.remove(0);
 		 //this.unschedule("action_run");
 	 }
@@ -240,6 +244,7 @@ public class Action_Activity extends CCLayer
 			 sprite.stopAction(last_action_index);
 		     sprite.runAction(action_animation.get(index_current.get(0)));
 			 last_action_index=index_current.get(0);
+			 lost_index=index_current.get(0);
 			 index_current.remove(0);
 			 //this.unschedule("action_run");
 		 }
@@ -304,6 +309,11 @@ public void action_scan(float dt)
 public void clear_activity_buffer()
 {
 	
+  if(!index_current.isEmpty()) 	
+	lost_index = index_current.get(index_current.size()-1);
+  index_current.clear();
+  sprite.stopAction(last_action_index);
+  last_action_index=-1;
 }
 	
 public int get_who_is_runing()
@@ -315,7 +325,7 @@ public int get_who_is_runing()
 	{
 	
 	if(last_action_index!=-1)
-		return name_action.get(last_action_index);
+		return name_action.get(lost_index);
 	else return null;
 	}
 }

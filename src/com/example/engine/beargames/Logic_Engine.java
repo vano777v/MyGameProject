@@ -29,7 +29,7 @@ private Game_Arena arena = null;
     private float time_count_vimp=0;
     private Main_Personage vimp_pers= null;
     private Boolean vimp_build_is_runing = false;
-   
+     private Boolean[] go_flag =null;
   
   public Logic_Engine( Level level,  Game_Arena arena,  float general_scale_factor)
   {
@@ -41,7 +41,7 @@ private Game_Arena arena = null;
 		this.const_level = this.detect_level(level.get_campaign(), level.get_current_level(), arena);
 		campaign = "campaign_"+level.get_campaign()+"/";
 		current_level = "level_"+level.get_current_level();
-		
+		go_flag = new Boolean[]{false,false};
 		init_paralax();
 		init_bases();
 		init_action_base();
@@ -115,34 +115,43 @@ private Game_Arena arena = null;
 	
 	public void main_control_activity(float dt)
 	{
-		refresh_arena();
-		//for(int i=0;i<arena.bears_element.size();i++)
-		//{
-		  //if(intersect(arena.bears_element.get(i), arena.get_Main_Base_list(1))&&!arena.bears_element.get(i).action_is_runing_now().equalsIgnoreCase("attack") ) 
-			//{arena.bears_element.get(i).set_state_action(2); arena.bears_element.get(i).stop_walk("attack", 2);}
-		  
-		//}
 		
-		//for(int i=0; i<arena.vimpire_element.size();i++)
-		//{
-			//if(intersect(arena.vimpire_element.get(i), arena.get_Main_Base_list(0))&&!arena.vimpire_element.get(i).action_is_runing_now().equalsIgnoreCase("attack") ) 
-				// {arena.vimpire_element.get(i).set_state_action(2); arena.vimpire_element.get(i).stop_walk("attack", 2);}
-		//}
+	
+		refresh_arena();
+		
+	
 		for(int i=0;i<arena.bears_element.size()-1;i++)
-			if(intersect(arena.get_personage(i, "b"),arena.get_personage(i+1, "b"))) 
+		{
+			if(intersect_personage_default_bear(arena.get_personage(i, "b"),arena.get_personage(i+1, "b")))
+			{
 					if(!arena.get_personage(i+1, "b").action_is_runing_now().equalsIgnoreCase("default"))
-				          arena.bears_element.get(i+1).set_state_action(0);	
-			//else arena.bears_element.get(i+1).set_state_action(1);
+					{ arena.bears_element.get(i+1).set_state_action(0);
+					  Main_Personage.pers_start_walk=false;
+					}	
+			}
+			else
+			{
+				
+			   go_army(i+1, "b");
+		    }
+		}
 		refresh_arena();
 		for(int i=0;i<arena.vimpire_element.size()-1;i++)
-			if(intersect(arena.get_personage(i, "v"),arena.get_personage(i+1, "v"))) 
+			if(intersect_personage_default_vimpire(arena.get_personage(i, "v"),arena.get_personage(i+1, "v"))) 
+			{
 				if(!arena.get_personage(i+1, "v").action_is_runing_now().equalsIgnoreCase("default"))
-			          arena.vimpire_element.get(i+1).set_state_action(0);	
-			//else arena.vimpire_element.get(i+1).set_state_action(1);
+			          arena.vimpire_element.get(i+1).set_state_action(0);
+			}
+			else
+			{
+			   go_army(i+1, "v");	
+			}
+		
+		
 		refresh_arena();
 		for(int i=0;i<arena.bears_element.size();i++)
 			for(int j=0;j<arena.vimpire_element.size();j++)
-				if(intersect(arena.bears_element.get(i),arena.vimpire_element.get(j)) && arena.bears_element.get(i).get_enemy_tag()!=j) 
+				if(intersect_personage_attack(arena.bears_element.get(i),arena.vimpire_element.get(j)) && arena.bears_element.get(i).get_enemy_tag()!=j) 
 				{
 				   arena.bears_element.get(i).set_enemy_tag(j);
 				   arena.bears_element.get(i).set_state_action(2);	
@@ -153,7 +162,7 @@ private Game_Arena arena = null;
 		refresh_arena();
 		for(int i=0;i<arena.vimpire_element.size();i++)
 			for(int j=0;j<arena.bears_element.size();j++)
-				if(intersect(arena.bears_element.get(j),arena.vimpire_element.get(i)) &&arena.vimpire_element.get(i).get_enemy_tag()!=j)
+				if(intersect_personage_attack(arena.bears_element.get(j),arena.vimpire_element.get(i)) &&arena.vimpire_element.get(i).get_enemy_tag()!=j)
 				{ 
 					arena.vimpire_element.get(i).set_enemy_tag(j);
 					arena.vimpire_element.get(i).set_state_action(2);
@@ -164,6 +173,38 @@ private Game_Arena arena = null;
 		refresh_arena();
 	}
 	
+	private void go_army(int index, String is_who)
+	{
+		int index_flag=-1;
+		if(is_who.equalsIgnoreCase("b"))
+			index_flag=0;
+		else index_flag=1;
+		if(arena.get_personage(index, is_who).action_is_runing_now()!=null)
+		  {	
+			if(arena.get_personage(index, is_who).action_is_runing_now().equalsIgnoreCase("default"))
+			{
+				if(go_flag[index_flag]==false)
+				{
+					
+					if(!arena.get_personage(index, is_who).action_is_runing_now().equalsIgnoreCase("walk"))
+					{
+					  arena.get_personage(index, is_who).set_state_action(1);
+				      go_flag[index_flag]=true;
+					}
+				  
+				  }
+			}
+			else
+			{
+				//System.out.println("Trebuie "+0+" "+arena.get_personage(0, "b").action_is_runing_now());
+				if(arena.get_personage(index, is_who).action_is_runing_now()!=null)
+					go_flag[index_flag]=false;
+			}
+			// mama = arena.get_personage(0, "b").action_is_runing_now();
+			   
+		 }
+	
+	}
 	public void refresh_arena()
 	{
 		for(int i=0;i<arena.bears_element.size();i++ )
@@ -180,7 +221,8 @@ private Game_Arena arena = null;
 		switch (pers.get_state_action()) {
 		case 0:
 			 {pers.stop_walk("default", 0);
-			break;}
+			   
+			 break;}
 		case 4:
 			 {
 				pers.death(arena, 4);
@@ -200,10 +242,11 @@ private Game_Arena arena = null;
 	
 	public void build_vimp_init(float dt)
 	{
-		if(!vimp_build_is_runing && arena.get_pers_limit_count()<15)
+		if(!vimp_build_is_runing && arena.count_personages("v")<arena.unit_limit_vimpires)
 		{
-			System.out.println("OH"+arena.get_pers_limit_count());
+			//System.out.println("OH"+arena.get_pers_limit_count("v"));
 			vimp_pers = new Main_Personage(const_level.vimp_team_fight.get(0));
+			
 			this.schedule("build_vimp", 0.1f);
 			vimp_build_is_runing=true;
 		}
@@ -227,27 +270,78 @@ private Game_Arena arena = null;
 		}
 	}
 	
-	private Boolean intersect(Main_Personage first, Main_Personage second)
+	private Boolean intersect_personage_attack(Main_Personage first, Main_Personage second)
 	{
 	  
 		Boolean result  = false;
+	 
 		if(first!=null&& second!=null)
 			
 		{
 		  if(first.is_live==true && second.is_live==true )
 		  {	
-			CGPoint first_pooint = CGPoint.make(first.getPosition().x, first.getPosition().y);
-			CGRect  object = CGRect.make(first_pooint, first.getContentSize());
-			if((object.contains(second.getPosition().x, second.getPosition().y))||
-				(object.contains(second.getPosition().x+second.getContentSize().width, second.getPosition().y))||
-				(object.contains(second.getPosition().x, second.getPosition().y+second.getContentSize().height))||
-						(object.contains(second.getPosition().x+second.getContentSize().width, second.getPosition().y+second.getContentSize().height))) 
+			CGPoint first_pooint = CGPoint.make(first.getPosition().x+first.attack_coord.width, first.getPosition().y);
+			CGRect  object = CGRect.make(first_pooint, CGSize.make((first.getContentSize().width-first.attack_coord.height-first.attack_coord.width),first.getContentSize().height));
+			if((object.contains(second.getPosition().x+second.attack_coord.height, second.getPosition().y))||
+				(object.contains(second.getPosition().x+(second.getContentSize().width-second.attack_coord.width), second.getPosition().y))||
+				(object.contains((second.getPosition().x+second.attack_coord.height), second.getPosition().y+second.getContentSize().height))||
+						(object.contains(second.getPosition().x+(second.getContentSize().width-second.attack_coord.width), second.getPosition().y+second.getContentSize().height))) 
 						result=true;
 		  }
 		}
-		
+	 
+	 
 		return result;
 	}
+	private Boolean intersect_personage_default_bear(Main_Personage first, Main_Personage second)
+	{
+	  
+		Boolean result  = false;
+	 
+		if(first!=null&& second!=null)
+			
+		{
+		  if(first.is_live==true && second.is_live==true )
+		  {	
+			CGPoint first_pooint = CGPoint.make(first.getPosition().x+first.default_coord.width, first.getPosition().y);
+			CGRect  object = CGRect.make(first_pooint, CGSize.make((first.getContentSize().width-first.default_coord.height-first.default_coord.width),first.getContentSize().height));
+			if((object.contains(second.getPosition().x+second.default_coord.width, second.getPosition().y))||
+				(object.contains(second.getPosition().x+(second.getContentSize().width-second.default_coord.height), second.getPosition().y))||
+				(object.contains((second.getPosition().x+second.default_coord.width), second.getPosition().y+second.getContentSize().height))||
+						(object.contains(second.getPosition().x+(second.getContentSize().width-second.default_coord.height), second.getPosition().y+second.getContentSize().height))) 
+						result=true;
+		  }
+		}
+	 
+	 
+		return result;
+	}
+	private Boolean intersect_personage_default_vimpire(Main_Personage first, Main_Personage second)
+	{
+	  
+		Boolean result  = false;
+	 
+		if(first!=null&& second!=null)
+			
+		{
+		  if(first.is_live==true && second.is_live==true )
+		  {	
+			CGPoint first_pooint = CGPoint.make(first.getPosition().x+first.default_coord.height, first.getPosition().y);
+			CGRect  object = CGRect.make(first_pooint, CGSize.make((first.getContentSize().width-first.default_coord.width-first.default_coord.height),first.getContentSize().height));
+			if((object.contains(second.getPosition().x+second.default_coord.height, second.getPosition().y))||
+				(object.contains(second.getPosition().x+(second.getContentSize().width-second.default_coord.width), second.getPosition().y))||
+				(object.contains((second.getPosition().x+second.default_coord.height), second.getPosition().y+second.getContentSize().height))||
+						(object.contains(second.getPosition().x+(second.getContentSize().width-second.default_coord.width), second.getPosition().y+second.getContentSize().height))) 
+						result=true;
+		  }
+		}
+	 
+	 
+		return result;
+	}
+	
+	
+	
 	
 	public void clear_memory_pers(float dt)
 	{

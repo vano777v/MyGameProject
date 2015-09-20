@@ -33,8 +33,9 @@ public class Game_Arena extends CCColorLayer
     public ArrayList<Main_Personage> bears_element = null;
     public ArrayList<Main_Personage> vimpire_element = null;
     private ArrayList<Main_Base> base_list=null; 
-    private int arena_limit_pers_count=0;
-    private int unit_limit;
+    //private Integer arena_limit_pers_count[]=null;
+    public int unit_limit_bears;
+    public int unit_limit_vimpires;
     private ArrayList<Main_Personage> death_pers= null;
     private float limt=0;
     
@@ -45,7 +46,7 @@ public class Game_Arena extends CCColorLayer
 		paralax =  CCParallaxNode.node();
 		paralax.setPosition(0,0);
 		paralax.setAnchorPoint(0,0);
-		
+	//	arena_limit_pers_count = new Integer []{0,0};
 		arena_size = CGSize.make(0, 0);
 		this.general_scale_factor = general_scale_factor;
 		//this.local_scale_factor = locala_scale_factor;
@@ -80,7 +81,8 @@ public class Game_Arena extends CCColorLayer
 		float scale_pers = pers_dimm*general_scale_factor/local_scale_factor.width;
 		start_point_arena = (number_of_pers*scale_pers+2*scale_base)*3 - screen_size.width;
         action_arena=number_of_pers*scale_pers+2*scale_base;  	
-        unit_limit = number_of_pers;  
+        unit_limit_vimpires = (int)(number_of_pers/2+1);
+        unit_limit_bears = (int)(number_of_pers/2+1);
 	}
     
 	public float get_action_arena ()
@@ -236,18 +238,35 @@ public class Game_Arena extends CCColorLayer
 	
 	public void add_personage (Main_Personage personage)
 	{
-	 if(arena_limit_pers_count<unit_limit)
+	   
+	
 		if(personage.is_who().equalsIgnoreCase("b"))
 			{
+			   //if(arena_limit_pers_count[0]<unit_limit_bears)
 			    bears_element.add(personage);
-			    arena_limit_pers_count++;
+			    //arena_limit_pers_count[0]++;
 			}
-		else {
+		else 
+		{
+			 //if(arena_limit_pers_count[0]<unit_limit_vimpires)
 			   vimpire_element.add(personage);
 			   this.addChild(personage);
 			   personage.is_live=true;
-			   arena_limit_pers_count++;
-			 }
+			  // arena_limit_pers_count[1]++;
+		 }
+	}
+	
+	public int count_personages(String is_who)
+	{
+		int result=0;
+		if(is_who.equalsIgnoreCase("b"))
+		{
+			result=bears_element.size();
+		}
+		else
+			result=vimpire_element.size();
+		
+		return result;
 	}
 	
 	public Main_Base get_Main_Base_list(int index)
@@ -381,13 +400,36 @@ public class Game_Arena extends CCColorLayer
 		   }
 	    }		
 	}
-  public int get_pers_limit_count()
-  {
-	  return arena_limit_pers_count;
-  }
-  public void set_pers_limit_count(int value)
-  {
-	  arena_limit_pers_count=value;
-  }
+ 
+	String is_who_scan=null;
+	Boolean arena_is_free = false;
+   public void free_space_arena_bears( float dt)
+   {
+	  String is_who_enemy =null;
+	  CGPoint point = null;
+	  CGPoint enimy_point =null;
+	  CGRect ob=null;
+	  Main_Personage person= null;
+	  int size =0;
+	    if(is_who_scan.equalsIgnoreCase("b"))
+	    {
+	    	is_who_enemy ="v";
+	    	size= bears_element.size();
+	    	
+	    }
+	   if(get_personage(0, is_who_enemy)!=null )
+	   {
+		   if(get_personage(size-1, is_who_scan)!=null)
+		   {get_personage(size-1, is_who_scan);
+		      person = get_personage(size-1, is_who_scan);
+			   point= CGPoint.make(person.getPosition().x+person.default_coord.width ,person.getPosition().y );
+		       ob= CGRect.make(point,  CGSize.make(person.getContentSize().width-person.default_coord.width-person.default_coord.height, person.getContentSize().height));
+		       if(is_who_scan.equalsIgnoreCase("b"))
+		       {
+		    	   //if(ob.contains(, y))
+		       }
+		    }
+	   }
+   }
 
 }

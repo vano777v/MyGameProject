@@ -19,6 +19,8 @@ import com.example.engine.beargames.Action_Activity;
 
 public class Main_Personage  extends CCColorLayer{
 	private  float general_scale_factor=0;
+	public  CGSize default_coord= null;
+	public  CGSize attack_coord = null;
 	private  CGSize local_scale_factor=null;
 	private  Progress_Bar_element bar_life=null;
 	private ArrayList<Action_Activity>  animation_element=null; 
@@ -35,6 +37,7 @@ public class Main_Personage  extends CCColorLayer{
 	private int building_time =0;
 	private float walk_speed=0;
 	private float attack_speed = 0;
+	public  static Boolean pers_start_walk=false;
 	public boolean is_live= false;
 	private int enemy_tag =-1;
 	private Integer[] demage_enemy = null;
@@ -82,7 +85,8 @@ public class Main_Personage  extends CCColorLayer{
 		 this.setScaleY(personage.getScaleY());
 		 this.setContentSize(personage.getContentSize());
 		 this.setPosition(personage.getPosition());
-		 
+		 this.default_coord = personage.default_coord;
+		 this.attack_coord = personage.attack_coord;
 		 this.set_main_parameters(personage.getTag(), personage.total_pers_life, personage.demage_enemy, personage.building_time, personage.attack_area, personage.walk_speed);
 		 this.attack_speed = personage.attack_speed;
 		 addChild(bar_life);
@@ -123,6 +127,14 @@ public class Main_Personage  extends CCColorLayer{
 	public void set_Pers_Position (CGPoint location)
 	{
 		this.setPosition(location.x,location.y);
+	}
+	
+	public void set_coordanate(CGSize default_coord, CGSize attack_coord)
+	{
+		this.default_coord = CGSize.make(default_coord.width*general_scale_factor/local_scale_factor.width, default_coord.height*general_scale_factor/local_scale_factor.width);
+		
+		this.attack_coord = CGSize.make(attack_coord.width*general_scale_factor/local_scale_factor.width, attack_coord.height*general_scale_factor/local_scale_factor.width);
+		System.out.println("showwww"+general_scale_factor+local_scale_factor);
 	}
 	
 	public void set_Pers_element(CGSize bar_size, CGPoint bar_loc,CGSize pers_size, CGPoint pers_loc  )
@@ -237,6 +249,7 @@ public class Main_Personage  extends CCColorLayer{
 	   if(state==this.state_action)
 	   {
 		//this.boss.stopAllActions();
+		clear_buffer_animation(0);
 		this.start_animation("walk");  
 		this.state_action = -1;
 	    if(this.is_who.equalsIgnoreCase("b"))
@@ -251,9 +264,12 @@ public class Main_Personage  extends CCColorLayer{
 		
 		if(state == this.state_action){
 		this.stopAllActions();
+		this.clear_buffer_animation(0);
 		//this.stop_animation("walk");
 	    this.start_animation(animation);
-	    this.state_action =-1;}
+	    this.state_action =-1;
+	    
+	    }
 	}
 	
 	public void Move_Control()
@@ -283,6 +299,7 @@ public class Main_Personage  extends CCColorLayer{
 	   {
 		   
 		   this.enemy = enemy;
+		   this.clear_buffer_animation(0);
 		   this.start_animation("attack");
 		   this.schedule("start_attack_action", attack_speed);
 		   this.stopAllActions();
@@ -326,8 +343,13 @@ public class Main_Personage  extends CCColorLayer{
 		   if(this.is_who().equalsIgnoreCase("b"))
 		   
 				{
-			     if(arena.get_personage(1, "b")!=null) 
-			    	 arena.get_personage(1, "b").set_state_action(1); 
+			      
+			   		if(arena.get_personage(1, "b")!=null) 
+			   		{
+			   			arena.get_personage(1, "b").clear_buffer_animation(0);
+			   			arena.get_personage(1, "b").set_state_action(1);
+			   		    pers_start_walk =true;
+			   		} 
 			       
 			        this.is_live=false;
 			         arena.bears_element.remove(this);
@@ -337,20 +359,32 @@ public class Main_Personage  extends CCColorLayer{
 				}
 			else 
 				{
+				
+				 
+				
 				  if(arena.get_personage(1, "v")!=null)
-				  arena.get_personage(1, "v").set_state_action(1);
-				  
+				   {
+					  arena.get_personage(1, "v").clear_buffer_animation(0);
+					  arena.get_personage(1, "v").set_state_action(1);
+			          pers_start_walk =true;
+				   }
+				 
 				  this.is_live=false;
 				  arena.vimpire_element.remove(this);
 				  
 				  
 				}
-		   arena.set_pers_limit_count(arena.get_pers_limit_count()-1);
+		   
 		   this.schedule("scan_death", 0.01f);
 		 //  arena.add_death_personage_buffer(this);
 		   arena_ = arena;
 		}
 		
+	}
+	
+	public void clear_buffer_animation(int index_animation)
+	{
+		this.animation_element.get(index_animation).clear_activity_buffer();
 	}
 	
 	public void scan_death(float dt)
@@ -452,6 +486,8 @@ public class Main_Personage  extends CCColorLayer{
 		ability=0;
 	   attack_area = null;
 	   is_live=false;
+	   attack_coord = null;
+	   default_coord =null;
 	   attack_demage=0;
 	   attack_speed=0;
 	   building_time=0;

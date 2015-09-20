@@ -485,14 +485,19 @@ public class GameLayer extends CCLayer
     	 }
     	 else
     	 {
+    		 if(arena.count_personages("b")<arena.unit_limit_bears) 
+     		{
+     		   pers= new Main_Personage( const_level.bear_team_fight.get(item_tag-1));
     		 menus_game.get(menu_index).change_Image_item(this.campaign+"menus/block/"+item_tag+"b.png", index);
     		 menus_game.get(menu_index).get_item(index).setisTouchEnabled(false);
     		 menus_game.get(menu_index).get_item(index).set_touch_state(true);
     		 menus_game.get(menu_index).get_item(index).time_progress_bar_init(this.campaign+"menus/choosed/"+item_tag+"a.png");
     		 menus_game.get(menu_index).get_item(index).set_path_progress_bar(this.campaign+"menus/neutral/"+item_tag+"n.png");
-    		pers=  new Main_Personage( const_level.bear_team_fight.get(item_tag-1));
-    		 
-             //const_level.init_animation_bear_box_engine("default/", pers);
+    		  
+    		 //pers=arena.add_personage("campaign_1/","b_box", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(0).getPosition().x+arena.get_Main_Base_list(0).getContentSize().width, 0), "b");
+    		 //pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
+    		 //const_level.init_animation_bear_box_engine("default/", pers);
+             //pers.set_coordanate(CGSize.make(168, 168), CGSize.make(168, 168));
     		 arena.add_personage(pers); 
     		 menus_game.get(menu_index).get_item(index).time_progress(pers,arena,menus_game.get(bear_menu_index),item_tag, team_selected, buffer_team);
     		 menus_game.get(bear_menu_index).get_item(item_tag*2).setisTouchEnabled(false);
@@ -512,6 +517,7 @@ public class GameLayer extends CCLayer
     			 }
     		 }
     		 if(team_selected==4) team_selected=0;
+    	 }
     	 }
      }
      private void button_ability_item_press(int index, int menu_index)
