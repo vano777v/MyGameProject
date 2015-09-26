@@ -1,6 +1,7 @@
 package com.example.engine.beargames;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.cocos2d.layers.CCColorLayer;
 import org.cocos2d.types.CGPoint;
@@ -22,7 +23,7 @@ private Game_Arena arena = null;
     
     private float general_scale_factor=0;
     private Level level= null;
-  
+    private Random random_engine = null;
     private String campaign=null;
     private String current_level= null;
     private float time_vimp_build=0;
@@ -37,6 +38,7 @@ private Game_Arena arena = null;
 	    super("campaign_"+level.get_campaign()+"/", arena );
 		this.level = level;
 		this.arena = arena;
+		random_engine = new Random();
 		this.general_scale_factor = general_scale_factor;
 		this.const_level = this.detect_level(level.get_campaign(), level.get_current_level(), arena);
 		campaign = "campaign_"+level.get_campaign()+"/";
@@ -51,7 +53,11 @@ private Game_Arena arena = null;
 		
 		const_level.bear_team_fight.add(const_level.box_bear_init("default/"));
 		const_level.bear_team_fight.add(const_level.mace_bear_init("default/"));
+		
+		const_level.vimp_team_fight.add(const_level.claw_vimp_init("default/"));
+		const_level.vimp_team_fight.add(const_level.scythe_vimp_init("default/"));
 		const_level.vimp_team_fight.add(const_level.captain_vimp_init("default/"));
+		const_level.vimp_team_fight.add(const_level.arbalet_vimp_init("default/"));
 		this.schedule("main_control_activity", 0.1f);
 		this.schedule("build_vimp_init", 6f);
 		this.schedule("clear_memory_pers",4f);
@@ -245,7 +251,7 @@ private Game_Arena arena = null;
 		if(!vimp_build_is_runing && arena.count_personages("v")<arena.unit_limit_vimpires)
 		{
 			//System.out.println("OH"+arena.get_pers_limit_count("v"));
-			vimp_pers = new Main_Personage(const_level.vimp_team_fight.get(0));
+			vimp_pers = new Main_Personage(const_level.vimp_team_fight.get(random_engine.nextInt(4)));
 			
 			this.schedule("build_vimp", 0.1f);
 			vimp_build_is_runing=true;

@@ -1,6 +1,7 @@
 package com.example.beargames.Inputs_Outputs;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGSize;
@@ -15,13 +16,14 @@ public class Const_Lev_1_1 extends Constants_Game
    private static float general_scale_factor =0;
    
    private Game_Arena arena=null;
-   
+  
    public Const_Lev_1_1(Game_Arena arena, float general_scale_factor)
    {
 	   
 	   this.unit_limit          =      Level_1_1.units;
 	   this.paralax_child=5;
 	   this.arena = arena;
+	   
 	   this.general_scale_factor = general_scale_factor;
 	   this.parlax_value= new Float[][]{{0f,250f, 0f,0f},{0f, 0f, 0.2f, 0f},{0f, 70f, 0.3f, 0f},{0f, 60f, 0.1f, 0f},{0f, 60f, 0.2f, 0f}};
        this.paralax_path = new String[] {"/paralax/noise.png","/paralax/tback.png", "/paralax/sback.png", "/paralax/mback.png","/paralax/fback.png"};
@@ -80,8 +82,8 @@ public class Const_Lev_1_1 extends Constants_Game
 		//System.out.println("ERT"+arena.bears_element.size());
 		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
 		init_animation_bear_box_engine(update_path, pers);
-		pers.set_coordanate(CGSize.make(168, 107), CGSize.make(168, 107));
-		Integer[] enemy_demage = new Integer[]{10, 10, 25,5, 30, 0,0,20};
+		pers.set_coordanate(CGSize.make(107, 168), CGSize.make(107, 168));
+		Integer[] enemy_demage = new Integer[]{26, 10, 25,45, 30, 0,0,20};
 		pers.set_main_parameters(1, 1500, enemy_demage, 1, CGSize.make(0, 0),14);
 		pers.set_attack_speed(0.4f);
 		return pers;
@@ -94,8 +96,8 @@ public class Const_Lev_1_1 extends Constants_Game
 		//System.out.println("ERT"+arena.bears_element.size());
 		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
 		init_animation_bear_mace_engine(update_path, pers);
-		pers.set_coordanate(CGSize.make(158, 98), CGSize.make(158, 78));
-		Integer[] enemy_demage = new Integer[]{30, 20, 50,10, 30, 0,0,20};
+		pers.set_coordanate(CGSize.make(98, 158), CGSize.make(78, 158));
+		Integer[] enemy_demage = new Integer[]{30, 35, 20,60, 30, 0,0,20};
 		pers.set_main_parameters(2, 1000, enemy_demage, 2, CGSize.make(0, 0),14);
 		pers.set_attack_speed(0.6f);
 		return pers;
@@ -117,6 +119,23 @@ public class Const_Lev_1_1 extends Constants_Game
 
 	}
 	
+	//============================Initializare vimpiri==========================================
+	
+	public void init_animation_vimp_claw_engine(String update_path, Main_Personage pers)
+	{
+		pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_claw_engine_path+update_path,"engine_", "default",1.2f, 1, 3, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_claw_engine_path+update_path,"engine_", "walk",0.23f, 3, 9, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_claw_engine_path+update_path,"engine_", "attack",0.2f, 9, 13, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_claw_engine_path+update_path,"engine_", "death",0.14f, 13, 22, false);
+	}
+	
+	public void init_animation_vimp_scythe_engine(String update_path, Main_Personage pers)
+	{
+		pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_scythe_engine_path+update_path,"engine_", "default",1.2f, 1, 3, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_scythe_engine_path+update_path,"engine_", "walk",0.23f, 3, 9, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_scythe_engine_path+update_path,"engine_", "attack",0.2f, 9, 13, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_scythe_engine_path+update_path,"engine_", "death",0.14f, 13, 23, false);
+	}
 	public void init_animation_vimp_captain_engine(String update_path, Main_Personage pers)
 	{
 		pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_cap_engine_path+update_path,"engine_", "default",1.2f, 1, 3, true);
@@ -124,6 +143,44 @@ public class Const_Lev_1_1 extends Constants_Game
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_cap_engine_path+update_path,"engine_", "attack",0.2f, 10, 13, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_cap_engine_path+update_path,"engine_", "death",0.14f, 13, 23, false);
 	}
+	public void init_animation_vimp_arbalet_engine(String update_path, Main_Personage pers)
+	{
+		pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_arbalet_engine_path+update_path,"engine_", "default",1.2f, 1, 3, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_arbalet_engine_path+update_path,"engine_", "walk",0.23f, 3, 9, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_arbalet_engine_path+update_path,"engine_", "attack",0.2f, 9, 12, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_arbalet_engine_path+update_path,"engine_", "death",0.15f, 12, 21, false);
+	}
+	
+	public Main_Personage claw_vimp_init( String update_path)
+	{
+		Main_Personage pers=null; 
+		pers= arena.add_personage("campaign_1/","v_claw", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(1).getPosition().x-Constants_Game.pers_dim*general_scale_factor/Constants_Game.arena_area_coff, 0), "v");
+		//System.out.println("ERT"+arena.bears_element.size());
+		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
+		init_animation_vimp_claw_engine(update_path, pers);
+		pers.set_coordanate(CGSize.make(81f, 81f),CGSize.make(81f,220f));
+		Integer[] enemy_demage = new Integer[]{25, 10, 50,50, 50, 0,0,20};
+		pers.set_main_parameters(1, 500, enemy_demage, 1, CGSize.make(0, 0),14);
+		pers.set_attack_speed(0.4f);
+		return pers;
+		
+	}	
+	public Main_Personage scythe_vimp_init( String update_path)
+	{
+		Main_Personage pers=null; 
+		pers= arena.add_personage("campaign_1/","v_scythe", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(1).getPosition().x-Constants_Game.pers_dim*general_scale_factor/Constants_Game.arena_area_coff, 0), "v");
+		//System.out.println("ERT"+arena.bears_element.size());
+		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
+		init_animation_vimp_scythe_engine(update_path, pers);
+		pers.set_coordanate(CGSize.make(61f, 53f),CGSize.make(61f,172f));
+		Integer[] enemy_demage = new Integer[]{40,35, 50,50, 50, 0,0,20};
+		pers.set_main_parameters(2, 700, enemy_demage, 2, CGSize.make(0, 0),14);
+		pers.set_attack_speed(0.8f);
+		return pers;
+		
+	}
+	
+	
 	public Main_Personage captain_vimp_init( String update_path)
 	{
 		Main_Personage pers=null; 
@@ -133,11 +190,27 @@ public class Const_Lev_1_1 extends Constants_Game
 		init_animation_vimp_captain_engine(update_path, pers);
 		pers.set_coordanate(CGSize.make(95f, 58f),CGSize.make(58, 0));
 		Integer[] enemy_demage = new Integer[]{50, 10, 50,50, 50, 0,0,20};
-		pers.set_main_parameters(2, 1000, enemy_demage, 2, CGSize.make(0, 0),14);
+		pers.set_main_parameters(3, 1000, enemy_demage, 2, CGSize.make(0, 0),14);
 		pers.set_attack_speed(0.6f);
 		return pers;
 		
 	}
+	
+	public Main_Personage arbalet_vimp_init( String update_path)
+	{
+		Main_Personage pers=null; 
+		pers= arena.add_personage("campaign_1/","v_arbalet", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(1).getPosition().x-Constants_Game.pers_dim*general_scale_factor/Constants_Game.arena_area_coff, 0), "v");
+		//System.out.println("ERT"+arena.bears_element.size());
+		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
+		init_animation_vimp_arbalet_engine(update_path, pers);
+		pers.set_coordanate(CGSize.make(141f, 141f),CGSize.make(141, 168));
+		Integer[] enemy_demage = new Integer[]{30, 15, 0,0, 0, 0,0,0};
+		pers.set_main_parameters(4, 400, enemy_demage, 1, CGSize.make(0, 0),14);
+		pers.set_attack_speed(0.4f);
+		return pers;
+		
+	}
+	
 	
 	public Main_Personage get_bear(int index)
 	{
