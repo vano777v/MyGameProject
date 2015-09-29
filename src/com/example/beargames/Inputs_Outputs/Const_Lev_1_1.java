@@ -74,7 +74,10 @@ public class Const_Lev_1_1 extends Constants_Game
 	{
 		arena.get_Main_Base_list(1).get_animation_element(0).start_action_sequences(0);
 		arena.get_Main_Base_list(1).get_animation_element(0).start_action_sequences(1);
+		
 	}
+	
+	// ==============================Initializare urshi=============================================
 	public Main_Personage box_bear_init( String update_path)
 	{
 		Main_Personage pers=null; 
@@ -102,12 +105,39 @@ public class Const_Lev_1_1 extends Constants_Game
 		pers.set_attack_speed(0.6f);
 		return pers;
 	}
+	
+	public Main_Personage pitcher_bear_init( String update_path)
+	{
+		Main_Personage pers=null; 
+		pers= arena.add_personage("campaign_1/","b_pitcher", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(0).getPosition().x+arena.get_Main_Base_list(0).getContentSize().width, 0), "b");
+		//System.out.println("ERT"+arena.bears_element.size());
+		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
+		init_animation_bear_pitcher_engine(update_path, pers);
+		pers.set_coordanate(CGSize.make(98, 158), CGSize.make(78, 158));
+		Integer[] enemy_demage = new Integer[]{30, 35, 20,60, 30, 0,0,20};
+		pers.set_main_parameters(3, 1000, enemy_demage, 2, CGSize.make(0, 0),14);
+		pers.set_attack_speed(0.6f);
+		return pers;
+	}
+	public Main_Personage archer_bear_init( String update_path)
+	{
+		Main_Personage pers=null; 
+		pers= arena.add_personage("campaign_1/","b_archer", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(0).getPosition().x+arena.get_Main_Base_list(0).getContentSize().width, 0), "b");
+		//System.out.println("ERT"+arena.bears_element.size());
+		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
+		init_animation_bear_archer_engine(update_path, pers);
+		pers.set_coordanate(CGSize.make(98, 158), CGSize.make(78, 158));
+		Integer[] enemy_demage = new Integer[]{30, 35, 20,60, 30, 0,0,20};
+		pers.set_main_parameters(4, 1000, enemy_demage,1, CGSize.make(0, 0),14);
+		pers.set_attack_speed(0.6f);
+		return pers;
+	}
 	public void init_animation_bear_box_engine(String update_path, Main_Personage pers)
 	{
 	    pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_box_engine_path+update_path,"engine_", "default",1.2f, 1, 3, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_box_engine_path+update_path,"engine_", "walk",0.2f, 3, 9, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_box_engine_path+update_path,"engine_", "attack",0.2f, 9, 16, true);
-        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_box_engine_path+update_path,"engine_", "death",0.2f, 16, 30, false);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_box_engine_path+update_path,"engine_", "death",0.1f, 16, 30, false);
 	}
 	
 	public void init_animation_bear_mace_engine(String update_path, Main_Personage pers)
@@ -115,9 +145,27 @@ public class Const_Lev_1_1 extends Constants_Game
 	    pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "default",1.2f, 10, 12, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "walk",0.23f, 4, 10, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "attack",0.2f, 1, 4, true);
-        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "death",0.2f, 12, 26, false);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "death",0.1f, 12, 26, false);
 
 	}
+	
+	public void init_animation_bear_pitcher_engine(String update_path, Main_Personage pers)
+	{
+	    pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_pitcher_engine_path+update_path,"engine_", "default",1.2f, 1, 3, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_pitcher_engine_path+update_path,"engine_", "walk",0.23f, 3, 9, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_pitcher_engine_path+update_path,"engine_", "attack",0.2f, 9, 12, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_pitcher_engine_path+update_path,"engine_", "death",0.1f, 12, 26, false);
+
+	}
+	
+	public void init_animation_bear_archer_engine(String update_path, Main_Personage pers)
+	{
+	    pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_archer_engine_path+update_path,"engine_", "default",1.2f, 1, 3, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_archer_engine_path+update_path,"engine_", "walk",0.23f, 12, 18, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_archer_engine_path+update_path,"engine_", "attack",0.16f, 3, 12, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_archer_engine_path+update_path,"engine_", "death",0.2f, 12, 26, false);
+	}
+	
 	
 	//============================Initializare vimpiri==========================================
 	

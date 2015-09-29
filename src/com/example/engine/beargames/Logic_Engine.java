@@ -53,6 +53,8 @@ private Game_Arena arena = null;
 		
 		const_level.bear_team_fight.add(const_level.box_bear_init("default/"));
 		const_level.bear_team_fight.add(const_level.mace_bear_init("default/"));
+		const_level.bear_team_fight.add(const_level.pitcher_bear_init("default/"));
+		const_level.bear_team_fight.add(const_level.archer_bear_init("default/"));
 		
 		const_level.vimp_team_fight.add(const_level.claw_vimp_init("default/"));
 		const_level.vimp_team_fight.add(const_level.scythe_vimp_init("default/"));
