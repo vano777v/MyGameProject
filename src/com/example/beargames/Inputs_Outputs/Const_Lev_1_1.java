@@ -129,7 +129,7 @@ public class Const_Lev_1_1 extends Constants_Game
 		pers.set_coordanate(CGSize.make(98, 158), CGSize.make(78, 158));
 		Integer[] enemy_demage = new Integer[]{30, 35, 20,60, 30, 0,0,20};
 		pers.set_main_parameters(4, 1000, enemy_demage,1, CGSize.make(0, 0),14);
-		pers.set_attack_speed(0.6f);
+		pers.set_attack_speed(1.8f);
 		return pers;
 	}
 	public void init_animation_bear_box_engine(String update_path, Main_Personage pers)
@@ -145,7 +145,7 @@ public class Const_Lev_1_1 extends Constants_Game
 	    pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "default",1.2f, 10, 12, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "walk",0.23f, 4, 10, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "attack",0.2f, 1, 4, true);
-        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "death",0.1f, 12, 26, false);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_mace_engine_path+update_path,"engine_", "death",0.2f, 12, 26, false);
 
 	}
 	
@@ -154,16 +154,16 @@ public class Const_Lev_1_1 extends Constants_Game
 	    pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_pitcher_engine_path+update_path,"engine_", "default",1.2f, 1, 3, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_pitcher_engine_path+update_path,"engine_", "walk",0.23f, 3, 9, true);
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_pitcher_engine_path+update_path,"engine_", "attack",0.2f, 9, 12, true);
-        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_pitcher_engine_path+update_path,"engine_", "death",0.1f, 12, 26, false);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_pitcher_engine_path+update_path,"engine_", "death",0.2f, 12, 26, false);
 
 	}
 	
 	public void init_animation_bear_archer_engine(String update_path, Main_Personage pers)
 	{
 	    pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_archer_engine_path+update_path,"engine_", "default",1.2f, 1, 3, true);
-        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_archer_engine_path+update_path,"engine_", "walk",0.23f, 12, 18, true);
-        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_archer_engine_path+update_path,"engine_", "attack",0.16f, 3, 12, true);
-        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_archer_engine_path+update_path,"engine_", "death",0.2f, 12, 26, false);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_archer_engine_path+update_path,"engine_", "walk",0.23f, 11, 17, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_archer_engine_path+update_path,"engine_", "attack",0.16f, 3, 11, true);
+        pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.bear_archer_engine_path+update_path,"engine_", "death",0.2f, 17, 31, false);
 	}
 	
 	

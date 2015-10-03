@@ -17,6 +17,7 @@ import com.example.beargames.Inputs_Outputs.Const_Lev_1_1;
 import com.example.engine.beargames.Action_Activity;
 import com.example.game.arena.elements.Main_Base;
 import com.example.game.arena.elements.Main_Personage;
+import com.example.game.arena.elements.Particle_Element;
 import com.example.game.arena.elements.Personage_Element;
 
 public class Game_Arena extends CCColorLayer
@@ -279,6 +280,13 @@ public class Game_Arena extends CCColorLayer
 		if(is_who.equalsIgnoreCase("b"))
 			return bears_element.get(index);
 		else return vimpire_element.get(index);
+	}
+	
+	
+	public Particle_Element init_Particle( String path, String is_who, CGSize size )
+	{
+		Particle_Element particle = new Particle_Element(path, is_who, size, local_scale_factor, general_scale_factor);
+	    return particle;
 	}
 	public void paralax_zoom_in(float scale_factor)
 	{

@@ -14,6 +14,7 @@ import com.example.beargames.Inputs_Outputs.Const_Lev_1_1;
 import com.example.beargames.Inputs_Outputs.Constants_Game;
 import com.example.game.arena.elements.Main_Base;
 import com.example.game.arena.elements.Main_Personage;
+import com.example.game.arena.elements.Particle_Element;
 import com.example.game.arena.elements.Personage_Element;
 
 public class Logic_Engine extends GameLayer
@@ -60,8 +61,13 @@ private Game_Arena arena = null;
 		const_level.vimp_team_fight.add(const_level.scythe_vimp_init("default/"));
 		const_level.vimp_team_fight.add(const_level.captain_vimp_init("default/"));
 		const_level.vimp_team_fight.add(const_level.arbalet_vimp_init("default/"));
+		Particle_Element elem = arena.init_Particle("campaign_1/Particles/stones/1.png", "b", CGSize.make(200, 200));
+		elem.set_Position(1600f, 350f);
+		elem.set_step_move(14);
+		arena.addChild(elem);
+		elem.start_move_elipse(350, CGPoint.make(251f,250f), CGPoint.make(500f,250f), true);
 		this.schedule("main_control_activity", 0.1f);
-		this.schedule("build_vimp_init", 6f);
+		//this.schedule("build_vimp_init", 6f);
 		this.schedule("clear_memory_pers",4f);
   }
   private void  init_paralax()
