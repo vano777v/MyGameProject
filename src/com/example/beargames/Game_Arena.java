@@ -34,6 +34,7 @@ public class Game_Arena extends CCColorLayer
     public ArrayList<Main_Personage> bears_element = null;
     public ArrayList<Main_Personage> vimpire_element = null;
     private ArrayList<Main_Base> base_list=null; 
+    public Particle_Element test=null; 
     //private Integer arena_limit_pers_count[]=null;
     public int unit_limit_bears;
     public int unit_limit_vimpires;
@@ -285,8 +286,8 @@ public class Game_Arena extends CCColorLayer
 	
 	public Particle_Element init_Particle( String path, String is_who, CGSize size )
 	{
-		Particle_Element particle = new Particle_Element(path, is_who, size, local_scale_factor, general_scale_factor);
-	    return particle;
+		  this.test = new Particle_Element(path, is_who, size, local_scale_factor, general_scale_factor);
+	    return test;
 	}
 	public void paralax_zoom_in(float scale_factor)
 	{
