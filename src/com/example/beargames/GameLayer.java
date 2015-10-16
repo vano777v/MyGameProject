@@ -955,7 +955,7 @@ public class GameLayer extends CCLayer
     	  for(int i=0;i<arena.bears_element.size();i++)
     		  arena.bears_element.get(i).start_animation("death");
     	  
-    	  arena.test.start_move_elipse(175f, CGPoint.make(250f, 175f), 250, CGPoint.make(500, 175), true);
+    	  arena.test.start_move_elipse(100f, CGPoint.make(250f, 0f), 250, CGPoint.make(600, 250), true);
     	  //arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
     	//  arena.get_Main_Base_list(0).get_animation_element(0).start_action(1);
     	 // arena.get_Main_List("b", 0).get_animation(0).start_action(1);
@@ -963,7 +963,7 @@ public class GameLayer extends CCLayer
     	 // arena.set_paralax_scale(scale_factor);
     	  ///System.out.println("Scale arena "+arena.getContentSize().width+" "+vp+" "+vimpir_base.getContentSize()+" "+vimpir_base.getScaleX());
     	  arena.paralax_zoom_out(1.2f);
-    	  
+    	   
     	 
     	 
     	  

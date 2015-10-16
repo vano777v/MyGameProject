@@ -31,6 +31,8 @@ public class Particle_Element extends CCSprite
 	private float height_attack=0;
 	private CGPoint elipse_center_calc =null;
 	private int total_time_fly=0;
+	private float angle=0;
+	private float default_angle;
 	public Particle_Element(String path, String is_who, CGSize size_request, CGSize local_factor, float general_factor) 
 	{
 		super(path);
@@ -98,9 +100,11 @@ float rotation;
 		     
 		     elipse_axis.set(lenght_segm_calulation(soldier_pos, enimy_pos),height_attack*2);
 		     elipse_center_calc.set(calc_midle_point(soldier_pos, enimy_position));
+		     angle=max_covert_detect(soldier_pos.x, enimy_pos.x,step_move, height_attack);
 		     y=calc_elispe_orbit(elipse_axis, elipse_center_calc, this.height_attack,start_attact_point, orbit_counter);
-		     rotation = 360*(y/height_attack);
-		     this.setRotation(360-rotation);
+		     default_angle=get_default_angle(soldier_pos, enimy_pos);
+		     //rotation = 360*(y/angle);
+		    // this.setRotation(360-rotation+default_angle);
 		     half_perimeter = this.half_elipse_perimeter(this.height_attack,lenght_segm_calulation(soldier_pos, enimy_pos));
 		     
 		     time_step = total_time_fly/(half_perimeter/step_move);
@@ -139,12 +143,11 @@ float rotation;
 		    
 		     y=calc_elispe_orbit(elipse_axis, elipse_center_calc,this.height_attack, 250, orbit_counter);
 		     
-		     rotation = 360*(y/350);
-		     if(orbit_counter+250 >= elipse_center_calc.x)
-		    	 this.setRotation(360-rotation);
-		     else this.setRotation(rotation);
+		   //  rotation = 360*(y/angle);
+		     //if(orbit_counter+250 >= elipse_center_calc.x)
+		    //	 this.setRotation(360-rotation+default_angle);
+		     //else this.setRotation(rotation-default_angle);
              half_perimeter = this.half_elipse_perimeter(this.height_attack,elipse_axis.width);
-		     
 		     time_step = total_time_fly/(half_perimeter/step_move);
 		     System.out.println("rotation "+ rotation);
 		     this.runAction(CCSequence.actions(CCMoveTo.action(time_step, CGPoint.make(250f+orbit_counter, y)), CCCallFunc.action(this, "Move_Control_elipse")));
@@ -219,17 +222,32 @@ float rotation;
 	
 	private float max_covert_detect( float start_point, float finish_point,float step, float height)
 	{
-		float y_max =-1;
+		float y_max =-1, a, b, c,n,m, x_mod, square_x_mod, square_m, square_n, square_yc;
 		float covert=0;
 		CGSize rez=null;
-		for(float i=0;i<finish_point;i+=step){
-			
+		a=1;
+		b= 2*elipse_center_calc.y*(-1);
+		n=elipse_axis.height/2;
+		m= elipse_axis.width/2;
+		square_m=m*m;
+		square_n=n*n;
+		square_yc = elipse_center_calc.y*elipse_center_calc.y;
+		float i = 0;
+		while(i<finish_point)
+		{
+			x_mod = start_point+i-elipse_center_calc.x;
+			square_x_mod = x_mod*x_mod;
+			c= square_yc-((1-(square_x_mod/square_m))*square_n);
 		    rez=clac_ecuation(a, b, c);
+		    System.out.println("detect_y "+c);
 		    if(rez.width>=rez.height) y_max = rez.width;
 		    else y_max= rez.height;
-		    if(lenght_segm_calulation(elipse_center_calc,CGPoint.make(i, y_max))+0.1>=height)
+		    if(lenght_segm_calulation(elipse_center_calc,CGPoint.make(start_point+i, y_max))+0.1>=height)
+		    {
 		       covert=y_max;
-		    break; 
+		       break;
+		    } 
+		    i+=step;
 		}
 		return covert;
 	}
@@ -267,6 +285,20 @@ float rotation;
 				
 	}
 	
+	private float get_default_angle(CGPoint first, CGPoint second)
+	{
+		float result=0;
+		double arctan=0;
+		String trans=null;
+		float gradient = (first.y - second.y)/(first.x-second.x);
+		if(gradient<=0) gradient*=-1;
+		arctan=Math.atan(gradient);
+		NumberFormat nf = NumberFormat.getInstance();
+	    nf.setMaximumFractionDigits(2);
+		trans= nf.format(arctan);
+		result=Float.parseFloat(trans);
+		return result;
+	}
 	public void set_time_of_fly(int value)
 	{
 		total_time_fly=value;
