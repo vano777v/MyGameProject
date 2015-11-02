@@ -276,13 +276,13 @@ public class Game_Arena extends CCColorLayer
 	{
 		return base_list.get(index);
 	}
-	public Main_Personage get_Main_List (String is_who, int index)
+	/*public Main_Personage get_Main_List (String is_who, int index)
 	{
 	   
 		if(is_who.equalsIgnoreCase("b"))
 			return bears_element.get(index);
 		else return vimpire_element.get(index);
-	}
+	}*/
 	
 	
 	public Particle_Element init_Particle( String path, String is_who, CGSize size )

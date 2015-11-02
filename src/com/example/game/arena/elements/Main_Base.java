@@ -20,6 +20,13 @@ private ArrayList<Action_Activity>  animation_element=null;
 private Personage_Element boss = null;
 private static  String source_path=null;
 private String is_who=null;
+private int life_base = 0;
+private int total_life = 0;
+private int money = 0;
+private int mana = 0;
+private int unitlimit = 0;
+private int count_unit = 0;
+private CGSize atac_area=null;
 	  public Main_Base(ccColor4B color, final String campaign_path,String castle_level,CGSize local_scale_factor, float general_scale_factor, String is_who ) 
 	{
 	
@@ -35,7 +42,7 @@ private String is_who=null;
 		base_element =  new Base_Element(source_path+"castle/"+castle_level+"/base"+is_who+".png", general_scale_factor);
 		flag = new Flag_Element(source_path+"castle/flag/flag_"+is_who+".png", general_scale_factor, is_who);
 		//bar_life.setBarPosition(CGPoint.make(300, 0));
-		
+		atac_area = CGSize.make(0, 0);
 		this.setOpacity(30);
 		this.is_who = is_who;
 		//this.setContentSize(2048f,2048f);
@@ -119,6 +126,59 @@ private String is_who=null;
 	{
 		return animation_element.get(index); 
 	}	
+	
+	
+	public void setTotalBaseLife(int BaseLife)
+	{
+		this.total_life = BaseLife;
+	}
+	
+	public int getTotalBaseLife()
+	{
+		return this.total_life;
+	}
+	
+	public void setBaseLife(int BaseLife)
+	{
+		this.life_base = BaseLife;
+	}
+	
+	public int getBaseLife()
+	{
+		return this.life_base;
+	}
+	
+	public void setMoney(int m)
+	{
+		this.money = m;
+	}
+	
+	public int getMoney()
+	{
+		return this.money;
+	}
+	
+	public void setMana(int m)
+	{
+		this.mana = m;
+	}
+	
+	public int getMana()
+	{
+		return this.mana;
+	}
+	
+	
+
+	public void setAtacArea(CGSize area )
+	{
+		atac_area.set(area);
+	}
+	public CGSize getAtacArea()
+	{
+		
+		return atac_area;
+	}
 	
 	
 }

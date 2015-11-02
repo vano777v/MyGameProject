@@ -61,7 +61,7 @@ private Game_Arena arena = null;
 		const_level.vimp_team_fight.add(const_level.scythe_vimp_init("default/"));
 		const_level.vimp_team_fight.add(const_level.captain_vimp_init("default/"));
 		const_level.vimp_team_fight.add(const_level.arbalet_vimp_init("default/"));
-		Particle_Element elem = arena.init_Particle("campaign_1/Particles/arrows/1.png", "b", CGSize.make(200, 200));
+		Particle_Element elem = arena.init_Particle("campaign_1/Particles/arrows/1.png", "v", CGSize.make(200, 200));
 		elem.set_Position(3829f, 0f);
 		elem.set_time_of_fly(2);
 		

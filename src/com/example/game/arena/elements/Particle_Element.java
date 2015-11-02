@@ -8,6 +8,7 @@ import org.cocos2d.actions.interval.CCMoveTo;
 import org.cocos2d.actions.interval.CCSequence;
 import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.types.CGPoint;
+import org.cocos2d.types.CGRect;
 import org.cocos2d.types.CGSize;
 import org.cocos2d.types.ccGridSize;
 
@@ -417,8 +418,7 @@ int direction=0;
 	public void Move_Control_liniar()
 	{
 		float dx,dy,x,y,time_step;
-		if((_soldier.x+(orbit_counter*direction))!=enimy_position.x)
-			{
+		
 			   orbit_counter+=step_move;
 			   dx= (orbit_counter*direction)/(enimy_position.x-_soldier.x);
 			   dy= (enimy_position.y-_soldier.y);
@@ -428,8 +428,8 @@ int direction=0;
 			   System.out.println("Liniar_x_y "+x+" "+y);
 			   this.runAction(CCSequence.actions(CCMoveTo.action(time_step, CGPoint.make(x, y)), CCCallFunc.action(this, "Move_Control_liniar")));
 			   
-			}
-		else detect_colision();
+			
+		 detect_colision();
 	}
 	
 	protected Main_Personage detect_intersect_pers()
@@ -439,9 +439,90 @@ int direction=0;
 		{
 			for(int i=0;i<arena.vimpire_element.size();i++)
 			{
-				
+				if(intersect_attack(arena.get_personage(i, "v")))
+				{
+					enimy=arena.get_personage(i, "v");
+					return enimy;
+				}
+			}
+		}
+		else 
+		{
+			for(int i=0;i<arena.bears_element.size();i++)
+			{
+				if(intersect_attack(arena.get_personage(i, "b")))
+				{
+					enimy=arena.get_personage(i, "b");
+					return enimy;
+				}
 			}
 		}
 		return enimy;
 	}
+	
+	protected Main_Base detect_intersect_base()
+	{
+		Main_Base base = null;
+		if(is_who.equalsIgnoreCase("b"))
+		{
+			if(intersect_base(arena.get_Main_Base_list(1)))
+				return arena.get_Main_Base_list(1);
+		}
+		else
+		{
+			if(intersect_base(arena.get_Main_Base_list(0)))
+				return arena.get_Main_Base_list(0);
+		}
+		
+		return base;
+	}
+	
+	protected Boolean detect_out_border()
+	{
+		Boolean result= false;
+		CGPoint orig = arena.getPosition();
+		CGRect obj = CGRect.make(orig,arena.getContentSize());
+		if(!obj.contains(this.getPosition().x+this.getContentSize().width, this.getPosition().y))
+		{
+			result=true;
+		}
+		return result;
+	} 
+	private Boolean intersect_attack( Main_Personage second)
+	{
+	  
+		Boolean result  = false;
+	 
+		if( second!=null)
+			
+		{
+		  if( second.is_live==true )
+		  {	
+			
+			  CGPoint first_point = CGPoint.make(second.getPosition().x + second.attack_coord.height,second.getPosition().y);
+			  CGRect object = CGRect.make(first_point,CGSize.make(second.getContentSize().width-second.attack_coord.width-second.attack_coord.height, second.getContentSize().height));
+			  if(object.contains(this.getPosition().x, this.getPosition().y))
+						result=true;
+		  }
+		}
+		return result;
+	}
+	
+	private Boolean intersect_base(Main_Base base)
+	{
+		Boolean result = false;
+		
+		if(base!=null)
+		{
+			
+		
+			CGRect object2 = CGRect.make(base.getPosition(), base.getContentSize());
+			if(object2.contains(this.getPosition().x, this.getPosition().y))
+			{
+				result=true;
+			}
+		}
+		return result;
+	}
+	
 }
