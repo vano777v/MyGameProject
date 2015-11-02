@@ -11,9 +11,10 @@ import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGSize;
 import org.cocos2d.types.ccGridSize;
 
+import com.example.beargames.Game_Arena;
 import com.example.engine.beargames.Action_Activity;
 
-public class Particle_Element extends CCSprite
+public abstract class Particle_Element extends CCSprite
 {
 	private String is_who= null; 
 	private CGSize local_scale_factor = null;
@@ -22,7 +23,7 @@ public class Particle_Element extends CCSprite
 	private CGSize main_size=null;
 	private Action_Activity animation =null;
 	private CGPoint main_position=null;
-	private CGPoint enimy_position = null;
+	protected CGPoint enimy_position = null;
 	private float step_move=0;
 	private Boolean is_bear=false;
 	private CGSize elispe_element=null;
@@ -32,8 +33,11 @@ public class Particle_Element extends CCSprite
 	private CGPoint elipse_center_calc =null;
 	private int total_time_fly=0;
 	private float angle=0;
-	private float default_angle;
-	public Particle_Element(String path, String is_who, CGSize size_request, CGSize local_factor, float general_factor) 
+	private float start_point=0;
+	protected CGPoint _soldier;
+	protected Game_Arena arena=null;
+	abstract public void detect_colision();
+	public Particle_Element(String path, String is_who, CGSize size_request, Game_Arena _arena, CGSize local_factor, float general_factor) 
 	{
 		super(path);
 		this.is_who = is_who;
@@ -50,8 +54,11 @@ public class Particle_Element extends CCSprite
 		main_position = CGPoint.make(0, 0);
 		enimy_position= CGPoint.make(0, 0);
 		elispe_element = CGSize.make(0, 0);
+		arena =_arena; 
 		elipse_axis = CGSize.make(0, 0);
 		elipse_center_calc= CGPoint.make(0, 0);
+		_soldier=CGPoint.make(0, 0);
+		
 	}
 	
 	public void set_Size (float width, float height)
@@ -85,32 +92,35 @@ public class Particle_Element extends CCSprite
 		return main_position;
 	}
 float rotation;
+int direction=0;
 	public void start_move_elipse(float height_atac_orbit, CGPoint soldier_pos, float start_attact_point,CGPoint enimy_pos, Boolean is_who)
 	{
 		float half_perimeter=0, time_step=0;
-	
+	    
 		float y;
-		height_attack = height_atac_orbit;
+		//height_attack = height_atac_orbit;
 	    this.enimy_position.set(enimy_pos);
 	    is_bear = is_who;
 	    orbit_counter=0;
 	   if(is_who)
 	   {	
-		     
-		     
-		     elipse_axis.set(lenght_segm_calulation(soldier_pos, enimy_pos),height_attack*2);
-		     elipse_center_calc.set(calc_midle_point(soldier_pos, enimy_position));
-		     angle=max_covert_detect(soldier_pos.x, enimy_pos.x,step_move, height_attack);
-		     y=calc_elispe_orbit(elipse_axis, elipse_center_calc, this.height_attack,start_attact_point, orbit_counter);
-		     default_angle=get_default_angle(soldier_pos, enimy_pos);
-		     //rotation = 360*(y/angle);
-		    // this.setRotation(360-rotation+default_angle);
+		     direction=detect_ellipse_parameters(soldier_pos, enimy_pos, elipse_axis, elipse_center_calc);
+		     System.out.println("parameters_ellips "+elipse_axis+" "+elipse_center_calc+" "+start_point);
+		     height_attack=elipse_axis.height/2;
+		     //elipse_axis.set(lenght_segm_calulation(soldier_pos, enimy_pos),height_attack*2);
+		     //elipse_center_calc.set(calc_midle_point(soldier_pos, enimy_position));
+		     angle=max_covert_detect(soldier_pos.x, (elipse_center_calc.x+elipse_axis.width/2),step_move, height_attack);
+		     y=calc_elispe_orbit(elipse_axis, elipse_center_calc, this.height_attack,start_point, orbit_counter);
+		     //default_angle=get_default_angle(soldier_pos, enimy_pos);
+		     rotation = 360*(y/angle);
+		     orbit_counter*=direction;
+		    this.setRotation(360-rotation);
 		     half_perimeter = this.half_elipse_perimeter(this.height_attack,lenght_segm_calulation(soldier_pos, enimy_pos));
 		     
 		     time_step = total_time_fly/(half_perimeter/step_move);
 		    
-		     this.runAction(CCSequence.actions(CCMoveTo.action(time_step, CGPoint.make(soldier_pos.x+orbit_counter, y)), CCCallFunc.action(this, "Move_Control_elipse")));
-		     System.out.println("rotation "+ rotation);
+		     this.runAction(CCSequence.actions(CCMoveTo.action(time_step, CGPoint.make(start_point+orbit_counter, y)), CCCallFunc.action(this, "Move_Control_elipse")));
+		     System.out.println("rotation "+ angle);
 		     orbit_counter+=step_move;
 	   } 
 	   else 
@@ -134,24 +144,37 @@ float rotation;
 		float half_perimeter,time_step;
 		String inter=null, format=null;
 		float y=0;
+        float last_point;
+		
 		if(is_bear)
 		   {	
 			  
-			
+			if(direction<0)
+				{
+				      last_point=elipse_center_calc.x-elipse_axis.width/2;
+				      if((start_point+orbit_counter*direction)<=last_point) orbit_counter=0;
+				}
+			else 
+			{
+				 last_point = elipse_center_calc.x+elipse_axis.width/2;
+				 if((start_point+orbit_counter*direction)>=last_point) orbit_counter=0;
+			}
 		     orbit_counter+=step_move;
-		     if(orbit_counter+250 >=enimy_position.x) orbit_counter=0;
+		     //if(start_point+orbit_counter>=(elipse_center_calc.x+elipse_axis.width/2) ||start_point+orbit_counter<=(elipse_center_calc.x+elipse_axis.width/2)) orbit_counter=0;
 		    
-		     y=calc_elispe_orbit(elipse_axis, elipse_center_calc,this.height_attack, 250, orbit_counter);
+		     y=calc_elispe_orbit(elipse_axis, elipse_center_calc,this.height_attack,start_point, orbit_counter);
 		     
-		   //  rotation = 360*(y/angle);
-		     //if(orbit_counter+250 >= elipse_center_calc.x)
-		    //	 this.setRotation(360-rotation+default_angle);
-		     //else this.setRotation(rotation-default_angle);
+		     rotation = 360*(y/angle);
+		    
+		    	if(start_point+orbit_counter*direction>=elipse_center_calc.x) this.setRotation(360-rotation);
+		         this.setRotation(rotation);
+		     //angle = max_covert_detect(start_point,(start_point+elipse_axis.width),step_move, height_attack);
              half_perimeter = this.half_elipse_perimeter(this.height_attack,elipse_axis.width);
 		     time_step = total_time_fly/(half_perimeter/step_move);
-		     System.out.println("rotation "+ rotation);
-		     this.runAction(CCSequence.actions(CCMoveTo.action(time_step, CGPoint.make(250f+orbit_counter, y)), CCCallFunc.action(this, "Move_Control_elipse")));
-		     System.out.println("elispe "+orbit_counter+" "+y);
+		     System.out.println("rotation "+ angle);
+		
+		     this.runAction(CCSequence.actions(CCMoveTo.action(time_step, CGPoint.make(start_point+orbit_counter*direction, y)), CCCallFunc.action(this, "Move_Control_elipse")));
+		     System.out.println("elispe "+(start_point+orbit_counter*direction)+" "+y);
 		    
 		   } 
 		   else 
@@ -179,7 +202,10 @@ float rotation;
 		double sqrt;
 		float delta=0, square_b, radic_delta=0, res1, res2;
 		square_b = b*b;
-        delta = square_b-4*a*c;
+		if(b==0)
+           delta = 4*a*c*(-1);
+		else 
+			delta=square_b-4*a*c;
         sqrt = Math.sqrt(delta);
         NumberFormat nf = NumberFormat.getInstance();
 	    nf.setMaximumFractionDigits(2);
@@ -220,13 +246,15 @@ float rotation;
 		return result;
 	}
 	
-	private float max_covert_detect( float start_point, float finish_point,float step, float height)
+	private float max_covert_detect( float start_point_at, float finish_point,float step, float height)
 	{
 		float y_max =-1, a, b, c,n,m, x_mod, square_x_mod, square_m, square_n, square_yc;
 		float covert=0;
 		CGSize rez=null;
 		a=1;
-		b= 2*elipse_center_calc.y*(-1);
+        if(elipse_center_calc.y==0) b=0;
+        else
+        	b= 2*elipse_center_calc.y*(-1);
 		n=elipse_axis.height/2;
 		m= elipse_axis.width/2;
 		square_m=m*m;
@@ -235,14 +263,18 @@ float rotation;
 		float i = 0;
 		while(i<finish_point)
 		{
-			x_mod = start_point+i-elipse_center_calc.x;
+			x_mod = start_point_at+i-elipse_center_calc.x;
 			square_x_mod = x_mod*x_mod;
-			c= square_yc-((1-(square_x_mod/square_m))*square_n);
+			
+			  c= square_yc-((1-(square_x_mod/square_m))*square_n);
+			
+			  System.out.println("coficineti ecu_ang "+a+" "+b+" "+c);  
 		    rez=clac_ecuation(a, b, c);
-		    System.out.println("detect_y "+c);
+		    
 		    if(rez.width>=rez.height) y_max = rez.width;
 		    else y_max= rez.height;
-		    if(lenght_segm_calulation(elipse_center_calc,CGPoint.make(start_point+i, y_max))+0.1>=height)
+		    System.out.println("detect_y "+y_max+" "+height);
+		    if((y_max+0.1)>=(elipse_center_calc.y+height))
 		    {
 		       covert=y_max;
 		       break;
@@ -267,17 +299,23 @@ float rotation;
 		float x_mod, square_x_mod,  m, square_m,square_n,n, square_yc; 
 		x_mod = start_atac_point+delta_step-elipse_center.x;
 		square_x_mod = x_mod*x_mod;
-		System.out.println("info_ecu "+elipse_center+" "+elipse_axis+" "+attack_height_orbit);
+		
 		m = elipse_axis.width/2;
 		n= elipse_axis.height/2;
 		square_m = m*m;
 		square_n = n*n;
 		square_yc = elipse_center.y *elipse_center.y; 
-		c=square_yc-((1-(square_x_mod/square_m))*square_n);
-		b= 2*elipse_center.y*(-1);
+
+		 c=square_yc-((1-(square_x_mod/square_m))*square_n);
+		
+		if(elipse_center.y==0) b =0;
+		else
+			b= 2*elipse_center.y*(-1);
+		
 		a=1;
 		System.out.println("coficineti ecu "+a+" "+b+" "+c);
 		 result= clac_ecuation(a, b, c);
+		 System.out.println("info_ecu "+square_x_mod+" "+c+" "+result+" "+delta_step+" "+square_m);
 		 System.out.println("info_result "+result);
 		 if(result.width >=result.height) y_orbit=result.width;
 		 else y_orbit=result.height;
@@ -293,11 +331,52 @@ float rotation;
 		float gradient = (first.y - second.y)/(first.x-second.x);
 		if(gradient<=0) gradient*=-1;
 		arctan=Math.atan(gradient);
+		System.out.println("Arctan "+gradient+" "+arctan);
 		NumberFormat nf = NumberFormat.getInstance();
 	    nf.setMaximumFractionDigits(2);
 		trans= nf.format(arctan);
-		result=Float.parseFloat(trans);
+		result=Float.parseFloat(trans)*59.2958f;
 		return result;
+	}
+	private int detect_ellipse_parameters(CGPoint sold, CGPoint enimy,CGSize axis, CGPoint elipse_center)
+	{
+		int direction=1;
+		float axis_a=0, axis_b=0;
+		CGPoint center=null;
+	   if(sold.y==enimy.y)
+	   {
+		   start_point = sold.x;
+		   axis_b = lenght_segm_calulation(sold, enimy);
+		   axis_a = 175f*general_scale_factor*2;
+		   center =  calc_midle_point(sold, enimy);
+		   axis.set(axis_b, axis_a);
+		   elipse_center.set(center);
+		   
+	   }
+	   if(sold.y<enimy.y)
+	   {
+		   
+		   start_point = sold.x;
+		   System.out.println("soldier "+sold+" "+start_point);
+		   axis_b = lenght_segm_calulation(sold, CGPoint.make(enimy.x, sold.y))*2;
+		   axis_a =(enimy.y-sold.y)*2;
+		   center= CGPoint.make(enimy.x, sold.y);
+		   axis.set(axis_b, axis_a);
+		   elipse_center.set(center);
+		   
+	   }
+	   if(sold.y>enimy.y)
+	   {
+		   axis_b = lenght_segm_calulation(CGPoint.make(sold.x, enimy.y), enimy)*2;
+		   axis_a =(sold.y-enimy.y)*2;
+		   center= CGPoint.make(sold.x, enimy.y);
+		   axis.set(axis_b, axis_a);
+		   elipse_center.set(center);
+		   start_point = sold.x;
+	   }
+	   
+	   if(sold.x >enimy.x) direction =-1;
+	   return direction;
 	}
 	public void set_time_of_fly(int value)
 	{
@@ -306,5 +385,63 @@ float rotation;
 	public int get_time_of_fly()
 	{
 		return total_time_fly;
+	}
+	
+	public void start_liniar_move(CGPoint sold, CGPoint enimy)
+	{
+		
+		float y=0, dx,dy,x,dir_angle=0;
+		_soldier.set(sold);
+		enimy_position.set(enimy);
+		
+		float lenght = lenght_segm_calulation(sold, enimy);
+		float angle = get_default_angle(sold, enimy);
+		
+		System.out.println("Angle_l "+angle);
+		if(_soldier.x>enimy.x) direction=-1;
+		else direction=1;
+		if((_soldier.y>enimy.y && direction==-1 )||(_soldier.y<enimy.y&&direction==1)) dir_angle=360-angle;
+		else dir_angle=angle;
+		this.setRotation(dir_angle);
+		float time_step = total_time_fly/step_move;
+		orbit_counter=step_move;
+	
+		dx= (orbit_counter*direction)/(enimy_position.x-_soldier.x);
+		dy= (enimy.y-_soldier.y);
+		y=dx*dy+_soldier.y;
+		x=_soldier.x+(orbit_counter*direction);
+		 System.out.println("Liniar_x_y "+x+" "+y);
+		this.runAction(CCSequence.actions(CCMoveTo.action(time_step, CGPoint.make(x, y)), CCCallFunc.action(this, "Move_Control_liniar")));
+	}
+	
+	public void Move_Control_liniar()
+	{
+		float dx,dy,x,y,time_step;
+		if((_soldier.x+(orbit_counter*direction))!=enimy_position.x)
+			{
+			   orbit_counter+=step_move;
+			   dx= (orbit_counter*direction)/(enimy_position.x-_soldier.x);
+			   dy= (enimy_position.y-_soldier.y);
+			   y=dx*dy+_soldier.y;
+			   time_step = total_time_fly/step_move;
+			   x=_soldier.x+(orbit_counter*direction);
+			   System.out.println("Liniar_x_y "+x+" "+y);
+			   this.runAction(CCSequence.actions(CCMoveTo.action(time_step, CGPoint.make(x, y)), CCCallFunc.action(this, "Move_Control_liniar")));
+			   
+			}
+		else detect_colision();
+	}
+	
+	protected Main_Personage detect_intersect_pers()
+	{
+		Main_Personage enimy=null;
+		if(is_who.equalsIgnoreCase("b"))
+		{
+			for(int i=0;i<arena.vimpire_element.size();i++)
+			{
+				
+			}
+		}
+		return enimy;
 	}
 }

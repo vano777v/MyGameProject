@@ -19,6 +19,7 @@ import com.example.game.arena.elements.Main_Base;
 import com.example.game.arena.elements.Main_Personage;
 import com.example.game.arena.elements.Particle_Element;
 import com.example.game.arena.elements.Personage_Element;
+import com.example.particles.Arrow_Particle_Element;
 
 public class Game_Arena extends CCColorLayer
 {
@@ -286,7 +287,7 @@ public class Game_Arena extends CCColorLayer
 	
 	public Particle_Element init_Particle( String path, String is_who, CGSize size )
 	{
-		  this.test = new Particle_Element(path, is_who, size, local_scale_factor, general_scale_factor);
+		  this.test = new Arrow_Particle_Element(path, is_who, size, this,local_scale_factor, general_scale_factor);
 	    return test;
 	}
 	public void paralax_zoom_in(float scale_factor)
