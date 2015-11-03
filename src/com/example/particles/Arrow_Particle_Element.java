@@ -35,7 +35,8 @@ public class Arrow_Particle_Element extends Particle_Element
 		 }
 		 if(detect_out_border())
 		 {
-			 this.setVisible(false);
+			 System.out.println("Border "+this.getPosition()+" "+arena.get_Main_Base_list(1).getPosition());
+			 this.stopAllActions();
 		 }
 	}
 

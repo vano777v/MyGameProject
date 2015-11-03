@@ -955,7 +955,8 @@ public class GameLayer extends CCLayer
     	  for(int i=0;i<arena.bears_element.size();i++)
     		  arena.bears_element.get(i).start_animation("death");
     	  
-    	  arena.test.start_liniar_move(CGPoint.make(600, 300), CGPoint.make(300, -10));
+    	  arena.test.start_liniar_move(CGPoint.make(600, 300), CGPoint.make(600, -10));
+    	  arena.test.setVisible(true);
     	  //arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
     	//  arena.get_Main_Base_list(0).get_animation_element(0).start_action(1);
     	 // arena.get_Main_List("b", 0).get_animation(0).start_action(1);

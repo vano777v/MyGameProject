@@ -10,6 +10,8 @@ import org.cocos2d.nodes.CCSprite;
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGRect;
 import org.cocos2d.types.CGSize;
+import org.cocos2d.types.ccColor3B;
+import org.cocos2d.types.ccColor4B;
 import org.cocos2d.types.ccGridSize;
 
 import com.example.beargames.Game_Arena;
@@ -55,7 +57,7 @@ public abstract class Particle_Element extends CCSprite
 		main_position = CGPoint.make(0, 0);
 		enimy_position= CGPoint.make(0, 0);
 		elispe_element = CGSize.make(0, 0);
-		arena =_arena; 
+		arena =_arena;
 		elipse_axis = CGSize.make(0, 0);
 		elipse_center_calc= CGPoint.make(0, 0);
 		_soldier=CGPoint.make(0, 0);
@@ -391,7 +393,7 @@ int direction=0;
 	public void start_liniar_move(CGPoint sold, CGPoint enimy)
 	{
 		
-		float y=0, dx,dy,x,dir_angle=0;
+		float y=0, dx,dy,x,dir_angle=0,  a;
 		_soldier.set(sold);
 		enimy_position.set(enimy);
 		
@@ -403,28 +405,55 @@ int direction=0;
 		else direction=1;
 		if((_soldier.y>enimy.y && direction==-1 )||(_soldier.y<enimy.y&&direction==1)) dir_angle=360-angle;
 		else dir_angle=angle;
-		this.setRotation(dir_angle);
+		//this.setRotation(dir_angle);
 		float time_step = total_time_fly/step_move;
 		orbit_counter=step_move;
-	
-		dx= (orbit_counter*direction)/(enimy_position.x-_soldier.x);
-		dy= (enimy.y-_soldier.y);
-		y=dx*dy+_soldier.y;
-		x=_soldier.x+(orbit_counter*direction);
+	    a= (enimy_position.x-_soldier.x);
+	    if(a==0)
+	    { 
+	    	dx=0; 
+	    	if(_soldier.y>enimy_position.y) direction=-1;
+	    	else direction=1;
+			dy=0;
+			y=_soldier.y+orbit_counter*direction;
+			x=_soldier.x;
+	    }
+	    else
+	    {
+	    	   dx= (orbit_counter*direction)/(enimy_position.x-_soldier.x);
+			   dy= (enimy_position.y-_soldier.y);
+			   y=dx*dy+_soldier.y;
+			   //time_step = total_time_fly/step_move;
+			   x=_soldier.x+(orbit_counter*direction);
+	    }
 		 System.out.println("Liniar_x_y "+x+" "+y);
 		this.runAction(CCSequence.actions(CCMoveTo.action(time_step, CGPoint.make(x, y)), CCCallFunc.action(this, "Move_Control_liniar")));
 	}
 	
 	public void Move_Control_liniar()
 	{
-		float dx,dy,x,y,time_step;
+		float dx,dy,x,y,time_step,a;
 		
 			   orbit_counter+=step_move;
-			   dx= (orbit_counter*direction)/(enimy_position.x-_soldier.x);
-			   dy= (enimy_position.y-_soldier.y);
-			   y=dx*dy+_soldier.y;
 			   time_step = total_time_fly/step_move;
-			   x=_soldier.x+(orbit_counter*direction);
+			   a = (enimy_position.x-_soldier.x);
+			   if(a==0)
+			   {
+				    dx=0; 
+			    	if(_soldier.y>enimy_position.y) direction=-1;
+			    	else direction=1;
+					dy=0;
+					y=_soldier.y+orbit_counter*direction;
+					x=_soldier.x;
+					 
+			   }
+			   else{
+				   dx= (orbit_counter*direction)/a;
+				   dy= (enimy_position.y-_soldier.y);
+				   y=dx*dy+_soldier.y;
+				   
+				   x=_soldier.x+(orbit_counter*direction);
+			   }
 			   System.out.println("Liniar_x_y "+x+" "+y);
 			   this.runAction(CCSequence.actions(CCMoveTo.action(time_step, CGPoint.make(x, y)), CCCallFunc.action(this, "Move_Control_liniar")));
 			   
@@ -480,9 +509,9 @@ int direction=0;
 	protected Boolean detect_out_border()
 	{
 		Boolean result= false;
-		CGPoint orig = arena.getPosition();
+		CGPoint orig = CGPoint.make(0, 0);
 		CGRect obj = CGRect.make(orig,arena.getContentSize());
-		if(!obj.contains(this.getPosition().x+this.getContentSize().width, this.getPosition().y))
+		if(!obj.contains(this.getPosition().x, this.getPosition().y))
 		{
 			result=true;
 		}
