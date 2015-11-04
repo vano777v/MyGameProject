@@ -2,6 +2,7 @@ package com.example.game.arena.elements;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 
 import org.cocos2d.actions.instant.CCCallFunc;
 import org.cocos2d.actions.interval.CCMoveTo;
@@ -38,7 +39,10 @@ public abstract class Particle_Element extends CCSprite
 	private float angle=0;
 	private float start_point=0;
 	protected CGPoint _soldier;
-	protected Game_Arena arena=null;
+	protected Game_Arena arena=null; 
+	private Integer[] demage_enimy =null;
+	private CGPoint rf_location = null; 
+	private ArrayList<Integer> Imunity_defence =null;
 	abstract public void detect_colision();
 	public Particle_Element(String path, String is_who, CGSize size_request, Game_Arena _arena, CGSize local_factor, float general_factor) 
 	{
@@ -57,13 +61,42 @@ public abstract class Particle_Element extends CCSprite
 		main_position = CGPoint.make(0, 0);
 		enimy_position= CGPoint.make(0, 0);
 		elispe_element = CGSize.make(0, 0);
+		rf_location = CGPoint.make(0, 0);
 		arena =_arena;
 		elipse_axis = CGSize.make(0, 0);
 		elipse_center_calc= CGPoint.make(0, 0);
 		_soldier=CGPoint.make(0, 0);
-		
+		demage_enimy = new Integer[9];
+		Imunity_defence = new ArrayList<Integer>();	
+		this.addChild(animation);
 	}
-	
+	public Particle_Element (Particle_Element particle)
+	{
+		super(particle.getTexture());
+		this.is_who = particle.is_who;
+		this.general_scale_factor = particle.general_scale_factor;
+		this.local_scale_factor = CGSize.make(particle.local_scale_factor.width,particle.local_scale_factor.height);
+		this.setContentSize(particle.getContentSize());
+		this.setScaleX(particle.getScaleX());
+		this.setScaleY(particle.getScaleY());
+		reference_size =CGSize.make(particle.reference_size.width,particle.reference_size.height);
+		animation = new Action_Activity(this, particle.get_animation_element());
+		main_position = CGPoint.make(0, 0);
+		enimy_position= CGPoint.make(0, 0);
+		elispe_element = CGSize.make(0, 0);
+		rf_location= CGPoint.make(0, 0);
+		this.set_Refrence_location(particle.get_unscaled_Refrence_Location().x, particle.get_unscaled_Refrence_Location().y);
+		this.arena =particle.arena;
+		elipse_axis = CGSize.make(0, 0);
+		elipse_center_calc= CGPoint.make(0, 0);
+		_soldier=CGPoint.make(0, 0);
+		demage_enimy = new Integer[9];
+		this.set_demage_enimy_list(particle.demage_enimy);
+		Imunity_defence = new ArrayList<Integer>();
+	    for(int i=0;i<particle.Imunity_defence.size();i++)
+	    	Imunity_defence.add(particle.Imunity_defence.get(i));
+	    this.addChild(animation);
+	}
 	public void set_Size (float width, float height)
 	{
 		float f_width = width/main_size.width;
@@ -79,10 +112,7 @@ public abstract class Particle_Element extends CCSprite
 		return reference_size;
 	}
 	
-	public Action_Activity get_animationRefrence()
-	{
-		return animation;
-	}
+	
 	
 	public void set_Position(float x, float y)
 	{
@@ -536,7 +566,70 @@ int direction=0;
 		}
 		return result;
 	}
+	public void  set_demage_enimy_list(Integer demage[])
+	{
+		for(int i=0;i<demage.length; i++)
+		{
+			demage_enimy[i]=demage[i];
+		}
+	}
 	
+	public Action_Activity get_animation_element()
+	{
+		return animation;
+	}
+	public Integer[] get_demage_list()
+	{
+		return demage_enimy;
+	} 
+	public void set_demage_enimy(int pers_tag, int value)
+	{
+		demage_enimy[pers_tag]=value;
+	}
+	public int get_demage_enimy(int pers_tag)
+	{
+		return demage_enimy[pers_tag];
+	}
+	public void add_defence_imunity(int pers_tag)
+	{
+		Imunity_defence.add(pers_tag);
+	}
+	
+	public void set_Refrence_location(float x_coord, float y_coord)
+	{
+		float x,y;
+		x= x_coord*general_scale_factor/local_scale_factor.width;
+		y= y_coord*general_scale_factor/local_scale_factor.height;
+		rf_location.set(x, y);
+	}
+	public CGPoint get_Refrence_location()
+	{
+		return rf_location;
+	}
+	public CGPoint get_unscaled_Refrence_Location()
+	{
+		float x,y;
+		CGPoint result = CGPoint.make(0, 0);
+		x= rf_location.x*local_scale_factor.width/general_scale_factor;
+		y = rf_location.y*local_scale_factor.height/general_scale_factor;
+		result.set(x, y);
+		return result;
+	}
+	public ArrayList<Integer>get_imunity_list ()
+	{
+		return Imunity_defence;
+	}
+	public Boolean has_imunity(int pers_tag)
+	{
+		Boolean result=false;
+		for(int i=0;i<Imunity_defence.size();i++)
+			if(Imunity_defence.get(i)==pers_tag)
+			{
+				result=true;
+				return result;
+			}
+		return result;
+	}
 	private Boolean intersect_base(Main_Base base)
 	{
 		Boolean result = false;
@@ -552,6 +645,39 @@ int direction=0;
 			}
 		}
 		return result;
+	}
+	
+	public void Destructor()
+	{
+		this.is_who = null;
+		this.general_scale_factor=0;
+		this.local_scale_factor.set(0, 0);
+		this.local_scale_factor=null;
+		this.setContentSize(0,0);
+		reference_size.set(0, 0);
+		reference_size=null;
+		animation.Destroy();
+		animation=null;
+		main_position = CGPoint.make(0, 0);
+		main_position=null;
+		enimy_position= CGPoint.make(0, 0);
+		enimy_position=null;
+		elispe_element = CGSize.make(0, 0);
+		elispe_element=null;
+		rf_location= CGPoint.make(0, 0);
+		rf_location= null;
+		elipse_axis = CGSize.make(0, 0);
+		elipse_axis=null;
+		elipse_center_calc= CGPoint.make(0, 0);
+		elipse_center_calc=null;
+		_soldier=CGPoint.make(0, 0);
+		_soldier=null;
+		this.set_demage_enimy_list(new Integer[]{0,0,0,0,0,0,0,0,0});
+		demage_enimy=null;
+		Imunity_defence.clear();
+		Imunity_defence=null;
+		arena.removeChild(this, true);
+		arena=null;
 	}
 	
 }

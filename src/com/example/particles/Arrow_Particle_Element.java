@@ -15,6 +15,10 @@ public class Arrow_Particle_Element extends Particle_Element
 		super(path, is_who, size_request, arena,local_factor, general_factor);
 		// TODO Auto-generated constructor stub
 	}
+	public Arrow_Particle_Element (Particle_Element particle)
+	{
+		super(particle);
+	}
 	
 	public void detect_colision()
 	{
@@ -26,17 +30,21 @@ public class Arrow_Particle_Element extends Particle_Element
 		 if(base!=null)
 		 {
 			 //base.setTotalBaseLife(base.getBaseLife()-10);
-			 this.setVisible(false);
 			 this.stopAllActions();
 		 }
 		 if(personage!=null)
 		 {
-			 
+			 this.setVisible(false);
+			 if(!this.has_imunity(personage.getTag()));
+				 personage.set_bar_life(this.get_demage_enimy(personage.getTag()-1));
+			 this.stopAllActions();
+			 this.Destructor();
 		 }
 		 if(detect_out_border())
 		 {
-			 System.out.println("Border "+this.getPosition()+" "+arena.get_Main_Base_list(1).getPosition());
+             this.setVisible(false);
 			 this.stopAllActions();
+			 this.Destructor();
 		 }
 	}
 
