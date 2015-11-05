@@ -39,23 +39,24 @@ public abstract class Particle_Element extends CCSprite
 	private float angle=0;
 	private float start_point=0;
 	protected CGPoint _soldier;
+	private float speed_fly=0;
 	protected Game_Arena arena=null; 
 	private Integer[] demage_enimy =null;
 	private CGPoint rf_location = null; 
 	private ArrayList<Integer> Imunity_defence =null;
 	abstract public void detect_colision();
-	public Particle_Element(String path, String is_who, CGSize size_request, Game_Arena _arena, CGSize local_factor, float general_factor) 
+	public Particle_Element(String path, String is_who, CGSize size_request, Game_Arena _arena) 
 	{
 		super(path);
 		this.is_who = is_who;
-		general_scale_factor = general_factor; 
-		local_scale_factor = CGSize.make(local_factor.width, local_factor.height);
+		general_scale_factor = arena.get_general_scale_factor(); 
+		local_scale_factor = CGSize.make(arena.get_local_scale_factor().width, arena.get_local_scale_factor().height);
 		main_size = CGSize.make(this.getContentSize().width, this.getContentSize().height);
 		float f_width = size_request.width/this.getContentSize().width;
 		float f_height = size_request.height/this.getContentSize().height;
-		this.setContentSize(size_request.width*f_width*general_factor/local_factor.width, size_request.height*general_factor/local_factor.height*f_height);
-		this.setScaleX(f_width*general_factor/local_factor.width);
-		this.setScaleY(f_height*general_scale_factor/local_factor.height);
+		this.setContentSize(size_request.width*f_width*general_scale_factor/local_scale_factor.width, size_request.height*general_scale_factor/local_scale_factor.height*f_height);
+		this.setScaleX(f_width*general_scale_factor/local_scale_factor.width);
+		this.setScaleY(f_height*general_scale_factor/local_scale_factor.height);
 		reference_size = CGSize.make(size_request.width,size_request.height);
 		animation = new Action_Activity(this, is_who);
 		main_position = CGPoint.make(0, 0);
@@ -647,6 +648,19 @@ int direction=0;
 		return result;
 	}
 	
+	public void set_speed_fly(float speed)
+	{
+		this.speed_fly = speed;
+	}
+	
+	public float get_speed_fly()
+	{
+		return this.speed_fly;
+	}
+	public String is_who()
+	{
+		return is_who;
+	}
 	public void Destructor()
 	{
 		this.is_who = null;

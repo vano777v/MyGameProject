@@ -10,9 +10,10 @@ import com.example.game.arena.elements.Particle_Element;
 public class Arrow_Particle_Element extends Particle_Element 
 {
 
-	public Arrow_Particle_Element(String path, String is_who, CGSize size_request, Game_Arena arena,CGSize local_factor, float general_factor)
+	public Arrow_Particle_Element(String path, String is_who, CGSize size_request, Game_Arena arena,int tag)
 	{
-		super(path, is_who, size_request, arena,local_factor, general_factor);
+		super(path, is_who, size_request, arena);
+		this.setTag(tag);
 		// TODO Auto-generated constructor stub
 	}
 	public Arrow_Particle_Element (Particle_Element particle)

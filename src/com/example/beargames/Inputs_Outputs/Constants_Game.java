@@ -37,6 +37,7 @@ public abstract class Constants_Game
     public String[][] action_base_list= null;
     public ArrayList<Main_Personage> bear_team_fight = null;
     public ArrayList<Main_Personage> vimp_team_fight = null;
+    
     abstract  public void start_flags_movie();
     abstract public void start_bear_base_default_movie();
     abstract public void start_vimpire_base_default_movie();
@@ -58,4 +59,6 @@ public abstract class Constants_Game
     abstract public Main_Personage scythe_vimp_init(String update_path);
     abstract public void init_animation_vimp_arbalet_engine(String update_path, Main_Personage pers);
     abstract public Main_Personage arbalet_vimp_init(String update_path);
+    
+    abstract public void ammunition_init();
 }

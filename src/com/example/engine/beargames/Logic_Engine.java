@@ -16,6 +16,7 @@ import com.example.game.arena.elements.Main_Base;
 import com.example.game.arena.elements.Main_Personage;
 import com.example.game.arena.elements.Particle_Element;
 import com.example.game.arena.elements.Personage_Element;
+import com.example.particles.Arrow_Particle_Element;
 
 public class Logic_Engine extends GameLayer
 
@@ -61,15 +62,9 @@ private Game_Arena arena = null;
 		const_level.vimp_team_fight.add(const_level.scythe_vimp_init("default/"));
 		const_level.vimp_team_fight.add(const_level.captain_vimp_init("default/"));
 		const_level.vimp_team_fight.add(const_level.arbalet_vimp_init("default/"));
-		Particle_Element elem = arena.init_Particle("campaign_1/Particles/arrows/1.png", "v", CGSize.make(200, 200));
-		elem.set_Position(3829f, 540f);
-		//elem.set_Position(3829f, 0);
-		//elem.setRotation(90);
-		elem.set_time_of_fly(2);
+	
+	
 		
-		//elem.setRotation(330);
-		elem.set_step_move(14);
-		arena.addChild(elem);
   	    //arena.test.start_move_elipse(100f, CGPoint.make(250f, 250f), 250, CGPoint.make(500, 250), true);
 		this.schedule("main_control_activity", 0.1f);
 		//this.schedule("build_vimp_init", 6f);

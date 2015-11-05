@@ -9,6 +9,8 @@ import org.cocos2d.types.CGSize;
 import com.example.beargames.Game_Arena;
 import com.example.beargames.Campaign_1.Level_1_1;
 import com.example.game.arena.elements.Main_Personage;
+import com.example.game.arena.elements.Particle_Element;
+import com.example.particles.Arrow_Particle_Element;
 
 public class Const_Lev_1_1 extends Constants_Game 
 {
@@ -259,13 +261,22 @@ public class Const_Lev_1_1 extends Constants_Game
 		
 	}
 	
-	
 	public Main_Personage get_bear(int index)
 	{
 		Main_Personage bear = bear_team_fight.get(index);
 		return bear;
 	}
-	
+    public void ammunition_init()
+    {
+    	arrow_particle_init();
+    }	
+    
+    private void arrow_particle_init()
+    {
+    	Particle_Element arrow_particle = new Arrow_Particle_Element("campaign_1/Particles/arrows/1.png", "b", CGSize.make(200f, 200f), arena, 1);
+    	arrow_particle.set_speed_fly(144f);
+    	arena.add_level_ammunition(arrow_particle);
+    }
 	
 	public int get_unit_limit()
 	{

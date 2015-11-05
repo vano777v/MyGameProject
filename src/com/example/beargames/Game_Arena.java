@@ -30,12 +30,13 @@ public class Game_Arena extends CCColorLayer
     private CGSize screen_size=null;
     private CGPoint start_touch=null;
     private float start_point_arena =0, action_arena=0;
+    private ArrayList<Particle_Element> ammunition_particles_bear=null;
+    private ArrayList<Particle_Element> ammunition_particles_vimp=null;
     private float base_dimm=0, pers_dimm=0;  
     private ArrayList<CCSprite> paralax_element=null; 
     public ArrayList<Main_Personage> bears_element = null;
     public ArrayList<Main_Personage> vimpire_element = null;
     private ArrayList<Main_Base> base_list=null; 
-    public Particle_Element test=null; 
     //private Integer arena_limit_pers_count[]=null;
     public int unit_limit_bears;
     public int unit_limit_vimpires;
@@ -62,6 +63,8 @@ public class Game_Arena extends CCColorLayer
 		base_list = new ArrayList<Main_Base>();
 		bears_element = new ArrayList<Main_Personage>();
 		vimpire_element = new ArrayList<Main_Personage>();
+		ammunition_particles_bear = new ArrayList<Particle_Element>();
+		ammunition_particles_vimp = new ArrayList<Particle_Element>();
 		addChild(paralax, 0, 6);
 	} 
 	
@@ -285,11 +288,48 @@ public class Game_Arena extends CCColorLayer
 	}*/
 	
 	
-	public Particle_Element init_Particle( String path, String is_who, CGSize size )
+	public void add_level_ammunition(Particle_Element particle)
 	{
-		  this.test = new Arrow_Particle_Element(path, is_who, size, this,local_scale_factor, general_scale_factor);
-	    return test;
+		if(particle.is_who().equalsIgnoreCase("b")) 
+		      ammunition_particles_bear.add(particle);
+		else ammunition_particles_vimp.add(particle);
 	}
+	
+	public Particle_Element get_particle_ammunition_by_tag(int tag, String is_who)
+	{
+		Particle_Element particle =null;
+		if(is_who.equalsIgnoreCase("b"))
+		{
+			for(int i=0;i<ammunition_particles_bear.size();i++)
+				if(ammunition_particles_bear.get(i).getTag()==tag)
+					return ammunition_particles_bear.get(i);
+		}
+		else
+		{
+			for(int i=0;i<ammunition_particles_vimp.size();i++)
+				if(ammunition_particles_vimp.get(i).getTag()==tag)
+					return ammunition_particles_vimp.get(i);
+		}
+		return particle;
+	}
+	
+	public Particle_Element get_particle_ammunition_by_index(int index, String is_who)
+	{
+		Particle_Element particle = null;
+		if(is_who.equalsIgnoreCase("b"))
+		{
+			if(index<ammunition_particles_bear.size())
+				return ammunition_particles_bear.get(index);
+		}
+		else
+		{
+			if(index<ammunition_particles_vimp.size())
+				return ammunition_particles_vimp.get(index);
+		}
+			
+		return particle;
+	}
+
 	public void paralax_zoom_in(float scale_factor)
 	{
 		this.setContentSize(this.getContentSize().width*scale_factor,this.getContentSize().height*scale_factor);
@@ -411,6 +451,15 @@ public class Game_Arena extends CCColorLayer
 	    }		
 	}
  
+	public CGSize get_local_scale_factor()
+	{
+		return local_scale_factor;
+	}
+	
+	public float get_general_scale_factor()
+	{
+		return general_scale_factor;
+	}
 	String is_who_scan=null;
 	Boolean arena_is_free = false;
    public void free_space_arena_bears( float dt)
