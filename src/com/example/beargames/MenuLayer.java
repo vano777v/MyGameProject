@@ -28,7 +28,7 @@ public class MenuLayer extends CCColorLayer{
     private float general_scale_factor= 0;
     static private CGPoint translation = null;
     private  ArrayList<MenuItemLayer> menuitems = null;
-	protected MenuLayer(ccColor4B color, String campaign, String image_path, int tag, CGSize menu_size, float general_scale_factor) 
+	public MenuLayer(ccColor4B color, String campaign, String image_path, int tag, CGSize menu_size, float general_scale_factor) 
 	{
 		super(color);
 		

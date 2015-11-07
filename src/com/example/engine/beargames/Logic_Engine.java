@@ -12,6 +12,15 @@ import com.example.beargames.GameLayer;
 import com.example.beargames.Game_Arena;
 import com.example.beargames.Inputs_Outputs.Const_Lev_1_1;
 import com.example.beargames.Inputs_Outputs.Constants_Game;
+import com.example.beargames.personage_campaign_1.Bear_Archer;
+import com.example.beargames.personage_campaign_1.Bear_Box;
+import com.example.beargames.personage_campaign_1.Bear_General;
+import com.example.beargames.personage_campaign_1.Bear_Pitcher;
+import com.example.beargames.personage_campaign_1.Vimpire_Claw;
+import com.example.beargames.personage_campaign_1.Vimpire_General;
+import com.example.beargames.personage_campaign_1.Vimpire_arbalet;
+import com.example.beargames.personage_campaign_1.Vimpire_scythe;
+import com.example.beragames.loadscreans.Main_Load_Screen;
 import com.example.game.arena.elements.Main_Base;
 import com.example.game.arena.elements.Main_Personage;
 import com.example.game.arena.elements.Particle_Element;
@@ -33,16 +42,18 @@ private Game_Arena arena = null;
     private Main_Personage vimp_pers= null;
     private Boolean vimp_build_is_runing = false;
      private Boolean[] go_flag =null;
+     public Main_Load_Screen load=null; 
   
-  public Logic_Engine( Level level,  Game_Arena arena,  float general_scale_factor)
+  public Logic_Engine( Level level,  Game_Arena arena,  float general_scale_factor, Main_Load_Screen _load)
   {
 	 
-	    super("campaign_"+level.get_campaign()+"/", arena );
+	    super("campaign_"+level.get_campaign()+"/", arena, _load );
+	    load=_load;
 		this.level = level;
 		this.arena = arena;
 		random_engine = new Random();
 		this.general_scale_factor = general_scale_factor;
-		this.const_level = this.detect_level(level.get_campaign(), level.get_current_level(), arena);
+		this.const_level = this.detect_level(level.get_campaign(), level.get_current_level(), arena, load);
 		campaign = "campaign_"+level.get_campaign()+"/";
 		current_level = "level_"+level.get_current_level();
 		go_flag = new Boolean[]{false,false};
@@ -52,19 +63,8 @@ private Game_Arena arena = null;
 		const_level.start_flags_movie();
 		const_level.start_vimpire_base_default_movie();
 		const_level.start_bear_base_default_movie();
-		
-		const_level.bear_team_fight.add(const_level.box_bear_init("default/"));
-		const_level.bear_team_fight.add(const_level.mace_bear_init("default/"));
-		const_level.bear_team_fight.add(const_level.pitcher_bear_init("default/"));
-		const_level.bear_team_fight.add(const_level.archer_bear_init("default/"));
-		
-		const_level.vimp_team_fight.add(const_level.claw_vimp_init("default/"));
-		const_level.vimp_team_fight.add(const_level.scythe_vimp_init("default/"));
-		const_level.vimp_team_fight.add(const_level.captain_vimp_init("default/"));
-		const_level.vimp_team_fight.add(const_level.arbalet_vimp_init("default/"));
-	
-	
-		
+		load.setPercentageBarLife(load.getPercentageBarLife()+15f);
+		const_level.Personages_level_init();
   	    //arena.test.start_move_elipse(100f, CGPoint.make(250f, 250f), 250, CGPoint.make(500, 250), true);
 		this.schedule("main_control_activity", 0.1f);
 		//this.schedule("build_vimp_init", 6f);
@@ -239,7 +239,7 @@ private Game_Arena arena = null;
 			 break;}
 		case 4:
 			 {
-				pers.death(arena, 4);
+				pers.death(4);
 				
 			 	break;
 			 	
@@ -259,7 +259,7 @@ private Game_Arena arena = null;
 		if(!vimp_build_is_runing && arena.count_personages("v")<arena.unit_limit_vimpires)
 		{
 			//System.out.println("OH"+arena.get_pers_limit_count("v"));
-			vimp_pers = new Main_Personage(const_level.vimp_team_fight.get(random_engine.nextInt(4)));
+			vimp_pers = build_vimpires( random_engine.nextInt(4));
 			
 			this.schedule("build_vimp", 0.1f);
 			vimp_build_is_runing=true;
@@ -382,7 +382,7 @@ private Game_Arena arena = null;
 	  return result_vector;
   }
   
-  private Constants_Game detect_level (int value_camp, int value_level, Game_Arena arena)
+  private Constants_Game detect_level (int value_camp, int value_level, Game_Arena arena, Main_Load_Screen _load)
   {
 	  Constants_Game game_const=null;
 	  switch (value_camp) {
@@ -390,7 +390,7 @@ private Game_Arena arena = null;
 	{
 		switch (value_level) {
 		case 1:
-			Const_Lev_1_1 lev = new Const_Lev_1_1(arena, general_scale_factor);
+			Const_Lev_1_1 lev = new Const_Lev_1_1(arena, general_scale_factor, _load);
 			game_const = lev;
 			break;
 		case 2:
@@ -411,5 +411,48 @@ private Game_Arena arena = null;
 	}
 	  return game_const;
   }
+@Override
+public Main_Personage bear_build(int tag) {
+  Main_Personage personage= null;
+	switch (tag) {
+	case 1:
+		personage = new Bear_Box(const_level.bear_team_fight.get(tag-1));
+		break;
+	case 2: 
+		personage = new Bear_General(const_level.bear_team_fight.get(tag-1));
+		break;
+	case 3: 
+		personage = new Bear_Pitcher(const_level.bear_team_fight.get(tag-1));
+		break;
+	case 4: 
+		personage = new Bear_Archer(const_level.bear_team_fight.get(tag-1));
+		break;
+	default:
+		break;
+	}
+	return personage;
+}
   
+public Main_Personage build_vimpires(int tag)
+{
+   	Main_Personage personage = null;
+   	switch (tag) {
+	case 0:
+		personage= new Vimpire_Claw (const_level.vimp_team_fight.get(tag));
+		break;
+	case 1:
+		personage= new Vimpire_scythe (const_level.vimp_team_fight.get(tag));
+		break;
+	case 2:
+		personage= new Vimpire_General (const_level.vimp_team_fight.get(tag));
+		break;
+	case 3:
+		personage= new Vimpire_arbalet (const_level.vimp_team_fight.get(tag));
+		break;
+
+	default:
+		break;
+	}
+   	return personage;
+}
 }

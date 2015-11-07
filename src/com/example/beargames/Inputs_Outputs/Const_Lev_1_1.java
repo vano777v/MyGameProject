@@ -5,9 +5,19 @@ import java.util.Random;
 
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGSize;
+import org.cocos2d.types.ccColor4B;
 
 import com.example.beargames.Game_Arena;
 import com.example.beargames.Campaign_1.Level_1_1;
+import com.example.beargames.personage_campaign_1.Bear_Archer;
+import com.example.beargames.personage_campaign_1.Bear_Box;
+import com.example.beargames.personage_campaign_1.Bear_General;
+import com.example.beargames.personage_campaign_1.Bear_Pitcher;
+import com.example.beargames.personage_campaign_1.Vimpire_Claw;
+import com.example.beargames.personage_campaign_1.Vimpire_General;
+import com.example.beargames.personage_campaign_1.Vimpire_arbalet;
+import com.example.beargames.personage_campaign_1.Vimpire_scythe;
+import com.example.beragames.loadscreans.Main_Load_Screen;
 import com.example.game.arena.elements.Main_Personage;
 import com.example.game.arena.elements.Particle_Element;
 import com.example.particles.Arrow_Particle_Element;
@@ -16,15 +26,16 @@ public class Const_Lev_1_1 extends Constants_Game
 {
    
    private static float general_scale_factor =0;
-   
+   private Main_Load_Screen load=null;
    private Game_Arena arena=null;
   
-   public Const_Lev_1_1(Game_Arena arena, float general_scale_factor)
+   public Const_Lev_1_1(Game_Arena _arena, float general_scale_factor, Main_Load_Screen _load)
    {
 	   
 	   this.unit_limit          =      Level_1_1.units;
+	   load=_load;
 	   this.paralax_child=5;
-	   this.arena = arena;
+	   this.arena = _arena;
 	   
 	   Const_Lev_1_1.general_scale_factor = general_scale_factor;
 	   Constants_Game.parlax_value= new Float[][]{{0f,250f, 0f,0f},{0f, 0f, 0.2f, 0f},{0f, 70f, 0.3f, 0f},{0f, 60f, 0.1f, 0f},{0f, 60f, 0.2f, 0f}};
@@ -80,10 +91,11 @@ public class Const_Lev_1_1 extends Constants_Game
 	}
 	
 	// ==============================Initializare urshi=============================================
-	public Main_Personage box_bear_init( String update_path)
+	public Main_Personage box_bear_init( String update_path, ArrayList<String> ammunition_path)
 	{
 		Main_Personage pers=null; 
-		pers= arena.add_personage("campaign_1/","b_box", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(0).getPosition().x+arena.get_Main_Base_list(0).getContentSize().width, 0), "b");
+		pers= new Bear_Box(ccColor4B.ccc4(0,255, 0,255),"campaign_1/","b_box",arena,"b");
+		arena.add_personage(pers, CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(0).getPosition().x+arena.get_Main_Base_list(0).getContentSize().width, 0));
 		//System.out.println("ERT"+arena.bears_element.size());
 		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
 		init_animation_bear_box_engine(update_path, pers);
@@ -91,13 +103,15 @@ public class Const_Lev_1_1 extends Constants_Game
 		Integer[] enemy_demage = new Integer[]{26, 10, 25,45, 30, 0,0,20};
 		pers.set_main_parameters(1, 1500, enemy_demage, 1, CGSize.make(0, 0),14);
 		pers.set_attack_speed(0.4f);
+		load.setPercentageBarLife(load.getPercentageBarLife()+5f);
 		return pers;
 	}
 	
-	public Main_Personage mace_bear_init( String update_path)
+	public Main_Personage mace_bear_init( String update_path,ArrayList<String> ammunition_path)
 	{
 		Main_Personage pers=null; 
-		pers= arena.add_personage("campaign_1/","b_mace", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(0).getPosition().x+arena.get_Main_Base_list(0).getContentSize().width, 0), "b");
+		pers= new Bear_General(ccColor4B.ccc4(0,255, 0,255),"campaign_1/","b_mace",arena,"b");
+	    arena.add_personage(pers, CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(0).getPosition().x+arena.get_Main_Base_list(0).getContentSize().width, 0));
 		//System.out.println("ERT"+arena.bears_element.size());
 		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
 		init_animation_bear_mace_engine(update_path, pers);
@@ -105,13 +119,15 @@ public class Const_Lev_1_1 extends Constants_Game
 		Integer[] enemy_demage = new Integer[]{30, 35, 20,60, 30, 0,0,20};
 		pers.set_main_parameters(2, 1000, enemy_demage, 2, CGSize.make(0, 0),14);
 		pers.set_attack_speed(0.6f);
+		load.setPercentageBarLife(load.getPercentageBarLife()+5f);
 		return pers;
 	}
 	
-	public Main_Personage pitcher_bear_init( String update_path)
+	public Main_Personage pitcher_bear_init( String update_path, ArrayList<String> ammunition_path)
 	{
 		Main_Personage pers=null; 
-		pers= arena.add_personage("campaign_1/","b_pitcher", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(0).getPosition().x+arena.get_Main_Base_list(0).getContentSize().width, 0), "b");
+		pers= new Bear_Pitcher(ccColor4B.ccc4(0,255, 0,255),"campaign_1/","b_pitcher",arena,"b");
+		arena.add_personage(pers, CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(0).getPosition().x+arena.get_Main_Base_list(0).getContentSize().width, 0));
 		//System.out.println("ERT"+arena.bears_element.size());
 		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
 		init_animation_bear_pitcher_engine(update_path, pers);
@@ -119,12 +135,15 @@ public class Const_Lev_1_1 extends Constants_Game
 		Integer[] enemy_demage = new Integer[]{30, 35, 20,60, 30, 0,0,20};
 		pers.set_main_parameters(3, 1000, enemy_demage, 2, CGSize.make(0, 0),14);
 		pers.set_attack_speed(0.6f);
+		pers.attack_particle_init(ammunition_path);
+		load.setPercentageBarLife(load.getPercentageBarLife()+5f);
 		return pers;
 	}
-	public Main_Personage archer_bear_init( String update_path)
+	public Main_Personage archer_bear_init( String update_path, ArrayList<String> ammunition_path)
 	{
 		Main_Personage pers=null; 
-		pers= arena.add_personage("campaign_1/","b_archer", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(0).getPosition().x+arena.get_Main_Base_list(0).getContentSize().width, 0), "b");
+		pers=  new Bear_Archer(ccColor4B.ccc4(0,255, 0,255),"campaign_1/","b_archer",arena,"b");
+		arena.add_personage(pers,CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(0).getPosition().x+arena.get_Main_Base_list(0).getContentSize().width, 0));
 		//System.out.println("ERT"+arena.bears_element.size());
 		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
 		init_animation_bear_archer_engine(update_path, pers);
@@ -132,6 +151,8 @@ public class Const_Lev_1_1 extends Constants_Game
 		Integer[] enemy_demage = new Integer[]{30, 35, 20,60, 30, 0,0,20};
 		pers.set_main_parameters(4, 1000, enemy_demage,1, CGSize.make(0, 0),14);
 		pers.set_attack_speed(1.8f);
+		pers.attack_particle_init(ammunition_path);
+		load.setPercentageBarLife(load.getPercentageBarLife()+5f);
 		return pers;
 	}
 	public void init_animation_bear_box_engine(String update_path, Main_Personage pers)
@@ -201,10 +222,11 @@ public class Const_Lev_1_1 extends Constants_Game
         pers.get_animation(0).add_animation("campaign_1/"+Constants_Game.vimp_arbalet_engine_path+update_path,"engine_", "death",0.15f, 12, 21, false);
 	}
 	
-	public Main_Personage claw_vimp_init( String update_path)
+	public Main_Personage claw_vimp_init( String update_path,ArrayList<String> ammunition_path)
 	{
 		Main_Personage pers=null; 
-		pers= arena.add_personage("campaign_1/","v_claw", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(1).getPosition().x-Constants_Game.pers_dim*general_scale_factor/Constants_Game.arena_area_coff, 0), "v");
+		pers= new Vimpire_Claw(ccColor4B.ccc4(0,255, 0,255),"campaign_1/", "v_claw", arena, "v");
+		arena.add_personage(pers, CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(1).getPosition().x-Constants_Game.pers_dim*general_scale_factor/Constants_Game.arena_area_coff, 0));
 		//System.out.println("ERT"+arena.bears_element.size());
 		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
 		init_animation_vimp_claw_engine(update_path, pers);
@@ -212,13 +234,15 @@ public class Const_Lev_1_1 extends Constants_Game
 		Integer[] enemy_demage = new Integer[]{25, 10, 50,50, 50, 0,0,20};
 		pers.set_main_parameters(1, 500, enemy_demage, 1, CGSize.make(0, 0),14);
 		pers.set_attack_speed(0.4f);
+		load.setPercentageBarLife(load.getPercentageBarLife()+5f);
 		return pers;
 		
 	}	
-	public Main_Personage scythe_vimp_init( String update_path)
+	public Main_Personage scythe_vimp_init( String update_path,ArrayList<String> ammunition_path)
 	{
 		Main_Personage pers=null; 
-		pers= arena.add_personage("campaign_1/","v_scythe", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(1).getPosition().x-Constants_Game.pers_dim*general_scale_factor/Constants_Game.arena_area_coff, 0), "v");
+		pers= new Vimpire_scythe(ccColor4B.ccc4(0,255, 0,255), "campaign_1/", "v_scythe", arena, "v");
+		arena.add_personage(pers, CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(1).getPosition().x-Constants_Game.pers_dim*general_scale_factor/Constants_Game.arena_area_coff, 0));
 		//System.out.println("ERT"+arena.bears_element.size());
 		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
 		init_animation_vimp_scythe_engine(update_path, pers);
@@ -226,15 +250,17 @@ public class Const_Lev_1_1 extends Constants_Game
 		Integer[] enemy_demage = new Integer[]{40,35, 50,50, 50, 0,0,20};
 		pers.set_main_parameters(2, 700, enemy_demage, 2, CGSize.make(0, 0),14);
 		pers.set_attack_speed(0.8f);
+		load.setPercentageBarLife(load.getPercentageBarLife()+5f);
 		return pers;
 		
 	}
 	
 	
-	public Main_Personage captain_vimp_init( String update_path)
+	public Main_Personage captain_vimp_init( String update_path,ArrayList<String> ammunition_path)
 	{
 		Main_Personage pers=null; 
-		pers= arena.add_personage("campaign_1/","v_cap", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(1).getPosition().x-Constants_Game.pers_dim*general_scale_factor/Constants_Game.arena_area_coff, 0), "v");
+		pers= new Vimpire_General(ccColor4B.ccc4(0,255, 0,255),"campaign_1/","v_cap", arena, "v"); 
+		arena.add_personage(pers, CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(1).getPosition().x-Constants_Game.pers_dim*general_scale_factor/Constants_Game.arena_area_coff, 0));
 		//System.out.println("ERT"+arena.bears_element.size());
 		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
 		init_animation_vimp_captain_engine(update_path, pers);
@@ -242,14 +268,16 @@ public class Const_Lev_1_1 extends Constants_Game
 		Integer[] enemy_demage = new Integer[]{50, 10, 50,50, 50, 0,0,20};
 		pers.set_main_parameters(3, 1000, enemy_demage, 2, CGSize.make(0, 0),14);
 		pers.set_attack_speed(0.6f);
+		load.setPercentageBarLife(load.getPercentageBarLife()+5f);
 		return pers;
 		
 	}
 	
-	public Main_Personage arbalet_vimp_init( String update_path)
+	public Main_Personage arbalet_vimp_init( String update_path, ArrayList<String> ammunition_update_path)
 	{
 		Main_Personage pers=null; 
-		pers= arena.add_personage("campaign_1/","v_arbalet", CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(1).getPosition().x-Constants_Game.pers_dim*general_scale_factor/Constants_Game.arena_area_coff, 0), "v");
+		pers= new Vimpire_arbalet(ccColor4B.ccc4(0,255, 0,255), "campaign_1/","v_arbalet", arena, "v");
+		arena.add_personage(pers, CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(arena.get_Main_Base_list(1).getPosition().x-Constants_Game.pers_dim*general_scale_factor/Constants_Game.arena_area_coff, 0));
 		//System.out.println("ERT"+arena.bears_element.size());
 		pers.set_Pers_element(CGSize.make(118f, 118f), CGPoint.make(248f, 496f), CGSize.make(Constants_Game.pers_dim, Constants_Game.pers_dim), CGPoint.make(0, 0));
 		init_animation_vimp_arbalet_engine(update_path, pers);
@@ -257,8 +285,9 @@ public class Const_Lev_1_1 extends Constants_Game
 		Integer[] enemy_demage = new Integer[]{30, 15, 0,0, 0, 0,0,0};
 		pers.set_main_parameters(4, 400, enemy_demage, 1, CGSize.make(0, 0),14);
 		pers.set_attack_speed(0.4f);
+		pers.attack_particle_init(ammunition_update_path);
+		load.setPercentageBarLife(load.getPercentageBarLife()+5f);
 		return pers;
-		
 	}
 	
 	public Main_Personage get_bear(int index)
@@ -266,21 +295,45 @@ public class Const_Lev_1_1 extends Constants_Game
 		Main_Personage bear = bear_team_fight.get(index);
 		return bear;
 	}
-    public void ammunition_init()
-    {
-    	arrow_particle_init();
-    }	
-    
-    private void arrow_particle_init()
-    {
-    	Particle_Element arrow_particle = new Arrow_Particle_Element("campaign_1/Particles/arrows/1.png", "b", CGSize.make(200f, 200f), arena, 1);
-    	arrow_particle.set_speed_fly(144f);
-    	arena.add_level_ammunition(arrow_particle);
-    }
-	
+  
+//========================================ammunition_init================================
+	public void ammunition_init(ArrayList<String> path_ammunition)
+	    {
+	    	arrow_particle_init(path_ammunition.get(0));
+	    }
+	    
+	    private void arrow_particle_init(String update)
+	    {
+	    	Particle_Element arrow_particle = new Arrow_Particle_Element("campaign_1/Particles/arrows/1.png", "b", CGSize.make(200f, 200f), arena, 1);
+	    	arrow_particle.set_speed_fly(144f);
+	    	arrow_particle.get_animation_element().add_animation("campaign_1/Particles/arrows/engine/"+update, "engine_","fly",1.4f, 1,5 , true);
+	    	arena.add_level_ammunition(arrow_particle);
+	    }
+		
 	public int get_unit_limit()
 	{
 		return unit_limit;
+	}
+	@Override
+	public void Personages_level_init() 
+	{
+		ArrayList<String> particle=new ArrayList<String>(); 
+		bear_team_fight.add(box_bear_init("default/", null));
+		bear_team_fight.add(mace_bear_init("default/",null));
+		particle.add("default/");
+		particle.add("default/");
+		particle.add("default/");
+		bear_team_fight.add(pitcher_bear_init("default/",particle));
+		particle.clear();
+		particle.add("default/");
+		bear_team_fight.add(archer_bear_init("default/", particle));
+		
+		vimp_team_fight.add(claw_vimp_init("default/", null));
+		vimp_team_fight.add(scythe_vimp_init("default/", null));
+		vimp_team_fight.add(captain_vimp_init("default/",null));
+		vimp_team_fight.add(arbalet_vimp_init("default/",particle));
+	
+		
 	}
 	
       

@@ -49,6 +49,7 @@ public abstract class Particle_Element extends CCSprite
 	{
 		super(path);
 		this.is_who = is_who;
+		arena =_arena;
 		general_scale_factor = arena.get_general_scale_factor(); 
 		local_scale_factor = CGSize.make(arena.get_local_scale_factor().width, arena.get_local_scale_factor().height);
 		main_size = CGSize.make(this.getContentSize().width, this.getContentSize().height);
@@ -63,7 +64,7 @@ public abstract class Particle_Element extends CCSprite
 		enimy_position= CGPoint.make(0, 0);
 		elispe_element = CGSize.make(0, 0);
 		rf_location = CGPoint.make(0, 0);
-		arena =_arena;
+		
 		elipse_axis = CGSize.make(0, 0);
 		elipse_center_calc= CGPoint.make(0, 0);
 		_soldier=CGPoint.make(0, 0);

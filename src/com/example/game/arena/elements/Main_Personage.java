@@ -17,7 +17,7 @@ import android.hardware.Camera.Area;
 import com.example.beargames.Game_Arena;
 import com.example.engine.beargames.Action_Activity;
 
-public class Main_Personage  extends CCColorLayer{
+abstract public class Main_Personage  extends CCColorLayer{
 	private  float general_scale_factor=0;
 	public  CGSize default_coord= null;
 	public  CGSize attack_coord = null;
@@ -27,9 +27,11 @@ public class Main_Personage  extends CCColorLayer{
 	private Personage_Element boss = null;
 	private static  String source_path=null;
 	private int state_action =-1;
+	public ArrayList<Particle_Element> attack_particle=null; 
 	private String is_who=null;
 	private int total_pers_life=0;
 	private float real_life=0;
+	private Game_Arena arena = null;
 	private CGSize attack_area=null;
 	private int attack_demage=0;
 	private ArrayList<Integer> imunnity_enimy=null;
@@ -42,21 +44,28 @@ public class Main_Personage  extends CCColorLayer{
 	private int enemy_tag =-1;
 	private Integer[] demage_enemy = null;
 	private Main_Personage enemy =null;
+	abstract public void attack_particle_init(ArrayList<String> ammunition_update_path);
+	abstract public void start_attack(Main_Personage enemy);
+	abstract public void start_walk_personage(int state);
+	abstract public void stop_walk_personage(int state, String animation);
+	abstract public void deth_personage(int state);
 	//private Main_Personage scan_death=null;
 	
 	
-	public Main_Personage(ccColor4B color, final String campaign_path,String default_path,CGSize local_scale_factor, float general_scale_factor, String is_who) 
+	public Main_Personage(ccColor4B color, final String campaign_path,String default_path, Game_Arena _arena,String is_who) 
 	{
 		super(color);
 		this.setAnchorPoint(0, 0);
-		this.general_scale_factor=general_scale_factor;
-		this.local_scale_factor = CGSize.make(local_scale_factor.width,local_scale_factor.height);
+		arena =_arena;
+		this.general_scale_factor=arena.get_general_scale_factor();
+		this.local_scale_factor = CGSize.make(arena.get_local_scale_factor().width,arena.get_local_scale_factor().height);
 		source_path = campaign_path;
 	    animation_element = new ArrayList<Action_Activity>();
 		bar_life=  new Progress_Bar_element(source_path+"bar/main_bar_pers.png",source_path+"bar/progress_bar_"+is_who+".png", general_scale_factor );
 	    boss = new Personage_Element(source_path+"Personages/"+is_who+"/"+default_path+"/"+"1.png", general_scale_factor, is_who);
 	    this.setOpacity(30);
 		this.is_who = is_who;
+		
 		this.attack_area=CGSize.make(0, 0);
 		demage_enemy =  new Integer[8];
 		imunnity_enimy = new ArrayList<Integer>();
@@ -83,6 +92,7 @@ public class Main_Personage  extends CCColorLayer{
 		 imunnity_enimy = new ArrayList<Integer>();
 		 this.setScaleX(personage.getScaleX());
 		 this.setScaleY(personage.getScaleY());
+		 this.arena = personage.arena;
 		 this.setContentSize(personage.getContentSize());
 		 this.setPosition(personage.getPosition());
 		 this.default_coord = personage.default_coord;
@@ -288,6 +298,10 @@ public class Main_Personage  extends CCColorLayer{
 	{
 		return this.demage_enemy[index];
 	}
+	public void set_demage_enemy(int index, int value)
+	{
+		this.demage_enemy[index] = value;
+	}
 	public String action_is_runing_now()
 	{
 		return this.animation_element.get(0).who_is_runing();
@@ -330,9 +344,9 @@ public class Main_Personage  extends CCColorLayer{
 		   
 		}
 	}
-	private Game_Arena arena_=null;
+	//private Game_Arena arena_=null;
 	private Main_Personage winner=null;
-	public void death(Game_Arena arena, int state)
+	public void death( int state)
 	{
 		Main_Personage pers=null;
 		if(this.state_action == state)
@@ -377,7 +391,7 @@ public class Main_Personage  extends CCColorLayer{
 		   
 		   this.schedule("scan_death", 0.01f);
 		 //  arena.add_death_personage_buffer(this);
-		   arena_ = arena;
+		   arena = arena;
 		}
 		
 	}
@@ -402,7 +416,7 @@ public class Main_Personage  extends CCColorLayer{
 			else
 			{
 				this.boss.setVisible(false);
-				arena_.add_death_personage_buffer(this);
+				arena.add_death_personage_buffer(this);
 				System.out.println("o iesit vampir");
 			}
 		}
@@ -417,7 +431,7 @@ public class Main_Personage  extends CCColorLayer{
 		{
 			this.stopAllActions();
 			this.boss.setVisible(false);
-			arena_.add_death_personage_buffer(this);
+			arena.add_death_personage_buffer(this);
 			System.out.println("o iesit");
 		}
 	}
@@ -479,6 +493,7 @@ public class Main_Personage  extends CCColorLayer{
 		enemy_tag=tag;
 	}
 	
+
 	public void destroy()
 	{
 	   
@@ -520,10 +535,16 @@ public class Main_Personage  extends CCColorLayer{
 		
 		System.out.println("Destroy personage");
 	}
+	public Game_Arena get_arena()
+	{
+		return arena;
+	}
 	private void clean_demage_enemy()
 	{
 		for(int i=0;i<7;i++)
 			demage_enemy[i]=0;
 		demage_enemy=null;
 	}
+	
+
 }

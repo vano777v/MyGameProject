@@ -229,9 +229,8 @@ public class Game_Arena extends CCColorLayer
 	    addChild(base);
 	    return base;
 	}
-	public Main_Personage add_personage (String source_path, String name_path,CGSize pers_size, CGPoint pers_location, String is_who)
+	public Main_Personage add_personage (Main_Personage personage,CGSize pers_size, CGPoint pers_location)
 	{
-		Main_Personage personage = new Main_Personage(ccColor4B.ccc4(0,255, 0,255), source_path, name_path, this.local_scale_factor, this.general_scale_factor, is_who);
 		personage.setSize(pers_size);
 		personage.set_Pers_Position(pers_location);
 		

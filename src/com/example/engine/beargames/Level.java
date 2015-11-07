@@ -5,6 +5,7 @@ import org.cocos2d.types.ccColor4B;
 
 import com.example.beargames.Game_Arena;
 import com.example.beargames.Inputs_Outputs.Constants_Game;
+import com.example.beragames.loadscreans.Main_Load_Screen;
 
 
 public class Level 
@@ -16,8 +17,9 @@ public class Level
 	private CGSize screen = null;
 	private int arena_area_coff =0;
 	private int pers_limit=0;
+	private Main_Load_Screen load=null;
 	
-   public Level (int campaign, int level, int arena_area, int pers_limit, float general_scale_factor, CGSize screenSize)
+   public Level (int campaign, int level, int arena_area, int pers_limit, float general_scale_factor, CGSize screenSize, Main_Load_Screen _load_screen)
    {
 	   
 	   this.campaign= campaign;
@@ -26,6 +28,7 @@ public class Level
 	   this.screen = screenSize;
 	   this.arena_area_coff = arena_area;
 	   this.pers_limit = pers_limit;
+	   load=_load_screen;
 	 
    }
    
@@ -35,6 +38,7 @@ public class Level
        arena.setPosition(0, Constants_Game.main_menu_dim*general_scale_factor);
        arena.set_size_arena(CGSize.make(screen.width*arena_area_coff, screen.height ));
        arena.set_action_arena(this.pers_limit);
+       load.setPercentageBarLife(load.getPercentageBarLife()+5f);
        return arena;
    }
    public int get_current_level()

@@ -9,6 +9,7 @@ import com.example.beargames.Campaign_1.Level_1_1;
 import com.example.beargames.Campaign_1.Level_1_2;
 import com.example.beargames.Campaign_1.Level_1_3;
 import com.example.beargames.Campaign_1.Level_1_4;
+import com.example.beragames.loadscreans.Main_Load_Screen;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -50,15 +51,17 @@ public class GameInit extends Activity
 		CGSize screen_size = CCDirector.sharedDirector().displaySize();
 		float general_scale_factor = screen_size.height/1600f;
 		//<--- set texture max to CCDirector for later use
-		Level_1_1 level_1 = new Level_1_1(1,1, general_scale_factor,screen_size);
-		CCScene scene = level_1.get_logic_game().scene();
+		Main_Load_Screen load_screen = new Main_Load_Screen("campaign_1/Load_Screens/", general_scale_factor);
+		CCScene scene = load_screen.scene();
+		CCDirector.sharedDirector().runWithScene(scene);
+		
 		//Level_1_2 level_1 = new Level_1_2("campaign_1/","level_2", general_scale_factor,screen_size);
 		//CCScene scene = level_1.get_Level().scene();
 		//Level_1_3 level_3 = new Level_1_3("campaign_1/","level_3", general_scale_factor,screen_size);
 		//CCScene scene = level_3.get_Level().scene();
 		//Level_1_4 level_4 = new Level_1_4("campaign_1/","level_4", general_scale_factor,screen_size);
 		//CCScene scene = level_4.get_Level().scene();
-		CCDirector.sharedDirector().runWithScene(scene);
+		
 		
 		
 

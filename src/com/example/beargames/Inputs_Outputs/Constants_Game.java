@@ -41,24 +41,7 @@ public abstract class Constants_Game
     abstract  public void start_flags_movie();
     abstract public void start_bear_base_default_movie();
     abstract public void start_vimpire_base_default_movie();
-    abstract public Main_Personage box_bear_init( String update_path);
-    abstract public void init_animation_bear_box_engine(String update_path, Main_Personage pers);
-    abstract public Main_Personage mace_bear_init( String update_path);
-    abstract public void init_animation_bear_archer_engine(String update_path, Main_Personage pers);
-    abstract public Main_Personage archer_bear_init( String update_path);
-    abstract public void init_animation_bear_pitcher_engine(String update_path, Main_Personage pers);
-    abstract public Main_Personage pitcher_bear_init(String update_path);
     
-    abstract public void init_animation_bear_mace_engine(String update_path, Main_Personage pers);
-    abstract public Main_Personage get_bear(int index);
-    abstract public void init_animation_vimp_captain_engine(String update_path, Main_Personage pers);
-    abstract public Main_Personage captain_vimp_init( String update_path);
-    abstract public void init_animation_vimp_claw_engine(String update_path, Main_Personage pers);
-    abstract public Main_Personage claw_vimp_init(String update_path);
-    abstract public void init_animation_vimp_scythe_engine(String update_path, Main_Personage pers);
-    abstract public Main_Personage scythe_vimp_init(String update_path);
-    abstract public void init_animation_vimp_arbalet_engine(String update_path, Main_Personage pers);
-    abstract public Main_Personage arbalet_vimp_init(String update_path);
     
-    abstract public void ammunition_init();
+    abstract public void Personages_level_init();
 }

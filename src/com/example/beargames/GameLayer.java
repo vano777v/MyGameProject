@@ -26,12 +26,13 @@ import android.view.MotionEvent;
 
 
 import com.example.beargames.Inputs_Outputs.Constants_Game;
+import com.example.beragames.loadscreans.Main_Load_Screen;
 import com.example.engine.beargames.Logic_Engine;
 //import com.example.beargames.R.raw;
 import com.example.game.arena.elements.Main_Base;
 import com.example.game.arena.elements.Main_Personage;
 
-public class GameLayer extends CCLayer
+abstract public class GameLayer extends CCLayer
 {
 	private static CGSize screenSize;
 	static CCScene mscene = null;
@@ -65,15 +66,18 @@ public class GameLayer extends CCLayer
     private  Main_Base bear_base=null;
     private float pers_dim = 512;
     private float base_dimm = 1500;
+    public Main_Load_Screen load=null;
    // private CCSprite m, n = null; 
     private  Main_Base vimpir_base=null;
     private Logic_Engine logic= null;
 	private ArrayList<MenuLayer> menus_game= null;
 	  float vp=0 ,dt=0,pz=0;
 	 protected Constants_Game const_level= null;
-    public GameLayer( String campaign, Game_Arena arena)
+	 abstract public Main_Personage bear_build(int tag);
+    public GameLayer( String campaign, Game_Arena arena, Main_Load_Screen _load)
     {
     	screenSize = CCDirector.sharedDirector().winSize();
+    	load=_load;
        /// mMyApp = m; 
           java.lang.System.out.println("Antonio"+screenSize);
       //  bear_init= new ArrayList<Integer>();
@@ -99,7 +103,7 @@ public class GameLayer extends CCLayer
      
         this.setting_menu_init();
          this.top_menu_init();
-         
+         load.setPercentageBarLife(load.getPercentageBarLife()+35f);
         
         
         //this.ablity_items_init();
@@ -487,7 +491,7 @@ public class GameLayer extends CCLayer
     	 {
     		 if(arena.count_personages("b")<arena.unit_limit_bears) 
      		{
-     		   pers= new Main_Personage( const_level.bear_team_fight.get(item_tag-1));
+     		   pers = bear_build(item_tag); 
     		 menus_game.get(menu_index).change_Image_item(this.campaign+"menus/block/"+item_tag+"b.png", index);
     		 menus_game.get(menu_index).get_item(index).setisTouchEnabled(false);
     		 menus_game.get(menu_index).get_item(index).set_touch_state(true);
@@ -955,8 +959,8 @@ public class GameLayer extends CCLayer
     	  for(int i=0;i<arena.bears_element.size();i++)
     		  arena.bears_element.get(i).start_animation("death");
     	  
-    	  arena.test.start_liniar_move(CGPoint.make(600, 300), CGPoint.make(600, -10));
-    	  arena.test.setVisible(true);
+    	  //arena.test.start_liniar_move(CGPoint.make(600, 300), CGPoint.make(600, -10));
+    	 // arena.test.setVisible(true);
     	  //arena.get_Main_Base_list(0).get_animation_element(0).start_action(0);
     	//  arena.get_Main_Base_list(0).get_animation_element(0).start_action(1);
     	 // arena.get_Main_List("b", 0).get_animation(0).start_action(1);
@@ -1116,19 +1120,7 @@ public class GameLayer extends CCLayer
     	CCBitmapFontAtlas timerLabel = (CCBitmapFontAtlas) getChildByTag(TIMER_LABEL_TAG) ;
     	timerLabel.setString(string);
     	}
-    private Main_Personage bear_build(int tag) 
-    {
-    	Main_Personage personage=null;
-    	switch (tag) {
-		case 1:
-			
-			  personage=const_level.box_bear_init("default/");
-			break;
-
-		default:
-			break;
-		}
-		return personage;
-    }  
+   
+   
       
 }
