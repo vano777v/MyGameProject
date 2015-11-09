@@ -195,7 +195,7 @@ public class MenuItemLayer extends CCSprite
 			pers.set_state_action(1);
 			arena.addChild(pers);
 			pers.is_live =true;
-			pers.start_walk(1); 
+			pers.start_walk(2); 
 			this.unschedule("life");
 			 
 		 }

@@ -79,6 +79,9 @@ abstract public class Main_Personage  extends CCColorLayer{
 	{
 		
 		super(personage.getccColor4B());
+		this.setContentSize(personage.getContentSize());
+		this.setScaleX(personage.getScaleX());
+		 this.setScaleY(personage.getScaleY());
 		demage_enemy =  new Integer[8];
 		this.setAnchorPoint(personage.getAnchorPoint());
 		this.general_scale_factor= personage.general_scale_factor;
@@ -90,10 +93,11 @@ abstract public class Main_Personage  extends CCColorLayer{
 		 this.setOpacity(personage.getOpacity());
 		 this.is_who = new String(personage.is_who);
 		 imunnity_enimy = new ArrayList<Integer>();
-		 this.setScaleX(personage.getScaleX());
-		 this.setScaleY(personage.getScaleY());
+		 this.attack_particle = new ArrayList<Particle_Element>();
+		 for(int i=0;i<personage.attack_particle.size();i++)
+			 this.attack_particle.add(personage.attack_particle.get(i));
 		 this.arena = personage.arena;
-		 this.setContentSize(personage.getContentSize());
+		 
 		 this.setPosition(personage.getPosition());
 		 this.default_coord = personage.default_coord;
 		 this.attack_coord = personage.attack_coord;
@@ -525,6 +529,10 @@ abstract public class Main_Personage  extends CCColorLayer{
 		       animation_element.remove(i);
 		       activity = null;
 		   }
+	    for(int i=0;i<this.attack_particle.size();i++)
+	    	this.attack_particle.get(i).Destructor();
+	    this.attack_particle.clear();
+	    this.attack_particle=null;
 	    animation_element=null;
 		bar_life.destroy();
 		this.removeChild(bar_life, true);
