@@ -43,7 +43,7 @@ public class Arrow_Particle_Element extends Particle_Element
 		 }
 		 if(detect_out_border())
 		 {
-             this.setVisible(false);
+            this.setVisible(false);
 			 this.stopAllActions();
 			 this.Destructor();
 		 }

@@ -34,6 +34,7 @@ public class Game_Arena extends CCColorLayer
     private ArrayList<Particle_Element> ammunition_particles_vimp=null;
     private float base_dimm=0, pers_dimm=0;  
     private ArrayList<CCSprite> paralax_element=null; 
+    private ArrayList<Particle_Element> attack_particles = null;
     public ArrayList<Main_Personage> bears_element = null;
     public ArrayList<Main_Personage> vimpire_element = null;
     private ArrayList<Main_Base> base_list=null; 
@@ -65,6 +66,7 @@ public class Game_Arena extends CCColorLayer
 		vimpire_element = new ArrayList<Main_Personage>();
 		ammunition_particles_bear = new ArrayList<Particle_Element>();
 		ammunition_particles_vimp = new ArrayList<Particle_Element>();
+		attack_particles =  new ArrayList<Particle_Element>();
 		addChild(paralax, 0, 6);
 	} 
 	
@@ -186,6 +188,12 @@ public class Game_Arena extends CCColorLayer
 		
 	   this.setScale(this.getScale()*scale_factor);
 
+	}
+	
+	public void add_arena_particle(Particle_Element particle)
+	{
+		attack_particles.add(particle);
+		this.addChild(particle);
 	}
 	
 	public void ccTouchesBegan(CGPoint event)
@@ -461,6 +469,8 @@ public class Game_Arena extends CCColorLayer
 	}
 	String is_who_scan=null;
 	Boolean arena_is_free = false;
+	
+   
    public void free_space_arena_bears( float dt)
    {
 	  String is_who_enemy =null;
@@ -489,5 +499,6 @@ public class Game_Arena extends CCColorLayer
 		    }
 	   }
    }
-
+   
+    
 }

@@ -2,8 +2,11 @@ package com.example.beargames.personage_campaign_1;
 
 import java.util.ArrayList;
 
+import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGSize;
 import org.cocos2d.types.ccColor4B;
+
+import android.hardware.Camera.Area;
 
 import com.example.beargames.Game_Arena;
 import com.example.game.arena.elements.Main_Personage;
@@ -46,14 +49,16 @@ public class Bear_Pitcher extends Main_Personage
     {
     	Particle_Element particle = new Bomb_Particle_Element("campaign_1/Particles/bomb/1.png", "b", CGSize.make(50, 50), get_arena(),4);
     	particle.set_speed_fly(110);
+    	
     	particle.get_animation_element().add_animation("campaign_1/Particles/bomb/"+ammunition_path, "engine_", "fly", 0.2f, 1, 5, true);
     	particle.get_animation_element().add_animation("campaign_1/Particles/bomb/"+ammunition_path, "engine_", "explosion", 0.2f, 5, 13, false);
     	return particle;
     }
     private Particle_Element stone_particle_init(String ammunition_path)
     {
-    	Particle_Element particle = new Stone_Particle("campaign_1/Particles/stone/1.png", "b", CGSize.make(45, 45), get_arena(),2);
+    	Particle_Element particle = new Stone_Particle("campaign_1/Particles/stone/1.png", "b", CGSize.make(80, 80), get_arena(),2);
     	particle.set_speed_fly(110);
+    	particle.set_step_move(4);
     	particle.get_animation_element().add_animation("campaign_1/Particles/stone/"+ammunition_path, "engine_", "fly", 0.2f, 1, 5, true);
     	return particle;
     }
@@ -69,14 +74,27 @@ public class Bear_Pitcher extends Main_Personage
 		start_walk(state);
 	}
 	@Override
-	public void stop_walk_personage(int state, String animation) {
-		// TODO Auto-generated method stub
-		stop_walk(animation, state);
+	public void stop_walk_personage(int state, String animation) 
+	{
+		
+		this.schedule("start_attack",this.get_attack_speed());
+		//this.start_attack(0);
 	}
 	@Override
 	public void deth_personage(int state) {
 		// TODO Auto-generated method stub
 		death(state);
+	}
+	public void start_attack(float dt)
+	{
+
+		 Particle_Element particle = new Stone_Particle(attack_particle.get(0));
+		 CGPoint adjust = particle.scale_value(465, 280);
+		 particle.setPosition(this.getPosition().x+adjust.x, this.getContentSize().height -adjust.y);
+		 System.out.println("JITA "+attack_particle.size()+" "+particle.getPosition()+" "+particle.step_move);
+		  this.get_arena().add_arena_particle(particle);
+		  particle.start_liniar_move(particle.getPosition(), CGPoint.make( particle.getPosition().x+400, 0));
+		
 	}
  
 }

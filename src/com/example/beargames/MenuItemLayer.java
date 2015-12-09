@@ -192,10 +192,12 @@ public class MenuItemLayer extends CCSprite
 			 //System.out.println("Bastaaaaaaaa "+team_count);
 			//pers.start_animation("default");
 			
-			pers.set_state_action(1);
+			//pers.set_state_action(1);
 			arena.addChild(pers);
 			pers.is_live =true;
-			pers.start_walk(2); 
+			pers.set_state_action(2);
+			pers.stop_walk("attack", 2);
+			//pers.start_walk(2); 
 			this.unschedule("life");
 			 
 		 }

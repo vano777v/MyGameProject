@@ -28,7 +28,7 @@ public abstract class Particle_Element extends CCSprite
 	private Action_Activity animation =null;
 	private CGPoint main_position=null;
 	protected CGPoint enimy_position = null;
-	private float step_move=0;
+	public float step_move=0;
 	private Boolean is_bear=false;
 	private CGSize elispe_element=null;
 	private float orbit_counter=0;
@@ -91,8 +91,10 @@ public abstract class Particle_Element extends CCSprite
 		this.arena =particle.arena;
 		elipse_axis = CGSize.make(0, 0);
 		elipse_center_calc= CGPoint.make(0, 0);
+		speed_fly=particle.speed_fly;
 		_soldier=CGPoint.make(0, 0);
 		demage_enimy = new Integer[9];
+		step_move =particle.step_move; 
 		this.set_demage_enimy_list(particle.demage_enimy);
 		Imunity_defence = new ArrayList<Integer>();
 	    for(int i=0;i<particle.Imunity_defence.size();i++)
@@ -121,6 +123,18 @@ public abstract class Particle_Element extends CCSprite
 		System.out.println("partic"+local_scale_factor+" "+general_scale_factor);
 		this.setPosition(x*general_scale_factor/local_scale_factor.width , y*general_scale_factor/local_scale_factor.height);
 	    main_position.set(x, y);
+	}
+	
+	public void set_Position(CGPoint scaled_pos, CGPoint orig_point, Boolean operation)
+	{
+        if(operation)
+        {
+        	this.setPosition(scaled_pos.x+orig_point.x, scaled_pos.y);
+        }
+        else
+        {
+        	this.setPosition(orig_point.x-scaled_pos.x, scaled_pos.y);
+        }
 	}
 	public CGPoint get_PositionRefrence()
 	{
@@ -425,7 +439,7 @@ int direction=0;
 	public void start_liniar_move(CGPoint sold, CGPoint enimy)
 	{
 		
-		float y=0, dx,dy,x,dir_angle=0,  a;
+		float y=0, dx,dy,x,dir_angle=0,  a,time_fly,time_step;
 		_soldier.set(sold);
 		enimy_position.set(enimy);
 		
@@ -438,8 +452,10 @@ int direction=0;
 		if((_soldier.y>enimy.y && direction==-1 )||(_soldier.y<enimy.y&&direction==1)) dir_angle=360-angle;
 		else dir_angle=angle;
 		//this.setRotation(dir_angle);
-		float time_step = total_time_fly/step_move;
-		orbit_counter=step_move;
+		float distance =lenght; 
+		 time_fly = distance/speed_fly;
+		   time_step=3f*time_fly/distance;
+		orbit_counter=3;
 	    a= (enimy_position.x-_soldier.x);
 	    if(a==0)
 	    { 
@@ -458,16 +474,19 @@ int direction=0;
 			   //time_step = total_time_fly/step_move;
 			   x=_soldier.x+(orbit_counter*direction);
 	    }
-		 System.out.println("Liniar_x_y "+x+" "+y);
+		 System.out.println("Liniar_x_y "+speed_fly+" "+distance);
 		this.runAction(CCSequence.actions(CCMoveTo.action(time_step, CGPoint.make(x, y)), CCCallFunc.action(this, "Move_Control_liniar")));
 	}
 	
 	public void Move_Control_liniar()
 	{
-		float dx,dy,x,y,time_step,a;
+		float dx,dy,x,y,time_step,a, time_fly;
 		
-			   orbit_counter+=step_move;
-			   time_step = total_time_fly/step_move;
+			   
+			   float distance = lenght_segm_calulation(_soldier, enimy_position); 
+			   time_fly = distance/speed_fly;
+			   time_step=3f*time_fly/distance;
+			   orbit_counter+=3;
 			   a = (enimy_position.x-_soldier.x);
 			   if(a==0)
 			   {
@@ -486,11 +505,11 @@ int direction=0;
 				   
 				   x=_soldier.x+(orbit_counter*direction);
 			   }
-			   System.out.println("Liniar_x_y "+x+" "+y);
+		       System.out.println("Liniar_x_y "+orbit_counter+" "+distance);
 			   this.runAction(CCSequence.actions(CCMoveTo.action(time_step, CGPoint.make(x, y)), CCCallFunc.action(this, "Move_Control_liniar")));
 			   
 			
-		 detect_colision();
+		detect_colision();
 	}
 	
 	protected Main_Personage detect_intersect_pers()
@@ -608,6 +627,7 @@ int direction=0;
 	{
 		return rf_location;
 	}
+	
 	public CGPoint get_unscaled_Refrence_Location()
 	{
 		float x,y;
@@ -661,6 +681,11 @@ int direction=0;
 	public String is_who()
 	{
 		return is_who;
+	}
+	public CGPoint scale_value(float value_1, float value_2)
+	{
+		CGPoint result=CGPoint.make(value_1*general_scale_factor/local_scale_factor.width, value_2*general_scale_factor/local_scale_factor.height);
+		return result;
 	}
 	public void Destructor()
 	{

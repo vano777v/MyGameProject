@@ -280,8 +280,12 @@ abstract public class Main_Personage  extends CCColorLayer{
 		this.stopAllActions();
 		this.clear_buffer_animation(0);
 		//this.stop_animation("walk");
-	    this.start_animation(animation);
-	    this.state_action =-1;
+	    //this.start_animation(animation);
+	    //this.state_action =-1;
+		   this.start_animation("attack");
+		   this.schedule("start_attack_action", attack_speed);
+		   stop_walk_personage(2, "attack");
+		   this.stopAllActions();
 	    
 	    }
 	}
