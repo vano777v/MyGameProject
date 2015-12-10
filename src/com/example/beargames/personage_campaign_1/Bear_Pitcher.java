@@ -57,7 +57,7 @@ public class Bear_Pitcher extends Main_Personage
     private Particle_Element stone_particle_init(String ammunition_path)
     {
     	Particle_Element particle = new Stone_Particle("campaign_1/Particles/stone/1.png", "b", CGSize.make(80, 80), get_arena(),2);
-    	particle.set_speed_fly(110);
+    	particle.set_speed_fly(300);
     	particle.set_step_move(4);
     	particle.get_animation_element().add_animation("campaign_1/Particles/stone/"+ammunition_path, "engine_", "fly", 0.2f, 1, 5, true);
     	return particle;
@@ -92,8 +92,13 @@ public class Bear_Pitcher extends Main_Personage
 		 CGPoint adjust = particle.scale_value(465, 280);
 		 particle.setPosition(this.getPosition().x+adjust.x, this.getContentSize().height -adjust.y);
 		 System.out.println("JITA "+attack_particle.size()+" "+particle.getPosition()+" "+particle.step_move);
-		  this.get_arena().add_arena_particle(particle);
-		  particle.start_liniar_move(particle.getPosition(), CGPoint.make( particle.getPosition().x+400, 0));
+		 particle.setVisible(false); 
+		 this.get_arena().add_arena_particle(particle);
+		  
+		  particle.start_move_elipse(100f, particle.getPosition(), particle.getPosition().x+39,CGPoint.make(particle.getPosition().x+200, particle.getPosition().y), true);
+		  particle.setVisible(true);
+		  //particle.start_liniar_move(particle.getPosition(), CGPoint.make( particle.getPosition().x+400, 0));
+		  particle.get_animation_element().start_action(0);
 		
 	}
  
