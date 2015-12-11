@@ -47,16 +47,18 @@ public class Bomb_Particle_Element extends Particle_Element
 		 }
 		 if(detect_out_border())
 		 {
-           this.setVisible(false);
 			 this.stopAllActions();
-			 this.Destructor();
+			 finish_attack();
+			 this.schedule("start_destruct_particle", 0.1f); 
 		 }  	
 		
 	}
 	
-	public void finish_attack()
+	private void finish_attack()
 	{
-		
+	   this.set_Size(1024, 1024);
+	   this.setPosition(this.getPosition().x, 10f);
+	   this.get_animation_element().start_action(1);
 	}
 
 }

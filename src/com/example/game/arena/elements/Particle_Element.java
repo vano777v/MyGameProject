@@ -85,6 +85,8 @@ public abstract class Particle_Element extends CCSprite
 		reference_size =CGSize.make(particle.reference_size.width,particle.reference_size.height);
 		animation = new Action_Activity(this, particle.get_animation_element());
 		main_position = CGPoint.make(0, 0);
+		main_position.set(particle.main_position);
+		main_size= CGSize.make(particle.main_size.width, particle.main_size.height);
 		enimy_position= CGPoint.make(0, 0);
 		elispe_element = CGSize.make(0, 0);
 		rf_location= CGPoint.make(0, 0);
@@ -109,6 +111,8 @@ public abstract class Particle_Element extends CCSprite
 		this.setContentSize(main_size.width*f_width*general_scale_factor/local_scale_factor.width, main_size.height*general_scale_factor/local_scale_factor.height*f_height);
 		this.setScaleX(f_width*general_scale_factor/local_scale_factor.width);
 		this.setScaleY(f_height*general_scale_factor/local_scale_factor.height);
+		//animation.setScaleX(f_width*general_scale_factor/local_scale_factor.width);
+		//animation.setScaleY(f_height*general_scale_factor/local_scale_factor.height);
 		reference_size = CGSize.make(width,height);
 	}
 	
@@ -152,6 +156,7 @@ int direction=0;
 	    this.enimy_position.set(enimy_pos);
 	    is_bear = is_who;
 	    orbit_counter=0;
+	  
 	   if(is_who)
 	   {	
 		     direction=detect_ellipse_parameters(soldier_pos, enimy_pos, elipse_axis, elipse_center_calc);
@@ -172,6 +177,7 @@ int direction=0;
 		     time_step = 10f*time_fly/half_perimeter;
 		    
 		     this.runAction(CCSequence.actions(CCMoveTo.action(time_step, CGPoint.make(start_point+orbit_counter, y)), CCCallFunc.action(this, "Move_Control_elipse")));
+		    
 		     System.out.println("rotation "+ angle);
 		     orbit_counter+=10f;
 	   } 
@@ -193,6 +199,7 @@ int direction=0;
 	Boolean change=false;
 	public void Move_Control_elipse()
 	{
+		 this.setVisible(true);
 		float half_perimeter,time_step=0, time_fly=0;
 		String inter=null, format=null;
 		float y=0;
@@ -206,8 +213,12 @@ int direction=0;
 				      last_point=elipse_center_calc.x-elipse_axis.width/2;
 				      if((start_point+orbit_counter*direction)<=last_point) 
 				      {
-				    	  this.setVisible(false);
-				    	  this.Destructor();
+				    	 
+				    	  this.stopAllActions();
+				    	  this.set_speed_fly(130);
+				    	  this.start_liniar_move(CGPoint.make(last_point, this.getPosition().y), CGPoint.make(this.getPosition().x+30f, 0));
+				    	  return;
+				    	  //
 				      }
 				}
 			else 
@@ -215,8 +226,14 @@ int direction=0;
 				 last_point = elipse_center_calc.x+elipse_axis.width/2;
 				 if((start_point+orbit_counter*direction)>=last_point)
 				 { 
-					 this.setVisible(false);
-				     this.Destructor();
+					 
+					 //this.start_liniar_move(CGPoint.make(last_point, this.getPosition().y), CGPoint.make(this.getPosition().x, 0));
+					 //this.setVisible(false);
+				     //this.Destructor();
+					 this.stopAllActions();
+					 this.set_speed_fly(130);
+					 this.start_liniar_move(CGPoint.make(last_point, this.getPosition().y), CGPoint.make(this.getPosition().x+30f, 0));
+					 return;
 				 }
 			}
 		     
@@ -467,7 +484,7 @@ int direction=0;
 		//this.setRotation(dir_angle);
 		float distance =lenght; 
 		 time_fly = distance/speed_fly;
-		   time_step=3f*time_fly/distance;
+		   time_step=10f*time_fly/distance;
 		orbit_counter=3;
 	    a= (enimy_position.x-_soldier.x);
 	    if(a==0)
@@ -740,6 +757,24 @@ int direction=0;
 		arena.removeChild(this, true);
 		arena=null;
 		System.out.println("particle destruct");
+	}
+	
+	public void start_destruct_particle(float dt)
+	{
+		int index=-1;
+		
+		index= this.get_animation_element().get_who_is_runing();
+		if(index!=-1)
+		{
+		   if(this.get_animation_element().action_animation.get(index).isDone())
+		   {
+			   this.unschedule("start_destruct_particle");
+			   this.Destructor();
+			   
+		   }	
+		}
+		
+		
 	}
 	
 }

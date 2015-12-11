@@ -39,16 +39,18 @@ public class Bear_Pitcher extends Main_Personage
 	}
 	private Particle_Element garlic_particle_init(String ammunition_path)
 	{
-		Particle_Element particle = new Garlic_Particle_Element("campaign_1/Particles/garlic/1.png", "b", CGSize.make(45, 45), get_arena(),3);
+		Particle_Element particle = new Garlic_Particle_Element("campaign_1/Particles/garlic/1.png", "b", CGSize.make(60, 60), get_arena(),3);
 	    particle.set_speed_fly(160);
 	    particle.get_animation_element().add_animation("campaign_1/Particles/garlic/"+ammunition_path, "engine_","fly",0.2f,1, 5, true);
 	    particle.get_animation_element().add_animation("campaign_1/Particles/garlic/"+ammunition_path, "engine_", "explosion", 0.2f, 5, 8, false);
+	    particle.get_animation_element().add_animation("campaign_1/Particles/garlic/"+ammunition_path, "engine_", "smoke", 0.2f, 8, 14, true);
+	    
 		return particle;
 	}
     private Particle_Element bomb_particle_init(String ammunition_path)
     {
-    	Particle_Element particle = new Bomb_Particle_Element("campaign_1/Particles/bomb/1.png", "b", CGSize.make(50, 50), get_arena(),4);
-    	particle.set_speed_fly(110);
+    	Particle_Element particle = new Bomb_Particle_Element("campaign_1/Particles/bomb/1.png", "b", CGSize.make(90, 90), get_arena(),4);
+    	particle.set_speed_fly(130);
     	
     	particle.get_animation_element().add_animation("campaign_1/Particles/bomb/"+ammunition_path, "engine_", "fly", 0.2f, 1, 5, true);
     	particle.get_animation_element().add_animation("campaign_1/Particles/bomb/"+ammunition_path, "engine_", "explosion", 0.2f, 5, 13, false);
@@ -60,6 +62,7 @@ public class Bear_Pitcher extends Main_Personage
     	particle.set_speed_fly(300);
     	particle.set_step_move(4);
     	particle.get_animation_element().add_animation("campaign_1/Particles/stone/"+ammunition_path, "engine_", "fly", 0.2f, 1, 5, true);
+    	particle.get_animation_element().add_animation("campaign_1/Particles/stone/"+ammunition_path, "engine_", "destruct", 0.2f, 5, 11, false);
     	return particle;
     }
 	
@@ -77,7 +80,7 @@ public class Bear_Pitcher extends Main_Personage
 	public void stop_walk_personage(int state, String animation) 
 	{
 		
-		this.schedule("start_attack",this.get_attack_speed());
+		this.schedule("start_attack",this.get_attack_speed()-0.1f);
 		//this.start_attack(0);
 	}
 	@Override
@@ -88,18 +91,29 @@ public class Bear_Pitcher extends Main_Personage
 	public void start_attack(float dt)
 	{
 
-		 Particle_Element particle = new Stone_Particle(attack_particle.get(0));
-		 CGPoint adjust = particle.scale_value(465, 280);
+		//this.schedule("bomb_particle_attack", 0.05f);
+		bomb_particle_attack(0);
+		
+	}
+	
+   public void bomb_particle_attack(float dt)
+   {
+	  int index=-1;
+	  index= this.get_animation(0).get_who_is_runing();
+	   
+	     //this.unschedule("bomb_particle_attack");
+		 Particle_Element particle = new Bomb_Particle_Element(attack_particle.get(1));
+		 CGPoint adjust = particle.scale_value(500, 200);
 		 particle.setPosition(this.getPosition().x+adjust.x, this.getContentSize().height -adjust.y);
 		 System.out.println("JITA "+attack_particle.size()+" "+particle.getPosition()+" "+particle.step_move);
 		 particle.setVisible(false); 
 		 this.get_arena().add_arena_particle(particle);
 		  
-		  particle.start_move_elipse(100f, particle.getPosition(), particle.getPosition().x+39,CGPoint.make(particle.getPosition().x+200, particle.getPosition().y), true);
-		  particle.setVisible(true);
+		  particle.start_move_elipse(100f, particle.getPosition(), particle.getPosition().x+80,CGPoint.make(particle.getPosition().x+200, particle.getPosition().y), true);
+		  
 		  //particle.start_liniar_move(particle.getPosition(), CGPoint.make( particle.getPosition().x+400, 0));
-		  particle.get_animation_element().start_action(0);
-		
-	}
+		   particle.get_animation_element().start_action(0);
+		  
+   }
  
 }

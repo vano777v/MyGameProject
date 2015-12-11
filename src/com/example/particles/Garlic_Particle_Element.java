@@ -45,9 +45,12 @@ public class Garlic_Particle_Element extends Particle_Element
 		 }
 		 if(detect_out_border())
 		 {
-            this.setVisible(false);
+            //this.setVisible(false);
 			 this.stopAllActions();
-			 this.Destructor();
+			 this.set_Size(1024, 1024);
+			 this.setPosition(this.getPosition().x, 0);
+			 this.get_animation_element().start_action(2);
+			 //this.Destructor();
 		 }  	
 		
 	}
