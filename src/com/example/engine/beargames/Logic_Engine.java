@@ -3,13 +3,21 @@ package com.example.engine.beargames;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.cocos2d.actions.instant.CCCallFunc;
+import org.cocos2d.actions.interval.CCMoveTo;
+import org.cocos2d.actions.interval.CCSequence;
 import org.cocos2d.layers.CCColorLayer;
+import org.cocos2d.nodes.CCDirector;
 import org.cocos2d.types.CGPoint;
 import org.cocos2d.types.CGRect;
 import org.cocos2d.types.CGSize;
+import org.cocos2d.types.ccColor4B;
+
+import android.view.MotionEvent;
 
 import com.example.beargames.GameLayer;
 import com.example.beargames.Game_Arena;
+import com.example.beargames.MenuLayer;
 import com.example.beargames.Inputs_Outputs.Const_Lev_1_1;
 import com.example.beargames.Inputs_Outputs.Constants_Game;
 import com.example.beargames.personage_campaign_1.Bear_Archer;
@@ -35,7 +43,7 @@ private Game_Arena arena = null;
     private float general_scale_factor=0;
     private Level level= null;
     private Random random_engine = null;
-    private String campaign=null;
+    //private String campaign_l=null;
     private String current_level= null;
     private float time_vimp_build=0;
     private float time_count_vimp=0;
@@ -43,6 +51,7 @@ private Game_Arena arena = null;
     private Boolean vimp_build_is_runing = false;
      private Boolean[] go_flag =null;
      public Main_Load_Screen load=null; 
+     
   
   public Logic_Engine( Level level,  Game_Arena arena,  float general_scale_factor, Main_Load_Screen _load)
   {
@@ -54,7 +63,6 @@ private Game_Arena arena = null;
 		random_engine = new Random();
 		this.general_scale_factor = general_scale_factor;
 		this.const_level = this.detect_level(level.get_campaign(), level.get_current_level(), arena, load);
-		campaign = "campaign_"+level.get_campaign()+"/";
 		current_level = "level_"+level.get_current_level();
 		go_flag = new Boolean[]{false,false};
 		init_paralax();
@@ -455,4 +463,369 @@ public Main_Personage build_vimpires(int tag)
 	}
    	return personage;
 }
+@Override
+public Boolean menu_control(MotionEvent event) 
+{
+	CGPoint location  = CCDirector.sharedDirector().convertToGL(CGPoint.ccp(event.getX(),event.getY())); 
+	 int menu_tag = -1;
+	 
+	 java.lang.System.out.println("AIIII "+location);
+	 
+	 for(int i=0; i<menus_game.size(); i++)
+	 {
+
+		if( menus_game.get(i).ccTouchesEnded(location));
+		{
+		   java.lang.System.out.println("Lungu "+menu_tag);	
+	    	 menu_tag = menus_game.get(i).get_touch_menu_state();
+	    	 if(menu_tag!=-1) { java.lang.System.out.println("AIIII loc "+menu_tag);
+	    		 break;
+	    	}
+	    	
+		  }
+			
+	    } 
+		
+	   
+	 
+    switch (menu_tag) 
+    {
+	   case 2: 
+	   {   
+	      
+		   //System.out.println("Ibala"+menus_game.get(menu_tag-1).menuitems.size());
+		   switch (menus_game.get(menu_tag-1).get_item_touch_tag()) {
+	      	case 4: 
+	      	{
+	      		this.button_bears_choose(menu_tag-1,0,4);
+	      		
+	      		
+	      		break;
+	      	}
+	      	case 20: 
+	      	{
+	      		menus_game.get(2).runAction(CCSequence.actions(CCMoveTo.action(1f, CGPoint.make(-350, 101)), CCCallFunc.action(this, "Menu_Move")));
+	      		//menus_game.get(2).get_item(1).runAction(CCSequence.actions(CCMoveTo.action()), CCCallFunc.action(menus_game.get(2), "Menu_Move")));
+	      		//menus_game.get(2).runAction(CCSequence.action;
+	      		//SoundEngine.sharedEngine().playEffect(mMyApp.getApplicationContext(), R.raw.button_press);
+	      		statusLabel.setString(Float.toString(12f));
+	      		break;
+	      	}
+	      	
+	      	case 3:
+	      	{
+	      		//this.button_ability();
+	      		
+	      		break;
+	      	}
+	      	
+	      	case 6:
+	      	{
+	      		
+	      		statusLabel.setString(Integer.toString(buffer_team[0]));
+	      		 button_bear_team_item_select(menu_tag-1,0,6, buffer_team[0]/2, 1);
+	      		break;
+	      	}
+	    	case 8:
+	      	{
+	      		
+	      		statusLabel.setString(Integer.toString(buffer_team[1]));
+	      		button_bear_team_item_select(menu_tag-1,0,8, buffer_team[1]/2, 2);
+	      		break;
+	      	}
+	    	case 10:
+	      	{
+	      		
+	      		statusLabel.setString(Integer.toString(buffer_team[2]));
+	      		button_bear_team_item_select(menu_tag-1,0,10, buffer_team[2]/2, 3);
+	      		break;
+	      	}
+	    	case 12:
+	      	{
+	      		
+	      		statusLabel.setString(Integer.toString(buffer_team[3]));
+	      		button_bear_team_item_select(menu_tag-1,0,12, buffer_team[3]/2, 6);
+	      		break;
+	      	}
+	      	
+		    default: statusLabel.setString(Float.toString(-1));
+			  break;
+		} 
+		   
+	
+		 //menus_game.get(0).set_touch_menu_state(-1);
+	     break;
+	   }   
+	   case 3: 
+	   {
+		 
+		   
+		   switch (menus_game.get(menu_tag-1).get_item_touch_tag())
+		   {
+		   case 1:
+		   {
+			   button_ability_press(2,1 );
+			   break;
+		   }
+		   case 2:
+	      	{
+
+	   		statusLabel.setString(Float.toString(buffer_ability_items[1]));
+	   		    button_ability_progress_action(1,2);
+	      		break;
+	      	}
+		   case 3:
+	      	{
+	      		statusLabel.setString(Float.toString(buffer_ability_items[2]));
+	      		button_ability_progress_action(2, 1);
+	      		break;
+	      	}
+		   case 5:
+	      	{
+	      		button_ability_item_press(menus_game.get(menu_tag-1).get_item_touch_tag(),menu_tag-1);
+	      		
+	      		break;
+	      	}
+		   case 9:
+	      	{
+	      		button_ability_item_press(9,2);
+	      		
+	      		break;
+	      	}
+		   case 13:
+	      	{
+	      		button_ability_item_press(13,2);
+	      		
+	      		break;
+	      	}
+		   case 17:
+	      	{
+	      		button_ability_item_press(17,2);
+	      		
+	      		break;
+	      	}
+		   
+		   		default:statusLabel.setString(Float.toString(-1));
+		   			break;
+		   	} 
+		   
+		   menus_game.get(1).set_touch_menu_state(-1);
+		   break;
+	   } 
+	   case 1: 
+	   {
+		   
+		   //statusLabel.setString(Float.toString(2f));
+		   int item_tag = menus_game.get(menu_tag-1).get_item_touch_tag();
+		   switch (item_tag ) {
+	   		case 2: 
+	   	   {
+	   		statusLabel.setString(Float.toString(31f));
+	   		  button_item_bears_press(item_tag, menu_tag-1,1);
+	   		   
+	   		   break;
+	   	   }
+	   		case 4: 
+	   		{
+	   		 button_item_bears_press(item_tag, menu_tag-1,1);
+	   			statusLabel.setString(Float.toString(22f));
+	   			break;
+	   		}
+	   		
+	   		case 6: 
+	   		{
+	   		 button_item_bears_press(item_tag, menu_tag-1,1);
+	   			statusLabel.setString(Float.toString(23f));
+	   			break;
+	   		}
+	   		
+	   		case 8: 
+	   		{
+	   		 button_item_bears_press(item_tag, menu_tag-1,1);
+	   			statusLabel.setString(Float.toString(24f));
+	   			break;
+	   		}
+	   		case 10: 
+	   		{
+	   		 button_item_bears_press(item_tag, menu_tag-1,1);
+	   			statusLabel.setString(Float.toString(25f));
+	   			break;
+	   		}
+	   		case 12: 
+	   		{
+	   		 button_item_bears_press(item_tag, menu_tag-1,1);
+	   			statusLabel.setString(Float.toString(26f));
+	   			break;
+	   		}
+	   		case 14: 
+	   		{
+	   		 button_item_bears_press(item_tag, menu_tag-1,1);
+	   			statusLabel.setString(Float.toString(27f));
+	   			break;
+	   		}
+	   		case 16: 
+	   		{
+	   		 button_item_bears_press(item_tag, menu_tag-1,1);
+	   			statusLabel.setString(Float.toString(28f));
+	   			break;
+	   		}
+	   		
+	   		default:statusLabel.setString(Float.toString(-1));
+	   			break;
+	   	} 
+	   
+	   //statusLabel.setString(Float.toString(2f));
+	   menus_game.get(menu_tag-1).set_touch_menu_state(-1);
+	   break;
+	   }  
+	   case 4: 
+	   {
+		   switch (menus_game.get(menu_tag-1).get_item_touch_tag()) {
+	   		case 1: 
+	   	   {  
+	   		   
+	   		   button_sound_press(menu_tag-1,1);
+	   		 
+	   		   //statusLabel.setString(Float.toString(31f));
+	   		   break;
+	   	   }
+	   		case 2: 
+	   		{
+	   			button_restart_press(menu_tag-1, 2);
+	   			trans -=20;
+	   			//level.setPosition(trans,menus_game.get(1).scaled_size_height);
+	   			
+	   			statusLabel.setString(Float.toString(22f));
+	   			break;
+	   		}
+	   		case 3: 
+	   		{
+	   			button_save_press(menu_tag-1, 3);
+	   			statusLabel.setString(Float.toString(22f));
+	   			break;
+	   		}
+	   		case 4: 
+	   		{
+	   			this.button_pause_press(menu_tag-1,4);
+	   			
+	   			menus_game.get(3).set_touch_menu_state(-1);
+	   			break;
+	   		}
+	   		case 5: 
+	   		{
+	   			button_stop_press(menu_tag-1,5);
+	   			
+	   			statusLabel.setString(Float.toString(45f));
+	   			break;
+	   		}
+	
+	   		default:statusLabel.setString(Float.toString(-1));
+	   			break;
+	   	} 
+		   menus_game.get(3).set_touch_menu_state(-1);
+		   break;
+	   }  
+	   case 5: 
+	   {
+		   //System.out.println("Aleoonnaa "+menus_game.get(4).get_item_touch_tag());
+		   switch (menus_game.get(4).get_item_touch_tag()) 
+		   {
+	   		case 4: 
+	   	   {
+	   		   this.button_zoom_out(menu_tag-1, 4);
+	   		   menus_game.get(4).set_touch_menu_state(-1);
+	   		   statusLabel.setString(Float.toString(51f));
+	   		   break;
+	   	   }
+	   		case 3: 
+	   		{
+	   			this.button_zoom_in(menu_tag-1,3);
+	   			statusLabel.setString(Float.toString(22f));
+	   			menus_game.get(4).set_touch_menu_state(-1);
+	   			break;
+	   		}
+		   
+		   
+		   }
+		   break;
+	   }  
+	   
+	  
+	
+	default: 
+	{arena.touch_detect_arena(menus_game.get(4), menus_game.get(1), screenSize,location );
+		statusLabel.setString("0");
+		break;
+	}
+	}	
+	return true;
+}
+@Override
+public void ability_menu_init() 
+{
+	float perc = screenSize.height/1600f;
+	 MenuLayer ability_menu =  new MenuLayer(ccColor4B.ccc4(255,255, 255,255),campaign,campaign+"menus/menu3.png",3, CGSize.make(762f, 1227f), perc);
+	
+	
+	 
+	
+	 ability_menu.setPosition(screenSize.width-ability_menu.scaled_size_width, 0f-(ability_menu.scaled_size_height-menus_game.get(1).scaled_size_height));
+	
+	 ability_menu.setIsTouchEnabled(true);
+	
+	 addChild(ability_menu);
+	 button_ability_action = new Button_Action() {
+		
+		@Override
+		public void button_action_time_progress() {
+			// TODO Auto-generated method stub
+			switch (buffer_ability_items[0]) {
+			case 9:
+				if(menus_game.get(2).get_item(press_id_ability+1).get_isTouchEnabel()&& menus_game.get(2).get_item(unpress_id_ability+1).get_isTouchEnabel() )
+				 Bear_Pitcher.ability=0;
+				break;
+
+			default:
+				break;
+			}
+			
+		}
+		
+		@Override
+		public void button_action_press() 
+		{
+				switch (buffer_ability_items[0]) {
+				case 9:
+					Bear_Pitcher.ability=press_id_ability;
+					break;
+
+				default:
+					break;
+				}
+		}
+	};
+	 ablity_items_init(ability_menu,0);
+	 menus_game.add(2, ability_menu);
+	 
+	 button_ability_item_press(last_touch_ability, 2);
+   	
+}
+@Override
+public void button_ability_progress_action(int deter_path_id, int unpress_id) {
+	 
+    	 menus_game.get(2).get_item(1+unpress_id).refrash_progress_bar();	
+    	 int path_id=buffer_ability_items[0];
+    	 String main_path=campaign+"menus/ability_icons/"+path_id+"ab_i/"+(deter_path_id+1);
+    	 press_id_ability =deter_path_id;
+    	 unpress_id_ability = unpress_id; 
+    	 menus_game.get(2).get_item(1+deter_path_id).time_progress_button_press(main_path+"a.png", main_path+"b.png", main_path+"a.png", 3f);
+		
+		 
+		 System.out.println("button_ability "+press_id_ability);
+		 //unpress_id_ability=deter_path_id;
+	
+}
+
+
+
 }

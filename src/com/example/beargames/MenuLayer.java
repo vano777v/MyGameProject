@@ -20,8 +20,8 @@ import android.view.MotionEvent;
 public class MenuLayer extends CCColorLayer{
 
 	private CCSprite menu;
-    protected float scaled_size_width=0;
-    protected float scaled_size_height=0;
+    public float scaled_size_width=0;
+    public float scaled_size_height=0;
     private int item_touch_tag=-1;
     private int touch_state = -1;
     private String campaign_path = null;

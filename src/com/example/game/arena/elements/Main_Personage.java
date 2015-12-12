@@ -35,7 +35,7 @@ abstract public class Main_Personage  extends CCColorLayer{
 	private CGSize attack_area=null;
 	private int attack_demage=0;
 	private ArrayList<Integer> imunnity_enimy=null;
-	private int ability=0;
+	///private static int ability=0;
 	private int building_time =0;
 	private float walk_speed=0;
 	private float attack_speed = 0;
@@ -188,14 +188,7 @@ abstract public class Main_Personage  extends CCColorLayer{
 	{
 		return this.building_time;
 	}
-	public void set_ability(int ability)
-	{
-		this.ability= ability;
-	}
-	public int get_ability ()
-	{
-		return ability;
-	} 
+	 
 	public void set_total_life (int life)
 	{
 		this.total_pers_life = life;
@@ -506,7 +499,7 @@ abstract public class Main_Personage  extends CCColorLayer{
 	{
 	   
 	   Action_Activity  activity=null;
-		ability=0;
+		//ability=0;
 	   attack_area = null;
 	   is_live=false;
 	   attack_coord = null;

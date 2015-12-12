@@ -15,6 +15,7 @@ import org.cocos2d.types.CGRect;
 import org.cocos2d.types.CGSize;
 
 
+import com.example.engine.beargames.Button_Action;
 import com.example.game.arena.elements.Main_Personage;
 
 import android.gesture.GesturePoint;
@@ -39,6 +40,9 @@ public class MenuItemLayer extends CCSprite
 	private MenuLayer bear_menu=null;
 	private Main_Personage pers= null;
 	private Game_Arena arena = null;
+	private Button_Action button_activity=null;
+	
+	//public abstract  void  exe_cmd();
 	//private  Timer timer_item_press = null;
 	//private static float count
 	private  CCProgressTimer image_progress = null;
@@ -62,6 +66,11 @@ public class MenuItemLayer extends CCSprite
 	 {
 		  path_progress_bar_refrash= path; 
 	 }
+	 public void add_button_action_activity(Button_Action button)
+	 {
+		 button_activity=button;
+	 }
+	 
 	 public String get_path_progress_bar()
 	 {
 		 return path_progress_bar_refrash;
@@ -84,12 +93,12 @@ public class MenuItemLayer extends CCSprite
 		 return CGSize.make(sfactor_x, sfactor_y);
 	 }
 	 
-	 public void time_progress_bar_init(String image_path )
+	 public void time_progress_bar_init(String image_path, int type_progress )
 	 {
 		 image_progress = CCProgressTimer.progress(image_path);
 		 image_progress.setAnchorPoint(CGPoint.make(0, 0));
 		 image_progress.setPosition(0, 0);
-		 image_progress.setType(CCProgressTimer.kCCProgressTimerTypeVerticalBarBT);
+		 image_progress.setType(type_progress);
 		 image_progress.setPercentage(0f);
 		// image_progress.setScaleX(sfactor_x);
 		 //image_progress.setScaleY(sfactor_y);
@@ -98,6 +107,50 @@ public class MenuItemLayer extends CCSprite
 		
 	 }
 	
+	 public void time_progress_button_press (String main_path,String delay_path, String progress_path,float time)
+	 {
+		 this.time_request_sec=time;
+		 this.time_count=0;
+		 this.time_progress_bar_init(progress_path, CCProgressTimer.kCCProgressTimerTypeVerticalBarBT);
+		 path_progress_bar_refrash = main_path;
+		 CCTexture2D s=  CCTextureCache.sharedTextureCache().addImage(delay_path);
+		 this.setTexture(s);
+	     this.setScaleX(sfactor_x);
+	     this.setScaleY(sfactor_y);
+	     this.setisTouchEnabled(false);
+	     this.schedule("time_progress_increase", 0.1f);
+	     if(button_activity!=null)
+	    	 button_activity.button_action_press();
+	    
+	 } 
+	 
+	 public void time_progress_increase(float dt)
+	 {
+
+		 if(this.time_count<=this.time_request_sec)
+		 {
+			 this.time_count+=0.1f;
+			 image_progress.setPercentage(time_count/time_request_sec*100);
+		 }
+		 else
+		 {
+			    this.unschedule("time_progress_increase");
+			    CCTexture2D s=  CCTextureCache.sharedTextureCache().addImage(path_progress_bar_refrash);
+				this.setTexture(s);
+		        this.setScaleX(sfactor_x);
+		        this.setScaleY(sfactor_y);
+		        image_progress.setPercentage(0);
+		        this.setisTouchEnabled(true);
+		        if(button_activity!=null)
+		        	button_activity.button_action_time_progress();
+		       
+		        
+		 }
+	 }
+	 public void refrash_progress_bar()
+	 {
+		 time_count=time_request_sec;
+	 }
 	 public void button_press (String main_path,String delay_path, float time)
 	 {
 		 this.time_request_sec = time;
@@ -116,6 +169,7 @@ public class MenuItemLayer extends CCSprite
 		 if(this.time_count<=this.time_request_sec)
 		 {
 			 this.time_count+=0.1f;
+			 
 		 }else
 		 {
 			 CCTexture2D s=  CCTextureCache.sharedTextureCache().addImage(path_progress_bar_refrash);
@@ -123,6 +177,8 @@ public class MenuItemLayer extends CCSprite
 		        this.setScaleX(sfactor_x);
 		        this.setScaleY(sfactor_y);
 		        this.unschedule("delay_press");
+		        if(button_activity!=null)
+		        	button_activity.button_action_press();
 		 }
 	 }
 	 public Boolean timer_is_working()
@@ -132,6 +188,8 @@ public class MenuItemLayer extends CCSprite
 		 return is_working; 
 	 }
 	
+	
+	 
 	 protected void time_progress(Main_Personage pers, Game_Arena arena, MenuLayer bears, int tag_intem,int team_bear_count,  int[] bears_team)
 	 {
 		 this.time_request_sec = pers.get_building_time()*10;

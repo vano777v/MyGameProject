@@ -7,6 +7,7 @@ import org.cocos2d.types.CGSize;
 import org.cocos2d.types.ccColor4B;
 
 import android.hardware.Camera.Area;
+import android.widget.Switch;
 
 import com.example.beargames.Game_Arena;
 import com.example.game.arena.elements.Main_Personage;
@@ -18,12 +19,15 @@ import com.example.particles.Stone_Particle;
 public class Bear_Pitcher extends Main_Personage
 {
 
+	
+	public static int ability=0;
 	public Bear_Pitcher(ccColor4B color, String campaign_path,
 			String default_path, Game_Arena _arena, String is_who) {
 		super(color, campaign_path, default_path, _arena, is_who);
 		this.attack_particle = new ArrayList<Particle_Element>();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 	public Bear_Pitcher(Main_Personage personage)
 	{
@@ -40,7 +44,7 @@ public class Bear_Pitcher extends Main_Personage
 	private Particle_Element garlic_particle_init(String ammunition_path)
 	{
 		Particle_Element particle = new Garlic_Particle_Element("campaign_1/Particles/garlic/1.png", "b", CGSize.make(60, 60), get_arena(),3);
-	    particle.set_speed_fly(160);
+	    particle.set_speed_fly(280);
 	    particle.get_animation_element().add_animation("campaign_1/Particles/garlic/"+ammunition_path, "engine_","fly",0.2f,1, 5, true);
 	    particle.get_animation_element().add_animation("campaign_1/Particles/garlic/"+ammunition_path, "engine_", "explosion", 0.2f, 5, 8, false);
 	    particle.get_animation_element().add_animation("campaign_1/Particles/garlic/"+ammunition_path, "engine_", "smoke", 0.2f, 8, 14, true);
@@ -59,8 +63,8 @@ public class Bear_Pitcher extends Main_Personage
     private Particle_Element stone_particle_init(String ammunition_path)
     {
     	Particle_Element particle = new Stone_Particle("campaign_1/Particles/stone/1.png", "b", CGSize.make(80, 80), get_arena(),2);
-    	particle.set_speed_fly(300);
-    	particle.set_step_move(4);
+    	particle.set_speed_fly(200);
+    	//particle.set_step_move(4);
     	particle.get_animation_element().add_animation("campaign_1/Particles/stone/"+ammunition_path, "engine_", "fly", 0.2f, 1, 5, true);
     	particle.get_animation_element().add_animation("campaign_1/Particles/stone/"+ammunition_path, "engine_", "destruct", 0.2f, 5, 11, false);
     	return particle;
@@ -90,19 +94,34 @@ public class Bear_Pitcher extends Main_Personage
 	}
 	public void start_attack(float dt)
 	{
-
+		Particle_Element particle=null;
 		//this.schedule("bomb_particle_attack", 0.05f);
-		bomb_particle_attack(0);
+		
+		  
+		 switch (ability) {
+		case 1:
+			 particle = new Bomb_Particle_Element(attack_particle.get(1));
+			 particle_attack(particle);
+			break;
+		case 2:
+			 particle= new Garlic_Particle_Element(attack_particle.get(2));
+             particle_attack(particle);
+             break;
+		case 0:
+			particle = new Stone_Particle(attack_particle.get(0));
+			particle_attack(particle);
+			break;
+		}
+		 
+		
 		
 	}
 	
-   public void bomb_particle_attack(float dt)
+   public void particle_attack(Particle_Element particle)
    {
-	  int index=-1;
-	  index= this.get_animation(0).get_who_is_runing();
+	  
 	   
-	     //this.unschedule("bomb_particle_attack");
-		 Particle_Element particle = new Bomb_Particle_Element(attack_particle.get(1));
+		
 		 CGPoint adjust = particle.scale_value(500, 200);
 		 particle.setPosition(this.getPosition().x+adjust.x, this.getContentSize().height -adjust.y);
 		 System.out.println("JITA "+attack_particle.size()+" "+particle.getPosition()+" "+particle.step_move);
@@ -115,5 +134,13 @@ public class Bear_Pitcher extends Main_Personage
 		   particle.get_animation_element().start_action(0);
 		  
    }
+   public void set_ability(int _ability)
+	{
+		ability= _ability;
+	}
+	public int get_ability ()
+	{
+		return ability;
+	}
  
 }

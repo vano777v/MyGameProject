@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 
 import com.example.beargames.MenuLayer;
 import com.example.beargames.Campaign_1.Level_1_1;
+import com.example.engine.beargames.Button_Action;
 import com.example.game.arena.elements.Personage_Element;
 import com.example.game.arena.elements.Progress_Bar_element;
 
@@ -25,6 +26,7 @@ public class Main_Load_Screen extends CCLayer
   private float general_scale_factor=0;
   private String path=null;
   private CGSize screen=null;
+  private Button_Action  main_button_activity=null; 
   public Main_Load_Screen(String image_path,float _general_scale_factor)
   {
 	  general_scale_factor =_general_scale_factor;
@@ -37,11 +39,24 @@ public class Main_Load_Screen extends CCLayer
 	  CCSprite front=front_init(image_path, display_size);
 	  CCSprite bar= bar_init(image_path, display_size, front.getScaleX(), front.getPosition().x);
 	  progress_bar_init(image_path, bar);
+	  main_button_activity = new Button_Action() {
+			public void button_action_press() {
+				CCDirector.sharedDirector().replaceScene(scene2);
+			}
+
+			@Override
+			public void button_action_time_progress() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
 	  button_init(image_path, front.getScaleY(), bar);
+	 
 	  this.addChild(back);
 	  this.addChild(front);
 	  this.addChild(bar);
 	  this.addChild(button);
+	  
 	  this.setIsTouchEnabled(true);
 	  screen = display_size;
 	  this.schedule("start_load");
@@ -88,6 +103,7 @@ public class Main_Load_Screen extends CCLayer
 	  button.add_item(path+"bar/button_a.png", 1, CGPoint.make(0, 0), CGSize.make(82, 82));
 	  button.get_item(1).setisTouchEnabled(false);
 	  button.get_item(1).setVisible(false);
+	  button.get_item(1).add_button_action_activity(main_button_activity);
 	  
   }
   public void setPercentageBarLife(float real_value)
@@ -138,7 +154,7 @@ public class Main_Load_Screen extends CCLayer
 		if(button.get_item(1).get_isTouchEnabel())
 		{
 		  button.get_item(1).button_press(path+"bar/button_a.png",path+"bar/button_p.png" , 0.2f);
-		  CCDirector.sharedDirector().replaceScene(scene2);
+		 
 		}
 	  }
 	  
@@ -152,6 +168,7 @@ public class Main_Load_Screen extends CCLayer
 		this.setPercentageBarLife(100f);
 		this.get_Menu().get_item(1).setVisible(true);
 		this.get_Menu().get_item(1).setisTouchEnabled(true);
+		
 		 scene2 = level_1.get_logic_game().scene();
 		
   }

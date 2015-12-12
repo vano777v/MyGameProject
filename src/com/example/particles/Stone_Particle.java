@@ -7,12 +7,12 @@ import com.example.game.arena.elements.Main_Base;
 import com.example.game.arena.elements.Main_Personage;
 import com.example.game.arena.elements.Particle_Element;
 
-public class Stone_Particle extends Arrow_Particle_Element
+public class Stone_Particle extends Particle_Element
 {
 
-	public Stone_Particle(String path, String is_who, CGSize size_request,
-			Game_Arena arena, int tag) {
-		super(path, is_who, size_request, arena, tag);
+	public Stone_Particle(String path, String is_who,CGSize size_request, Game_Arena _arena, int tag) {
+		super(path, is_who, size_request, _arena);
+		this.setTag(tag);
 		// TODO Auto-generated constructor stub
 	}
 	
